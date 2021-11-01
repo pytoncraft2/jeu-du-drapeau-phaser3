@@ -1,0 +1,30 @@
+const MainMenu = new Phaser.Class({
+
+    Extends: Phaser.Scene,
+
+    initialize:
+
+    function Menu ()
+    {
+        Phaser.Scene.call(this, { key: 'mainMenu' });
+    },
+
+    create: function ()
+    {
+        var sceneB = this.scene.get('sceneB');
+
+        const self = this;
+        const halfWidth = 1500 / 2;
+        const halfHeight = 720 / 2;
+
+        this.goSelectionM = this.add.text(halfWidth - 90, halfHeight - 10, ['JOUER']).setFontSize(47).setFontFamily('Trebuchet MS').setColor('#6badce').setShadow(2, 2, "white", 2, true, true);
+
+        // Multijoueur
+        this.goSelectionM.setInteractive().on('pointerdown', function() {
+          self.scene.start('selectionJoueur');
+        });
+      }
+
+});
+
+export default MainMenu

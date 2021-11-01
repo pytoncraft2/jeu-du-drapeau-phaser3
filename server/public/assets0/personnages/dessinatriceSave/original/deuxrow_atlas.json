@@ -1,0 +1,294 @@
+{
+    "frames": [
+        {
+            "filename": "dos3",
+            "frame": {
+                "w": 310,
+                "h": 976,
+                "x": 0,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "dos5",
+            "frame": {
+                "w": 307,
+                "h": 971,
+                "x": 310,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "dos7.8",
+            "frame": {
+                "w": 348,
+                "h": 959,
+                "x": 617,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "dos8",
+            "frame": {
+                "w": 375,
+                "h": 963,
+                "x": 965,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "dos9",
+            "frame": {
+                "w": 305,
+                "h": 969,
+                "x": 1340,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "dos10",
+            "frame": {
+                "w": 346,
+                "h": 959,
+                "x": 1645,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "dos11",
+            "frame": {
+                "w": 377,
+                "h": 963,
+                "x": 0,
+                "y": 976
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "face1",
+            "frame": {
+                "w": 306,
+                "h": 969,
+                "x": 377,
+                "y": 976
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "face2",
+            "frame": {
+                "w": 326,
+                "h": 1005,
+                "x": 683,
+                "y": 976
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "face3",
+            "frame": {
+                "w": 318,
+                "h": 1010,
+                "x": 1009,
+                "y": 976
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "face4",
+            "frame": {
+                "w": 334,
+                "h": 1015,
+                "x": 1327,
+                "y": 976
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "face5",
+            "frame": {
+                "w": 314,
+                "h": 1004,
+                "x": 1661,
+                "y": 976
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "face6",
+            "frame": {
+                "w": 326,
+                "h": 1005,
+                "x": 0,
+                "y": 1991
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "position_a1",
+            "frame": {
+                "w": 572,
+                "h": 997,
+                "x": 326,
+                "y": 1991
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "position_a2",
+            "frame": {
+                "w": 635,
+                "h": 987,
+                "x": 898,
+                "y": 1991
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "position_a3",
+            "frame": {
+                "w": 699,
+                "h": 889,
+                "x": 1533,
+                "y": 1991
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "profil2",
+            "frame": {
+                "w": 419,
+                "h": 954,
+                "x": 2232,
+                "y": 1991
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "profil_jkd8",
+            "frame": {
+                "w": 228,
+                "h": 951,
+                "x": 2651,
+                "y": 1991
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "profil_jkd11",
+            "frame": {
+                "w": 247,
+                "h": 957,
+                "x": 0,
+                "y": 2996
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "profil_jkd13",
+            "frame": {
+                "w": 404,
+                "h": 956,
+                "x": 247,
+                "y": 2996
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "profil_jkd14",
+            "frame": {
+                "w": 252,
+                "h": 957,
+                "x": 651,
+                "y": 2996
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "profil_jkd15",
+            "frame": {
+                "w": 404,
+                "h": 956,
+                "x": 903,
+                "y": 2996
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        }
+    ],
+    "meta": {
+        "description": "Atlas generado con Atlas Packer Gamma V2",
+        "web": "https://gammafp.github.io/atlas-packer-phaser/"
+    }
+}

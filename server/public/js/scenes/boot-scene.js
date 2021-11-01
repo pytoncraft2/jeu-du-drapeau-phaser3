@@ -1,0 +1,103 @@
+/**
+ * PRÉCHARGER TOUTE LES IMAGES ET AFFICHE LA BARRE DE PROGRESSION
+ * @type {Phaser}
+ */
+
+
+const BootScene = new Phaser.Class({
+
+  Extends: Phaser.Scene,
+
+  initialize:
+
+    function SceneB() {
+      Phaser.Scene.call(this, {
+        key: 'BootScene',
+        active: true
+      });
+    },
+
+  preload: function() {
+    const halfWidth = 1500 / 2;
+    const halfHeight = 720 / 2;
+
+
+
+    const progressBarHeight = 100;
+    const progressBarWidth = 400;
+
+    const progressBarContainer = this.add.rectangle(
+      halfWidth,
+      halfHeight,
+      progressBarWidth,
+      progressBarHeight,
+      0x000000,
+    );
+    const progressBar = this.add.rectangle(
+      halfWidth + 20 - progressBarContainer.width * 0.5,
+      halfHeight,
+      10,
+      progressBarHeight - 20,
+      0x888888,
+    );
+
+    const loadingText = this.add.text(halfWidth - 75, halfHeight - 100, 'Chargement...').setFontSize(24);
+    const percentText = this.add.text(halfWidth - 25, halfHeight, '0%').setFontSize(24);
+    const assetText = this.add.text(halfWidth - 25, halfHeight + 100, '').setFontSize(24);
+
+    this.load.on('progress', (value) => {
+      progressBar.width = (progressBarWidth - 30) * value;
+
+      const percent = value * 100;
+      percentText.setText(`${percent}%`);
+    });
+
+    this.load.on('fileprogress', (file) => {
+      assetText.setText(file.key);
+    });
+
+    this.load.on('complete', () => {
+      loadingText.destroy();
+      percentText.destroy();
+      assetText.destroy();
+      progressBar.destroy();
+      progressBarContainer.destroy();
+
+      this.scene.start('mainMenu');
+    });
+
+    this.loadAssets();
+
+
+  },
+
+  loadAssets: function() {
+    var liste = ['dessinatrice1_', 'naruto_'];
+    var liste2 = ['dessinatrice1', 'naruto'];
+    liste.forEach((item) => {
+      this.load.image(item, 'assets/selection/' + item + '.png');
+    });
+
+    liste2.forEach((item) => {
+      this.load.atlas(item, 'assets0/personnages/' + item + '/' + item + '.png', 'assets/personnages/' + item + '/' + item + '_atlas.json');
+    });
+    // this.load.image('bg', 'assets0/fond/streetOfRage.png');
+    this.load.image('bedroom', 'assets0/fond/bgGrand.png');
+    this.load.image('doors', 'assets0/fond/doors.png');
+    this.load.atlas('ennemy', 'assets0/personnages/dessinatrice1/dessinatrice1.png', 'assets/personnages/dessinatrice1/dessinatrice1_atlas.json');
+    this.load.atlas('dessinatrice1', 'assets0/personnages/dessinatrice1/dessinatrice1.png', 'assets/personnages/dessinatrice1/dessinatrice1_atlas.json');
+    this.load.image('barrel', 'assets0/barrel.png')
+    this.load.image('profilPanel', 'assets0/liveProfilPanel.png');
+    this.load.image('portal', 'assets0/portal.png');
+    this.load.image('bullet', 'assets0/bullet.png');
+    this.load.image('bgMenu', 'assets/fond/bgMenu.png');
+
+    this.load.image('bg', 'assets/fond/bgGrand.png');
+    // this.load.image('doors', 'assets/fond/doors.png');
+    this.load.image('bg2', 'assets/fond/bgMenu.png');
+
+  }
+
+});
+
+export default BootScene;

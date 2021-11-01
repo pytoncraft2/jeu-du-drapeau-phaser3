@@ -1,0 +1,242 @@
+{
+    "frames": [
+        {
+            "filename": "face7",
+            "frame": {
+                "w": 330,
+                "h": 969,
+                "x": 0,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "face5",
+            "frame": {
+                "w": 353,
+                "h": 969,
+                "x": 330,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "face4",
+            "frame": {
+                "w": 345,
+                "h": 969,
+                "x": 683,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "face3",
+            "frame": {
+                "w": 315,
+                "h": 969,
+                "x": 1028,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "face2",
+            "frame": {
+                "w": 326,
+                "h": 969,
+                "x": 1343,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "dos10",
+            "frame": {
+                "w": 326,
+                "h": 969,
+                "x": 1669,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "dos9",
+            "frame": {
+                "w": 341,
+                "h": 969,
+                "x": 0,
+                "y": 969
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "dos8",
+            "frame": {
+                "w": 325,
+                "h": 969,
+                "x": 341,
+                "y": 969
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "dos7.8",
+            "frame": {
+                "w": 342,
+                "h": 969,
+                "x": 666,
+                "y": 969
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "dos5",
+            "frame": {
+                "w": 332,
+                "h": 969,
+                "x": 1008,
+                "y": 969
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "dos4",
+            "frame": {
+                "w": 328,
+                "h": 969,
+                "x": 1340,
+                "y": 969
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "dos3",
+            "frame": {
+                "w": 337,
+                "h": 969,
+                "x": 1668,
+                "y": 969
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "profil",
+            "frame": {
+                "w": 226,
+                "h": 969,
+                "x": 0,
+                "y": 1938
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "profil2",
+            "frame": {
+                "w": 422,
+                "h": 969,
+                "x": 226,
+                "y": 1938
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "profil3",
+            "frame": {
+                "w": 279,
+                "h": 969,
+                "x": 648,
+                "y": 1938
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "profil4",
+            "frame": {
+                "w": 422,
+                "h": 969,
+                "x": 927,
+                "y": 1938
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "profil5",
+            "frame": {
+                "w": 286,
+                "h": 969,
+                "x": 1349,
+                "y": 1938
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "profil6",
+            "frame": {
+                "w": 422,
+                "h": 969,
+                "x": 1635,
+                "y": 1938
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        }
+    ],
+    "meta": {
+        "description": "Atlas generado con Atlas Packer Gamma V2",
+        "web": "https://gammafp.github.io/atlas-packer-phaser/"
+    }
+}
