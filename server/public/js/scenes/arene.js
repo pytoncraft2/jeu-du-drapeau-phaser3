@@ -111,36 +111,13 @@ const Arene = new Phaser.Class({
         });
 
         this.socket.on("tout_les_joueurs", (arene) => {
-          console.log("TOUT L J");
-          // console.log(arene);
-
-          // console.log(arene[self.arene]);
-            // Object.keys(self.arene).forEach(function(joueur) {
-          // console.log("my arene");
-          // console.log(self.arene);
-          // console.log("-------my arene");
-
-              // console.log(joueur);
-            //   console.log(players[id].playerId );
-            //   if (players[id].playerId === self.socket.id) {
-            //     self.displayPlayers(self, players[id]);
-            //   } else {
-            //     self.displayPlayers(self, players[id]);
-            //   }
-
-
       Object.keys(arene[self.arene]).forEach(function(id) {
-        // console.log(id);
-        // arene[self.arene]
-        // console.log(players[id]);
         if (arene[self.arene][id].playerId === self.socket.id) {
           self.displayPlayers(self, arene[self.arene][id], false);
         } else {
           self.displayPlayers(self, arene[self.arene][id], true);
         }
       });
-
-          // }, this);
           });
 
 
@@ -172,7 +149,6 @@ const Arene = new Phaser.Class({
 
     this.socket.on('newPlayer', function(playerInfo) {
       console.log("OUIIIII");
-      // console.log(playerInfo);
       self.displayPlayers(self, playerInfo);
     });
 
@@ -203,40 +179,20 @@ const Arene = new Phaser.Class({
 
 
         self.players.getChildren().forEach(function(player) {
-          // console.log(players[self.arene][id]);
-          // console.log(player.playerId);
           if (players[id].playerId === player.playerId) {
             player.flipX = (players[id].flipX);
             player.setScale(players[id].scale);
             player.setPosition(players[id].x, players[id].y);
             player.setDepth(players[id].depth);
             player.setAlpha(players[id].alpha);
-          // //   // players.[id].base = ;
-          // //
             if (players[id].anim && players[id].anim !== false) {
               player.play('' + players[id].anim + '_' + players[id].atlas + '', 5);
             }
           }
 
         });
-
-        // console.log(id);
-
       });
-      //
-      //
-      // console.log(players);
-      // });
     });
-        // });
-
-        // this.players[arene].getChildren().forEach((player) => {
-
-      /*
-      Object.keys(players).forEach(function(id) {
-      });
-      */
-
     /**
      * ---------Définis la valeur par défault des touches------
      * par default :false (touche non appuyé)
