@@ -69,7 +69,18 @@ const Arene = new Phaser.Class({
     {
       this.matter.world.disableGravity();
       this.players = {}
-      // this.players['Naruto'] = this.add.group();
+
+
+      this.input.on('pointerdown', function () {
+
+    const cam = this.cameras.main;
+        let zoom =
+        cam.zoom == 0.1 ?  1
+        : cam.zoom == 1 ? 0.5
+        :  cam.zoom == 0.5 ? 0.1
+        : 1
+        cam.zoomTo(zoom, 3000);
+      });
       this.players = this.add.group();
 
 
@@ -130,11 +141,11 @@ const Arene = new Phaser.Class({
     let maison1 = this.add.group()
     maison1.addMultiple([interieurMaison1, facade1, toit1]);   // array of game objects
 
-    let interieurMaison2 = this.add.image(6000, 350, 'interieur-maison')
-    let platforme2 = this.add.image(6000, 600, 'platforme').setDepth(-2)
-    let facade2 = this.add.image(6000, 416, 'facade').setDepth(1).setAlpha(0.4)
-    let toit2 = this.add.image(6000, 65, 'plafond').setDepth(2)
-    let fontaine2 = this.add.image(7235, 447, 'fontaine').setDepth(2)
+    let interieurMaison2 = this.add.image(6000, -2650, 'interieur-maison')
+    let platforme2 = this.add.image(6000, -2400, 'platforme').setDepth(-2)
+    let facade2 = this.add.image(6000, -2584, 'facade').setDepth(1).setAlpha(0.4)
+    let toit2 = this.add.image(6000, -2935, 'plafond').setDepth(2)
+    let fontaine2 = this.add.image(7235, -2553, 'fontaine').setDepth(2)
     let maison2 = this.add.group()
     maison2.addMultiple([interieurMaison2, facade2, toit2]);   // array of game objects
 
@@ -231,6 +242,9 @@ const Arene = new Phaser.Class({
 
   update: function () {
 
+    const cam = this.cameras.main;
+
+
     const left = this.leftKeyPressed,
       right = this.rightKeyPressed,
       up = this.upKeyPressed,
@@ -289,7 +303,8 @@ const Arene = new Phaser.Class({
     player.setFrictionAir(0.1);
     player.setMass(10);
     self.players.add(player);
-    self.cameras.main.setZoom(0.5);
+    self.cameras.main.setZoom(0.1);
+
 
 
     if (iscurrent) {
