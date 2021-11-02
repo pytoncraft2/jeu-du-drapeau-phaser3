@@ -122,12 +122,21 @@ const Arene = new Phaser.Class({
 
 
     // this.add.image(-300, 350, 'bg').setDepth(-54);
-    let interieurMaison = this.add.image(-300, 350, 'interieur-maison')
-    let platforme = this.add.image(0, 600, 'platforme').setDepth(-2)
-    let facade = this.add.image(-300, 416, 'facade').setDepth(1).setAlpha(0.4)
-    let toit = this.add.image(-300, 65, 'plafond').setDepth(2)
+    let interieurMaison1 = this.add.image(-135, 350, 'interieur-maison')
+    let platforme1 = this.add.image(0, 600, 'platforme').setDepth(-2)
+    let facade1 = this.add.image(-135, 416, 'facade').setDepth(1).setAlpha(0.4)
+    let toit1 = this.add.image(-135, 65, 'plafond').setDepth(2)
+    let fontaine1 = this.add.image(-1370, 447, 'fontaine').setDepth(2)
     let maison1 = this.add.group()
-    maison1.addMultiple([interieurMaison, platforme]);   // array of game objects
+    maison1.addMultiple([interieurMaison1, facade1, toit1]);   // array of game objects
+
+    let interieurMaison2 = this.add.image(6000, 350, 'interieur-maison')
+    let platforme2 = this.add.image(6000, 600, 'platforme').setDepth(-2)
+    let facade2 = this.add.image(6000, 416, 'facade').setDepth(1).setAlpha(0.4)
+    let toit2 = this.add.image(6000, 65, 'plafond').setDepth(2)
+    let fontaine2 = this.add.image(6000, 447, 'fontaine').setDepth(2)
+    let maison2 = this.add.group()
+    maison2.addMultiple([interieurMaison2, facade2, toit2]);   // array of game objects
 
     this.bullet = this.matter.add.image(420, 100, 'bullet', null, { ignoreGravity: true });
 

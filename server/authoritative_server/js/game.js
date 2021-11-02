@@ -38,6 +38,12 @@ function create() {
   io.on('connection', function(socket) {
     console.log("ONE CONNEXION");
     socket.on("nouveau_joueur", (room, equipe) => {
+      console.log("EQUIPE");
+      console.log(equipe);
+      equipe == "A"
+
+      let x = equipe == "A" ? -379 : 6000
+      let y = 447
       socket.join(room);
       socket.room = room;
       socket.equipe = equipe;
@@ -52,8 +58,8 @@ function create() {
         anim: 'profil',
         scale: 0.38,
         size: 200,
-        x: /*Math.floor(Math.random() * 700) + 50*/ -379,
-        y: 447,
+        x: x,
+        y: y,
         playerId: socket.id,
         input: {
           left: false,

@@ -98,6 +98,7 @@ const BootScene = new Phaser.Class({
     this.load.image('scaleCorrectJoueur', 'assets/fond/scaleCorrectJoueur.png');
     this.load.image('facade', 'assets/fond/facade-maison.png');
     this.load.image('plafond', 'assets/fond/plafond-maison.png');
+    this.load.image('fontaine', 'assets/fond/fontaine.png');
     // this.load.image('doors', 'assets/fond/doors.png');
     this.load.image('bg2', 'assets/fond/bgMenu.png');
 
