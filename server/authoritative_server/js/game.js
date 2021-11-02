@@ -71,7 +71,7 @@ function create() {
       socket.on('disconnect', function() {
       console.log('user disconnected');
       // remove player from server
-      removePlayer(self, socket.id);
+      removePlayer(self, socket.id, socket.room);
       // remove this player from our players object
       delete players[socket.id];
       // emit a message to all players to remove this player
@@ -154,7 +154,7 @@ if (input.right && !input.c) {
     if (input.space) {
       player.base = player.y;
       // player.setIgnoreGravity(false);
-      player.setVelocityY(-59);
+      player.setVelocityY(-10);
       player.anim = 'jump';
     }
 
@@ -169,8 +169,8 @@ if (input.right && !input.c) {
       // }
 
     if (input.c) {
-      if (input.left) player.setVelocityX(-800);
-      if (input.right) player.setVelocityX(800);
+      if (input.left) player.setVelocityX(-100);
+      if (input.right) player.setVelocityX(100);
       player.anim = 'run';
     }
 
@@ -213,8 +213,8 @@ function addPlayer(self, playerInfo) {
   self.players[playerInfo.arene].add(player);
 }
 
-function removePlayer(self, playerId) {
-  self.arene.players.getChildren().forEach((player) => {
+function removePlayer(self, playerId, arene) {
+  self.players[arene].getChildren().forEach((player) => {
     if (playerId === player.playerId) player.destroy()
   });
 }

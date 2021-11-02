@@ -81,7 +81,7 @@ const Arene = new Phaser.Class({
     var self = this;
     // console.log(self.scene.scene.physics.scene);
 
-    this.cameras.main.setBounds(-2074, 0, 3574, 666);
+    // this.cameras.main.setBounds(-2074, 0, 3574, 666);
     // this.physics.world.setBounds(-2074, 0, 3574, 666);
     this.cameras.main.fadeIn(4000);
 
@@ -107,7 +107,7 @@ const Arene = new Phaser.Class({
         this.socket.on("nouveau_joueur", (data) => {
           console.log("NOUVEAU JOUEUR DATA");
           console.log(data);
-          self.displayPlayers(self, data, true);
+          self.displayPlayers(self, data, false);
         });
 
         this.socket.on("tout_les_joueurs", (arene) => {
@@ -283,7 +283,7 @@ const Arene = new Phaser.Class({
 
 
     if (iscurrent) {
-      self.cameras.main.startFollow(player);
+      self.cameras.main.startFollow(player, false, 0.2, 0.2);
       // self.player.setCollideWorldBounds(true);
       // self.matter.add.image(400, 550, 'platform', null, { isStatic: true });
 
