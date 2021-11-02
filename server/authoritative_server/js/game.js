@@ -73,9 +73,10 @@ function create() {
       // remove player from server
       removePlayer(self, socket.id, socket.room);
       // remove this player from our players object
-      delete players[socket.id];
+      delete players[socket.room][socket.id];
       // emit a message to all players to remove this player
-      io.emit('disconnection', socket.id);
+      io.to(socket.room).emit("disconnection", socket.id);
+
     });
 
 
