@@ -52,7 +52,7 @@ function create() {
         anim: 'profil',
         scale: 0.38,
         size: 200,
-        x: /*Math.floor(Math.random() * 700) + 50*/ 1000,
+        x: /*Math.floor(Math.random() * 700) + 50*/ -379,
         y: 447,
         playerId: socket.id,
         input: {
