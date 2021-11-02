@@ -124,8 +124,8 @@ const Arene = new Phaser.Class({
     // this.add.image(-300, 350, 'bg').setDepth(-54);
     let interieurMaison = this.add.image(-300, 350, 'interieur-maison')
     let platforme = this.add.image(0, 600, 'platforme').setDepth(-2)
-    let facade = this.add.image(-300, 445, 'facade').setDepth(1)
-    let toit = this.add.image(-300, 445, 'toit').setDepth(1)
+    let facade = this.add.image(-300, 416, 'facade').setDepth(1).setAlpha(0.4)
+    let toit = this.add.image(-300, 65, 'plafond').setDepth(2)
     let maison1 = this.add.group()
     maison1.addMultiple([interieurMaison, platforme]);   // array of game objects
 
