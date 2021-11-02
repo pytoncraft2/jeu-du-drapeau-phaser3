@@ -107,26 +107,32 @@ const Arene = new Phaser.Class({
         this.socket.on("nouveau_joueur", (data) => {
           console.log("NOUVEAU JOUEUR DATA");
           console.log(data);
-          self.displayPlayers(self, data, false);
+          self.displayPlayers(self, data, true);
         });
 
         this.socket.on("tout_les_joueurs", (arene) => {
       Object.keys(arene[self.arene]).forEach(function(id) {
         if (arene[self.arene][id].playerId === self.socket.id) {
-          self.displayPlayers(self, arene[self.arene][id], false);
-        } else {
           self.displayPlayers(self, arene[self.arene][id], true);
+        } else {
+          self.displayPlayers(self, arene[self.arene][id], false);
         }
       });
           });
 
 
-    this.add.image(-300, 350, 'bg').setDepth(-54);
+    // this.add.image(-300, 350, 'bg').setDepth(-54);
+    let interieurMaison = this.add.image(-300, 350, 'interieur-maison')
+    let platforme = this.add.image(0, 0, 'platforme').setDepth(-2)
+    let maison = this.add.group()
+    maison.addMultiple([interieurMaison, platforme]);   // array of game objects
+
     this.bullet = this.matter.add.image(420, 100, 'bullet', null, { ignoreGravity: true });
 
     /**
-     * JOUEUR PRINCIPAL
-     * Affiche le joueur principal et les autres joueurs
+     * AFFICHAGE JOUEURS
+     * Affiche le joueur principal si l'id correspond a mon id
+     * sinon Affiche les autres personnes
      * @param  {Object} players liste de l'id du socket de tout les joueurs
      * @return {void}
      */
@@ -173,11 +179,7 @@ const Arene = new Phaser.Class({
      */
 
     this.socket.on('playerUpdates', function(players) {
-      // console.log();
-      // console.log(self.arene);
       Object.keys(players).forEach((id) => {
-
-
         self.players.getChildren().forEach(function(player) {
           if (players[id].playerId === player.playerId) {
             player.flipX = (players[id].flipX);
@@ -189,7 +191,6 @@ const Arene = new Phaser.Class({
               player.play('' + players[id].anim + '_' + players[id].atlas + '', 5);
             }
           }
-
         });
       });
     });
@@ -268,18 +269,20 @@ const Arene = new Phaser.Class({
   displayPlayers: function(self, playerInfo, iscurrent) {
     // plane = this.matter.add.sprite(300, 360, "plane", "plane1.png", { shape: spritePhysics.plane });
     console.log("Ajout joueur function");
-    const player = self.matter.add.sprite(playerInfo.x, playerInfo.y, playerInfo.atlas, 'face1').setOrigin(0.5, 0.5).setScale(0.38).setMass(0.1);
+    const player = self.matter.add.sprite(playerInfo.x, playerInfo.y, playerInfo.atlas, 'face1').setOrigin(0.5, 0.5).setScale(0.38);
     // this.matter.add.joint(this.bullet, self.player,  35, 0.4)
     // self.matter.add.constraint(this.bullet ,self.player, 500, 0);
 
     player.playerId = playerInfo.playerId;
     player.arene = playerInfo.arene;
     player.setFrictionAir(0.1);
-    player.setMass(30);
+    player.setMass(10);
     self.players.add(player);
+    self.cameras.main.setZoom(0.5);
+
 
     if (iscurrent) {
-      // self.cameras.main.startFollow(self.player);
+      self.cameras.main.startFollow(player);
       // self.player.setCollideWorldBounds(true);
       // self.matter.add.image(400, 550, 'platform', null, { isStatic: true });
 

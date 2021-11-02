@@ -44,7 +44,7 @@ function create() {
       players[socket.room][socket.id] = {
         atlas: socket.handshake.headers.atlas,
         arene: socket.room,
-        equipe: equipe,
+        equipe: socket.equipe,
         wall: false,
         attack: false,
         alpha: 1,
@@ -205,7 +205,7 @@ function handlePlayerInput(self, playerId, arene, input) {
 }
 
 function addPlayer(self, playerInfo) {
-  const player = self.matter.add.sprite(playerInfo.x, playerInfo.y, playerInfo.atlas, null).setOrigin(0.5, 0.5).setDisplaySize(10, 10).setSize(100);
+  const player = self.matter.add.sprite(playerInfo.x, playerInfo.y, playerInfo.atlas, null).setOrigin(0.5, 0.5).setScale(0.38);
   player.playerId = playerInfo.playerId;
   player.arene = playerInfo.arene;
   player.setFrictionAir(0.1);
