@@ -222,8 +222,9 @@ function addPlayer(self, playerInfo) {
   player.playerId = playerInfo.playerId;
   player.arene = playerInfo.arene;
 
+
   player.setFrictionAir(0.1);
-  player.setMass(10);
+  player.setMass(5);
   self.players[playerInfo.arene].add(player);
 }
 
