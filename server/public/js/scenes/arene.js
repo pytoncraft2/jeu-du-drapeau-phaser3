@@ -71,30 +71,21 @@ const Arene = new Phaser.Class({
       this.players = {}
 
 
-      this.input.on('pointerdown', function () {
 
-    const cam = this.cameras.main;
-        let zoom =
-        cam.zoom == 0.1 ?  1
-        : cam.zoom == 1 ? 0.5
-        :  cam.zoom == 0.5 ? 0.1
-        : 1
-        cam.zoomTo(zoom, 3000);
-      });
+
+
       this.players = this.add.group();
 
 
     this.cameras.main.fadeIn(1000);
     gfx = this.add.graphics();
 
-    var panelViewer = this.scene.get('panelViewer');
-
     var self = this;
     // console.log(self.scene.scene.physics.scene);
 
     // this.cameras.main.setBounds(-2074, 0, 3574, 666);
     // this.physics.world.setBounds(-2074, 0, 3574, 666);
-    this.cameras.main.fadeIn(4000);
+    // this.cameras.main.fadeIn(1000);
 
     new Animations(this.anims)
     /**
@@ -161,15 +152,6 @@ const Arene = new Phaser.Class({
      * @param  {Object} players liste de l'id du socket de tout les joueurs
      * @return {void}
      */
-    this.socket.on('currentPlayers', function(players) {
-      Object.keys(players).forEach(function(id) {
-        if (players[id].playerId === self.socket.id) {
-          self.displayPlayers(self, players[id], true);
-        } else {
-          self.displayPlayers(self, players[id], false);
-        }
-      });
-    });
 
     /**
      * NOUVEAU JOUEUR
@@ -177,11 +159,6 @@ const Arene = new Phaser.Class({
      * @param  {Object} playerInfo liste des parametres(coordonnés,scale,depth...)
      * @return {void}
      */
-
-    this.socket.on('newPlayer', function(playerInfo) {
-      console.log("OUIIIII");
-      self.displayPlayers(self, playerInfo);
-    });
 
     /**
      * DÉCONNEXION
@@ -241,12 +218,23 @@ const Arene = new Phaser.Class({
 
     this.matter.add.mouseSpring();
 
+    this.cameras.main.setZoom(0.1);
+    this.input.on('pointerdown', function () {
+      const cam = this.cameras.main;
+
+      let zoom =
+      cam.zoom == 0.1 ?  1
+      : cam.zoom == 1 ? 0.5
+      :  cam.zoom == 0.5 ? 0.1
+      : 1
+      cam.zoomTo(zoom, 3000);
+    });
 
   },
 
   update: function () {
 
-    const cam = this.cameras.main;
+    // const cam = this.cameras.main;
 
 
     const left = this.leftKeyPressed,
@@ -304,18 +292,17 @@ const Arene = new Phaser.Class({
 
     player.playerId = playerInfo.playerId;
     player.arene = playerInfo.arene;
-    player.playerZone = playerInfo.playerZone;
+    // player.playerZone = playerInfo.playerZone;
     player.setFrictionAir(0.1);
     player.setMass(10);
 
-    const zone = self.add.zone(playerInfo.x, playerInfo.y, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5).setDepth(100);
-    player.playerzone = self.add.zone(200, 780, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
+    // const zone = self.add.zone(playerInfo.x, playerInfo.y, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5).setDepth(100);
+    // player.playerzone = self.add.zone(200, 780, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
 
     // self.ombre = self.add.ellipse(zone.x, .zone.y + 170, 100, 20, 0x0009).setAlpha(0.5);
 
     // var gameObject = self.matter.add.gameObject(zone);
     self.players.add(player);
-    self.cameras.main.setZoom(0.1);
 
 
 
