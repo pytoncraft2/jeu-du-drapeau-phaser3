@@ -44,7 +44,7 @@ function create() {
       equipe == "A"
 
       let x = equipe == "A" ? -379 : 7000
-      let y = equipe == "A" ? 447 : -1553
+      let y = equipe == "A" ? 137 : -1553
 
       socket.join(room);
       socket.room = room;

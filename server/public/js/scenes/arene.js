@@ -142,8 +142,8 @@ const Arene = new Phaser.Class({
 
     // let tobogan = this.add.image(1000, -2650, 'tobogan')
     this.matter.add.image(3426, -500, 'tobogan', null, { isStatic: true }).setAngle(-26);
-    this.matter.add.image(-250, 600, 'tobogan', null, { isStatic: true });
-    this.matter.add.image(7000, -1400, 'tobogan', null, { isStatic: true });
+    this.matter.add.image(-250, 360, 'tobogan', null, { isStatic: true });
+    this.matter.add.image(7300, -1400, 'tobogan', null, { isStatic: true });
     this.bullet = this.matter.add.image(420, 100, 'bullet', null, { ignoreGravity: true });
 
     /**
@@ -185,7 +185,6 @@ const Arene = new Phaser.Class({
       Object.keys(players).forEach((id) => {
         self.players.getChildren().forEach(function(player) {
           if (players[id].playerId === player.playerId) {
-            console.log(player.x);
             player.flipX = (players[id].flipX);
             player.setScale(players[id].scale);
             // player.setPosition(players[id].x, players[id].y);
