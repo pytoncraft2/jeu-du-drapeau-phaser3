@@ -12,8 +12,16 @@ var config = {
   },
   physics: {
     default: 'matter',
+    arcade: {
+        debug: true,
+        gravity: { y: 200 }
+    },
+    matter: {
+        debug: true,
+        gravity: { y: 10 }
+    }
 },
-  scene: Scenes
+   scene: Scenes
 };
 
 var game = new Phaser.Game(config);

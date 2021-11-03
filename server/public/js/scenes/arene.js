@@ -43,7 +43,7 @@ var barrelGroup
 var  info
 var fakehear
 var abonner
-var  zone
+// var  zone
 var  barrelzone
 var  ennemyzone
 var  gfx
@@ -141,14 +141,16 @@ const Arene = new Phaser.Class({
     let maison1 = this.add.group()
     maison1.addMultiple([interieurMaison1, facade1, toit1]);   // array of game objects
 
-    let interieurMaison2 = this.add.image(6000, -2650, 'interieur-maison')
-    let platforme2 = this.add.image(6000, -2400, 'platforme').setDepth(-2)
-    let facade2 = this.add.image(6000, -2584, 'facade').setDepth(1).setAlpha(0.4)
-    let toit2 = this.add.image(6000, -2935, 'plafond').setDepth(2)
-    let fontaine2 = this.add.image(7235, -2553, 'fontaine').setDepth(2)
+    let interieurMaison2 = this.add.image(7000, -1650, 'interieur-maison')
+    let platforme2 = this.add.image(7000, -1400, 'platforme').setDepth(-2)
+    let facade2 = this.add.image(7000, -1584, 'facade').setDepth(1).setAlpha(0.4)
+    let toit2 = this.add.image(7000, -1935, 'plafond').setDepth(2)
+    let fontaine2 = this.add.image(8235, -1553, 'fontaine').setDepth(2)
     let maison2 = this.add.group()
     maison2.addMultiple([interieurMaison2, facade2, toit2]);   // array of game objects
 
+    // let tobogan = this.add.image(1000, -2650, 'tobogan')
+    this.matter.add.image(1700, 647, 'tobogan', null, { isStatic: true }).setAngle(-30).setOrigin(0,1);
     this.bullet = this.matter.add.image(420, 100, 'bullet', null, { ignoreGravity: true });
 
     /**
@@ -302,6 +304,9 @@ const Arene = new Phaser.Class({
     player.arene = playerInfo.arene;
     player.setFrictionAir(0.1);
     player.setMass(10);
+    self.zone = self.add.zone(playerInfo.x, playerInfo.y, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5).setDepth(100);
+    self.ombre = self.add.ellipse(self.zone.x, self.zone.y + 170, 100, 20, 0x0009).setAlpha(0.5);
+
     self.players.add(player);
     self.cameras.main.setZoom(0.1);
 

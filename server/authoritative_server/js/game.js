@@ -17,8 +17,9 @@ const config = {
         },
         matter: {
             debug: true,
-            gravity: { x: 0, y:0 }
+        gravity: { y: 200 }
         }
+
     }
 },
   autoFocus: false
@@ -42,9 +43,14 @@ function create() {
       console.log(equipe);
       equipe == "A"
 
-      let x = equipe == "A" ? -379 : 6000
+      let x = equipe == "A" ? -379 : 7000
       // 7235, -2553
-      let y = equipe == "A" ? 447 : -2553
+      let y = equipe == "A" ? 447 : -1553
+
+      // let x = equipe == "A" ? -379 : 7000
+      // 7235, -2553
+      // let y = equipe == "A" ? 447 : -1737
+
       socket.join(room);
       socket.room = room;
       socket.equipe = equipe;
