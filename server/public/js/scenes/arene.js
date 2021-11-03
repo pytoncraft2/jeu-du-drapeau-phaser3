@@ -67,7 +67,7 @@ const Arene = new Phaser.Class({
 
     create: function ()
     {
-      this.matter.world.disableGravity();
+      // this.matter.world.disableGravity();
       this.players = {}
 
 
@@ -151,6 +151,7 @@ const Arene = new Phaser.Class({
 
     // let tobogan = this.add.image(1000, -2650, 'tobogan')
     this.matter.add.image(1700, 647, 'tobogan', null, { isStatic: true }).setAngle(-30).setOrigin(0,1);
+    this.matter.add.image(-1370, 600, 'tobogan', null, { isStatic: true }).setOrigin(0,1);
     this.bullet = this.matter.add.image(420, 100, 'bullet', null, { ignoreGravity: true });
 
     /**
@@ -208,7 +209,8 @@ const Arene = new Phaser.Class({
           if (players[id].playerId === player.playerId) {
             player.flipX = (players[id].flipX);
             player.setScale(players[id].scale);
-            player.setPosition(players[id].x, players[id].y);
+            // player.setPosition(players[id].x, players[id].y);
+            player.setVelocityX(players[id].velocity, players[id].velocity);
             player.setDepth(players[id].depth);
             player.setAlpha(players[id].alpha);
             if (players[id].anim && players[id].anim !== false) {
@@ -302,11 +304,16 @@ const Arene = new Phaser.Class({
 
     player.playerId = playerInfo.playerId;
     player.arene = playerInfo.arene;
+    player.playerZone = playerInfo.playerZone;
     player.setFrictionAir(0.1);
     player.setMass(10);
-    self.zone = self.add.zone(playerInfo.x, playerInfo.y, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5).setDepth(100);
-    self.ombre = self.add.ellipse(self.zone.x, self.zone.y + 170, 100, 20, 0x0009).setAlpha(0.5);
 
+    const zone = self.add.zone(playerInfo.x, playerInfo.y, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5).setDepth(100);
+    player.playerzone = self.add.zone(200, 780, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
+
+    // self.ombre = self.add.ellipse(zone.x, .zone.y + 170, 100, 20, 0x0009).setAlpha(0.5);
+
+    // var gameObject = self.matter.add.gameObject(zone);
     self.players.add(player);
     self.cameras.main.setZoom(0.1);
 

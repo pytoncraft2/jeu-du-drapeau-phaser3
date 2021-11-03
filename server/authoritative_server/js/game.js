@@ -17,7 +17,7 @@ const config = {
         },
         matter: {
             debug: true,
-        gravity: { y: 200 }
+        gravity: { y: 10 }
         }
 
     }
@@ -44,12 +44,7 @@ function create() {
       equipe == "A"
 
       let x = equipe == "A" ? -379 : 7000
-      // 7235, -2553
       let y = equipe == "A" ? 447 : -1553
-
-      // let x = equipe == "A" ? -379 : 7000
-      // 7235, -2553
-      // let y = equipe == "A" ? 447 : -1737
 
       socket.join(room);
       socket.room = room;
@@ -74,7 +69,7 @@ function create() {
           up: false,
           down: false,
           a: false
-        }
+        },
       };
       addPlayer(self, players[socket.room][socket.id]);
       socket.emit("tout_les_joueurs", players);
@@ -123,34 +118,34 @@ if (input.right && !input.c) {
   player.flipX = false, player.anim = 'walk';
 }
 
-    if (input.up) {
-      if (player.x < 605  ) {
-        player.scale = player.scale - 0.003;
-        player.y -= 2;
-        player.depth = player.depth - 1;
-        if (!input.space) {
-        player.anim = 'goback';
-       }
-      }
-      if (player.x > 605 ) {
-        player.scale = player.scale - 0.003;
-        player.y -= 2;
-        player.depth = player.depth - 1;
-        if (!input.space) {
-        player.anim = 'goback';
-        }
-      }
-    }
+    // if (input.up) {
+    //   if (player.x < 605  ) {
+    //     player.scale = player.scale - 0.003;
+    //     player.y -= 2;
+    //     player.depth = player.depth - 1;
+    //     if (!input.space) {
+    //     player.anim = 'goback';
+    //    }
+    //   }
+    //   if (player.x > 605 ) {
+    //     player.scale = player.scale - 0.003;
+    //     player.y -= 2;
+    //     player.depth = player.depth - 1;
+    //     if (!input.space) {
+    //     player.anim = 'goback';
+    //     }
+    //   }
+    // }
 
     // bigger
-    if (input.down && player.scale <= 2) {
-      player.scale = player.scale + 0.003;
-      player.y += 2;
-      player.depth += 1;
-      if (!input.space) {
-      player.anim = 'front';
-      }
-    }
+    // if (input.down && player.scale <= 2) {
+    //   player.scale = player.scale + 0.003;
+    //   player.y += 2;
+    //   player.depth += 1;
+    //   if (!input.space) {
+    //   player.anim = 'front';
+    //   }
+    // }
 
     if (input.a) {
       if (!input.space) {
@@ -162,14 +157,18 @@ if (input.right && !input.c) {
     }
 
     if (input.t) {
+      player.setVelocityY(10);
       player.anim = 'heal';
     }
 
     if (input.space) {
-      player.base = player.y;
-      // player.setIgnoreGravity(false);
+      // player.base = player.y;
+      // player.setIgnoreGravity(false)
       player.setVelocityY(-10);
       player.anim = 'jump';
+      console.log(player.body.ignoreGravity);
+    } else {
+      // player.setVelocityY(10);
     }
 
     if (player.x !== 0 && player.x === player.base) {
@@ -189,8 +188,8 @@ if (input.right && !input.c) {
     }
 
 
-    players[player.arene][player.playerId].x = player.x;
-    players[player.arene][player.playerId].y = player.y;
+    // players[player.arene][player.playerId].x = player.x;
+    players[player.arene][player.playerId].velocity = player.body.velocity.x;
     players[player.arene][player.playerId].scale = player.scale;
     players[player.arene][player.playerId].flipX = player.flipX;
     players[player.arene][player.playerId].anim = player.anim;
@@ -222,6 +221,7 @@ function addPlayer(self, playerInfo) {
   const player = self.matter.add.sprite(playerInfo.x, playerInfo.y, playerInfo.atlas, null).setOrigin(0.5, 0.5).setScale(0.38);
   player.playerId = playerInfo.playerId;
   player.arene = playerInfo.arene;
+
   player.setFrictionAir(0.1);
   player.setMass(10);
   self.players[playerInfo.arene].add(player);
