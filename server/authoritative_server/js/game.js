@@ -13,7 +13,6 @@ const config = {
     physics: {
         matter: {
             debug: true,
-        gravity: { y: 10 }
         }
 
     }
@@ -103,7 +102,6 @@ function update() {
     // player.anim = false;
     // player.attack = false;
     // player.wall = false;
-
 if (input.left && !input.c) {
   // player.thrust(-0.025);
   player.setVelocityX(-10)
@@ -186,6 +184,8 @@ if (input.right && !input.c) {
       if (input.right) player.setVelocityX(100);
       player.anim = 'run';
     }
+    console.log(player.socle);
+
 
     players[player.arene][player.playerId].velocityX = player.body.velocity.x;
     players[player.arene][player.playerId].velocityY = player.body.velocity.y;
@@ -222,16 +222,19 @@ function handlePlayerInput(self, playerId, arene, input) {
 }
 
 function addPlayer(self, playerInfo) {
-  const player = self.matter.add.sprite(playerInfo.x, playerInfo.y, playerInfo.atlas, null).setOrigin(0.5, 0.5).setScale(0.38);
-  player.playerId = playerInfo.playerId;
-  player.arene = playerInfo.arene;
+  const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, playerInfo.atlas, null).setOrigin(0.5, 0.5).setScale(0.38);
+  joueur.playerId = playerInfo.playerId;
+  joueur.arene = playerInfo.arene;
+  joueur.setFrictionAir(0.1);
+  joueur.setMass(1);
+  joueur.setIgnoreGravity(true)
+  joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -30, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
+  joueur.ombre = self.add.ellipse(joueur.socle.x, joueur.socle.y - 30, 100, 20, 0x0009).setAlpha(0.5);
 
+  var socleJoueur = self.matter.add.gameObject(joueur.socle);
+  socleJoueur.setIgnoreGravity(true).setStatic(true)
 
-  player.setFrictionAir(0.1);
-  player.setMass(1);
-  player.setIgnoreGravity(true)
-
-  self.players[playerInfo.arene].add(player);
+  self.players[playerInfo.arene].add(joueur);
 }
 
 function removePlayer(self, playerId, arene) {

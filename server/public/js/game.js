@@ -14,7 +14,6 @@ var config = {
     default: 'matter',
     matter: {
         debug: true,
-        gravity: { y: 10 }
     }
 },
    scene: Scenes
