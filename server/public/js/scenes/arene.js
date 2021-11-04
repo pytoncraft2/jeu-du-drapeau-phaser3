@@ -292,29 +292,33 @@ const Arene = new Phaser.Class({
   displayPlayers: function(self, playerInfo, iscurrent) {
     // plane = this.matter.add.sprite(300, 360, "plane", "plane1.png", { shape: spritePhysics.plane });
     console.log("Ajout joueur function");
-    const player = self.matter.add.sprite(playerInfo.x, playerInfo.y, playerInfo.atlas, 'face1').setOrigin(0.5, 0.5).setScale(0.38);
+    const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, playerInfo.atlas, 'face1').setOrigin(0.5, 0.5).setScale(0.38);
     // this.matter.add.joint(this.bullet, self.player,  35, 0.4)
     // self.matter.add.constraint(this.bullet ,self.player, 500, 0);
 
-    player.playerId = playerInfo.playerId;
-    player.arene = playerInfo.arene;
-    // player.playerZone = playerInfo.playerZone;
-    player.setFrictionAir(0.1);
-    player.setMass(1);
-    player.setIgnoreGravity(true)
+    joueur.playerId = playerInfo.playerId;
+    joueur.arene = playerInfo.arene;
+    // joueur.socle = playerInfo.socle;
+    joueur.setFrictionAir(0.1);
+    joueur.setMass(1);
+    joueur.setIgnoreGravity(true)
+    joueur.socle = self.add.zone(playerInfo.x, playerInfo.y, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
 
-    // const zone = self.add.zone(playerInfo.x, playerInfo.y, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5).setDepth(100);
+    // const zone = self.add.zone(playerInfo.x, playerInfo.y, 210, 210);
     // player.playerzone = self.add.zone(200, 780, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
 
-    // self.ombre = self.add.ellipse(zone.x, .zone.y + 170, 100, 20, 0x0009).setAlpha(0.5);
+    // self.ombre = self.add.ellipse(zone.x, zone.y + 170, 100, 20, 0x0009).setAlpha(0.5);
+    var socleJoueur = self.matter.add.gameObject(joueur.socle);
 
+
+    console.log(joueur);
     // var gameObject = self.matter.add.gameObject(zone);
-    self.players.add(player);
+    self.players.add(joueur);
 
 
 
     if (iscurrent) {
-      self.cameras.main.startFollow(player, false, 0.2, 0.2);
+      self.cameras.main.startFollow(joueur, false, 0.2, 0.2);
       // self.player.setCollideWorldBounds(true);
       // self.matter.add.image(400, 550, 'platform', null, { isStatic: true });
 
