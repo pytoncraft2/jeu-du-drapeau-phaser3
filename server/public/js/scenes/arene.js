@@ -194,6 +194,8 @@ const Arene = new Phaser.Class({
             player.setAngle(players[id].angle);
             player.setFrictionAir(players[id].friction);
             player.setIgnoreGravity(players[id].ignoreGravity);
+            // console.log(player.socle.body.x);
+            player.socle.setPosition(players[id].socle);
             // console.log(players[id].friction);
             player.setPosition(players[id].x, players[id].y);
             if (players[id].anim && players[id].anim !== false) {
@@ -313,10 +315,15 @@ const Arene = new Phaser.Class({
 
 
     joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -30, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
-    joueur.ombre = self.add.ellipse(joueur.socle.x, joueur.socle.y - 30, 100, 20, 0x0009).setAlpha(0.5);
+    joueur.ombre = self.add.ellipse(joueur.socle.x, joueur.socle.y - 35, 100, 20, 0x0009).setAlpha(0.5);
 
     var socleJoueur = self.matter.add.gameObject(joueur.socle);
     socleJoueur.setIgnoreGravity(true).setStatic(true)
+
+    // var Bodies = Phaser.Physics.Matter.Matter.Bodies;
+    // var rect = Bodies.rectangle(0, 0, 98, 98);
+
+
 
       // self.player.setCollideWorldBounds(true);
       // self.matter.add.image(400, 550, 'platform', null, { isStatic: true });

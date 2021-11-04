@@ -104,12 +104,14 @@ function update() {
     // player.wall = false;
 if (input.left && !input.c) {
   // player.thrust(-0.025);
+  player.socle.x += 10;
   player.setVelocityX(-10)
   player.flipX = true, player.anim = 'walk';
 }
 
 if (input.right && !input.c) {
   // player.thrust(0.025);
+  player.socle.x -= 10;
   player.setVelocityX(10)
   player.flipX = false, player.anim = 'walk';
 }
@@ -164,7 +166,6 @@ if (input.right && !input.c) {
 
       player.setVelocityY(-10);
       player.anim = 'jump';
-      console.log(player.body.ignoreGravity);
     } else {
       // player.setVelocityY(10);
     }
@@ -172,6 +173,7 @@ if (input.right && !input.c) {
     if (player.x !== 0 && player.x === player.base) {
       // player.setIgnoreGravity(true);
     }
+    console.log(player.socle.x);
       // if (!player.anims.getFrameName().includes("jump") && player.body.touching.down) {
         // player.anims.play('jump');
       // }
@@ -184,7 +186,6 @@ if (input.right && !input.c) {
       if (input.right) player.setVelocityX(100);
       player.anim = 'run';
     }
-    console.log(player.socle);
 
 
     players[player.arene][player.playerId].velocityX = player.body.velocity.x;
@@ -203,6 +204,7 @@ if (input.right && !input.c) {
     players[player.arene][player.playerId].angle = player.angle;
     players[player.arene][player.playerId].friction = player.body.friction;
     players[player.arene][player.playerId].ignoreGravity = player.body.ignoreGravity;
+    players[player.arene][player.playerId].socle = player.socle.x;
   });
   io.to(arene).emit("playerUpdates", players[arene]);
 
@@ -228,7 +230,7 @@ function addPlayer(self, playerInfo) {
   joueur.setFrictionAir(0.1);
   joueur.setMass(1);
   joueur.setIgnoreGravity(true)
-  joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -30, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
+  joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -35, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
   joueur.ombre = self.add.ellipse(joueur.socle.x, joueur.socle.y - 30, 100, 20, 0x0009).setAlpha(0.5);
 
   var socleJoueur = self.matter.add.gameObject(joueur.socle);
