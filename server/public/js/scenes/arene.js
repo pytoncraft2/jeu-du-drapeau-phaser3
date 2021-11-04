@@ -142,10 +142,10 @@ const Arene = new Phaser.Class({
     maison2.addMultiple([interieurMaison2, facade2, toit2]);   // array of game objects
 
     // let tobogan = this.add.image(1000, -2650, 'tobogan')
-    this.matter.add.image(3426, -500, 'tobogan', null, { isStatic: true }).setAngle(-26);
-    this.matter.add.image(-250, 360, 'tobogan', null, { isStatic: true });
-    this.matter.add.image(7300, -1400, 'tobogan', null, { isStatic: true });
-    this.bullet = this.matter.add.image(420, 100, 'bullet', null, { ignoreGravity: true });
+    // this.matter.add.image(3426, -500, 'tobogan', null, { isStatic: true }).setAngle(-26);
+    // this.matter.add.image(-250, 360, 'tobogan', null, { isStatic: true });
+    // this.matter.add.image(7300, -1400, 'tobogan', null, { isStatic: true });
+    // this.bullet = this.matter.add.image(420, 100, 'bullet', null, { ignoreGravity: true });
 
     /**
      * AFFICHAGE JOUEURS
@@ -302,13 +302,18 @@ const Arene = new Phaser.Class({
     joueur.setFrictionAir(0.1);
     joueur.setMass(1);
     joueur.setIgnoreGravity(true)
-    joueur.socle = self.add.zone(playerInfo.x, playerInfo.y, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
+    console.log("HEIGHT");
+    console.log(joueur.displayHeight);
+    joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -30, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
 
     // const zone = self.add.zone(playerInfo.x, playerInfo.y, 210, 210);
     // player.playerzone = self.add.zone(200, 780, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
 
     // self.ombre = self.add.ellipse(zone.x, zone.y + 170, 100, 20, 0x0009).setAlpha(0.5);
+    joueur.ombre = self.add.ellipse(joueur.socle.x, joueur.socle.y - 30, 100, 20, 0x0009).setAlpha(0.5);
+
     var socleJoueur = self.matter.add.gameObject(joueur.socle);
+    socleJoueur.setIgnoreGravity(true)
 
 
     console.log(joueur);
