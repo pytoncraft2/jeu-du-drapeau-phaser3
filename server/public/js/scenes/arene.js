@@ -193,8 +193,9 @@ const Arene = new Phaser.Class({
             player.setAlpha(players[id].alpha);
             player.setAngle(players[id].angle);
             player.setFrictionAir(players[id].friction);
+            player.setIgnoreGravity(players[id].ignoreGravity);
             // console.log(players[id].friction);
-            // player.setPosition(players[id].x, players[id].y);
+            player.setPosition(players[id].x, players[id].y);
             if (players[id].anim && players[id].anim !== false) {
               player.play('' + players[id].anim + '_' + players[id].atlas + '', 5);
             }
@@ -300,7 +301,7 @@ const Arene = new Phaser.Class({
     // player.playerZone = playerInfo.playerZone;
     player.setFrictionAir(0.1);
     player.setMass(1);
-    // player.setIgnoreGravity(true)
+    player.setIgnoreGravity(true)
 
     // const zone = self.add.zone(playerInfo.x, playerInfo.y, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5).setDepth(100);
     // player.playerzone = self.add.zone(200, 780, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);

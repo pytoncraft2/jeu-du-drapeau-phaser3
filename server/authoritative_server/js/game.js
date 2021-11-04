@@ -162,6 +162,8 @@ if (input.right && !input.c) {
     if (input.space) {
       // player.base = player.y;
       // player.setIgnoreGravity(false)
+      player.setIgnoreGravity(false)
+
       player.setVelocityY(-10);
       player.anim = 'jump';
       console.log(player.body.ignoreGravity);
@@ -196,10 +198,11 @@ if (input.right && !input.c) {
     players[player.arene][player.playerId].alpha = player.alpha;
     // players[player.arene][player.playerId].attack = player.attack;
     // players[player.arene][player.playerId].wall = player.wall;
-    players[player.arene][player.playerId].x = player.x;
-    players[player.arene][player.playerId].y = player.y;
+    players[player.arene][player.playerId].x = player.body.position.x;
+    players[player.arene][player.playerId].y = player.body.position.y;
     players[player.arene][player.playerId].angle = player.angle;
     players[player.arene][player.playerId].friction = player.body.friction;
+    players[player.arene][player.playerId].ignoreGravity = player.body.ignoreGravity;
   });
   io.to(arene).emit("playerUpdates", players[arene]);
 
@@ -226,7 +229,7 @@ function addPlayer(self, playerInfo) {
 
   player.setFrictionAir(0.1);
   player.setMass(1);
-  // player.setIgnoreGravity(true)
+  player.setIgnoreGravity(true)
 
   self.players[playerInfo.arene].add(player);
 }
