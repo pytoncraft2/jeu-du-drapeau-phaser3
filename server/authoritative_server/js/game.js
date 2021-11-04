@@ -11,10 +11,6 @@ const config = {
     create: create,
     update: update,
     physics: {
-        arcade: {
-            debug: true,
-            gravity: { x: 0 , y:0}
-        },
         matter: {
             debug: true,
         gravity: { y: 10 }
@@ -32,7 +28,7 @@ function create() {
   this.players['Naruto'] = this.add.group();
   this.players['Pikachu'] = this.add.group();
   self.room = ""
-  this.matter.world.disableGravity();
+  // this.matter.world.disableGravity();
 
 
 
@@ -103,18 +99,20 @@ function update() {
   this.players[arene].getChildren().forEach((player) => {
     const input = players[player.arene][player.playerId].input;
 
-    player.base = 0;
-    player.anim = false;
-    player.attack = false;
-    player.wall = false;
+    // player.base = 0;
+    // player.anim = false;
+    // player.attack = false;
+    // player.wall = false;
 
 if (input.left && !input.c) {
-  player.thrust(-0.025);
+  // player.thrust(-0.025);
+  player.setVelocityX(-10)
   player.flipX = true, player.anim = 'walk';
 }
 
 if (input.right && !input.c) {
-  player.thrust(0.025);
+  // player.thrust(0.025);
+  player.setVelocityX(10)
   player.flipX = false, player.anim = 'walk';
 }
 
@@ -187,18 +185,21 @@ if (input.right && !input.c) {
       player.anim = 'run';
     }
 
-
-    // players[player.arene][player.playerId].x = player.x;
-    players[player.arene][player.playerId].velocity = player.body.velocity.x;
+    players[player.arene][player.playerId].velocityX = player.body.velocity.x;
+    players[player.arene][player.playerId].velocityY = player.body.velocity.y;
     players[player.arene][player.playerId].scale = player.scale;
     players[player.arene][player.playerId].flipX = player.flipX;
     players[player.arene][player.playerId].anim = player.anim;
-    players[player.arene][player.playerId].base = player.base;
+    // players[player.arene][player.playerId].base = player.base;
     players[player.arene][player.playerId].depth = player.depth;
-    players[player.arene][player.playerId].size = player.size;
+    // players[player.arene][player.playerId].size = player.size;
     players[player.arene][player.playerId].alpha = player.alpha;
-    players[player.arene][player.playerId].attack = player.attack;
-    players[player.arene][player.playerId].wall = player.wall;
+    // players[player.arene][player.playerId].attack = player.attack;
+    // players[player.arene][player.playerId].wall = player.wall;
+    players[player.arene][player.playerId].x = player.x;
+    players[player.arene][player.playerId].y = player.y;
+    players[player.arene][player.playerId].angle = player.angle;
+    players[player.arene][player.playerId].friction = player.body.friction;
   });
   io.to(arene).emit("playerUpdates", players[arene]);
 
@@ -224,7 +225,9 @@ function addPlayer(self, playerInfo) {
 
 
   player.setFrictionAir(0.1);
-  player.setMass(5);
+  player.setMass(1);
+  // player.setIgnoreGravity(true)
+
   self.players[playerInfo.arene].add(player);
 }
 

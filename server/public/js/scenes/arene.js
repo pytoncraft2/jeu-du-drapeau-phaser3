@@ -108,7 +108,6 @@ const Arene = new Phaser.Class({
 
         this.socket.on("nouveau_joueur", (data) => {
           console.log("NOUVEAU JOUEUR DATA");
-          console.log(data);
           self.displayPlayers(self, data, false);
         });
 
@@ -124,11 +123,13 @@ const Arene = new Phaser.Class({
 
 
     // this.add.image(-300, 350, 'bg').setDepth(-54);
-    let interieurMaison1 = this.add.image(-135, 350, 'interieur-maison')
-    let platforme1 = this.add.image(0, 600, 'platforme').setDepth(-2)
-    let facade1 = this.add.image(-135, 416, 'facade').setDepth(1).setAlpha(0.4)
-    let toit1 = this.add.image(-135, 65, 'plafond').setDepth(2)
-    let fontaine1 = this.add.image(-1370, 447, 'fontaine').setDepth(2)
+    //310
+    //620
+    let interieurMaison1 = this.add.image(-135, 40, 'interieur-maison')
+    let platforme1 = this.add.image(0, 290, 'platforme').setDepth(-2)
+    let facade1 = this.add.image(-135, 106, 'facade').setDepth(1).setAlpha(0.4)
+    let toit1 = this.add.image(-135, -245, 'plafond').setDepth(2)
+    let fontaine1 = this.add.image(-1370, 137, 'fontaine').setDepth(2)
     let maison1 = this.add.group()
     maison1.addMultiple([interieurMaison1, facade1, toit1]);   // array of game objects
 
@@ -187,10 +188,13 @@ const Arene = new Phaser.Class({
           if (players[id].playerId === player.playerId) {
             player.flipX = (players[id].flipX);
             player.setScale(players[id].scale);
-            // player.setPosition(players[id].x, players[id].y);
-            player.setVelocityX(players[id].velocity, players[id].velocity);
+            player.setVelocity(players[id].velocityX, players[id].velocityY);
             player.setDepth(players[id].depth);
             player.setAlpha(players[id].alpha);
+            player.setAngle(players[id].angle);
+            player.setFrictionAir(players[id].friction);
+            // console.log(players[id].friction);
+            // player.setPosition(players[id].x, players[id].y);
             if (players[id].anim && players[id].anim !== false) {
               player.play('' + players[id].anim + '_' + players[id].atlas + '', 5);
             }
@@ -295,7 +299,8 @@ const Arene = new Phaser.Class({
     player.arene = playerInfo.arene;
     // player.playerZone = playerInfo.playerZone;
     player.setFrictionAir(0.1);
-    player.setMass(5);
+    player.setMass(1);
+    // player.setIgnoreGravity(true)
 
     // const zone = self.add.zone(playerInfo.x, playerInfo.y, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5).setDepth(100);
     // player.playerzone = self.add.zone(200, 780, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
