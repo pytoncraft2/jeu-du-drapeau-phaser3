@@ -13,6 +13,9 @@ const config = {
     physics: {
         matter: {
             debug: true,
+            gravity: {
+              y: 0
+            },
         }
 
     }
@@ -102,16 +105,17 @@ function update() {
     // player.anim = false;
     // player.attack = false;
     // player.wall = false;
+    console.log(player.restitution);
 if (input.left && !input.c) {
   // player.thrust(-0.025);
-  player.socle.x += 10;
+  player.socle.x -= 10;
   player.setVelocityX(-10)
   player.flipX = true, player.anim = 'walk';
 }
 
 if (input.right && !input.c) {
   // player.thrust(0.025);
-  player.socle.x -= 10;
+  player.socle.x += 10;
   player.setVelocityX(10)
   player.flipX = false, player.anim = 'walk';
 }
@@ -203,8 +207,9 @@ if (input.right && !input.c) {
     players[player.arene][player.playerId].y = player.body.position.y;
     players[player.arene][player.playerId].angle = player.angle;
     players[player.arene][player.playerId].friction = player.body.friction;
-    players[player.arene][player.playerId].ignoreGravity = player.body.ignoreGravity;
-    players[player.arene][player.playerId].socle = player.socle.x;
+    // players[player.arene][player.playerId].ignoreGravity = player.body.ignoreGravity;
+    players[player.arene][player.playerId].socleX = player.socle.x;
+    players[player.arene][player.playerId].socleY = player.socle.y;
   });
   io.to(arene).emit("playerUpdates", players[arene]);
 
@@ -238,7 +243,7 @@ function addPlayer(self, playerInfo) {
 
   joueur.setFrictionAir(0.1);
   joueur.setMass(1);
-  joueur.setIgnoreGravity(true)
+  // joueur.setIgnoreGravity(true)
 
 }
 

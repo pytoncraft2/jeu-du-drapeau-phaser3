@@ -187,17 +187,19 @@ const Arene = new Phaser.Class({
         self.players.getChildren().forEach(function(player) {
           if (players[id].playerId === player.playerId) {
             player.flipX = (players[id].flipX);
+            // console.log(player.body);
             // player.setScale(players[id].scale);
-            // player.setVelocity(players[id].velocityX, players[id].velocityY);
+            player.setVelocity(players[id].velocityX, players[id].velocityY);
             // player.setDepth(players[id].depth);
             // player.setAlpha(players[id].alpha);
-            // player.setAngle(players[id].angle);
+            player.setAngle(players[id].angle);
             // player.setFrictionAir(players[id].friction);
             // player.setIgnoreGravity(players[id].ignoreGravity);
             // console.log(player.socle.body.x);
-            player.socle.setPosition(players[id].x, players[id].y + 220);
+            player.socle.setPosition(players[id].socleX, players[id].socleY + 220);
+            player.socle.setFriction(0);
             // console.log(players[id].friction);
-            // player.setPosition(players[id].x, players[id].y);
+            player.setPosition(players[id].x, players[id].y);
             if (players[id].anim && players[id].anim !== false) {
               player.play('' + players[id].anim + '_' + players[id].atlas + '', 5);
             }
@@ -307,19 +309,19 @@ const Arene = new Phaser.Class({
     self.players.add(joueur);
     joueur.setFrictionAir(0.1);
     joueur.setMass(1);
-    joueur.setIgnoreGravity(true)
+    // joueur.setIgnoreGravity(false)
 
 
+        joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -30, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
+        joueur.ombre = self.add.ellipse(joueur.socle.x, joueur.socle.y - 35, 100, 20, 0x0009).setAlpha(0.5);
+
+        var socleJoueur = self.matter.add.gameObject(joueur.socle);
+        socleJoueur.setIgnoreGravity(true).setStatic(true)
     if (iscurrent) {
       self.cameras.main.startFollow(joueur, false, 0.2, 0.2);
 
 
-    joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -30, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
-    joueur.ombre = self.add.ellipse(joueur.socle.x, joueur.socle.y - 35, 100, 20, 0x0009).setAlpha(0.5);
-
-    var socleJoueur = self.matter.add.gameObject(joueur.socle);
-    socleJoueur.setIgnoreGravity(true).setStatic(true)
-    console.log(joueur);
+    // console.log(joueur);
 
     // var Bodies = Phaser.Physics.Matter.Matter.Bodies;
     // var rect = Bodies.rectangle(0, 0, 98, 98);
