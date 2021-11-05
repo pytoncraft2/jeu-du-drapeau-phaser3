@@ -227,9 +227,6 @@ function addPlayer(self, playerInfo) {
   const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, playerInfo.atlas, null).setOrigin(0.5, 0.5).setScale(0.38);
   joueur.playerId = playerInfo.playerId;
   joueur.arene = playerInfo.arene;
-  joueur.setFrictionAir(0.1);
-  joueur.setMass(1);
-  joueur.setIgnoreGravity(true)
   joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -35, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
   joueur.ombre = self.add.ellipse(joueur.socle.x, joueur.socle.y - 30, 100, 20, 0x0009).setAlpha(0.5);
 
@@ -237,6 +234,12 @@ function addPlayer(self, playerInfo) {
   socleJoueur.setIgnoreGravity(true).setStatic(true)
 
   self.players[playerInfo.arene].add(joueur);
+
+
+  joueur.setFrictionAir(0.1);
+  joueur.setMass(1);
+  joueur.setIgnoreGravity(true)
+
 }
 
 function removePlayer(self, playerId, arene) {
