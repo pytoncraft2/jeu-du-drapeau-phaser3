@@ -115,16 +115,16 @@ function create() {
 }
 
 function update() {
+
   Object.keys(this.players).forEach((arene) => {
     this.players[arene].getChildren().forEach((player) => {
       const input = players[player.arene][player.playerId].input;
 
       // console.log(input.z);
       if (input.z) {
-
+        this.matter.add.constraint(this.bullet ,player);
         console.log("OUIIII");
         input.z = false
-
       }
       if (input.right && !input.c) {
         player.setVelocityX(10)
@@ -371,7 +371,7 @@ function addPlayer(self, playerInfo) {
 
   var socleJoueur = self.matter.add.gameObject(joueur.socle);
   socleJoueur.setIgnoreGravity(true).setStatic(true).setFriction(0)
-  self.matter.add.constraint(self.bullet, joueur, 500, 0.2);
+  // self.matter.add.constraint(self.bullet, joueur, 500, 0.2);
 
 
   self.players[playerInfo.arene].add(joueur);
