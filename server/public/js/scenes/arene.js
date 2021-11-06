@@ -65,6 +65,10 @@ const Arene = new Phaser.Class({
       this.equipe = data.equipe;
     },
 
+    preload: function() {
+    this.load.plugin('rexmousewheelscrollerplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexmousewheelscrollerplugin.min.js', true);
+  },
+
     create: function ()
     {
       // this.matter.world.disableGravity();
@@ -256,6 +260,42 @@ const Arene = new Phaser.Class({
       : 1
       cam.zoomTo(zoom, 3000);
     });
+
+
+    var zoomPanel = [0.1, 0.2, 0.3, 0.4, 0.5]
+    var x = 0;
+
+      var circle = this.add.circle(400, 300, 20, 0xffffff).setDepth(1000);
+ var scroller = this.plugins.get('rexmousewheelscrollerplugin').add(this.cameras.main, { speed: 0.1 })
+     .on('scroll', function (inc, gameObject, scroller) {
+         // var newX = gameObject.x + inc;
+         // console.log('cou');
+         if (inc < 0) {
+           gameObject.zoomTo(zoomPanel[x], 3000);
+           x++;
+         }
+
+         if (inc > 0) {
+           gameObject.zoomTo(zoomPanel[x], 3000);
+           x--;
+         }
+         // } else if (inc < 0.1){
+          // x = 0;
+           // gameObject.zoomTo(zoomPanel[x], 3000);
+           // x++;
+         // }
+         // console.log(Phaser.Math.Clamp(newX, 0.1, 0.5));
+
+         // console.log(Phaser.Math.Between(0.1, 0.5));
+         // gameObject.setX(Phaser.Math.Clamp(newX, 0, 800));
+     });
+     // console.log(scroller);
+
+
+
+
+
+
 
   },
 
