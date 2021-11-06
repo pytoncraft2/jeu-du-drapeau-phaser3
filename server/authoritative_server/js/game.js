@@ -109,10 +109,20 @@ function update() {
     const input = players[player.arene][player.playerId].input;
        if (input.right && !input.c) {
 
+         player.setVelocityX(10)
+         // player.thrust(0.025);
+
          // this.zone.x = this.girlMap.x;
-         player.ombre.x = player.zone.x
-         player.ombre.y = player.zone.y - 30
-         player.zone.x = player.x;
+         player.ombre.x = player.socle.x
+         player.ombre.y = player.socle.y - 30
+         player.socle.x = player.x;
+
+       }
+
+       if (input.left && !input.c) {
+         player.setVelocityX(10)
+         // player.thrust(0.025);
+       }
 
 
       // this.girlMap['direction'] = 'left';
@@ -135,7 +145,7 @@ function update() {
         // this.girlMap.anims.play('walk', true);
         // this.girlMap.setVelocityX(-300);
       // }
-    }
+    // }
      // if (input.right) {
       // this.girlMap['direction'] = 'right';
       // player.zone.x = player.x;
@@ -208,7 +218,7 @@ function update() {
 
     if (input.t) {
       // player.setVelocityY(10);
-      // player.setIgnoreGravity(false)
+      player.setIgnoreGravity(false)
       // player.anim = 'heal';
     }
 
@@ -217,7 +227,7 @@ function update() {
       // player.setIgnoreGravity(false)
 
       // player.y -= 5
-      // player.setIgnoreGravity(true)
+      player.setIgnoreGravity(true)
       player.setVelocityY(-10);
       // player.anim = 'jump';
     } else {

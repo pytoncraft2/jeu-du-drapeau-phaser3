@@ -206,8 +206,8 @@ const Arene = new Phaser.Class({
             player.setMass(players[id].mass);
             player.ombre.x = players[id].ombreX
             // player.ombre
-            console.log(player.ombre);
-            console.log(player.socle);
+            // console.log(player.ombre);
+            // console.log(player.socle);
             // console.log(players[id].ombreX);
             // player.setMass(players[id].mass);
             // player.body.density = players[id].density;
