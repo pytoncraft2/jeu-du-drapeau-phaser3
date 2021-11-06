@@ -205,6 +205,7 @@ const Arene = new Phaser.Class({
             player.setIgnoreGravity(players[id].ignoreGravity);
             player.setMass(players[id].mass);
             player.ombre.x = players[id].ombreX
+            player.ombre.y = players[id].ombreY
             // player.ombre
             // console.log(player.ombre);
             // console.log(player.socle);

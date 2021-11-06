@@ -114,13 +114,17 @@ function update() {
 
          // this.zone.x = this.girlMap.x;
          player.ombre.x = player.socle.x
-         player.ombre.y = player.socle.y - 30
+         player.ombre.y = player.socle.y + 145
          player.socle.x = player.x;
+
 
        }
 
        if (input.left && !input.c) {
-         player.setVelocityX(10)
+         player.setVelocityX(-10)
+         player.ombre.x = player.socle.x
+         player.ombre.y = player.socle.y + 145
+         player.socle.x = player.x;
          // player.thrust(0.025);
        }
 
@@ -129,9 +133,9 @@ function update() {
 
 
 
-      // player.zone.x = player.x;
-      // player.ombre.x = player.zone.x
-      // player.ombre.y = player.zone.y - 30
+      player.socle.x = player.x;
+      player.ombre.x = player.socle.x
+      player.ombre.y = player.socle.y + 145
 
 
 
@@ -227,7 +231,7 @@ function update() {
       // player.setIgnoreGravity(false)
 
       // player.y -= 5
-      player.setIgnoreGravity(true)
+      // player.setIgnoreGravity(true)
       player.setVelocityY(-10);
       // player.anim = 'jump';
     } else {
@@ -318,10 +322,12 @@ function addPlayer(self, playerInfo) {
   // player.socle.setIgnoreGravity(true);
 
   joueur.socle = self.add.zone(playerInfo.x, playerInfo.y + 30, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
+
   joueur.ombre = self.add.ellipse(joueur.socle.x, joueur.socle.y - 35, 100, 20, 0x0009).setAlpha(0.5);
 
 var socleJoueur = self.matter.add.gameObject(joueur.socle);
-socleJoueur.setIgnoreGravity(true).setStatic(true)
+socleJoueur.setIgnoreGravity(true).setStatic(true).setFriction(0)
+
   self.players[playerInfo.arene].add(joueur);
 
 
