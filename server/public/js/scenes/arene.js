@@ -147,8 +147,6 @@ const Arene = new Phaser.Class({
     // this.matter.add.image(-250, 360, 'tobogan', null, { isStatic: true });
     // this.matter.add.image(7300, -1400, 'tobogan', null, { isStatic: true });
     // this.bullet = this.matter.add.image(420, 100, 'bullet', null, { ignoreGravity: true });
-    let a = this.add.zone(26, -500, 210, 210).setSize(850, 40).setOrigin(0.5, 0.5);
-    var socleJoueur = self.matter.add.gameObject(a).setStatic(true).setIgnoreGravity(true);
 
 
 
