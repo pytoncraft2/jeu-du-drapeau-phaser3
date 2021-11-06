@@ -82,17 +82,17 @@ const BootScene = new Phaser.Class({
       this.load.atlas(item, 'assets0/personnages/' + item + '/' + item + '.png', 'assets/personnages/' + item + '/' + item + '_atlas.json');
     });
     // this.load.image('bg', 'assets0/fond/streetOfRage.png');
-    this.load.image('bedroom', 'assets0/fond/bgGrand.png');
-    this.load.image('doors', 'assets0/fond/doors.png');
-    this.load.atlas('ennemy', 'assets0/personnages/dessinatrice1/dessinatrice1.png', 'assets/personnages/dessinatrice1/dessinatrice1_atlas.json');
+    // this.load.image('bedroom', 'assets0/fond/bgGrand.png');
+    // this.load.image('doors', 'assets0/fond/doors.png');
+    // this.load.atlas('ennemy', 'assets0/personnages/dessinatrice1/dessinatrice1.png', 'assets/personnages/dessinatrice1/dessinatrice1_atlas.json');
     this.load.atlas('dessinatrice1', 'assets0/personnages/dessinatrice1/dessinatrice1.png', 'assets/personnages/dessinatrice1/dessinatrice1_atlas.json');
-    this.load.image('barrel', 'assets0/barrel.png')
-    this.load.image('profilPanel', 'assets0/liveProfilPanel.png');
-    this.load.image('portal', 'assets0/portal.png');
+    // this.load.image('barrel', 'assets0/barrel.png')
+    // this.load.image('profilPanel', 'assets0/liveProfilPanel.png');
+    // this.load.image('portal', 'assets0/portal.png');
     this.load.image('bullet', 'assets0/bullet.png');
-    this.load.image('bgMenu', 'assets/fond/bgMenu.png');
+    // this.load.image('bgMenu', 'assets/fond/bgMenu.png');
 
-    this.load.image('bg', 'assets/fond/bgGrand.png');
+    // this.load.image('bg', 'assets/fond/bgGrand.png');
     this.load.image('interieur-maison', 'assets/fond/interieur-maison.png');
     this.load.image('platforme', 'assets/fond/platforme.png');
     this.load.image('scaleCorrectJoueur', 'assets/fond/scaleCorrectJoueur.png');
@@ -102,7 +102,7 @@ const BootScene = new Phaser.Class({
     this.load.image('tobogan', 'assets/fond/tobogan.png');
     this.load.image('poteau', 'assets/fond/poteau.png');
     // this.load.image('doors', 'assets/fond/doors.png');
-    this.load.image('bg2', 'assets/fond/bgMenu.png');
+    // this.load.image('bg2', 'assets/fond/bgMenu.png');
 
   }
 

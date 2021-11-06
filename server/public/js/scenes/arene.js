@@ -128,7 +128,6 @@ const Arene = new Phaser.Class({
     let interieurMaison1 = this.add.image(-135, 40, 'interieur-maison')
     let poteau1 = this.add.image(1210, 0, 'poteau')
     let platforme1 = this.add.image(0, 290, 'platforme').setDepth(-2)
-    console.log(platforme1.displayWidth);
     let facade1 = this.add.image(-135, 106, 'facade').setDepth(1).setAlpha(0.4)
     let toit1 = this.add.image(-135, -245, 'plafond').setDepth(2)
     let fontaine1 = this.add.image(-1370, 137, 'fontaine').setDepth(2)
@@ -249,6 +248,9 @@ const Arene = new Phaser.Class({
      * @type {Object} état de la touche (pressé ou non)
      */
 
+
+
+    this.zKeyPressed = this.input.keyboard.addKey('Z');
     this.aKeyPressed = this.input.keyboard.addKey('A');
     this.tKeyPressed = this.input.keyboard.addKey('T');
     this.cKeyPressed = this.input.keyboard.addKey('CTRL');
@@ -260,6 +262,7 @@ const Arene = new Phaser.Class({
     this.spaceKeyPressed = false;
     this.cKey = false;
     this.aKey = false;
+    this.tKey = false;
     this.tKey = false;
 
     this.matter.add.mouseSpring();
@@ -307,6 +310,11 @@ const Arene = new Phaser.Class({
 
     this.cursors.space.isDown ? this.spaceKeyPressed = true : this.spaceKeyPressed = false
 
+    // if (Phaser.Input.Keyboard.JustDown(this.zKeyPressed)) {
+    //   console.log("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+    // }
+
+        // console.log(Phaser.Input.Keyboard.JustDown(this.zKeyPressed));
 
     if (left !== this.leftKeyPressed ||
       right !== this.rightKeyPressed ||
@@ -315,7 +323,14 @@ const Arene = new Phaser.Class({
       ak !== this.aKey ||
       tk !== this.tKey ||
       ck !== this.cKey ||
-      space !== this.spaceKeyPressed) {
+      space !== this.spaceKeyPressed ||
+      Phaser.Input.Keyboard.JustDown(this.zKeyPressed)) {
+        // console.log("EMIT EMIT EMIT");
+        // console.log(this.leftKeyPressed);
+        // console.log("Z");
+        // console.log(Phaser.Input.Keyboard.JustDown(this.zKeyPressed));
+
+        console.log("OUI");
       this.socket.emit('playerInput', {
         left: this.leftKeyPressed,
         right: this.rightKeyPressed,
