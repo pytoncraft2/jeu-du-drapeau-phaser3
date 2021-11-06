@@ -310,12 +310,20 @@ const Arene = new Phaser.Class({
 
     this.cursors.space.isDown ? this.spaceKeyPressed = true : this.spaceKeyPressed = false
 
+    // console.log(Phaser.Input.Keyboard.JustDown(this.zKeyPressed));
     if (Phaser.Input.Keyboard.JustDown(this.zKeyPressed)) {
-      this.zKey = true;
-    } else {
-      this.zKey = false;
+      this.socket.emit('playerInput', {
+        left: this.leftKeyPressed,
+        right: this.rightKeyPressed,
+        up: this.upKeyPressed,
+        down: this.downKeyPressed,
+        a: this.aKey,
+        t: this.tKey,
+        space: this.spaceKeyPressed,
+        c: this.cKey,
+        z: true,
+      });
     }
-
     // console.log(this.zKey);
 
     // if (Phaser.Input.Keyboard.JustDown(this.zKeyPressed)) {
