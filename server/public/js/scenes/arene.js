@@ -143,6 +143,9 @@ const Arene = new Phaser.Class({
     let maison2 = this.add.group()
     maison2.addMultiple([interieurMaison2, facade2, toit2]);   // array of game objects
 
+    console.log("POTEAU");
+    console.log(poteau2.x);
+    console.log(poteau2.y);
     // let tobogan = this.add.image(1000, -2650, 'tobogan')
     this.add.image(3426, -500, 'tobogan', null, { isStatic: true }).setAngle(-26);
     // this.matter.add.image(-250, 360, 'tobogan', null, { isStatic: true });
