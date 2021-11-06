@@ -30,7 +30,7 @@ function create() {
   this.players['Naruto'] = this.add.group();
   this.players['Pikachu'] = this.add.group();
   self.room = ""
-  let a = this.add.zone(26, -700, 210, 210).setSize(4050, 40);
+  let a = this.add.zone(26, 144, 210, 210).setSize(4050, 40);
   var socleJoueur = self.matter.add.gameObject(a).setStatic(true).setIgnoreGravity(true);
 
   // this.matter.world.disableGravity();
@@ -167,7 +167,7 @@ if (input.right && !input.c) {
 
     if (input.t) {
       // player.setVelocityY(10);
-      player.setIgnoreGravity(false)
+      // player.setIgnoreGravity(false)
       // player.anim = 'heal';
     }
 
@@ -175,9 +175,9 @@ if (input.right && !input.c) {
       // player.base = player.y;
       // player.setIgnoreGravity(false)
 
-      player.y -= 5
-      player.setIgnoreGravity(true)
-      // player.setVelocityY(-10);
+      // player.y -= 5
+      // player.setIgnoreGravity(true)
+      player.setVelocityY(-10);
       // player.anim = 'jump';
     } else {
       // player.setVelocityY(10);
