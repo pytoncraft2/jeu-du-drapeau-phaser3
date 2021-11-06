@@ -113,18 +113,20 @@ function update() {
          // player.thrust(0.025);
 
          // this.zone.x = this.girlMap.x;
+         player.anim = "walk"
          player.ombre.x = player.socle.x
          player.ombre.y = player.socle.y + 145
          player.socle.x = player.x;
+         player.flipX = false;
 
 
-       }
-
-       if (input.left && !input.c) {
+       } else if (input.left && !input.c) {
          player.setVelocityX(-10)
          player.ombre.x = player.socle.x
          player.ombre.y = player.socle.y + 145
          player.socle.x = player.x;
+         player.anim = "walk"
+         player.flipX = true;
          // player.thrust(0.025);
        }
 
