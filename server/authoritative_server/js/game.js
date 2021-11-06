@@ -114,17 +114,26 @@ function update() {
 
          // this.zone.x = this.girlMap.x;
          player.anim = "walk"
-         player.ombre.x = player.socle.x
-         player.ombre.y = player.socle.y + 145
-         player.socle.x = player.x;
+if (player.x < 1713 && player.x > -1714) {
+
+      player.socle.x = player.x;
+      player.ombre.x = player.socle.x
+      player.ombre.y = player.socle.y + 145
+
+}
          player.flipX = false;
 
 
        } else if (input.left && !input.c) {
          player.setVelocityX(-10)
-         player.ombre.x = player.socle.x
-         player.ombre.y = player.socle.y + 145
-         player.socle.x = player.x;
+
+if (player.x < 1713 && player.x > -1714) {
+
+      player.socle.x = player.x;
+      player.ombre.x = player.socle.x
+      player.ombre.y = player.socle.y + 145
+
+}
          player.anim = "walk"
          player.flipX = true;
          // player.thrust(0.025);
@@ -134,10 +143,13 @@ function update() {
       // this.girlMap['direction'] = 'left';
 
 
+if (player.x < 1713 && player.x > -1714) {
 
       player.socle.x = player.x;
       player.ombre.x = player.socle.x
       player.ombre.y = player.socle.y + 145
+
+}
 
 
 
@@ -235,6 +247,11 @@ function update() {
       // player.y -= 5
       // player.setIgnoreGravity(true)
       player.setVelocityY(-10);
+      console.log("XXX");
+      console.log(player.x);
+      console.log("YYY");
+      console.log(player.y);
+
       // player.anim = 'jump';
     } else {
       // player.setVelocityY(10);

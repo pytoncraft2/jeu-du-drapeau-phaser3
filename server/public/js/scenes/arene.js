@@ -127,6 +127,7 @@ const Arene = new Phaser.Class({
     //620
     let interieurMaison1 = this.add.image(-135, 40, 'interieur-maison')
     let platforme1 = this.add.image(0, 290, 'platforme').setDepth(-2)
+    console.log(platforme1.displayWidth);
     let facade1 = this.add.image(-135, 106, 'facade').setDepth(1).setAlpha(0.4)
     let toit1 = this.add.image(-135, -245, 'plafond').setDepth(2)
     let fontaine1 = this.add.image(-1370, 137, 'fontaine').setDepth(2)
