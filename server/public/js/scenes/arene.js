@@ -329,7 +329,7 @@ const Arene = new Phaser.Class({
     joueur.arene = playerInfo.arene;
     joueur.ombre = playerInfo.ombre;
     joueur.setFrictionAir(0.1);
-    joueur.setMass(1);
+    joueur.setMass(3);
     // joueur.setIgnoreGravity(true)
 
     // joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -30, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);

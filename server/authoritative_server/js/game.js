@@ -333,7 +333,7 @@ function addPlayer(self, playerInfo) {
   joueur.arene = playerInfo.arene;
 
   joueur.setFrictionAir(0.1);
-  joueur.setMass(1);
+  joueur.setMass(3);
 
   // player.socle = this.add.zone(200, 780, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
 // this.physics.add.existing(ennemy['ennemyzone']);
