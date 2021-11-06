@@ -148,7 +148,7 @@ const Arene = new Phaser.Class({
     this.add.image(3426, -500, 'tobogan', null, { isStatic: true }).setAngle(-26);
     // this.matter.add.image(-250, 360, 'tobogan', null, { isStatic: true });
     // this.matter.add.image(7300, -1400, 'tobogan', null, { isStatic: true });
-    this.bullet = this.matter.add.image(420, 100, 'bullet', null, { ignoreGravity: true });
+    this.bullet = this.add.image(420, 100, 'bullet');
     // let a = this.add.zone(3500, -509, 210, 210).setSize(3246, 40)
     // var socleJoueur = self.matter.add.gameObject(a).setStatic(true).setIgnoreGravity(true).setAngle(-26);
 
@@ -209,6 +209,11 @@ const Arene = new Phaser.Class({
             player.setMass(players[id].mass);
             player.ombre.x = players[id].ombreX
             player.ombre.y = players[id].ombreY
+            self.bullet.x = players[id].bulletX
+            self.bullet.y = players[id].bulletY
+            // player.ombre.x = players[id].ombreX
+            // player.ombre.y = players[id].ombreY
+
 
             // player.socle.x = players[id].ombreX
             // player.socle.y = players[id].socleY

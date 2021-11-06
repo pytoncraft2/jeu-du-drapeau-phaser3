@@ -316,6 +316,8 @@ function update() {
       players[player.arene][player.playerId].y = player.y;
       players[player.arene][player.playerId].ombreX = player.ombre.x;
       players[player.arene][player.playerId].ombreY = player.ombre.y;
+      players[player.arene][player.playerId].bulletX = this.bullet.x;
+      players[player.arene][player.playerId].bulletY = this.bullet.y;
 
       // players[player.arene][player.playerId].ignoreGravity = player.body.ignoreGravity;
       // players[player.arene][player.playerId].socleX = player.socle.x;
