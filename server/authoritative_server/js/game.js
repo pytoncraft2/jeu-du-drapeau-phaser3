@@ -13,9 +13,9 @@ const config = {
     physics: {
         matter: {
             debug: true,
-            // gravity: {
-              // y: 10
-            // },
+            gravity: {
+              y: 10
+            },
         }
 
     }
@@ -30,8 +30,8 @@ function create() {
   this.players['Naruto'] = this.add.group();
   this.players['Pikachu'] = this.add.group();
   self.room = ""
-  let a = this.add.zone(26, 144, 210, 210).setSize(4050, 40);
-  var socleJoueur = self.matter.add.gameObject(a).setStatic(true).setIgnoreGravity(true);
+  // let a = this.add.zone(26, 144, 210, 210).setSize(4050, 40);
+  // var socleJoueur = self.matter.add.gameObject(a).setStatic(true).setIgnoreGravity(true);
 
   // this.matter.world.disableGravity();
 
@@ -108,17 +108,53 @@ function update() {
   this.players[arene].getChildren().forEach((player) => {
     const input = players[player.arene][player.playerId].input;
     // console.log(player.body.mass);
+       if (input.left && !input.c) {
 
+      // this.girlMap['direction'] = 'left';
+
+
+
+      // player.zone.x = player.x;
+      // player.ombre.x = player.zone.x
+      // player.ombre.y = player.zone.y - 30
+
+
+
+
+
+      // this.girlMap.flipX = true;
+      // if (this.ctrlKey.isDown) {
+        // this.girlMap.anims.play('run', true);
+        // this.girlMap.setVelocityX(-400);
+      // } else {
+        // this.girlMap.anims.play('walk', true);
+        // this.girlMap.setVelocityX(-300);
+      // }
+    }
+     // if (input.right) {
+      // this.girlMap['direction'] = 'right';
+      // player.zone.x = player.x;
+      // player.ombre.x = player.zone.x
+      // player.ombre.y = player.zone.y - 30
+      // this.girlMap.flipX = false;
+      // if (this.ctrlKey.isDown) {
+        // this.girlMap.anims.play('run', true);
+        // this.girlMap.setVelocityX(400);
+      // } else {
+        // this.girlMap.anims.play('walk', true);
+        // this.girlMap.setVelocityX(300);
+      // }
+    // }
     // player.base = 0;
     // player.anim = false;
     // player.attack = false;
     // player.wall = false;
-if (input.left && !input.c) {
+// if (input.left && !input.c) {
   // player.thrust(-0.025);
   // player.socle.x -= 10;
-  player.setVelocityX(-10)
-  player.flipX = true, player.anim = 'walk';
-}
+  // player.setVelocityX(-10)
+  // player.flipX = true, player.anim = 'walk';
+// }
 
 if (input.right && !input.c) {
   // player.thrust(0.025);
@@ -255,10 +291,30 @@ function addPlayer(self, playerInfo) {
   const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, playerInfo.atlas, null).setScale(0.38);
   joueur.playerId = playerInfo.playerId;
   joueur.arene = playerInfo.arene;
-  self.players[playerInfo.arene].add(joueur);
 
   joueur.setFrictionAir(0.1);
   joueur.setMass(1);
+
+  // player.socle = this.add.zone(200, 780, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
+// this.physics.add.existing(ennemy['ennemyzone']);
+  // player.socle.body.friction.x = 0;
+  // player.socle.setIgnoreGravity(true);
+
+  joueur.socle = self.add.zone(playerInfo.x, playerInfo.y + 30, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
+joueur.ombre = self.add.ellipse(joueur.socle.x, joueur.socle.y - 35, 100, 20, 0x0009).setAlpha(0.5);
+
+var socleJoueur = self.matter.add.gameObject(joueur.socle);
+socleJoueur.setIgnoreGravity(true).setStatic(true)
+
+
+  self.players[playerInfo.arene].add(joueur);
+  // joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -55, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
+// joueur.ombre = self.add.ellipse(joueur.socle.x, joueur.socle.y - 30, 100, 20, 0x0009).setAlpha(0.5);
+
+// var socleJoueur = self.matter.add.gameObject(joueur.socle);
+// socleJoueur.setIgnoreGravity(true).setStatic(true)
+
+
   // joueur.setIgnoreGravity(true)
 
 }
