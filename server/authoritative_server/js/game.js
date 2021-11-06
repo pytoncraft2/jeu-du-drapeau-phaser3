@@ -133,6 +133,8 @@ if (player.x < 1713 && player.x > -1714 || player.x < 89107 && player.x > 5163) 
 
 if (player.x < 1713 && player.x > -1714 || player.x < 89107 && player.x > 5163) {
 
+  player.x < 1713 && player.x > -1714 ? player.socle.y = 167 : player.socle.y = player.socle.y
+
       player.socle.x = player.x;
       player.ombre.x = player.socle.x
       player.ombre.y = player.socle.y + 145
@@ -151,10 +153,16 @@ if (player.x < 1713 && player.x > -1714 || player.x < 89107 && player.x > 5163) 
 
 if (player.x < 1713 && player.x > -1714 || player.x < 89107 && player.x > 5163) {
 
-  if (player.x < 1713 && player.x > -1714 && player.socle.y == 167) {
+  if (player.x < 1713 && player.x > -1714) {
     // player.socle.y = player.y
     console.log("oui");
     console.log(player.socle.y);
+    player.socle.y = 145
+  } else if (player.x < 89107 && player.x > 5163) {
+    console.log("non");
+    console.log(player.y);
+    player.socle.y = -1523
+    // console.log(player.socle.y);
   }
 
 
