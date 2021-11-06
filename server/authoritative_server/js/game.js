@@ -11,15 +11,15 @@ const config = {
     create: create,
     update: update,
     physics: {
-        matter: {
-            debug: true,
-            gravity: {
-              y: 3
-            },
-        }
+      matter: {
+        debug: true,
+        gravity: {
+          y: 3
+        },
+      }
 
     }
-},
+  },
   autoFocus: false
 };
 
@@ -86,20 +86,20 @@ function create() {
       socket.broadcast.to(room).emit("nouveau_joueur", players[socket.room][socket.id]);
 
       socket.on('disconnect', function() {
-      console.log('user disconnected');
-      // remove player from server
-      removePlayer(self, socket.id, socket.room);
-      // remove this player from our players object
-      delete players[socket.room][socket.id];
-      // emit a message to all players to remove this player
-      io.to(socket.room).emit("disconnection", socket.id);
+        console.log('user disconnected');
+        // remove player from server
+        removePlayer(self, socket.id, socket.room);
+        // remove this player from our players object
+        delete players[socket.room][socket.id];
+        // emit a message to all players to remove this player
+        io.to(socket.room).emit("disconnection", socket.id);
 
-    });
+      });
 
 
-    socket.on('playerInput', function(inputData) {
-      handlePlayerInput(self, socket.id, socket.room, inputData);
-    });
+      socket.on('playerInput', function(inputData) {
+        handlePlayerInput(self, socket.id, socket.room, inputData);
+      });
 
 
     });
@@ -109,71 +109,48 @@ function create() {
 
 function update() {
   Object.keys(this.players).forEach((arene) => {
-  this.players[arene].getChildren().forEach((player) => {
-    const input = players[player.arene][player.playerId].input;
-       if (input.right && !input.c) {
+    this.players[arene].getChildren().forEach((player) => {
+      const input = players[player.arene][player.playerId].input;
+      if (input.right && !input.c) {
+        player.setVelocityX(10)
+        player.anim = "walk"
+        if (player.x < 1713 && player.x > -1714 || player.x < 89107 && player.x > 5163) {
 
-         player.setVelocityX(10)
-         // player.thrust(0.025);
+          player.socle.x = player.x;
+          player.ombre.x = player.socle.x
+          player.ombre.y = player.socle.y + 145
 
-         // this.zone.x = this.girlMap.x;
-         player.anim = "walk"
-if (player.x < 1713 && player.x > -1714 || player.x < 89107 && player.x > 5163) {
-
-      player.socle.x = player.x;
-      player.ombre.x = player.socle.x
-      player.ombre.y = player.socle.y + 145
-
-}
-         player.flipX = false;
+        }
+        player.flipX = false;
 
 
-       } else if (input.left && !input.c) {
-         player.setVelocityX(-10)
+      } else if (input.left && !input.c) {
+        player.setVelocityX(-10)
 
-if (player.x < 1713 && player.x > -1714 || player.x < 89107 && player.x > 5163) {
+        if (player.x < 1713 && player.x > -1714 || player.x < 89107 && player.x > 5163) {
 
-  player.x < 1713 && player.x > -1714 ? player.socle.y = 167 : player.socle.y = player.socle.y
+          player.x < 1713 && player.x > -1714 ? player.socle.y = 167 : player.socle.y = player.socle.y
 
-      player.socle.x = player.x;
-      player.ombre.x = player.socle.x
-      player.ombre.y = player.socle.y + 145
+          player.socle.x = player.x;
+          player.ombre.x = player.socle.x
+          player.ombre.y = player.socle.y + 145
 
-}
-         player.anim = "walk"
-         player.flipX = true;
-         // player.thrust(0.025);
-       }
-
-       console.log(player.socle.y);
+        }
+        player.anim = "walk"
+        player.flipX = true;
+      }
 
 
-      // this.girlMap['direction'] = 'left';
-
-
-if (player.x < 1713 && player.x > -1714 || player.x < 89107 && player.x > 5163) {
-
-  if (player.x < 1713 && player.x > -1714) {
-    // player.socle.y = player.y
-    console.log("oui");
-    console.log(player.socle.y);
-    player.socle.y = 145
-  } else if (player.x < 89107 && player.x > 5163) {
-    console.log("non");
-    console.log(player.y);
-    player.socle.y = -1523
-    // console.log(player.socle.y);
-  }
-
-
-  // if (player.x < 1713 && player.x > -1714 && player.socle.y == 167) {
-    // player.socle.y = player.y
-  // }
-      player.socle.x = player.x;
-      player.ombre.x = player.socle.x
-      player.ombre.y = player.socle.y + 145
-
-}
+      if (player.x < 1713 && player.x > -1714 || player.x < 89107 && player.x > 5163) {
+        if (player.x < 1713 && player.x > -1714) {
+          player.socle.y = 145
+        } else if (player.x < 89107 && player.x > 5163) {
+          player.socle.y = -1523
+        }
+        player.socle.x = player.x;
+        player.ombre.x = player.socle.x
+        player.ombre.y = player.socle.y + 145
+      }
 
 
 
@@ -181,174 +158,174 @@ if (player.x < 1713 && player.x > -1714 || player.x < 89107 && player.x > 5163) 
 
       // this.girlMap.flipX = true;
       // if (this.ctrlKey.isDown) {
-        // this.girlMap.anims.play('run', true);
-        // this.girlMap.setVelocityX(-400);
+      // this.girlMap.anims.play('run', true);
+      // this.girlMap.setVelocityX(-400);
       // } else {
-        // this.girlMap.anims.play('walk', true);
-        // this.girlMap.setVelocityX(-300);
+      // this.girlMap.anims.play('walk', true);
+      // this.girlMap.setVelocityX(-300);
       // }
-    // }
-     // if (input.right) {
+      // }
+      // if (input.right) {
       // this.girlMap['direction'] = 'right';
       // player.zone.x = player.x;
       // player.ombre.x = player.zone.x
       // player.ombre.y = player.zone.y - 30
       // this.girlMap.flipX = false;
       // if (this.ctrlKey.isDown) {
-        // this.girlMap.anims.play('run', true);
-        // this.girlMap.setVelocityX(400);
+      // this.girlMap.anims.play('run', true);
+      // this.girlMap.setVelocityX(400);
       // } else {
-        // this.girlMap.anims.play('walk', true);
-        // this.girlMap.setVelocityX(300);
+      // this.girlMap.anims.play('walk', true);
+      // this.girlMap.setVelocityX(300);
       // }
-    // }
-    // player.base = 0;
-    // player.anim = false;
-    // player.attack = false;
-    // player.wall = false;
-// if (input.left && !input.c) {
-  // player.thrust(-0.025);
-  // player.socle.x -= 10;
-  // player.setVelocityX(-10)
-  // player.flipX = true, player.anim = 'walk';
-// }
+      // }
+      // player.base = 0;
+      // player.anim = false;
+      // player.attack = false;
+      // player.wall = false;
+      // if (input.left && !input.c) {
+      // player.thrust(-0.025);
+      // player.socle.x -= 10;
+      // player.setVelocityX(-10)
+      // player.flipX = true, player.anim = 'walk';
+      // }
 
-// if (input.left && !input.c) {
-  // player.thrust(0.025);
-  // player.socle.x += 10;
-  // player.setVelocityX(-10)
-  // player.flipX = false, player.anim = 'walk';
-// }
+      // if (input.left && !input.c) {
+      // player.thrust(0.025);
+      // player.socle.x += 10;
+      // player.setVelocityX(-10)
+      // player.flipX = false, player.anim = 'walk';
+      // }
 
-    // if (input.up) {
-    //   if (player.x < 605  ) {
-    //     player.scale = player.scale - 0.003;
-    //     player.y -= 2;
-    //     player.depth = player.depth - 1;
-    //     if (!input.space) {
-    //     player.anim = 'goback';
-    //    }
-    //   }
-    //   if (player.x > 605 ) {
-    //     player.scale = player.scale - 0.003;
-    //     player.y -= 2;
-    //     player.depth = player.depth - 1;
-    //     if (!input.space) {
-    //     player.anim = 'goback';
-    //     }
-    //   }
-    // }
+      // if (input.up) {
+      //   if (player.x < 605  ) {
+      //     player.scale = player.scale - 0.003;
+      //     player.y -= 2;
+      //     player.depth = player.depth - 1;
+      //     if (!input.space) {
+      //     player.anim = 'goback';
+      //    }
+      //   }
+      //   if (player.x > 605 ) {
+      //     player.scale = player.scale - 0.003;
+      //     player.y -= 2;
+      //     player.depth = player.depth - 1;
+      //     if (!input.space) {
+      //     player.anim = 'goback';
+      //     }
+      //   }
+      // }
 
-    // bigger
-    // if (input.down && player.scale <= 2) {
-    //   player.scale = player.scale + 0.003;
-    //   player.y += 2;
-    //   player.depth += 1;
-    //   if (!input.space) {
-    //   player.anim = 'front';
-    //   }
-    // }
+      // bigger
+      // if (input.down && player.scale <= 2) {
+      //   player.scale = player.scale + 0.003;
+      //   player.y += 2;
+      //   player.depth += 1;
+      //   if (!input.space) {
+      //   player.anim = 'front';
+      //   }
+      // }
 
-    if (input.a) {
-      if (!input.space) {
-      player.anim = 'attack1';
+      if (input.a) {
+        if (!input.space) {
+          player.anim = 'attack1';
+        }
+        player.setSize(900);
+        player.attack = true;
+        player.wall = true;
       }
-      player.setSize(900);
-      player.attack = true;
-      player.wall = true;
-    }
 
-    if (input.t) {
-      // player.setVelocityY(10);
-      player.setIgnoreGravity(false)
-      // player.anim = 'heal';
-    }
+      if (input.t) {
+        // player.setVelocityY(10);
+        player.setIgnoreGravity(false)
+        // player.anim = 'heal';
+      }
 
-    if (input.space) {
-      // player.base = player.y;
-      // player.setIgnoreGravity(false)
+      if (input.space) {
+        // player.base = player.y;
+        // player.setIgnoreGravity(false)
 
-      // player.y -= 5
-      // player.setIgnoreGravity(true)
-      player.setVelocityY(-10);
-      // console.log("XXX");
-      // console.log(player.x);
-      // console.log("YYY");
-      // console.log(player.y);
+        // player.y -= 5
+        // player.setIgnoreGravity(true)
+        player.setVelocityY(-10);
+        // console.log("XXX");
+        // console.log(player.x);
+        // console.log("YYY");
+        // console.log(player.y);
 
-      // player.anim = 'jump';
-    } else {
-      // player.setVelocityY(10);
-    }
+        // player.anim = 'jump';
+      } else {
+        // player.setVelocityY(10);
+      }
 
-    if (player.x !== 0 && player.x === player.base) {
-      // player.setIgnoreGravity(true);
-    }
-    // console.log(player.socle.x);
+      if (player.x !== 0 && player.x === player.base) {
+        // player.setIgnoreGravity(true);
+      }
+      // console.log(player.socle.x);
       // if (!player.anims.getFrameName().includes("jump") && player.body.touching.down) {
-        // player.anims.play('jump');
+      // player.anims.play('jump');
       // }
       // if (player.body.touching.down) {
-        // player.setVelocityY(-59);
+      // player.setVelocityY(-59);
       // }
 
-    if (input.c) {
-      if (input.left) player.setVelocityX(-100);
-      if (input.right) player.setVelocityX(100);
-      player.anim = 'run';
-    }
+      if (input.c) {
+        if (input.left) player.setVelocityX(-100);
+        if (input.right) player.setVelocityX(100);
+        player.anim = 'run';
+      }
 
 
-    players[player.arene][player.playerId].velocityX = player.body.velocity.x;
-    players[player.arene][player.playerId].velocityY = player.body.velocity.y;
-    players[player.arene][player.playerId].scale = player.scale;
-    players[player.arene][player.playerId].flipX = player.flipX;
-    players[player.arene][player.playerId].anim = player.anim;
-    // players[player.arene][player.playerId].base = player.base;
-    players[player.arene][player.playerId].depth = player.depth;
-    players[player.arene][player.playerId].size = player.size;
-    players[player.arene][player.playerId].alpha = player.alpha;
-    // players[player.arene][player.playerId].attack = player.attack;
-    // players[player.arene][player.playerId].wall = player.wall;
-    players[player.arene][player.playerId].x = player.x;
-    players[player.arene][player.playerId].y = player.y;
-    // players[player.arene][player.playerId].angle = player.angle;
-    players[player.arene][player.playerId].friction = player.body.friction;
-    players[player.arene][player.playerId].frictionair = player.body.frictionAir;
-    players[player.arene][player.playerId].frictionstatic = player.body.frictionStatic;
-    players[player.arene][player.playerId].mass = player.body.mass;
-    players[player.arene][player.playerId].density = player.body.density;
-    players[player.arene][player.playerId].speed = player.body.speed;
-    players[player.arene][player.playerId].boundsMIX = player.body.bounds.min.x;
-    players[player.arene][player.playerId].boundsMIY = player.body.bounds.min.y;
-    players[player.arene][player.playerId].boundsMAX = player.body.bounds.max.x;
-    players[player.arene][player.playerId].boundsMAY = player.body.bounds.max.y;
-    players[player.arene][player.playerId].px = player.body.position.x;
-    players[player.arene][player.playerId].py = player.body.position.y;
-    players[player.arene][player.playerId].x = player.x;
-    players[player.arene][player.playerId].y = player.y;
-    players[player.arene][player.playerId].ombreX = player.ombre.x;
-    players[player.arene][player.playerId].ombreY = player.ombre.y;
+      players[player.arene][player.playerId].velocityX = player.body.velocity.x;
+      players[player.arene][player.playerId].velocityY = player.body.velocity.y;
+      players[player.arene][player.playerId].scale = player.scale;
+      players[player.arene][player.playerId].flipX = player.flipX;
+      players[player.arene][player.playerId].anim = player.anim;
+      // players[player.arene][player.playerId].base = player.base;
+      players[player.arene][player.playerId].depth = player.depth;
+      players[player.arene][player.playerId].size = player.size;
+      players[player.arene][player.playerId].alpha = player.alpha;
+      // players[player.arene][player.playerId].attack = player.attack;
+      // players[player.arene][player.playerId].wall = player.wall;
+      players[player.arene][player.playerId].x = player.x;
+      players[player.arene][player.playerId].y = player.y;
+      // players[player.arene][player.playerId].angle = player.angle;
+      players[player.arene][player.playerId].friction = player.body.friction;
+      players[player.arene][player.playerId].frictionair = player.body.frictionAir;
+      players[player.arene][player.playerId].frictionstatic = player.body.frictionStatic;
+      players[player.arene][player.playerId].mass = player.body.mass;
+      players[player.arene][player.playerId].density = player.body.density;
+      players[player.arene][player.playerId].speed = player.body.speed;
+      players[player.arene][player.playerId].boundsMIX = player.body.bounds.min.x;
+      players[player.arene][player.playerId].boundsMIY = player.body.bounds.min.y;
+      players[player.arene][player.playerId].boundsMAX = player.body.bounds.max.x;
+      players[player.arene][player.playerId].boundsMAY = player.body.bounds.max.y;
+      players[player.arene][player.playerId].px = player.body.position.x;
+      players[player.arene][player.playerId].py = player.body.position.y;
+      players[player.arene][player.playerId].x = player.x;
+      players[player.arene][player.playerId].y = player.y;
+      players[player.arene][player.playerId].ombreX = player.ombre.x;
+      players[player.arene][player.playerId].ombreY = player.ombre.y;
 
-    // players[player.arene][player.playerId].ignoreGravity = player.body.ignoreGravity;
-    // players[player.arene][player.playerId].socleX = player.socle.x;
-    // players[player.arene][player.playerId].socleY = player.socle.y;
-  });
-  io.to(arene).emit("playerUpdates", players[arene]);
+      // players[player.arene][player.playerId].ignoreGravity = player.body.ignoreGravity;
+      // players[player.arene][player.playerId].socleX = player.socle.x;
+      // players[player.arene][player.playerId].socleY = player.socle.y;
+    });
+    io.to(arene).emit("playerUpdates", players[arene]);
 
   });
 }
 
 function handlePlayerInput(self, playerId, arene, input) {
 
-    Object.keys(players[arene]).forEach(function(a) {
+  Object.keys(players[arene]).forEach(function(a) {
 
-      self.players[arene].getChildren().forEach((player) => {
+    self.players[arene].getChildren().forEach((player) => {
 
-        if (playerId === player.playerId) players[arene][player.playerId].input = input
+      if (playerId === player.playerId) players[arene][player.playerId].input = input
 
-      });
     });
+  });
 }
 
 function addPlayer(self, playerInfo) {
@@ -362,7 +339,7 @@ function addPlayer(self, playerInfo) {
   joueur.setMass(2);
 
   // player.socle = this.add.zone(200, 780, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
-// this.physics.add.existing(ennemy['ennemyzone']);
+  // this.physics.add.existing(ennemy['ennemyzone']);
   // player.socle.body.friction.x = 0;
   // player.socle.setIgnoreGravity(true);
 
@@ -370,17 +347,17 @@ function addPlayer(self, playerInfo) {
 
   joueur.ombre = self.add.ellipse(joueur.socle.x, joueur.socle.y - 35, 100, 20, 0x0009).setAlpha(0.5);
 
-var socleJoueur = self.matter.add.gameObject(joueur.socle);
-socleJoueur.setIgnoreGravity(true).setStatic(true).setFriction(0)
+  var socleJoueur = self.matter.add.gameObject(joueur.socle);
+  socleJoueur.setIgnoreGravity(true).setStatic(true).setFriction(0)
 
   self.players[playerInfo.arene].add(joueur);
 
 
   // joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -55, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
-// joueur.ombre = self.add.ellipse(joueur.socle.x, joueur.socle.y - 30, 100, 20, 0x0009).setAlpha(0.5);
+  // joueur.ombre = self.add.ellipse(joueur.socle.x, joueur.socle.y - 30, 100, 20, 0x0009).setAlpha(0.5);
 
-// var socleJoueur = self.matter.add.gameObject(joueur.socle);
-// socleJoueur.setIgnoreGravity(true).setStatic(true)
+  // var socleJoueur = self.matter.add.gameObject(joueur.socle);
+  // socleJoueur.setIgnoreGravity(true).setStatic(true)
 
 
   // joueur.setIgnoreGravity(true)
