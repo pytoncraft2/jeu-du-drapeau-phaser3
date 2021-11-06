@@ -118,7 +118,7 @@ function update() {
 
          // this.zone.x = this.girlMap.x;
          player.anim = "walk"
-if (player.x < 1713 && player.x > -1714) {
+if (player.x < 1713 && player.x > -1714 || player.x < 89107 && player.x > 5163) {
 
       player.socle.x = player.x;
       player.ombre.x = player.socle.x
@@ -131,7 +131,7 @@ if (player.x < 1713 && player.x > -1714) {
        } else if (input.left && !input.c) {
          player.setVelocityX(-10)
 
-if (player.x < 1713 && player.x > -1714) {
+if (player.x < 1713 && player.x > -1714 || player.x < 89107 && player.x > 5163) {
 
       player.socle.x = player.x;
       player.ombre.x = player.socle.x
@@ -143,12 +143,24 @@ if (player.x < 1713 && player.x > -1714) {
          // player.thrust(0.025);
        }
 
+       console.log(player.socle.y);
+
 
       // this.girlMap['direction'] = 'left';
 
 
-if (player.x < 1713 && player.x > -1714) {
+if (player.x < 1713 && player.x > -1714 || player.x < 89107 && player.x > 5163) {
 
+  if (player.x < 1713 && player.x > -1714 && player.socle.y == 167) {
+    // player.socle.y = player.y
+    console.log("oui");
+    console.log(player.socle.y);
+  }
+
+
+  // if (player.x < 1713 && player.x > -1714 && player.socle.y == 167) {
+    // player.socle.y = player.y
+  // }
       player.socle.x = player.x;
       player.ombre.x = player.socle.x
       player.ombre.y = player.socle.y + 145
@@ -251,10 +263,10 @@ if (player.x < 1713 && player.x > -1714) {
       // player.y -= 5
       // player.setIgnoreGravity(true)
       player.setVelocityY(-10);
-      console.log("XXX");
-      console.log(player.x);
-      console.log("YYY");
-      console.log(player.y);
+      // console.log("XXX");
+      // console.log(player.x);
+      // console.log("YYY");
+      // console.log(player.y);
 
       // player.anim = 'jump';
     } else {
