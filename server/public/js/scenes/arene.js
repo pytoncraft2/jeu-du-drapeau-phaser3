@@ -122,10 +122,11 @@ const Arene = new Phaser.Class({
           });
 
 
-    // this.add.image(-300, 350, 'bg').setDepth(-54);
-    //310
-    //620
+          //1140
+          //118
+
     let interieurMaison1 = this.add.image(-135, 40, 'interieur-maison')
+    let poteau1 = this.add.image(1210, 0, 'poteau')
     let platforme1 = this.add.image(0, 290, 'platforme').setDepth(-2)
     console.log(platforme1.displayWidth);
     let facade1 = this.add.image(-135, 106, 'facade').setDepth(1).setAlpha(0.4)
@@ -135,6 +136,7 @@ const Arene = new Phaser.Class({
     maison1.addMultiple([interieurMaison1, facade1, toit1]);   // array of game objects
 
     let interieurMaison2 = this.add.image(7000, -1650, 'interieur-maison')
+    let poteau2 = this.add.image(5675, -1676, 'poteau')
     let platforme2 = this.add.image(7000, -1400, 'platforme').setDepth(-2)
     let facade2 = this.add.image(7000, -1584, 'facade').setDepth(1).setAlpha(0.4)
     let toit2 = this.add.image(7000, -1935, 'plafond').setDepth(2)
@@ -146,7 +148,7 @@ const Arene = new Phaser.Class({
     this.add.image(3426, -500, 'tobogan', null, { isStatic: true }).setAngle(-26);
     // this.matter.add.image(-250, 360, 'tobogan', null, { isStatic: true });
     // this.matter.add.image(7300, -1400, 'tobogan', null, { isStatic: true });
-    // this.bullet = this.matter.add.image(420, 100, 'bullet', null, { ignoreGravity: true });
+    this.bullet = this.matter.add.image(420, 100, 'bullet', null, { ignoreGravity: true });
     // let a = this.add.zone(3500, -509, 210, 210).setSize(3246, 40)
     // var socleJoueur = self.matter.add.gameObject(a).setStatic(true).setIgnoreGravity(true).setAngle(-26);
 
@@ -349,6 +351,9 @@ const Arene = new Phaser.Class({
 
 
     self.players.add(joueur);
+
+    // self.matter.add.constraint(self.bullet, joueur, 500, 0.2);
+
 
 
 

@@ -43,6 +43,11 @@ function create() {
   let a = this.add.zone(3500, -700, 210, 210).setSize(3246, 40)
   var socleJoueur = self.matter.add.gameObject(a).setStatic(true).setIgnoreGravity(true).setAngle(-26);
 
+  this.bullet = this.matter.add.image(420, 400, 'bullet', null, { ignoreGravity: true });
+  this.bullet.setFixedRotation();
+  this.bullet.setMass(500);
+  this.bullet.setStatic(true);
+
 
 
   io.on('connection', function(socket) {
@@ -236,12 +241,17 @@ function update() {
       }
 
       if (input.t) {
+        this.bullet.x += 10
+        this.bullet.y -= 5
         // player.setVelocityY(10);
-        player.setIgnoreGravity(false)
+        // player.setIgnoreGravity(false)
         // player.anim = 'heal';
       }
 
       if (input.space) {
+        // console.log("_____");
+        // console.log(player.x);
+        // console.log(player.y);
         // player.base = player.y;
         // player.setIgnoreGravity(false)
 
@@ -349,6 +359,8 @@ function addPlayer(self, playerInfo) {
 
   var socleJoueur = self.matter.add.gameObject(joueur.socle);
   socleJoueur.setIgnoreGravity(true).setStatic(true).setFriction(0)
+  self.matter.add.constraint(self.bullet, joueur, 500, 0.2);
+
 
   self.players[playerInfo.arene].add(joueur);
 
