@@ -82,7 +82,8 @@ function create() {
           right: false,
           up: false,
           down: false,
-          a: false
+          a: false,
+          z: false
         },
       };
       addPlayer(self, players[socket.room][socket.id]);
@@ -103,7 +104,7 @@ function create() {
 
 
       socket.on('playerInput', function(inputData) {
-        console.log(inputData);
+        // console.log(inputData);
         handlePlayerInput(self, socket.id, socket.room, inputData);
       });
 
@@ -117,6 +118,14 @@ function update() {
   Object.keys(this.players).forEach((arene) => {
     this.players[arene].getChildren().forEach((player) => {
       const input = players[player.arene][player.playerId].input;
+
+      // console.log(input.z);
+      if (input.z) {
+
+        console.log("OUIIII");
+        input.z = false
+
+      }
       if (input.right && !input.c) {
         player.setVelocityX(10)
         player.anim = "walk"
