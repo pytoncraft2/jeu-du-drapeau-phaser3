@@ -263,7 +263,7 @@ const Arene = new Phaser.Class({
     this.cKey = false;
     this.aKey = false;
     this.tKey = false;
-    this.tKey = false;
+    this.zKey = false;
 
     this.matter.add.mouseSpring();
 
@@ -310,6 +310,14 @@ const Arene = new Phaser.Class({
 
     this.cursors.space.isDown ? this.spaceKeyPressed = true : this.spaceKeyPressed = false
 
+    if (Phaser.Input.Keyboard.JustDown(this.zKeyPressed)) {
+      this.zKey = true;
+    } else {
+      this.zKey = false;
+    }
+
+    // console.log(this.zKey);
+
     // if (Phaser.Input.Keyboard.JustDown(this.zKeyPressed)) {
     //   console.log("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
     // }
@@ -323,14 +331,8 @@ const Arene = new Phaser.Class({
       ak !== this.aKey ||
       tk !== this.tKey ||
       ck !== this.cKey ||
-      space !== this.spaceKeyPressed ||
-      Phaser.Input.Keyboard.JustDown(this.zKeyPressed)) {
-        // console.log("EMIT EMIT EMIT");
-        // console.log(this.leftKeyPressed);
-        // console.log("Z");
-        // console.log(Phaser.Input.Keyboard.JustDown(this.zKeyPressed));
-
-        console.log("OUI");
+      space !== this.spaceKeyPressed || this.zkey == true) {
+        console.log(this.zKey);
       this.socket.emit('playerInput', {
         left: this.leftKeyPressed,
         right: this.rightKeyPressed,
@@ -340,6 +342,7 @@ const Arene = new Phaser.Class({
         t: this.tKey,
         space: this.spaceKeyPressed,
         c: this.cKey,
+        z: this.zKey,
       });
     }
   },

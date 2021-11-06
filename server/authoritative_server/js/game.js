@@ -103,6 +103,7 @@ function create() {
 
 
       socket.on('playerInput', function(inputData) {
+        console.log(inputData);
         handlePlayerInput(self, socket.id, socket.room, inputData);
       });
 
