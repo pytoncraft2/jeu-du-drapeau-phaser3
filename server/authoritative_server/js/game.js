@@ -300,6 +300,7 @@ function addPlayer(self, playerInfo) {
   // player.socle.body.friction.x = 0;
   // player.socle.setIgnoreGravity(true);
 
+  self.players[playerInfo.arene].add(joueur);
   joueur.socle = self.add.zone(playerInfo.x, playerInfo.y + 30, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
 joueur.ombre = self.add.ellipse(joueur.socle.x, joueur.socle.y - 35, 100, 20, 0x0009).setAlpha(0.5);
 
@@ -307,7 +308,6 @@ var socleJoueur = self.matter.add.gameObject(joueur.socle);
 socleJoueur.setIgnoreGravity(true).setStatic(true)
 
 
-  self.players[playerInfo.arene].add(joueur);
   // joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -55, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
 // joueur.ombre = self.add.ellipse(joueur.socle.x, joueur.socle.y - 30, 100, 20, 0x0009).setAlpha(0.5);
 
