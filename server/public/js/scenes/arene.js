@@ -204,6 +204,12 @@ const Arene = new Phaser.Class({
             player.setFrictionStatic(players[id].frictionstatic);
             player.setIgnoreGravity(players[id].ignoreGravity);
             player.setMass(players[id].mass);
+            player.ombre.x = players[id].ombreX
+            // player.ombre
+            console.log(player.ombre);
+            console.log(player.socle);
+            // console.log(players[id].ombreX);
+            // player.setMass(players[id].mass);
             // player.body.density = players[id].density;
             // player.body.speed = players[id].speed;
             // player.body.bounds.min.x = player.boundsMIX;
@@ -319,9 +325,16 @@ const Arene = new Phaser.Class({
 
     joueur.playerId = playerInfo.playerId;
     joueur.arene = playerInfo.arene;
+    joueur.ombre = playerInfo.ombre;
     joueur.setFrictionAir(0.1);
     joueur.setMass(1);
     // joueur.setIgnoreGravity(true)
+
+    // joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -30, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
+    // joueur.ombre = self.add.ellipse(joueur.socle.x, joueur.socle.y - 35, 100, 20, 0x0009).setAlpha(0.5);
+    joueur.socle = self.add.zone(playerInfo.x, playerInfo.y + 30, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
+    joueur.ombre = self.add.ellipse(joueur.socle.x, joueur.socle.y - 35, 100, 20, 0x0009).setAlpha(0.5);
+
 
 
 

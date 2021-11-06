@@ -14,7 +14,7 @@ const config = {
         matter: {
             debug: true,
             gravity: {
-              y: 10
+              y: 3
             },
         }
 
@@ -107,8 +107,13 @@ function update() {
   Object.keys(this.players).forEach((arene) => {
   this.players[arene].getChildren().forEach((player) => {
     const input = players[player.arene][player.playerId].input;
-    // console.log(player.body.mass);
-       if (input.left && !input.c) {
+       if (input.right && !input.c) {
+
+         // this.zone.x = this.girlMap.x;
+         player.ombre.x = player.zone.x
+         player.ombre.y = player.zone.y - 30
+         player.zone.x = player.x;
+
 
       // this.girlMap['direction'] = 'left';
 
@@ -156,12 +161,12 @@ function update() {
   // player.flipX = true, player.anim = 'walk';
 // }
 
-if (input.right && !input.c) {
+// if (input.left && !input.c) {
   // player.thrust(0.025);
   // player.socle.x += 10;
-  player.setVelocityX(10)
-  player.flipX = false, player.anim = 'walk';
-}
+  // player.setVelocityX(-10)
+  // player.flipX = false, player.anim = 'walk';
+// }
 
     // if (input.up) {
     //   if (player.x < 605  ) {
@@ -265,6 +270,8 @@ if (input.right && !input.c) {
     players[player.arene][player.playerId].py = player.body.position.y;
     players[player.arene][player.playerId].x = player.x;
     players[player.arene][player.playerId].y = player.y;
+    players[player.arene][player.playerId].ombreX = player.ombre.x;
+    players[player.arene][player.playerId].ombreY = player.ombre.y;
 
     // players[player.arene][player.playerId].ignoreGravity = player.body.ignoreGravity;
     // players[player.arene][player.playerId].socleX = player.socle.x;
@@ -300,12 +307,12 @@ function addPlayer(self, playerInfo) {
   // player.socle.body.friction.x = 0;
   // player.socle.setIgnoreGravity(true);
 
-  self.players[playerInfo.arene].add(joueur);
   joueur.socle = self.add.zone(playerInfo.x, playerInfo.y + 30, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
-joueur.ombre = self.add.ellipse(joueur.socle.x, joueur.socle.y - 35, 100, 20, 0x0009).setAlpha(0.5);
+  joueur.ombre = self.add.ellipse(joueur.socle.x, joueur.socle.y - 35, 100, 20, 0x0009).setAlpha(0.5);
 
 var socleJoueur = self.matter.add.gameObject(joueur.socle);
 socleJoueur.setIgnoreGravity(true).setStatic(true)
+  self.players[playerInfo.arene].add(joueur);
 
 
   // joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -55, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
