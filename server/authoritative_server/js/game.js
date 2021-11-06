@@ -43,7 +43,7 @@ function create() {
   let a = this.add.zone(3500, -700, 210, 210).setSize(3246, 40)
   var socleJoueur = self.matter.add.gameObject(a).setStatic(true).setIgnoreGravity(true).setAngle(-26);
 
-  this.bullet = this.matter.add.image(420, 400, 'bullet', null, { ignoreGravity: true });
+  this.bullet = this.matter.add.image(1210, -400, 'bullet', null, { ignoreGravity: true });
   this.bullet.setFixedRotation();
   this.bullet.setMass(500);
   this.bullet.setStatic(true);
