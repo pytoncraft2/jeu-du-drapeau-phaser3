@@ -13,9 +13,9 @@ const config = {
     physics: {
         matter: {
             debug: true,
-            gravity: {
-              y: 0
-            },
+            // gravity: {
+              // y: 10
+            // },
         }
 
     }
@@ -30,8 +30,15 @@ function create() {
   this.players['Naruto'] = this.add.group();
   this.players['Pikachu'] = this.add.group();
   self.room = ""
+  let a = this.add.zone(26, -700, 210, 210).setSize(4050, 40);
+  var socleJoueur = self.matter.add.gameObject(a).setStatic(true).setIgnoreGravity(true);
+
   // this.matter.world.disableGravity();
 
+
+  // this.matter.add.image(3426, -500, 'tobogan', null, { isStatic: true }).setAngle(-26);
+  // this.matter.add.image(-250, 360, 'tobogan', null, { isStatic: true });
+  // this.matter.add.image(7300, -1400, 'tobogan', null, { isStatic: true });
 
 
   io.on('connection', function(socket) {
@@ -100,22 +107,22 @@ function update() {
   Object.keys(this.players).forEach((arene) => {
   this.players[arene].getChildren().forEach((player) => {
     const input = players[player.arene][player.playerId].input;
+    // console.log(player.body.mass);
 
     // player.base = 0;
     // player.anim = false;
     // player.attack = false;
     // player.wall = false;
-    console.log(player.restitution);
 if (input.left && !input.c) {
   // player.thrust(-0.025);
-  player.socle.x -= 10;
+  // player.socle.x -= 10;
   player.setVelocityX(-10)
   player.flipX = true, player.anim = 'walk';
 }
 
 if (input.right && !input.c) {
   // player.thrust(0.025);
-  player.socle.x += 10;
+  // player.socle.x += 10;
   player.setVelocityX(10)
   player.flipX = false, player.anim = 'walk';
 }
@@ -159,17 +166,19 @@ if (input.right && !input.c) {
     }
 
     if (input.t) {
-      player.setVelocityY(10);
-      player.anim = 'heal';
+      // player.setVelocityY(10);
+      player.setIgnoreGravity(false)
+      // player.anim = 'heal';
     }
 
     if (input.space) {
       // player.base = player.y;
       // player.setIgnoreGravity(false)
-      player.setIgnoreGravity(false)
 
-      player.setVelocityY(-10);
-      player.anim = 'jump';
+      player.y -= 5
+      player.setIgnoreGravity(true)
+      // player.setVelocityY(-10);
+      // player.anim = 'jump';
     } else {
       // player.setVelocityY(10);
     }
@@ -177,7 +186,7 @@ if (input.right && !input.c) {
     if (player.x !== 0 && player.x === player.base) {
       // player.setIgnoreGravity(true);
     }
-    console.log(player.socle.x);
+    // console.log(player.socle.x);
       // if (!player.anims.getFrameName().includes("jump") && player.body.touching.down) {
         // player.anims.play('jump');
       // }
@@ -199,17 +208,31 @@ if (input.right && !input.c) {
     players[player.arene][player.playerId].anim = player.anim;
     // players[player.arene][player.playerId].base = player.base;
     players[player.arene][player.playerId].depth = player.depth;
-    // players[player.arene][player.playerId].size = player.size;
+    players[player.arene][player.playerId].size = player.size;
     players[player.arene][player.playerId].alpha = player.alpha;
     // players[player.arene][player.playerId].attack = player.attack;
     // players[player.arene][player.playerId].wall = player.wall;
-    players[player.arene][player.playerId].x = player.body.position.x;
-    players[player.arene][player.playerId].y = player.body.position.y;
-    players[player.arene][player.playerId].angle = player.angle;
+    players[player.arene][player.playerId].x = player.x;
+    players[player.arene][player.playerId].y = player.y;
+    // players[player.arene][player.playerId].angle = player.angle;
     players[player.arene][player.playerId].friction = player.body.friction;
+    players[player.arene][player.playerId].frictionair = player.body.frictionAir;
+    players[player.arene][player.playerId].frictionstatic = player.body.frictionStatic;
+    players[player.arene][player.playerId].mass = player.body.mass;
+    players[player.arene][player.playerId].density = player.body.density;
+    players[player.arene][player.playerId].speed = player.body.speed;
+    players[player.arene][player.playerId].boundsMIX = player.body.bounds.min.x;
+    players[player.arene][player.playerId].boundsMIY = player.body.bounds.min.y;
+    players[player.arene][player.playerId].boundsMAX = player.body.bounds.max.x;
+    players[player.arene][player.playerId].boundsMAY = player.body.bounds.max.y;
+    players[player.arene][player.playerId].px = player.body.position.x;
+    players[player.arene][player.playerId].py = player.body.position.y;
+    players[player.arene][player.playerId].x = player.x;
+    players[player.arene][player.playerId].y = player.y;
+
     // players[player.arene][player.playerId].ignoreGravity = player.body.ignoreGravity;
-    players[player.arene][player.playerId].socleX = player.socle.x;
-    players[player.arene][player.playerId].socleY = player.socle.y;
+    // players[player.arene][player.playerId].socleX = player.socle.x;
+    // players[player.arene][player.playerId].socleY = player.socle.y;
   });
   io.to(arene).emit("playerUpdates", players[arene]);
 
@@ -229,17 +252,10 @@ function handlePlayerInput(self, playerId, arene, input) {
 }
 
 function addPlayer(self, playerInfo) {
-  const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, playerInfo.atlas, null).setOrigin(0.5, 0.5).setScale(0.38);
+  const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, playerInfo.atlas, null).setScale(0.38);
   joueur.playerId = playerInfo.playerId;
   joueur.arene = playerInfo.arene;
-  joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -35, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
-  joueur.ombre = self.add.ellipse(joueur.socle.x, joueur.socle.y - 30, 100, 20, 0x0009).setAlpha(0.5);
-
-  var socleJoueur = self.matter.add.gameObject(joueur.socle);
-  socleJoueur.setIgnoreGravity(true).setStatic(true)
-
   self.players[playerInfo.arene].add(joueur);
-
 
   joueur.setFrictionAir(0.1);
   joueur.setMass(1);

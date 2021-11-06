@@ -141,11 +141,15 @@ const Arene = new Phaser.Class({
     let maison2 = this.add.group()
     maison2.addMultiple([interieurMaison2, facade2, toit2]);   // array of game objects
 
-    let tobogan = this.add.image(1000, -2650, 'tobogan')
-    this.matter.add.image(3426, -500, 'tobogan', null, { isStatic: true }).setAngle(-26);
-    this.matter.add.image(-250, 360, 'tobogan', null, { isStatic: true });
-    this.matter.add.image(7300, -1400, 'tobogan', null, { isStatic: true });
-    this.bullet = this.matter.add.image(420, 100, 'bullet', null, { ignoreGravity: true });
+    // let tobogan = this.add.image(1000, -2650, 'tobogan')
+    // this.matter.add.image(3426, -500, 'tobogan', null, { isStatic: true }).setAngle(-26);
+    // this.matter.add.image(-250, 360, 'tobogan', null, { isStatic: true });
+    // this.matter.add.image(7300, -1400, 'tobogan', null, { isStatic: true });
+    // this.bullet = this.matter.add.image(420, 100, 'bullet', null, { ignoreGravity: true });
+    let a = this.add.zone(26, -500, 210, 210).setSize(850, 40).setOrigin(0.5, 0.5);
+    var socleJoueur = self.matter.add.gameObject(a).setStatic(true).setIgnoreGravity(true);
+
+
 
     /**
      * AFFICHAGE JOUEURS
@@ -186,20 +190,33 @@ const Arene = new Phaser.Class({
       Object.keys(players).forEach((id) => {
         self.players.getChildren().forEach(function(player) {
           if (players[id].playerId === player.playerId) {
-            player.flipX = (players[id].flipX);
-            // console.log(player.body);
+            // player.flipX = (players[id].flipX);
             // player.setScale(players[id].scale);
             player.setVelocity(players[id].velocityX, players[id].velocityY);
+            player.setPosition(players[id].px, players[id].py);
+            player.x = players[id].x
+            player.y = players[id].y
             // player.setDepth(players[id].depth);
             // player.setAlpha(players[id].alpha);
             player.setAngle(players[id].angle);
-            // player.setFrictionAir(players[id].friction);
-            // player.setIgnoreGravity(players[id].ignoreGravity);
+            // player.setFrictionAir(players[id].frictionair);
+            // player.setFriction(players[id].friction, 1);
+            player.setFrictionStatic(players[id].frictionstatic);
+            player.setIgnoreGravity(players[id].ignoreGravity);
+            player.setMass(players[id].mass);
+            // player.body.density = players[id].density;
+            // player.body.speed = players[id].speed;
+            // player.body.bounds.min.x = player.boundsMIX;
+            // player.body.bounds.min.x = player.boundsMIX
+            // player.body.bounds.min.y = player.boundsMIY
+            // player.body.bounds.max.x = player.boundsMAX
+            // player.body.bounds.max.y =  player.boundsMAY
+
+
             // console.log(player.socle.body.x);
-            player.socle.setPosition(players[id].socleX, players[id].socleY + 220);
-            player.socle.setFriction(0);
+            // player.socle.setPosition(players[id].socle);
             // console.log(players[id].friction);
-            player.setPosition(players[id].x, players[id].y);
+            // player.setPosition(players[id].x, players[id].y);
             if (players[id].anim && players[id].anim !== false) {
               player.play('' + players[id].anim + '_' + players[id].atlas + '', 5);
             }
@@ -296,31 +313,31 @@ const Arene = new Phaser.Class({
   displayPlayers: function(self, playerInfo, iscurrent) {
     // plane = this.matter.add.sprite(300, 360, "plane", "plane1.png", { shape: spritePhysics.plane });
     console.log("Ajout joueur function");
-    const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, playerInfo.atlas, 'face1').setOrigin(0.5, 0.5).setScale(0.38);
+    const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, playerInfo.atlas, 'face1').setScale(0.38);
     // this.matter.add.joint(this.bullet, self.player,  35, 0.4)
     // self.matter.add.constraint(this.bullet ,self.player, 500, 0);
 
     joueur.playerId = playerInfo.playerId;
     joueur.arene = playerInfo.arene;
-
+    joueur.setFrictionAir(0.1);
+    joueur.setMass(1);
+    // joueur.setIgnoreGravity(true)
 
 
 
     self.players.add(joueur);
-    joueur.setFrictionAir(0.1);
-    joueur.setMass(1);
-    // joueur.setIgnoreGravity(false)
 
 
-        joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -30, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
-        joueur.ombre = self.add.ellipse(joueur.socle.x, joueur.socle.y - 35, 100, 20, 0x0009).setAlpha(0.5);
 
-        var socleJoueur = self.matter.add.gameObject(joueur.socle);
-        socleJoueur.setIgnoreGravity(true).setStatic(true)
     if (iscurrent) {
       self.cameras.main.startFollow(joueur, false, 0.2, 0.2);
 
 
+    // joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -30, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
+    // joueur.ombre = self.add.ellipse(joueur.socle.x, joueur.socle.y - 35, 100, 20, 0x0009).setAlpha(0.5);
+
+    // var socleJoueur = self.matter.add.gameObject(joueur.socle);
+    // socleJoueur.setIgnoreGravity(true).setStatic(true)
     // console.log(joueur);
 
     // var Bodies = Phaser.Physics.Matter.Matter.Bodies;
