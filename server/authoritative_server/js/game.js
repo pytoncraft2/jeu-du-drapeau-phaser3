@@ -40,7 +40,7 @@ function create() {
   // this.matter.add.image(-250, 360, 'tobogan', null, { isStatic: true });
   // this.matter.add.image(7300, -1400, 'tobogan', null, { isStatic: true });
 
-  let a = this.add.zone(3500, -509, 210, 210).setSize(3246, 40)
+  let a = this.add.zone(3500, -700, 210, 210).setSize(3246, 40)
   var socleJoueur = self.matter.add.gameObject(a).setStatic(true).setIgnoreGravity(true).setAngle(-26);
 
 
@@ -336,8 +336,10 @@ function addPlayer(self, playerInfo) {
   joueur.playerId = playerInfo.playerId;
   joueur.arene = playerInfo.arene;
 
-  joueur.setFrictionAir(0.1);
-  joueur.setMass(3);
+  // joueur.setFrictionAir(0.3);
+  joueur.setFriction(0.03);
+
+  joueur.setMass(2);
 
   // player.socle = this.add.zone(200, 780, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
 // this.physics.add.existing(ennemy['ennemyzone']);

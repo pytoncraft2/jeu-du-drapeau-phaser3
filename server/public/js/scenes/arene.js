@@ -143,10 +143,12 @@ const Arene = new Phaser.Class({
     maison2.addMultiple([interieurMaison2, facade2, toit2]);   // array of game objects
 
     // let tobogan = this.add.image(1000, -2650, 'tobogan')
-    // this.matter.add.image(3426, -500, 'tobogan', null, { isStatic: true }).setAngle(-26);
+    this.add.image(3426, -500, 'tobogan', null, { isStatic: true }).setAngle(-26);
     // this.matter.add.image(-250, 360, 'tobogan', null, { isStatic: true });
     // this.matter.add.image(7300, -1400, 'tobogan', null, { isStatic: true });
     // this.bullet = this.matter.add.image(420, 100, 'bullet', null, { ignoreGravity: true });
+    // let a = this.add.zone(3500, -509, 210, 210).setSize(3246, 40)
+    // var socleJoueur = self.matter.add.gameObject(a).setStatic(true).setIgnoreGravity(true).setAngle(-26);
 
 
 
@@ -326,8 +328,12 @@ const Arene = new Phaser.Class({
     joueur.playerId = playerInfo.playerId;
     joueur.arene = playerInfo.arene;
     joueur.ombre = playerInfo.ombre;
-    joueur.setFrictionAir(0.1);
-    joueur.setMass(3);
+    // joueur.setFrictionAir(0.3);
+  joueur.setFriction(0.03);
+
+    // joueur.setFriction(0.9);
+
+    joueur.setMass(2);
     // joueur.setIgnoreGravity(true)
 
     // joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -30, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
