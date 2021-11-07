@@ -379,10 +379,10 @@ function addPlayer(self, playerInfo) {
   joueur.playerId = playerInfo.playerId;
   joueur.arene = playerInfo.arene;
 
-  // joueur.setFrictionAir(0.3);
-  joueur.setFriction(0.03);
+  joueur.setFrictionAir(0.03);
+  // joueur.setFriction(1);
 
-  joueur.setMass(2);
+  joueur.setMass(15);
 
   // player.socle = this.add.zone(200, 780, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
   // this.physics.add.existing(ennemy['ennemyzone']);

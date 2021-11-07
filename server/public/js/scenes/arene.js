@@ -385,12 +385,12 @@ const Arene = new Phaser.Class({
     joueur.playerId = playerInfo.playerId;
     joueur.arene = playerInfo.arene;
     joueur.ombre = playerInfo.ombre;
-    // joueur.setFrictionAir(0.3);
-  joueur.setFriction(0.03);
+    joueur.setFrictionAir(0.03);
+  // joueur.setFriction(0.5);
 
     // joueur.setFriction(0.9);
 
-    joueur.setMass(2);
+    joueur.setMass(15);
     // joueur.setIgnoreGravity(true)
 
     // joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -30, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
