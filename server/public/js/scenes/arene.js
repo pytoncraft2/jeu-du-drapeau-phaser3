@@ -375,6 +375,19 @@ const Arene = new Phaser.Class({
 
       console.log(this.groupeBullets.getChildren()[0]);
 
+      this.charge = this.tweens.add({
+  targets: this.bulletCanon,
+  // scale: 8,
+  x: 2000,
+  // yoyo: true,
+  paused: false,
+  duration: 500,
+  repeat: 0,
+  // onComplete: function () { console.log('onComplete'); arguments[1][0].setTintFill(0xffbc00); },
+
+  // onYoyo: function () { console.log('onYoyo'); console.log(arguments); },
+
+});
       // if (this.chargePret) {
 
       // }
