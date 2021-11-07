@@ -130,7 +130,7 @@ const Arene = new Phaser.Class({
 
     let interieurMaison1 = this.add.image(-135, 40, 'interieur-maison')
     let poteau1 = this.add.image(1210, 0, 'poteau')
-    let canon1 = this.add.image(0, -460, 'canon').setDepth(4)
+    this.canon1 = this.add.image(0, -460, 'canon').setDepth(4)
     let canonSocle1 = this.add.image(0, -340, 'canon-socle').setDepth(3)
     let platforme1 = this.add.image(0, 290, 'platforme').setDepth(-2)
     let facade1 = this.add.image(-135, 106, 'facade').setDepth(1).setAlpha(0.4)
@@ -165,9 +165,9 @@ const Arene = new Phaser.Class({
 
       });
 
-    console.log("POTEAU");
-    console.log(poteau2.x);
-    console.log(poteau2.y);
+    // console.log("POTEAU");
+    // console.log(poteau2.x);
+    // console.log(poteau2.y);
     // let tobogan = this.add.image(1000, -2650, 'tobogan')
     this.add.image(3426, -500, 'tobogan', null, { isStatic: true }).setAngle(-26);
     // this.matter.add.image(-250, 360, 'tobogan', null, { isStatic: true });
@@ -354,22 +354,33 @@ const Arene = new Phaser.Class({
 
     if (Phaser.Input.Keyboard.JustDown(this.canonKeyPressed)) {
 
-      this.bulletCanon = this.groupeBullets.create(this.players.getChildren()[0].x + 1, this.players.getChildren()[0].x - 4, 'bullet').setScale(0.2).setDepth(100);
+      this.bulletCanon = this.groupeBullets.create(this.canon1.x + 180, this.canon1.y + 20, 'bullet').setScale(0.2).setDepth(100).setScale(2.5);
       this.charge = this.tweens.add({
         targets: this.bulletCanon,
-        scale: 8,
+        // scale: 8,
+        x: this.canon1.x - 140,
+        // yoyo: true,
         paused: false,
         duration: 2000,
-        repeat: 0
+        repeat: 0,
+        onComplete: function () { console.log('onComplete'); arguments[1][0].setTintFill(0xffbc00); },
+
+        // onYoyo: function () { console.log('onYoyo'); console.log(arguments); },
+
       });
     }
 
     if (Phaser.Input.Keyboard.JustUp(this.canonKeyPressed)) {
       this.charge.stop()
 
+      console.log(this.groupeBullets.getChildren()[0]);
+
+      // if (this.chargePret) {
+
+      // }
       // var coefDir;
       // if (this.girlMap['direction'] == 'left') { coefDir = -1; } else { coefDir = 1 }
-      this.bulletCanon.alpha = 0.5; // vitesse en x et en y
+      // this.bulletCanon.alpha = 0.5; // vitesse en x et en y
 
       // this.bulletCanon.setScale(5); // vitesse en x et en y
       // console.log(this.bullet);
@@ -405,6 +416,13 @@ const Arene = new Phaser.Class({
       });
     }
   },
+
+  onYoyoHandler: function (tween, target)
+{
+    console.log(arguments);
+
+    target.toggleFlipX().setAlpha(0.2 + Math.random());
+},
 
   displayPlayers: function(self, playerInfo, iscurrent) {
     // plane = this.matter.add.sprite(300, 360, "plane", "plane1.png", { shape: spritePhysics.plane });
