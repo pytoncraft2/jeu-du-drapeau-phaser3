@@ -132,6 +132,7 @@ function update() {
           // },
           x: 5675,
           y: -2376,
+          onComplete: () => player.world.localWorld.constraints = [],  // set context? how?
           duration: 3500,
         });
         console.log("OUIIII");
