@@ -125,6 +125,7 @@ function update() {
 
       // console.log(input.z);
       if (input.z) {
+        // TODO: ACTIF SI PRET DU POTEAU
         let bx = 1210;
         let by = -400;
         if (player.world.localWorld.constraints.length == 0) {
