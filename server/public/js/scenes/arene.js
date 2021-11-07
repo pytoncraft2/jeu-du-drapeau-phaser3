@@ -67,6 +67,14 @@ const Arene = new Phaser.Class({
 
     create: function ()
     {
+      var ellipse = new Phaser.Geom.Ellipse(400, 300, 300, 100);
+
+      this.graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x00ff00 } }).strokeEllipseShape(ellipse, 64);
+
+      this.ellipse = new Phaser.Geom.Ellipse(400, 300, 300, 100);
+
+      // this.graphics.fillCircleShape(this.circle);
+
       // this.matter.world.disableGravity();
       this.players = {}
 
@@ -195,6 +203,23 @@ const Arene = new Phaser.Class({
       Object.keys(players).forEach((id) => {
         self.players.getChildren().forEach(function(player) {
           if (players[id].playerId === player.playerId) {
+
+
+    if(self.ellipse.contains(player.x, player.y))
+    {
+      player.setAlpha(0.5)
+      self.graphics.clear();
+        self.graphics.fillStyle(0x00ff00);
+        self.graphics.strokeEllipseShape(self.ellipse, 64);
+    }
+    else
+    {
+      self.graphics.clear();
+        // self.graphics.fillStyle(0xff0000);
+    }
+
+    console.log(player.x);
+
             player.flipX = (players[id].flipX);
             // player.setScale(players[id].scale);
             player.setVelocity(players[id].velocityX, players[id].velocityY);
