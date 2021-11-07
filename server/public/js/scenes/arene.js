@@ -69,6 +69,11 @@ const Arene = new Phaser.Class({
     {
 
 
+      var path2 = new Phaser.Curves.Path(100, 200).lineTo(500, 300);
+      var graphics = this.add.graphics();
+      graphics.lineStyle(1, 0xffffff, 1);
+
+      path2.draw(graphics, 128);
 
 
 
@@ -340,6 +345,20 @@ this.input.keyboard.on('keydown-O', function (event) {
     this.matter.add.mouseSpring();
 
     this.cameras.main.setZoom(0.1);
+    this.input.keyboard.on('keydown', function (event) {
+
+    if (event.key == "-") {
+      self.cameras.main.zoomTo(self.cameras.main.zoom - 0.2, 1000)
+    } else if (event.key == "+"){
+      self.cameras.main.zoomTo(self.cameras.main.zoom + 0.2, 1000)
+    } else if (event.key == "Enter") {
+      self.cameras.main.zoomTo(0.5, 2000)
+    } else if (event.key == "End") {
+      self.cameras.main.zoomTo(0.1, 1500)
+    }
+    console.log(event.key);
+
+});
     // this.input.on('pointerdown', function () {
     //   const cam = this.cameras.main;
     //
