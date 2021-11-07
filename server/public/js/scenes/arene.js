@@ -340,23 +340,23 @@ this.input.keyboard.on('keydown-O', function (event) {
     this.matter.add.mouseSpring();
 
     this.cameras.main.setZoom(0.1);
-    this.input.on('pointerdown', function () {
-      const cam = this.cameras.main;
-
-      let zoom =
-      cam.zoom == 0.1 ?  1
-      : cam.zoom == 1 ? 0.5
-      :  cam.zoom == 0.5 ? 0.1
-      : 1
-      cam.zoomTo(zoom, 3000);
-    });
+    // this.input.on('pointerdown', function () {
+    //   const cam = this.cameras.main;
+    //
+    //   let zoom =
+    //   cam.zoom == 0.1 ?  1
+    //   : cam.zoom == 1 ? 0.5
+    //   :  cam.zoom == 0.5 ? 0.1
+    //   : 1
+    //   cam.zoomTo(zoom, 3000);
+    // });
 
   },
   generate: function(x, y)
 {
     // this.bulletCanon.setPosition(player.x, player.y).setScale(0.5).setAlpha(1);
 
-    let curve = new Phaser.Curves.Line(new Phaser.Math.Vector2(this.players.getChildren()[0].x, this.players.getChildren()[0].y), new Phaser.Math.Vector2(x, y));
+    let curve = new Phaser.Curves.Line(new Phaser.Math.Vector2(this.canon1.x, this.canon1.y), new Phaser.Math.Vector2(x, y));
 
     this.fireball.setPath(curve);
     this.fireball.startFollow(300);
@@ -415,16 +415,15 @@ this.input.keyboard.on('keydown-O', function (event) {
 
     if (Phaser.Input.Keyboard.JustDown(this.canonKeyPressed)) {
 
-      this.bulletCanon = this.groupeBullets.create(this.canon1.x + 180, this.canon1.y + 20, 'bullet').setScale(0.2).setDepth(100).setScale(2.5);
+      // this.bulletCanon = this.groupeBullets.create(this.canon1.x + 180, this.canon1.y + 20, 'bullet').setScale(0.2).setDepth(100).setScale(2.5);
       this.rt = this.make.renderTexture({ x: 0, y: 0, width: 800, height: 600 });
 
-      this.fireball = this.add.follower(null, 50, 350, 'bullet');
+      this.fireball = this.add.follower(null, 1210, -400, 'bullet').setScale(3);
 
       this.fireFX = this.tweens.add({
         targets: this.fireball,
-        scaleX: 3,
-        scaleY: 3,
-        alpha: 0,
+        scale: 8,
+        // alpha: 0,
         duration: 300,
         ease: "Cubic.easeOut",
         onComplete: function () { this.rt.clear(); this.fireball.alpha = 0 },
