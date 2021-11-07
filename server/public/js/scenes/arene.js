@@ -351,6 +351,10 @@ this.input.keyboard.on('keydown-O', function (event) {
     //   cam.zoomTo(zoom, 3000);
     // });
 
+    this.input.on('pointerdown', function (pointer)
+{
+  this.generate(pointer.x, pointer.y);
+}, this);
   },
   generate: function(x, y)
 {
@@ -416,7 +420,7 @@ this.input.keyboard.on('keydown-O', function (event) {
     if (Phaser.Input.Keyboard.JustDown(this.canonKeyPressed)) {
 
       // this.bulletCanon = this.groupeBullets.create(this.canon1.x + 180, this.canon1.y + 20, 'bullet').setScale(0.2).setDepth(100).setScale(2.5);
-      this.rt = this.make.renderTexture({ x: 0, y: 0, width: 800, height: 600 });
+      // this.rt = this.make.renderTexture({ x: 0, y: 0, width: 800, height: 600 });
 
       this.fireball = this.add.follower(null, this.canon1.x + 180, this.canon1.y + 20, 'bullet').setScale(3);
 
@@ -426,15 +430,12 @@ this.input.keyboard.on('keydown-O', function (event) {
         // alpha: 0,
         duration: 300,
         ease: "Cubic.easeOut",
-        onComplete: function () { this.rt.clear(); this.fireball.alpha = 0 },
+        onComplete: function () { /*this.rt.clear()*/console.log("ok");; this.fireball.alpha = 0 },
         paused: true
       });
       this.fireFX.setCallback('onUpdate', this.draw, [], this);
 
-      this.input.on('pointerdown', function (pointer)
-      {
-        this.generate(pointer.x, pointer.y);
-      }, this);
+
 
 //
 //       this.charge = this.tweens.add({
