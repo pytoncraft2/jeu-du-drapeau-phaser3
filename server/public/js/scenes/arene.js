@@ -418,7 +418,7 @@ this.input.keyboard.on('keydown-O', function (event) {
       // this.bulletCanon = this.groupeBullets.create(this.canon1.x + 180, this.canon1.y + 20, 'bullet').setScale(0.2).setDepth(100).setScale(2.5);
       this.rt = this.make.renderTexture({ x: 0, y: 0, width: 800, height: 600 });
 
-      this.fireball = this.add.follower(null, 1210, -400, 'bullet').setScale(3);
+      this.fireball = this.add.follower(null, this.canon1.x + 180, this.canon1.y + 20, 'bullet').setScale(3);
 
       this.fireFX = this.tweens.add({
         targets: this.fireball,
