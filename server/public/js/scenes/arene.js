@@ -67,15 +67,10 @@ const Arene = new Phaser.Class({
 
     create: function ()
     {
-      var ellipse = new Phaser.Geom.Ellipse(400, 300, 300, 100);
 
-      this.graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x00ff00 } }).strokeEllipseShape(ellipse, 64);
 
-      this.ellipse = new Phaser.Geom.Ellipse(400, 300, 300, 100);
 
-      // this.graphics.fillCircleShape(this.circle);
 
-      // this.matter.world.disableGravity();
       this.players = {}
 
 
@@ -151,6 +146,20 @@ const Arene = new Phaser.Class({
     let maison2 = this.add.group()
     maison2.addMultiple([interieurMaison2, facade2, toit2]);   // array of game objects
 
+
+      var ellipse1 = this.add.ellipse(poteau1.x, poteau1.y + poteau1.displayHeight /2, 100, 20, 0x0009).setDepth(-1).setAlpha(0.6).setScale(2);
+      var ellipse2 = this.add.ellipse(poteau2.x, poteau2.y + poteau2.displayHeight /2, 100, 20, 0x0009).setDepth(-1).setAlpha(0.6).setScale(2);
+
+      this.tweens.add({
+
+        targets: [ellipse1, ellipse2],
+        alpha: 0.2,
+        yoyo: true,
+        repeat: -1,
+        ease: 'Sine.easeInOut'
+
+      });
+
     console.log("POTEAU");
     console.log(poteau2.x);
     console.log(poteau2.y);
@@ -203,23 +212,6 @@ const Arene = new Phaser.Class({
       Object.keys(players).forEach((id) => {
         self.players.getChildren().forEach(function(player) {
           if (players[id].playerId === player.playerId) {
-
-
-    if(self.ellipse.contains(player.x, player.y))
-    {
-      player.setAlpha(0.5)
-      self.graphics.clear();
-        self.graphics.fillStyle(0x00ff00);
-        self.graphics.strokeEllipseShape(self.ellipse, 64);
-    }
-    else
-    {
-      self.graphics.clear();
-        // self.graphics.fillStyle(0xff0000);
-    }
-
-    console.log(player.x);
-
             player.flipX = (players[id].flipX);
             // player.setScale(players[id].scale);
             player.setVelocity(players[id].velocityX, players[id].velocityY);
