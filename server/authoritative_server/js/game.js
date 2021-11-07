@@ -122,21 +122,30 @@ function update() {
 
       // console.log(input.z);
       if (input.z) {
-
-        let bx = this.bullet.x;
-        let by = this.bullet.y;
+        let bx = 1210;
+        let by = -400;
+        if (player.world.localWorld.constraints.length == 0) {
         this.matter.add.constraint(this.bullet ,player);
         var tween = this.tweens.add({
           targets: this.bullet,
           x: 5675,
           y: -2376,
-          onComplete: () => (player.world.localWorld.constraints = [], this.bullet.x = bx, this.bullet.y = by),  // set context? how?
+          onComplete: () => (player.world.localWorld.constraints = []),  // set context? how?
           yoyo: true,
+          // onYoyo: function () { addEvent('onYoyo') },
           duration: 3500,
         });
         console.log("OUIIII");
         input.z = false
+
       }
+      else {
+        player.world.localWorld.constraints = []
+      }
+      input.z = false;
+    }
+
+
       if (input.right && !input.c) {
         player.setVelocityX(10)
         player.anim = "walk"
