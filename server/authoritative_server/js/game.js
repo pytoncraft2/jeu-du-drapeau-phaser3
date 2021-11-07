@@ -123,16 +123,14 @@ function update() {
       // console.log(input.z);
       if (input.z) {
 
+        let bx = this.bullet.x;
+        let by = this.bullet.y;
         this.matter.add.constraint(this.bullet ,player);
         var tween = this.tweens.add({
           targets: this.bullet,
-          // props: {
-            // x: { value: function () { return marker.x; }, ease: 'Power1' },
-            // y: { value: function () { return marker.y; }, ease: 'Power3' }
-          // },
           x: 5675,
           y: -2376,
-          onComplete: () => player.world.localWorld.constraints = [],  // set context? how?
+          onComplete: () => (player.world.localWorld.constraints = [], this.bullet.x = bx, this.bullet.y = by),  // set context? how?
           duration: 3500,
         });
         console.log("OUIIII");
