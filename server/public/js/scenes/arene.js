@@ -71,6 +71,7 @@ const Arene = new Phaser.Class({
 
 
 
+
       this.players = {}
 
 
@@ -147,9 +148,33 @@ const Arene = new Phaser.Class({
     let fontaine2 = this.add.image(8235, -1553, 'fontaine').setDepth(2)
     let maison2 = this.add.group()
     maison2.addMultiple([interieurMaison2, facade2, toit2]);   // array of game objects
+    let i = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.I);
 
     this.groupeBullets = this.add.group();
 
+
+    var line = new Phaser.Geom.Line();
+var angle = 0;
+
+this.input.keyboard.on('keydown-I', function (event) {
+
+    console.log('Hello from the A Key!');
+    // angle = Phaser.Math.Angle.BetweenPoints(this.canon1, pointer);
+    // this.canon1.setRotation(angle+Math.PI/2);
+    self.canon1.angle += 3
+    // self.canon1.setRotation(45);
+    // Phaser.Geom.Line.SetToAngle(line,this.canon1.x, this.canon1.y - 50, angle, 128);
+    // gfx.clear().strokeLineShape(line);
+
+});
+// this.input.on('pointermove', function (pointer) {
+// }, this);
+
+// this.input.on('pointerup', function () {
+// chick.enableBody(true, cannon.x, cannon.y - 50, true, true);
+// chick.play('fly');
+// this.physics.velocityFromRotation(angle, 600, chick.body.velocity);
+// }, this);
 
 
       var ellipse1 = this.add.ellipse(poteau1.x, poteau1.y + poteau1.displayHeight /2, 100, 20, 0x0009).setDepth(-1).setAlpha(0.6).setScale(2);
