@@ -17,6 +17,9 @@ var config = {
         // gravity: {
           // y: 10
         // },
+    },
+    arcade: {
+      debug: true
     }
 },
    scene: Scenes

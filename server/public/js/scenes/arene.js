@@ -148,6 +148,9 @@ const Arene = new Phaser.Class({
     let maison2 = this.add.group()
     maison2.addMultiple([interieurMaison2, facade2, toit2]);   // array of game objects
 
+    this.groupeBullets = this.add.group();
+
+
 
       var ellipse1 = this.add.ellipse(poteau1.x, poteau1.y + poteau1.displayHeight /2, 100, 20, 0x0009).setDepth(-1).setAlpha(0.6).setScale(2);
       var ellipse2 = this.add.ellipse(poteau2.x, poteau2.y + poteau2.displayHeight /2, 100, 20, 0x0009).setDepth(-1).setAlpha(0.6).setScale(2);
@@ -273,6 +276,7 @@ const Arene = new Phaser.Class({
 
 
     this.zKeyPressed = this.input.keyboard.addKey('Z');
+    this.canonKeyPressed = this.input.keyboard.addKey('C');
     this.aKeyPressed = this.input.keyboard.addKey('A');
     this.tKeyPressed = this.input.keyboard.addKey('T');
     this.cKeyPressed = this.input.keyboard.addKey('CTRL');
@@ -346,6 +350,31 @@ const Arene = new Phaser.Class({
         z: true,
       });
     }
+
+
+    if (Phaser.Input.Keyboard.JustDown(this.canonKeyPressed)) {
+
+      this.bulletCanon = this.groupeBullets.create(this.players.getChildren()[0].x + 1, this.players.getChildren()[0].x - 4, 'bullet').setScale(0.2).setDepth(100);
+      this.charge = this.tweens.add({
+        targets: this.bulletCanon,
+        scale: 8,
+        paused: false,
+        duration: 2000,
+        repeat: 0
+      });
+    }
+
+    if (Phaser.Input.Keyboard.JustUp(this.canonKeyPressed)) {
+      this.charge.stop()
+
+      // var coefDir;
+      // if (this.girlMap['direction'] == 'left') { coefDir = -1; } else { coefDir = 1 }
+      this.bulletCanon.alpha = 0.5; // vitesse en x et en y
+
+      // this.bulletCanon.setScale(5); // vitesse en x et en y
+      // console.log(this.bullet);
+    }
+
     // console.log(this.zKey);
 
     // if (Phaser.Input.Keyboard.JustDown(this.zKeyPressed)) {
