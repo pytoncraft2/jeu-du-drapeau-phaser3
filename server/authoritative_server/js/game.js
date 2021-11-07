@@ -131,6 +131,7 @@ function update() {
           x: 5675,
           y: -2376,
           onComplete: () => (player.world.localWorld.constraints = [], this.bullet.x = bx, this.bullet.y = by),  // set context? how?
+          yoyo: true,
           duration: 3500,
         });
         console.log("OUIIII");
