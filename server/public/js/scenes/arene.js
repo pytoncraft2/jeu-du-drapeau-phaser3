@@ -68,14 +68,7 @@ const Arene = new Phaser.Class({
     create: function ()
     {
 
-
-
-
       this.players = {}
-
-
-
-
 
       this.players = this.add.group();
 
@@ -85,12 +78,6 @@ const Arene = new Phaser.Class({
     this.graph = this.add.graphics();
 
     var self = this;
-    // console.log(self.scene.scene.physics.scene);
-
-    // this.cameras.main.setBounds(-2074, 0, 3574, 666);
-    // this.physics.world.setBounds(-2074, 0, 3574, 666);
-    // this.cameras.main.fadeIn(1000);
-
     new Animations(this.anims)
     /**
      * CONNEXION
@@ -106,7 +93,6 @@ const Arene = new Phaser.Class({
         equipe: this.equipe
       }
     });
-    this.position = {x: 1000, y: 447}
 
         this.socket.emit("nouveau_joueur", this.arene, this.equipe);
 
@@ -116,18 +102,14 @@ const Arene = new Phaser.Class({
         });
 
         this.socket.on("tout_les_joueurs", (arene) => {
-      Object.keys(arene[self.arene]).forEach(function(id) {
-        if (arene[self.arene][id].playerId === self.socket.id) {
-          self.displayPlayers(self, arene[self.arene][id], true);
-        } else {
-          self.displayPlayers(self, arene[self.arene][id], false);
-        }
-      });
+          Object.keys(arene[self.arene]).forEach(function(id) {
+            if (arene[self.arene][id].playerId === self.socket.id) {
+              self.displayPlayers(self, arene[self.arene][id], true);
+            } else {
+              self.displayPlayers(self, arene[self.arene][id], false);
+            }
           });
-
-
-          //1140
-          //118
+        });
 
     let interieurMaison1 = this.add.image(-135, 40, 'interieur-maison')
     let poteau1 = this.add.image(1210, 0, 'poteau')
@@ -151,8 +133,6 @@ const Arene = new Phaser.Class({
 
     this.groupeBullets = this.add.group();
 
-
-
       var ellipse1 = this.add.ellipse(poteau1.x, poteau1.y + poteau1.displayHeight /2, 100, 20, 0x0009).setDepth(-1).setAlpha(0.6).setScale(2);
       var ellipse2 = this.add.ellipse(poteau2.x, poteau2.y + poteau2.displayHeight /2, 100, 20, 0x0009).setDepth(-1).setAlpha(0.6).setScale(2);
 
@@ -166,18 +146,8 @@ const Arene = new Phaser.Class({
 
       });
 
-    // console.log("POTEAU");
-    // console.log(poteau2.x);
-    // console.log(poteau2.y);
-    // let tobogan = this.add.image(1000, -2650, 'tobogan')
     this.add.image(3426, -500, 'tobogan', null, { isStatic: true }).setAngle(-26);
-    // this.matter.add.image(-250, 360, 'tobogan', null, { isStatic: true });
-    // this.matter.add.image(7300, -1400, 'tobogan', null, { isStatic: true });
     this.bullet = this.add.image(1210, -400, 'bullet');
-    // let a = this.add.zone(3500, -509, 210, 210).setSize(3246, 40)
-    // var socleJoueur = self.matter.add.gameObject(a).setStatic(true).setIgnoreGravity(true).setAngle(-26);
-
-
 
     /**
      * AFFICHAGE JOUEURS
@@ -224,11 +194,7 @@ const Arene = new Phaser.Class({
             player.setPosition(players[id].px, players[id].py);
             player.x = players[id].x
             player.y = players[id].y
-            // player.setDepth(players[id].depth);
-            // player.setAlpha(players[id].alpha);
             player.setAngle(players[id].angle);
-            // player.setFrictionAir(players[id].frictionair);
-            // player.setFriction(players[id].friction, 1);
             player.setFrictionStatic(players[id].frictionstatic);
             player.setIgnoreGravity(players[id].ignoreGravity);
             player.setMass(players[id].mass);
@@ -236,31 +202,6 @@ const Arene = new Phaser.Class({
             player.ombre.y = players[id].ombreY
             self.bullet.x = players[id].bulletX
             self.bullet.y = players[id].bulletY
-            // player.ombre.x = players[id].ombreX
-            // player.ombre.y = players[id].ombreY
-
-
-            // player.socle.x = players[id].ombreX
-            // player.socle.y = players[id].socleY
-
-            // player.ombre
-            // console.log(player.ombre);
-            // console.log(player.socle);
-            // console.log(players[id].ombreX);
-            // player.setMass(players[id].mass);
-            // player.body.density = players[id].density;
-            // player.body.speed = players[id].speed;
-            // player.body.bounds.min.x = player.boundsMIX;
-            // player.body.bounds.min.x = player.boundsMIX
-            // player.body.bounds.min.y = player.boundsMIY
-            // player.body.bounds.max.x = player.boundsMAX
-            // player.body.bounds.max.y =  player.boundsMAY
-
-
-            // console.log(player.socle.body.x);
-            // player.socle.setPosition(players[id].socle);
-            // console.log(players[id].friction);
-            // player.setPosition(players[id].x, players[id].y);
             if (players[id].anim && players[id].anim !== false) {
               player.play('' + players[id].anim + '_' + players[id].atlas + '', 5);
             }
@@ -297,32 +238,27 @@ const Arene = new Phaser.Class({
     this.cameras.main.setZoom(0.1);
 
     this.input.keyboard.on('keydown', function (event) {
+      if (event.key == "-") {
+        self.cameras.main.zoomTo(self.cameras.main.zoom - 0.2, 1000)
+      } else if (event.key == "+"){
+        self.cameras.main.zoomTo(self.cameras.main.zoom + 0.2, 1000)
+      } else if (event.key == "Enter") {
+        self.cameras.main.zoomTo(0.5, 2000)
+      } else if (event.key == "End") {
+        self.cameras.main.zoomTo(0.1, 1500)
+      } else if (event.key == "ArrowUp") {
+        self.canon1.setAngle(self.canon1.angle - 5)
+      } else if (event.key == "ArrowDown") {
+        self.canon1.setAngle(self.canon1.angle + 5)
+      }
+      console.log(event.key);
+      console.log(event);
 
-    if (event.key == "-") {
-      self.cameras.main.zoomTo(self.cameras.main.zoom - 0.2, 1000)
-    } else if (event.key == "+"){
-      self.cameras.main.zoomTo(self.cameras.main.zoom + 0.2, 1000)
-    } else if (event.key == "Enter") {
-      self.cameras.main.zoomTo(0.5, 2000)
-    } else if (event.key == "End") {
-      self.cameras.main.zoomTo(0.1, 1500)
-    } else if (event.key == "ArrowUp") {
-      self.canon1.setAngle(self.canon1.angle - 5)
-    } else if (event.key == "ArrowDown") {
-      self.canon1.setAngle(self.canon1.angle + 5)
-    }
-    console.log(event.key);
-    console.log(event);
-
-});
+    });
 
   },
 
   update: function () {
-
-    // const cam = this.cameras.main;
-
-
     const left = this.leftKeyPressed,
       right = this.rightKeyPressed,
       up = this.upKeyPressed,
@@ -347,7 +283,6 @@ const Arene = new Phaser.Class({
 
     this.cursors.space.isDown ? this.spaceKeyPressed = true : this.spaceKeyPressed = false
 
-    // console.log(Phaser.Input.Keyboard.JustDown(this.zKeyPressed));
     if (Phaser.Input.Keyboard.JustDown(this.zKeyPressed)) {
       this.socket.emit('playerInput', {
         left: this.leftKeyPressed,
@@ -364,15 +299,10 @@ const Arene = new Phaser.Class({
 
 
     if (Phaser.Input.Keyboard.JustDown(this.canonKeyPressed)) {
-
       this.bulletCanon = this.groupeBullets.create(this.canon1.x, this.canon1.y + 20, 'bullet').setScale(0.2).setDepth(100);
       this.charge = this.tweens.add({
         targets: this.bulletCanon,
         scale: 4,
-        // x: this.canon1.x,
-        // y: this.canon1.y,
-        // y: this.canon1.y + 200,
-        // yoyo: true,
         paused: false,
         duration: 2000,
         repeat: 0,
@@ -380,18 +310,7 @@ const Arene = new Phaser.Class({
           console.log('onComplete');
           arguments[1][0].setTintFill(0xcf0000);
         },
-
-
-        // onYoyo: function () { console.log('onYoyo'); console.log(arguments); },
-
       });
-      // var rad = Phaser.Math.DegToRad(90);
-
-
-
-      // this.add.line(600, 400, 0, 0, 2400, rad, 0xff66ff).setDepth(1000);
-      // var lineeee = Phaser.Geom.Line.SetToAngle(line, x, y, angle, length);
-
     }
 
     if (Phaser.Input.Keyboard.JustUp(this.canonKeyPressed)) {
@@ -401,65 +320,30 @@ const Arene = new Phaser.Class({
       this.l = new Phaser.Geom.Line(this.canon1.x, this.canon1.y, this.canon1.x + 5400, this.canon1.y);
       var rad = Phaser.Math.DegToRad(this.canon1.angle);
       let line = Phaser.Geom.Line.SetToAngle(this.l, this.canon1.x, this.canon1.y, rad, 4000);
-// console.log("X1X1X1X1X1X1X1X1X1X1X1X1X1");
-// console.log(l.x2);
-this.graph.lineStyle(10, 0xcf0000, 1);
-var b = this.graph.strokeLineShape(this.l).setDepth(1000);
+      this.graph.lineStyle(10, 0xcf0000, 1);
+      var b = this.graph.strokeLineShape(this.l).setDepth(1000);
 
-b.setAlpha(0)
-// var line = Phaser.Geom.Line.SetToAngle(line, x, y, angle, length);
-
+      b.setAlpha(0)
 
       this.charge = this.tweens.add({
-  targets: b,
-  // scale: 8,
-  // x: this.l.x2,
-  // y: this.l.y2,
-  alpha: 0.7,
-  yoyo: true,
-  paused: false,
-  duration: 200,
-  repeat: 0,
-  onComplete: function () { console.log('onComplete'); arguments[1][0].clear(); },
-
-  // onYoyo: function () { console.log('onYoyo'); console.log(arguments); },
-
-});
+        targets: b,
+        alpha: 0.7,
+        yoyo: true,
+        paused: false,
+        duration: 200,
+        repeat: 0,
+        onComplete: function () { console.log('onComplete'); arguments[1][0].clear(); },
+      });
 
       this.charge = this.tweens.add({
-  targets: this.bulletCanon,
-  // scale: 8,
-  x: this.l.x2,
-  y: this.l.y2,
-  // yoyo: true,
-  paused: false,
-  duration: 500,
-  repeat: 0,
-  // onComplete: function () { console.log('onComplete'); arguments[1][0].setTintFill(0xffbc00); },
-
-  // onYoyo: function () { console.log('onYoyo'); console.log(arguments); },
-
-});
-
-
-      // if (this.chargePret) {
-
-      // }
-      // var coefDir;
-      // if (this.girlMap['direction'] == 'left') { coefDir = -1; } else { coefDir = 1 }
-      // this.bulletCanon.alpha = 0.5; // vitesse en x et en y
-
-      // this.bulletCanon.setScale(5); // vitesse en x et en y
-      // console.log(this.bullet);
+        targets: this.bulletCanon,
+        x: this.l.x2,
+        y: this.l.y2,
+        paused: false,
+        duration: 500,
+        repeat: 0,
+      });
     }
-
-    // console.log(this.zKey);
-
-    // if (Phaser.Input.Keyboard.JustDown(this.zKeyPressed)) {
-    //   console.log("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
-    // }
-
-        // console.log(Phaser.Input.Keyboard.JustDown(this.zKeyPressed));
 
     if (left !== this.leftKeyPressed ||
       right !== this.rightKeyPressed ||
@@ -483,76 +367,23 @@ b.setAlpha(0)
       });
     }
   },
-
-  onYoyoHandler: function (tween, target)
-{
-    console.log(arguments);
-
-    target.toggleFlipX().setAlpha(0.2 + Math.random());
-},
-
   displayPlayers: function(self, playerInfo, iscurrent) {
-    // plane = this.matter.add.sprite(300, 360, "plane", "plane1.png", { shape: spritePhysics.plane });
     console.log("Ajout joueur function");
     const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, playerInfo.atlas, 'face1').setScale(0.38);
-    // this.matter.add.joint(this.bullet, self.player,  35, 0.4)
-    // self.matter.add.constraint(this.bullet ,self.player, 500, 0);
 
     joueur.playerId = playerInfo.playerId;
     joueur.arene = playerInfo.arene;
     joueur.ombre = playerInfo.ombre;
     joueur.setFrictionAir(0.03);
-  // joueur.setFriction(0.5);
-
-    // joueur.setFriction(0.9);
-
     joueur.setMass(15);
-    // joueur.setIgnoreGravity(true)
-
-    // joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -30, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
-    // joueur.ombre = self.add.ellipse(joueur.socle.x, joueur.socle.y - 35, 100, 20, 0x0009).setAlpha(0.5);
     joueur.socle = self.add.zone(playerInfo.x, playerInfo.y + 30, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
     joueur.ombre = self.add.ellipse(joueur.socle.x, joueur.socle.y - 35, 100, 20, 0x0009).setAlpha(0.5);
 
-
-
-
     self.players.add(joueur);
-
-    // self.matter.add.constraint(self.bullet, joueur, 500, 0.2);
-
-
-
-
     if (iscurrent) {
       self.cameras.main.startFollow(joueur, false, 0.2, 0.2);
-
-
-    // joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -30, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
-    // joueur.ombre = self.add.ellipse(joueur.socle.x, joueur.socle.y - 35, 100, 20, 0x0009).setAlpha(0.5);
-
-    // var socleJoueur = self.matter.add.gameObject(joueur.socle);
-    // socleJoueur.setIgnoreGravity(true).setStatic(true)
-    // console.log(joueur);
-
-    // var Bodies = Phaser.Physics.Matter.Matter.Bodies;
-    // var rect = Bodies.rectangle(0, 0, 98, 98);
-
-
-
-      // self.player.setCollideWorldBounds(true);
-      // self.matter.add.image(400, 550, 'platform', null, { isStatic: true });
-
-      // self.matter.add.overlap(self.player, self.doors, function(player, doors) {
-        // player.y < 399 ? doors.alpha = 0.5 : doors.alpha = 1
-      // });
     }
   },
-  ajoutJoueur: function (id, x, y, direction) {
-
-
-
-  }
 });
 
 export default Arene;
