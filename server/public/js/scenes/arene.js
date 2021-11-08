@@ -82,6 +82,7 @@ const Arene = new Phaser.Class({
 
     this.cameras.main.fadeIn(1000);
     gfx = this.add.graphics();
+    this.graph = this.add.graphics();
 
     var self = this;
     // console.log(self.scene.scene.physics.scene);
@@ -361,20 +362,34 @@ const Arene = new Phaser.Class({
 
     if (Phaser.Input.Keyboard.JustDown(this.canonKeyPressed)) {
 
+      var l = new Phaser.Geom.Line(this.canon1.x, this.canon1.y, this.canon1.x + 2400, this.canon1.y);
+console.log("X1X1X1X1X1X1X1X1X1X1X1X1X1");
+console.log(l.x2);
+// this.graph.lineStyle(10, 0xcf0000, 1);
+// this.graph.strokeLineShape(l).setDepth(1000);
+
       this.bulletCanon = this.groupeBullets.create(this.canon1.x + 180, this.canon1.y + 20, 'bullet').setScale(0.2).setDepth(100).setScale(2.5);
       this.charge = this.tweens.add({
         targets: this.bulletCanon,
         scale: 4,
-        x: this.canon1.x - 140,
+        x: l.x2,
+        // y: this.canon1.y + 200,
         // yoyo: true,
         paused: false,
         duration: 2000,
         repeat: 0,
-        onComplete: function () { console.log('onComplete'); arguments[1][0].setTintFill(0xffbc00); },
+        onComplete: function () { console.log('onComplete'); arguments[1][0].setTintFill(0xcf0000); },
+
 
         // onYoyo: function () { console.log('onYoyo'); console.log(arguments); },
 
       });
+      var rad = Phaser.Math.DegToRad(90);
+
+
+      // this.add.line(600, 400, 0, 0, 2400, rad, 0xff66ff).setDepth(1000);
+      // var lineeee = Phaser.Geom.Line.SetToAngle(line, x, y, angle, length);
+
     }
 
     if (Phaser.Input.Keyboard.JustUp(this.canonKeyPressed)) {
