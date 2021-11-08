@@ -1,4 +1,4 @@
-function animations(anims) {
+function Animations(anims) {
 
 anims.create({
   key: "attack1_dessinatrice1",
@@ -94,4 +94,4 @@ anims.create({
 
 }
 
-export default animations;
+export default Animations;
