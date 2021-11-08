@@ -365,11 +365,12 @@ const Arene = new Phaser.Class({
 
     if (Phaser.Input.Keyboard.JustDown(this.canonKeyPressed)) {
 
-      this.bulletCanon = this.groupeBullets.create(this.canon1.x + 180, this.canon1.y + 20, 'bullet').setScale(0.2).setDepth(100).setScale(2.5);
+      this.bulletCanon = this.groupeBullets.create(this.canon1.x, this.canon1.y + 20, 'bullet').setScale(0.2).setDepth(100);
       this.charge = this.tweens.add({
         targets: this.bulletCanon,
         scale: 4,
-        x: this.canon1.x - 140,
+        // x: this.canon1.x,
+        // y: this.canon1.y,
         // y: this.canon1.y + 200,
         // yoyo: true,
         paused: false,
@@ -402,8 +403,8 @@ const Arene = new Phaser.Class({
       let line = Phaser.Geom.Line.SetToAngle(this.l, this.canon1.x, this.canon1.y, rad, 4000);
 // console.log("X1X1X1X1X1X1X1X1X1X1X1X1X1");
 // console.log(l.x2);
-this.graph.lineStyle(10, 0xcf0000, 1);
-this.graph.strokeLineShape(this.l).setDepth(1000);
+// this.graph.lineStyle(10, 0xcf0000, 1);
+// this.graph.strokeLineShape(this.l).setDepth(1000);
 
 // var line = Phaser.Geom.Line.SetToAngle(line, x, y, angle, length);
       this.charge = this.tweens.add({
