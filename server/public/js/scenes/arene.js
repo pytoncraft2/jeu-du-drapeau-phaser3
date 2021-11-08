@@ -397,17 +397,20 @@ const Arene = new Phaser.Class({
       this.charge.stop()
 
       console.log(this.groupeBullets.getChildren()[0]);
-      var l = new Phaser.Geom.Line(this.canon1.x, this.canon1.y, this.canon1.x + 5400, this.canon1.y);
+      this.l = new Phaser.Geom.Line(this.canon1.x, this.canon1.y, this.canon1.x + 5400, this.canon1.y);
+      var rad = Phaser.Math.DegToRad(this.canon1.angle);
+      let line = Phaser.Geom.Line.SetToAngle(this.l, this.canon1.x, this.canon1.y, rad, 4000);
 // console.log("X1X1X1X1X1X1X1X1X1X1X1X1X1");
 // console.log(l.x2);
-// this.graph.lineStyle(10, 0xcf0000, 1);
-// this.graph.strokeLineShape(l).setDepth(1000);
+this.graph.lineStyle(10, 0xcf0000, 1);
+this.graph.strokeLineShape(this.l).setDepth(1000);
 
+// var line = Phaser.Geom.Line.SetToAngle(line, x, y, angle, length);
       this.charge = this.tweens.add({
   targets: this.bulletCanon,
   // scale: 8,
-  x: l.x2,
-  y: l.y2,
+  x: this.l.x2,
+  y: this.l.y2,
   // yoyo: true,
   paused: false,
   duration: 500,
