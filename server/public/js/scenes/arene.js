@@ -69,12 +69,6 @@ const Arene = new Phaser.Class({
     {
 
 
-      var path2 = new Phaser.Curves.Path(100, 200).lineTo(500, 300);
-      var graphics = this.add.graphics();
-      graphics.lineStyle(1, 0xffffff, 1);
-
-      path2.draw(graphics, 128);
-
 
 
       this.players = {}
@@ -153,54 +147,9 @@ const Arene = new Phaser.Class({
     let fontaine2 = this.add.image(8235, -1553, 'fontaine').setDepth(2)
     let maison2 = this.add.group()
     maison2.addMultiple([interieurMaison2, facade2, toit2]);   // array of game objects
-    let i = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.I);
 
     this.groupeBullets = this.add.group();
 
-
-    // var line = new Phaser.Geom.Line();
-var angle = 0;
-
-this.input.keyboard.on('keydown-I', function (event) {
-
-    console.log('Hello from the A Key!');
-    // angle = Phaser.Math.Angle.BetweenPoints(this.canon1, pointer);
-    // this.canon1.setRotation(angle+Math.PI/2);
-    self.canon1.angle += 3
-    // self.canon1.setRotation(45);
-    // Phaser.Geom.Line.SetToAngle(line,this.canon1.x, this.canon1.y - 50, angle, 128);
-    // gfx.clear().strokeLineShape(line);
-
-});
-
-this.input.keyboard.on('keydown-O', function (event) {
-
-    console.log('Hello from the A Key!');
-    // angle = Phaser.Math.Angle.BetweenPoints(this.canon1, pointer);
-    // this.canon1.setRotation(angle+Math.PI/2);
-    self.canon1.angle -= 3
-    // self.canon1.setRotation(45);
-    // Phaser.Geom.Line.SetToAngle(line,this.canon1.x, this.canon1.y - 50, angle, 128);
-    // gfx.clear().strokeLineShape(line);
-
-});
-
-// fireball.setPosition(player.x, player.y).setScale(0.5).setAlpha(1);
-
-// curve = new Phaser.Curves.Line(new Phaser.Math.Vector2(player.x, player.y), new Phaser.Math.Vector2(x, y));
-
-// fireball.setPath(curve);
-// fireball.startFollow(300);
-
-// fireFX.restart();
-// this.input.on('pointermove', function (pointer) {
-// }, this);
-
-// this.input.on('pointerup', function () {
-// chick.enableBody(true, cannon.x, cannon.y - 50, true, true);
-// chick.play('fly');
-// this.physics.velocityFromRotation(angle, 600, chick.body.velocity);
-// }, this);
 
 
       var ellipse1 = this.add.ellipse(poteau1.x, poteau1.y + poteau1.displayHeight /2, 100, 20, 0x0009).setDepth(-1).setAlpha(0.6).setScale(2);
@@ -345,6 +294,7 @@ this.input.keyboard.on('keydown-O', function (event) {
     this.matter.add.mouseSpring();
 
     this.cameras.main.setZoom(0.1);
+
     this.input.keyboard.on('keydown', function (event) {
 
     if (event.key == "-") {
@@ -359,69 +309,10 @@ this.input.keyboard.on('keydown-O', function (event) {
     console.log(event.key);
 
 });
-    // this.input.on('pointerdown', function () {
-    //   const cam = this.cameras.main;
-    //
-    //   let zoom =
-    //   cam.zoom == 0.1 ?  1
-    //   : cam.zoom == 1 ? 0.5
-    //   :  cam.zoom == 0.5 ? 0.1
-    //   : 1
-    //   cam.zoomTo(zoom, 3000);
-    // });
-
-    this.input.on('pointerdown', function (pointer)
-{
-  this.generate(pointer.x, pointer.y);
-}, this);
 
 
-       this.graphics = this.add.graphics();
-
-
-//  The curves do not have to be joined
-
-this.path = this.add.path();
-
-this.follower = { t: 0, vec: new Phaser.Math.Vector2() };
-
-let line = new Phaser.Curves.Line([ 100, 100, 500, 200 ]);
-
-this.path.add(line)
-
-// this.path
- // this.path.circleTo(100);
-
-//  We can move the path to 500x300 without creating any extra duration
- // this.path.moveTo(500, 300);
-
-//  Rotate this circle so it completes the loop
- // this.path.circleTo(100, true, 180);
-
-this.tweens.add({
-    targets: this.follower,
-    t: 1,
-    ease: 'Linear',
-    duration: 2000,
-    repeat: -1
-});
 
   },
-  generate: function(x, y)
-{
-    // this.bulletCanon.setPosition(player.x, player.y).setScale(0.5).setAlpha(1);
-
-    let curve = new Phaser.Curves.Line(new Phaser.Math.Vector2(this.canon1.x, this.canon1.y), new Phaser.Math.Vector2(x, y));
-
-    this.fireball.setPath(curve);
-    this.fireball.startFollow(300);
-
-    this.fireFX.restart();
-},
- draw: function()
-{
-    this.rt.draw(this.fireball);
-},
 
   update: function () {
 
@@ -470,86 +361,40 @@ this.tweens.add({
 
     if (Phaser.Input.Keyboard.JustDown(this.canonKeyPressed)) {
 
-      // this.bulletCanon = this.groupeBullets.create(this.canon1.x + 180, this.canon1.y + 20, 'bullet').setScale(0.2).setDepth(100).setScale(2.5);
-      // this.rt = this.make.renderTexture({ x: 0, y: 0, width: 800, height: 600 });
+      this.bulletCanon = this.groupeBullets.create(this.canon1.x + 180, this.canon1.y + 20, 'bullet').setScale(0.2).setDepth(100).setScale(2.5);
+      this.charge = this.tweens.add({
+        targets: this.bulletCanon,
+        scale: 4,
+        x: this.canon1.x - 140,
+        // yoyo: true,
+        paused: false,
+        duration: 2000,
+        repeat: 0,
+        onComplete: function () { console.log('onComplete'); arguments[1][0].setTintFill(0xffbc00); },
 
+        // onYoyo: function () { console.log('onYoyo'); console.log(arguments); },
 
-      this.graphics.clear();
-      this.graphics.lineStyle(2, 0xffffff, 1);
-
-      this.tweens.add({
-    targets: this.follower,
-    t: 1,
-    ease: 'Linear',
-    duration: 5000,
-    yoyo: true,
-    repeat: -1
-});
-      this.path.draw(this.graphics);
-
-      this.path.getPoint(this.follower.t, this.follower.vec);
-
-      this.graphics.fillStyle(0xff0000, 1);
-      this.graphics.fillCircle(this.follower.vec.x, this.follower.vec.y, 12);
-
-      this.fireball = this.add.follower(null, this.canon1.x + 180, this.canon1.y + 20, 'bullet').setScale(3);
-
-      this.fireFX = this.tweens.add({
-        targets: this.fireball,
-        scale: 8,
-        // alpha: 0,
-        duration: 300,
-        ease: "Cubic.easeOut",
-        onComplete: function () { /*this.rt.clear()*/console.log("ok");; this.fireball.alpha = 0 },
-        paused: true
       });
-      this.fireFX.setCallback('onUpdate', this.draw, [], this);
-
-
-
-//
-//       this.charge = this.tweens.add({
-//         targets: this.bulletCanon,
-//         // scale: 8,
-//         x: this.canon1.x - 140,
-//         // yoyo: true,
-//         paused: false,
-//         duration: 2000,
-//         repeat: 0,
-//         onComplete: function () { console.log('onComplete'); arguments[1][0].setTintFill(0xffbc00); },
-//
-//         // onYoyo: function () { console.log('onYoyo'); console.log(arguments); },
-//
-//       });
-//
-//       fireball.setPosition(player.x, player.y).setScale(0.5).setAlpha(1);
-//
-// curve = new Phaser.Curves.Line(new Phaser.Math.Vector2(player.x, player.y), new Phaser.Math.Vector2(x, y));
-//
-// fireball.setPath(curve);
-// fireball.startFollow(300);
-//
-// fireFX.restart();
     }
 
     if (Phaser.Input.Keyboard.JustUp(this.canonKeyPressed)) {
-      // this.charge.stop()
+      this.charge.stop()
 
-      // console.log(this.groupeBullets.getChildren()[0]);
+      console.log(this.groupeBullets.getChildren()[0]);
 
-      // this.charge = this.tweens.add({
-  // targets: this.bulletCanon,
+      this.charge = this.tweens.add({
+  targets: this.bulletCanon,
   // scale: 8,
-  // x: 2000,
+  x: 2000,
   // yoyo: true,
-  // paused: false,
-  // duration: 500,
-  // repeat: 0,
+  paused: false,
+  duration: 500,
+  repeat: 0,
   // onComplete: function () { console.log('onComplete'); arguments[1][0].setTintFill(0xffbc00); },
 
   // onYoyo: function () { console.log('onYoyo'); console.log(arguments); },
 
-// });
+});
       // if (this.chargePret) {
 
       // }
