@@ -403,10 +403,29 @@ const Arene = new Phaser.Class({
       let line = Phaser.Geom.Line.SetToAngle(this.l, this.canon1.x, this.canon1.y, rad, 4000);
 // console.log("X1X1X1X1X1X1X1X1X1X1X1X1X1");
 // console.log(l.x2);
-// this.graph.lineStyle(10, 0xcf0000, 1);
-// this.graph.strokeLineShape(this.l).setDepth(1000);
+this.graph.lineStyle(10, 0xcf0000, 1);
+var b = this.graph.strokeLineShape(this.l).setDepth(1000);
 
+b.setAlpha(0)
 // var line = Phaser.Geom.Line.SetToAngle(line, x, y, angle, length);
+
+
+      this.charge = this.tweens.add({
+  targets: b,
+  // scale: 8,
+  // x: this.l.x2,
+  // y: this.l.y2,
+  alpha: 0.7,
+  yoyo: true,
+  paused: false,
+  duration: 200,
+  repeat: 0,
+  onComplete: function () { console.log('onComplete'); arguments[1][0].clear(); },
+
+  // onYoyo: function () { console.log('onYoyo'); console.log(arguments); },
+
+});
+
       this.charge = this.tweens.add({
   targets: this.bulletCanon,
   // scale: 8,
@@ -421,6 +440,8 @@ const Arene = new Phaser.Class({
   // onYoyo: function () { console.log('onYoyo'); console.log(arguments); },
 
 });
+
+
       // if (this.chargePret) {
 
       // }
