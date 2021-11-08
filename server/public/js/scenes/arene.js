@@ -125,7 +125,7 @@ const Arene = new Phaser.Class({
     // let maison1 = this.add.group()
     // maison1.addMultiple([interieurMaison1, facade1, toit1]);   // array of game objects
 
-let b = new Maison(this)
+new Maison(this)
 //     var group = this.add.group([
 //
 //     {

@@ -1,5 +1,4 @@
-
-    function Maison(scene) {
+function Maison(scene) {
 
 scene.add.group([
 {
