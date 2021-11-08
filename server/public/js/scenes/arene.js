@@ -158,7 +158,7 @@ const Arene = new Phaser.Class({
     this.groupeBullets = this.add.group();
 
 
-    var line = new Phaser.Geom.Line();
+    // var line = new Phaser.Geom.Line();
 var angle = 0;
 
 this.input.keyboard.on('keydown-I', function (event) {
@@ -374,6 +374,38 @@ this.input.keyboard.on('keydown-O', function (event) {
 {
   this.generate(pointer.x, pointer.y);
 }, this);
+
+
+       this.graphics = this.add.graphics();
+
+
+//  The curves do not have to be joined
+
+this.path = this.add.path();
+
+this.follower = { t: 0, vec: new Phaser.Math.Vector2() };
+
+let line = new Phaser.Curves.Line([ 100, 100, 500, 200 ]);
+
+this.path.add(line)
+
+// this.path
+ // this.path.circleTo(100);
+
+//  We can move the path to 500x300 without creating any extra duration
+ // this.path.moveTo(500, 300);
+
+//  Rotate this circle so it completes the loop
+ // this.path.circleTo(100, true, 180);
+
+this.tweens.add({
+    targets: this.follower,
+    t: 1,
+    ease: 'Linear',
+    duration: 2000,
+    repeat: -1
+});
+
   },
   generate: function(x, y)
 {
@@ -440,6 +472,25 @@ this.input.keyboard.on('keydown-O', function (event) {
 
       // this.bulletCanon = this.groupeBullets.create(this.canon1.x + 180, this.canon1.y + 20, 'bullet').setScale(0.2).setDepth(100).setScale(2.5);
       // this.rt = this.make.renderTexture({ x: 0, y: 0, width: 800, height: 600 });
+
+
+      this.graphics.clear();
+      this.graphics.lineStyle(2, 0xffffff, 1);
+
+      this.tweens.add({
+    targets: this.follower,
+    t: 1,
+    ease: 'Linear',
+    duration: 5000,
+    yoyo: true,
+    repeat: -1
+});
+      this.path.draw(this.graphics);
+
+      this.path.getPoint(this.follower.t, this.follower.vec);
+
+      this.graphics.fillStyle(0xff0000, 1);
+      this.graphics.fillCircle(this.follower.vec.x, this.follower.vec.y, 12);
 
       this.fireball = this.add.follower(null, this.canon1.x + 180, this.canon1.y + 20, 'bullet').setScale(3);
 
