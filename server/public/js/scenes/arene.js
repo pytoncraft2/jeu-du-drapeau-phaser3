@@ -306,12 +306,15 @@ const Arene = new Phaser.Class({
       self.cameras.main.zoomTo(0.5, 2000)
     } else if (event.key == "End") {
       self.cameras.main.zoomTo(0.1, 1500)
+    } else if (event.key == "ArrowUp") {
+      self.canon1.setAngle(self.canon1.angle - 5)
+    } else if (event.key == "ArrowDown") {
+      self.canon1.setAngle(self.canon1.angle + 5)
     }
     console.log(event.key);
+    console.log(event);
 
 });
-
-
 
   },
 
@@ -397,8 +400,8 @@ const Arene = new Phaser.Class({
       var l = new Phaser.Geom.Line(this.canon1.x, this.canon1.y, this.canon1.x + 5400, this.canon1.y);
 // console.log("X1X1X1X1X1X1X1X1X1X1X1X1X1");
 // console.log(l.x2);
-this.graph.lineStyle(10, 0xcf0000, 1);
-this.graph.strokeLineShape(l).setDepth(1000);
+// this.graph.lineStyle(10, 0xcf0000, 1);
+// this.graph.strokeLineShape(l).setDepth(1000);
 
       this.charge = this.tweens.add({
   targets: this.bulletCanon,
