@@ -1,6 +1,6 @@
 import PanelViewer from './elements/panel-viewer.js'
 import Animations from './elements/liste-animations.js'
-import Maison from './elements/objets/maison.js'
+import { Maison } from './elements/objets/maison.js'
 var body;
 
 var cursors
@@ -125,44 +125,48 @@ const Arene = new Phaser.Class({
     // let maison1 = this.add.group()
     // maison1.addMultiple([interieurMaison1, facade1, toit1]);   // array of game objects
 
-new Maison(this)
-//     var group = this.add.group([
-//
-//     {
-//         key: 'interieur-maison',
-//         // frame: [0, 1, 2, 3, 4],
-//         setXY:
-//         {
-//             x: -135,
-//             y: 40,
-//             // stepX: -64,
-//             // stepY: 64
-//         }
-//     },
-//     {
-//         key: 'plafond',
-//         // frame: [0, 1, 2, 3, 4],
-//         setXY:
-//         {
-//             x: -135,
-//             y: -245,
-//             // stepX: -64,
-//             // stepY: 64
-//         }
-//     },
-//     {
-//         key: 'facade',
-//         // frame: [0, 1, 2, 3, 4],
-//         setXY:
-//         {
-//             x: -135,
-//             y: 106,
-//             // stepX: 64,
-//             // stepY: 64
-//         }
-//     },
-//
-// ]);
+let maison1 = new Maison(this, [-135, 40], [-135, -245], [-135, 106], [0,290])
+    // maison1.addMultiple([interieurMaison1, facade1, toit1]);   // array of game objects
+// console.log(maison1.getChildren());
+new Maison(this, [7000, -1650], [7000, -1935], [7000, -1584], [7000, -1400])
+    var group = this.add.group([
+
+    {
+        key: 'interieur-maison',
+        // frame: [0, 1, 2, 3, 4],
+        setXY:
+        {
+            x: -135,
+            y: 40,
+            // stepX: -64,
+            // stepY: 64
+        }
+    },
+    {
+        key: 'plafond',
+        // frame: [0, 1, 2, 3, 4],
+        setXY:
+        {
+            x: -135,
+            y: -245,
+            // stepX: -64,
+            // stepY: 64
+        }
+    },
+    {
+        key: 'facade',
+        // frame: [0, 1, 2, 3, 4],
+        setXY:
+        {
+            x: -135,
+            y: 106,
+            // stepX: 64,
+            // stepY: 64
+        }
+    },
+
+]);
+console.log(group);
     // maison1.setXY(0, -1000, 0, -130)
 
     // let interieurMaison2 = this.add.image(7000, -1650, 'interieur-maison')
