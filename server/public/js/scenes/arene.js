@@ -138,7 +138,7 @@ const Arene = new Phaser.Class({
     maison2.addMultiple([interieurMaison2, facade2, toit2]);   // array of game objects
 
     this.groupeBullets = this.add.group();
-    this.bulletCanon = this.groupeBullets.create(this.canon1.x, this.canon1.y + 20, 'bullet').setScale(0.2).setDepth(100);
+    this.bulletCanon = this.groupeBullets.create(this.canon1.x, this.canon1.y + 20, 'bullet').setScale(0.2).setDepth(100)
 
 
       var ellipse1 = this.add.ellipse(poteau1.x, poteau1.y + poteau1.displayHeight /2, 100, 20, 0x0009).setDepth(-1).setAlpha(0.6).setScale(2);
@@ -216,7 +216,9 @@ const Arene = new Phaser.Class({
             self.bulletCanon.x = players[id].bulletCanonX
             self.bulletCanon.y = players[id].bulletCanonY
             self.bulletCanon.setScale(players[id].bulletCanonScale)
+            self.bulletCanon.setTintFill(players[id].bulletCanonTintFill)
             }
+            self.canon1.setAngle(players[id].canonAngle)
             if (players[id].anim && players[id].anim !== false) {
               player.play('' + players[id].anim + '_' + players[id].atlas + '', 5);
             }
@@ -233,6 +235,8 @@ const Arene = new Phaser.Class({
 
 
     this.zKeyPressed = this.input.keyboard.addKey('Z');
+    this.vKeyPressed = this.input.keyboard.addKey('V');
+    this.xKeyPressed = this.input.keyboard.addKey('X');
     this.canonKeyPressed = this.input.keyboard.addKey('C');
     this.aKeyPressed = this.input.keyboard.addKey('A');
     this.tKeyPressed = this.input.keyboard.addKey('T');
@@ -264,10 +268,10 @@ const Arene = new Phaser.Class({
         self.cameras.main.zoomTo(0.1, 1500)
       } else if (event.key == "ArrowUp") {
         // self.rect.setAngle(self.canon1.angle - 5)
-        self.canon1.setAngle(self.canon1.angle - 5)
+        // self.canon1.setAngle(self.canon1.angle - 5)
       } else if (event.key == "ArrowDown") {
         // self.rect.setAngle(self.canon1.angle + 5)
-        self.canon1.setAngle(self.canon1.angle + 5)
+        // self.canon1.setAngle(self.canon1.angle + 5)
       }
 
     });
@@ -312,6 +316,22 @@ const Arene = new Phaser.Class({
         z: true,
       });
     }
+
+
+    if (Phaser.Input.Keyboard.JustDown(this.vKeyPressed)) {
+      this.socket.emit('playerInput', {
+        v: true,
+      });
+    }
+
+
+    if (Phaser.Input.Keyboard.JustDown(this.xKeyPressed)) {
+      this.socket.emit('playerInput', {
+        x: true,
+      });
+    }
+
+
 
 
     if (Phaser.Input.Keyboard.JustDown(this.canonKeyPressed)) {

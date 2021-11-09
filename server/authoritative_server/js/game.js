@@ -152,6 +152,17 @@ function update() {
       input.z = false;
     }
 
+    if (input.x) {
+      input.x = false;
+    this.canon1.setAngle(this.canon1.angle + 5)
+    }
+
+    if (input.v) {
+      console.log("VVVVVVVVVVVVVVVVVV");
+      input.v = false;
+    this.canon1.setAngle(this.canon1.angle - 5)
+    }
+
     if (input.canonMaintenu) {
       input.canonMaintenu = false;
       console.log("CANON MAINTENU");
@@ -410,6 +421,8 @@ function update() {
       players[player.arene][player.playerId].bulletCanonY = this.bulletCanon.y
       players[player.arene][player.playerId].bulletCanonX = this.bulletCanon.x
       players[player.arene][player.playerId].bulletCanonScale = this.bulletCanon.scale
+      players[player.arene][player.playerId].canonAngle = this.canon1.angle
+      players[player.arene][player.playerId].bulletCanonTintFill = this.bulletCanon.tintBottomLeft 
       }
 
       // players[player.arene][player.playerId].ignoreGravity = player.body.ignoreGravity;
