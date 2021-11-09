@@ -29,6 +29,8 @@ function create() {
   this.players = {}
   this.players['Naruto'] = this.add.group();
   this.players['Pikachu'] = this.add.group();
+  this.groupeBullets = this.add.group();
+
   self.room = ""
   // let a = this.add.zone(26, 144, 210, 210).setSize(4050, 40);
   // var socleJoueur = self.matter.add.gameObject(a).setStatic(true).setIgnoreGravity(true);
@@ -139,7 +141,6 @@ function update() {
           // onYoyo: function () { addEvent('onYoyo') },
           duration: 3500,
         });
-        console.log("OUIIII");
         input.z = false
 
       }
@@ -147,6 +148,13 @@ function update() {
         player.world.localWorld.constraints = []
       }
       input.z = false;
+    }
+
+    if (input.canon) {
+      console.log("CANON");
+      // this.bulletCanon = this.groupeBullets.create(this.canon1.x, this.canon1.y + 20, 'bullet').setScale(0.2).setDepth(100);
+
+      input.canon = false;
     }
 
 

@@ -115,6 +115,9 @@ const Arene = new Phaser.Class({
     let interieurMaison1 = this.add.image(-135, 40, 'interieur-maison')
     let poteau1 = this.add.image(1210, 0, 'poteau')
     this.canon1 = this.add.image(0, -460, 'canon').setDepth(4)
+    this.rect = this.add.rectangle(0, -460, 333, 125, 0x6666ff)
+
+
     let canonSocle1 = this.add.image(0, -340, 'canon-socle').setDepth(3)
     let platforme1 = this.add.image(0, 290, 'platforme').setDepth(-2)
     let facade1 = this.add.image(-135, 106, 'facade').setDepth(1).setAlpha(0.4)
@@ -237,7 +240,6 @@ const Arene = new Phaser.Class({
     this.matter.add.mouseSpring();
 
     this.cameras.main.setZoom(0.5);
-    // self.cameras.main.zoomTo(0.5, 2000)
 
 
     this.input.keyboard.on('keydown', function (event) {
@@ -250,12 +252,12 @@ const Arene = new Phaser.Class({
       } else if (event.key == "End") {
         self.cameras.main.zoomTo(0.1, 1500)
       } else if (event.key == "ArrowUp") {
+        self.rect.setAngle(self.canon1.angle - 5)
         self.canon1.setAngle(self.canon1.angle - 5)
       } else if (event.key == "ArrowDown") {
+        self.rect.setAngle(self.canon1.angle + 5)
         self.canon1.setAngle(self.canon1.angle + 5)
       }
-      console.log(event.key);
-      console.log(event);
 
     });
 
@@ -302,6 +304,20 @@ const Arene = new Phaser.Class({
 
 
     if (Phaser.Input.Keyboard.JustDown(this.canonKeyPressed)) {
+      this.socket.emit('playerInput', {
+        left: this.leftKeyPressed,
+        right: this.rightKeyPressed,
+        up: this.upKeyPressed,
+        down: this.downKeyPressed,
+        a: this.aKey,
+        t: this.tKey,
+        space: this.spaceKeyPressed,
+        c: this.cKey,
+        canon: true,
+        z: false,
+      });
+
+      /*
       this.bulletCanon = this.groupeBullets.create(this.canon1.x, this.canon1.y + 20, 'bullet').setScale(0.2).setDepth(100);
       this.charge = this.tweens.add({
         targets: this.bulletCanon,
@@ -314,9 +330,11 @@ const Arene = new Phaser.Class({
           arguments[1][0].setTintFill(0xcf0000);
         },
       });
+      */
     }
 
     if (Phaser.Input.Keyboard.JustUp(this.canonKeyPressed)) {
+      /*
       this.charge.stop()
 
       console.log(this.groupeBullets.getChildren()[0]);
@@ -346,6 +364,7 @@ const Arene = new Phaser.Class({
         duration: 500,
         repeat: 0,
       });
+      */
     }
 
     if (left !== this.leftKeyPressed ||
