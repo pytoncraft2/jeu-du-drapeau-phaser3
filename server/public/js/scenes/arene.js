@@ -215,6 +215,7 @@ const Arene = new Phaser.Class({
             if (self.bulletCanon) {
             self.bulletCanon.x = players[id].bulletCanonX
             self.bulletCanon.y = players[id].bulletCanonY
+            self.bulletCanon.setScale(players[id].bulletCanonScale)
             }
             if (players[id].anim && players[id].anim !== false) {
               player.play('' + players[id].anim + '_' + players[id].atlas + '', 5);

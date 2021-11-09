@@ -409,6 +409,7 @@ function update() {
       if (this.bulletCanon) {
       players[player.arene][player.playerId].bulletCanonY = this.bulletCanon.y
       players[player.arene][player.playerId].bulletCanonX = this.bulletCanon.x
+      players[player.arene][player.playerId].bulletCanonScale = this.bulletCanon.scale
       }
 
       // players[player.arene][player.playerId].ignoreGravity = player.body.ignoreGravity;
