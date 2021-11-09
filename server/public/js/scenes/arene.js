@@ -74,6 +74,7 @@ const Arene = new Phaser.Class({
       this.players = this.add.group();
 
 
+
     this.cameras.main.fadeIn(1000);
     gfx = this.add.graphics();
     this.graph = this.add.graphics();
@@ -115,6 +116,7 @@ const Arene = new Phaser.Class({
     let interieurMaison1 = this.add.image(-135, 40, 'interieur-maison')
     let poteau1 = this.add.image(1210, 0, 'poteau')
     this.canon1 = this.add.image(0, -460, 'canon').setDepth(4)
+
     this.rect = this.add.rectangle(0, -460, 333, 125)
 
 
@@ -136,6 +138,8 @@ const Arene = new Phaser.Class({
     maison2.addMultiple([interieurMaison2, facade2, toit2]);   // array of game objects
 
     this.groupeBullets = this.add.group();
+    this.bulletCanon = this.groupeBullets.create(this.canon1.x, this.canon1.y + 20, 'bullet').setScale(0.2).setDepth(100);
+
 
       var ellipse1 = this.add.ellipse(poteau1.x, poteau1.y + poteau1.displayHeight /2, 100, 20, 0x0009).setDepth(-1).setAlpha(0.6).setScale(2);
       var ellipse2 = this.add.ellipse(poteau2.x, poteau2.y + poteau2.displayHeight /2, 100, 20, 0x0009).setDepth(-1).setAlpha(0.6).setScale(2);
@@ -206,6 +210,12 @@ const Arene = new Phaser.Class({
             player.ombre.y = players[id].ombreY
             self.bullet.x = players[id].bulletX
             self.bullet.y = players[id].bulletY
+
+            // console.log(players[id].bulletCanonX);
+            if (self.bulletCanon) {
+            self.bulletCanon.x = players[id].bulletCanonX
+            self.bulletCanon.y = players[id].bulletCanonY
+            }
             if (players[id].anim && players[id].anim !== false) {
               player.play('' + players[id].anim + '_' + players[id].atlas + '', 5);
             }

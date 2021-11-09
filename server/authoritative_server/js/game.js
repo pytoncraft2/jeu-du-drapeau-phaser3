@@ -406,6 +406,11 @@ function update() {
       players[player.arene][player.playerId].bulletX = this.bullet.x;
       players[player.arene][player.playerId].bulletY = this.bullet.y;
 
+      if (this.bulletCanon) {
+      players[player.arene][player.playerId].bulletCanonY = this.bulletCanon.y
+      players[player.arene][player.playerId].bulletCanonX = this.bulletCanon.x
+      }
+
       // players[player.arene][player.playerId].ignoreGravity = player.body.ignoreGravity;
       // players[player.arene][player.playerId].socleX = player.socle.x;
       // players[player.arene][player.playerId].socleY = player.socle.y;
