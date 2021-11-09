@@ -1,6 +1,6 @@
 import PanelViewer from './elements/panel-viewer.js'
 import Animations from './elements/liste-animations.js'
-import { Maison } from './elements/objets/maison.js'
+import Maison from './elements/objets/maison.js'
 var body;
 
 var cursors
@@ -112,86 +112,40 @@ const Arene = new Phaser.Class({
           });
         });
 
-        // new Maison()
-
-    // let interieurMaison1 = this.add.image(-135, 40, 'interieur-maison')
-    // let poteau1 = this.add.image(1210, 0, 'poteau')
+    let interieurMaison1 = this.add.image(-135, 40, 'interieur-maison')
+    let poteau1 = this.add.image(1210, 0, 'poteau')
     this.canon1 = this.add.image(0, -460, 'canon').setDepth(4)
-    // let canonSocle1 = this.add.image(0, -340, 'canon-socle').setDepth(3)
-    // let platforme1 = this.add.image(0, 290, 'platforme').setDepth(-2)
-    // let facade1 = this.add.image(-135, 106, 'facade').setDepth(1).setAlpha(0.4)
-    // let toit1 = this.add.image(-135, -245, 'plafond').setDepth(2)
-    // let fontaine1 = this.add.image(-1370, 137, 'fontaine').setDepth(2)
-    // let maison1 = this.add.group()
-    // maison1.addMultiple([interieurMaison1, facade1, toit1]);   // array of game objects
+    let canonSocle1 = this.add.image(0, -340, 'canon-socle').setDepth(3)
+    let platforme1 = this.add.image(0, 290, 'platforme').setDepth(-2)
+    let facade1 = this.add.image(-135, 106, 'facade').setDepth(1).setAlpha(0.4)
+    let toit1 = this.add.image(-135, -245, 'plafond').setDepth(2)
+    let fontaine1 = this.add.image(-1370, 137, 'fontaine').setDepth(2)
+    let maison1 = this.add.group()
+    maison1.addMultiple([interieurMaison1, facade1, toit1]);   // array of game objects
 
-let maison1 = new Maison(this, [-135, 40], [-135, -245], [-135, 106], [0,290])
-    // maison1.addMultiple([interieurMaison1, facade1, toit1]);   // array of game objects
-// console.log(maison1.getChildren());
-new Maison(this, [7000, -1650], [7000, -1935], [7000, -1584], [7000, -1400])
-    var group = this.add.group([
-
-    {
-        key: 'interieur-maison',
-        // frame: [0, 1, 2, 3, 4],
-        setXY:
-        {
-            x: -135,
-            y: 40,
-            // stepX: -64,
-            // stepY: 64
-        }
-    },
-    {
-        key: 'plafond',
-        // frame: [0, 1, 2, 3, 4],
-        setXY:
-        {
-            x: -135,
-            y: -245,
-            // stepX: -64,
-            // stepY: 64
-        }
-    },
-    {
-        key: 'facade',
-        // frame: [0, 1, 2, 3, 4],
-        setXY:
-        {
-            x: -135,
-            y: 106,
-            // stepX: 64,
-            // stepY: 64
-        }
-    },
-
-]);
-console.log(group);
-    // maison1.setXY(0, -1000, 0, -130)
-
-    // let interieurMaison2 = this.add.image(7000, -1650, 'interieur-maison')
-    // let poteau2 = this.add.image(5675, -1676, 'poteau')
-    // let platforme2 = this.add.image(7000, -1400, 'platforme').setDepth(-2)
-    // let facade2 = this.add.image(7000, -1584, 'facade').setDepth(1).setAlpha(0.4)
-    // let toit2 = this.add.image(7000, -1935, 'plafond').setDepth(2)
-    // let fontaine2 = this.add.image(8235, -1553, 'fontaine').setDepth(2)
-    // let maison2 = this.add.group()
-    // maison2.addMultiple([interieurMaison2, facade2, toit2]);   // array of game objects
+    let interieurMaison2 = this.add.image(7000, -1650, 'interieur-maison')
+    let poteau2 = this.add.image(5675, -1676, 'poteau')
+    let platforme2 = this.add.image(7000, -1400, 'platforme').setDepth(-2)
+    let facade2 = this.add.image(7000, -1584, 'facade').setDepth(1).setAlpha(0.4)
+    let toit2 = this.add.image(7000, -1935, 'plafond').setDepth(2)
+    let fontaine2 = this.add.image(8235, -1553, 'fontaine').setDepth(2)
+    let maison2 = this.add.group()
+    maison2.addMultiple([interieurMaison2, facade2, toit2]);   // array of game objects
 
     this.groupeBullets = this.add.group();
 
-      // var ellipse1 = this.add.ellipse(poteau1.x, poteau1.y + poteau1.displayHeight /2, 100, 20, 0x0009).setDepth(-1).setAlpha(0.6).setScale(2);
-      // var ellipse2 = this.add.ellipse(poteau2.x, poteau2.y + poteau2.displayHeight /2, 100, 20, 0x0009).setDepth(-1).setAlpha(0.6).setScale(2);
+      var ellipse1 = this.add.ellipse(poteau1.x, poteau1.y + poteau1.displayHeight /2, 100, 20, 0x0009).setDepth(-1).setAlpha(0.6).setScale(2);
+      var ellipse2 = this.add.ellipse(poteau2.x, poteau2.y + poteau2.displayHeight /2, 100, 20, 0x0009).setDepth(-1).setAlpha(0.6).setScale(2);
 
-      // this.tweens.add({
-      //
-      //   targets: [ellipse1, ellipse2],
-      //   alpha: 0.2,
-      //   yoyo: true,
-      //   repeat: -1,
-      //   ease: 'Sine.easeInOut'
-      //
-      // });
+      this.tweens.add({
+
+        targets: [ellipse1, ellipse2],
+        alpha: 0.2,
+        yoyo: true,
+        repeat: -1,
+        ease: 'Sine.easeInOut'
+
+      });
 
     this.add.image(3426, -500, 'tobogan', null, { isStatic: true }).setAngle(-26);
     this.bullet = this.add.image(1210, -400, 'bullet');
@@ -282,7 +236,9 @@ console.log(group);
 
     this.matter.add.mouseSpring();
 
-    this.cameras.main.setZoom(0.1);
+    this.cameras.main.setZoom(0.5);
+    // self.cameras.main.zoomTo(0.5, 2000)
+
 
     this.input.keyboard.on('keydown', function (event) {
       if (event.key == "-") {
