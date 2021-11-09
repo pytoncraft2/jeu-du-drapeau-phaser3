@@ -30,6 +30,8 @@ function create() {
   this.players['Naruto'] = this.add.group();
   this.players['Pikachu'] = this.add.group();
   this.groupeBullets = this.add.group();
+  this.canon1 = this.add.rectangle(0, -460, 333, 125)
+
 
   self.room = ""
   // let a = this.add.zone(26, 144, 210, 210).setSize(4050, 40);
@@ -150,11 +152,54 @@ function update() {
       input.z = false;
     }
 
-    if (input.canon) {
-      console.log("CANON");
-      // this.bulletCanon = this.groupeBullets.create(this.canon1.x, this.canon1.y + 20, 'bullet').setScale(0.2).setDepth(100);
+    if (input.canonMaintenu) {
+      input.canonMaintenu = false;
+      console.log("CANON MAINTENU");
+      this.bulletCanon = this.groupeBullets.create(this.canon1.x, this.canon1.y + 20, 'bullet').setScale(0.2).setDepth(100);
+      this.charge = this.tweens.add({
+        targets: this.bulletCanon,
+        scale: 4,
+        paused: false,
+        duration: 2000,
+        repeat: 0,
+        onComplete: function () {
+          console.log('onComplete');
+          arguments[1][0].setTintFill(0xcf0000);
+        },
+      });
+    }
 
-      input.canon = false;
+    if (input.canonRelache) {
+      input.canonRelache = false;
+      this.charge.stop()
+
+      this.l = new Phaser.Geom.Line(this.canon1.x, this.canon1.y, this.canon1.x + 5400, this.canon1.y);
+      var rad = Phaser.Math.DegToRad(this.canon1.angle);
+      let line = Phaser.Geom.Line.SetToAngle(this.l, this.canon1.x, this.canon1.y, rad, 4000);
+      // this.graph.lineStyle(10, 0xcf0000, 1);
+      // var b = this.graph.strokeLineShape(this.l).setDepth(1000);
+
+      // b.setAlpha(0)
+
+      // this.charge = this.tweens.add({
+      //   targets: b,
+      //   alpha: 0.7,
+      //   yoyo: true,
+      //   paused: false,
+      //   duration: 200,
+      //   repeat: 0,
+      //   onComplete: function () { console.log('onComplete'); arguments[1][0].clear(); },
+      // });
+
+      this.charge = this.tweens.add({
+        targets: this.bulletCanon,
+        x: this.l.x2,
+        y: this.l.y2,
+        paused: false,
+        duration: 500,
+        repeat: 0,
+      });
+      console.log("RELACHER");
     }
 
 

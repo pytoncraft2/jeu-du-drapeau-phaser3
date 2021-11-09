@@ -115,7 +115,7 @@ const Arene = new Phaser.Class({
     let interieurMaison1 = this.add.image(-135, 40, 'interieur-maison')
     let poteau1 = this.add.image(1210, 0, 'poteau')
     this.canon1 = this.add.image(0, -460, 'canon').setDepth(4)
-    this.rect = this.add.rectangle(0, -460, 333, 125, 0x6666ff)
+    this.rect = this.add.rectangle(0, -460, 333, 125)
 
 
     let canonSocle1 = this.add.image(0, -340, 'canon-socle').setDepth(3)
@@ -252,10 +252,10 @@ const Arene = new Phaser.Class({
       } else if (event.key == "End") {
         self.cameras.main.zoomTo(0.1, 1500)
       } else if (event.key == "ArrowUp") {
-        self.rect.setAngle(self.canon1.angle - 5)
+        // self.rect.setAngle(self.canon1.angle - 5)
         self.canon1.setAngle(self.canon1.angle - 5)
       } else if (event.key == "ArrowDown") {
-        self.rect.setAngle(self.canon1.angle + 5)
+        // self.rect.setAngle(self.canon1.angle + 5)
         self.canon1.setAngle(self.canon1.angle + 5)
       }
 
@@ -313,7 +313,8 @@ const Arene = new Phaser.Class({
         t: this.tKey,
         space: this.spaceKeyPressed,
         c: this.cKey,
-        canon: true,
+        canonMaintenu: true,
+        canonRelache: false,
         z: false,
       });
 
@@ -334,6 +335,20 @@ const Arene = new Phaser.Class({
     }
 
     if (Phaser.Input.Keyboard.JustUp(this.canonKeyPressed)) {
+      this.socket.emit('playerInput', {
+        left: this.leftKeyPressed,
+        right: this.rightKeyPressed,
+        up: this.upKeyPressed,
+        down: this.downKeyPressed,
+        a: this.aKey,
+        t: this.tKey,
+        space: this.spaceKeyPressed,
+        c: this.cKey,
+        canonMaintenu: false,
+        canonRelache: true,
+        z: false,
+      });
+
       /*
       this.charge.stop()
 
