@@ -217,46 +217,15 @@ function update() {
       if (input.right && !input.c) {
         player.setVelocityX(10)
         player.anim = "walk"
-        if (player.x < 1713 && player.x > -1714 || player.x < 89107 && player.x > 5163) {
-
-          player.socle.x = player.x;
-          player.ombre.x = player.socle.x
-          player.ombre.y = player.socle.y + 145
-
-        }
         player.flipX = false;
 
 
       } else if (input.left && !input.c) {
         player.setVelocityX(-10)
 
-        if (player.x < 1713 && player.x > -1714 || player.x < 89107 && player.x > 5163) {
-
-          player.x < 1713 && player.x > -1714 ? player.socle.y = 167 : player.socle.y = player.socle.y
-
-          player.socle.x = player.x;
-          player.ombre.x = player.socle.x
-          player.ombre.y = player.socle.y + 145
-
-        }
         player.anim = "walk"
         player.flipX = true;
       }
-
-
-      if (player.x < 1713 && player.x > -1714 || player.x < 89107 && player.x > 5163) {
-        if (player.x < 1713 && player.x > -1714) {
-          player.socle.y = 145
-        } else if (player.x < 89107 && player.x > 5163) {
-          player.socle.y = -1523
-        }
-        player.socle.x = player.x;
-        player.ombre.x = player.socle.x
-        player.ombre.y = player.socle.y + 145
-      }
-
-
-
 
 
       // this.girlMap.flipX = true;
@@ -412,8 +381,6 @@ function update() {
       players[player.arene][player.playerId].py = player.body.position.y;
       players[player.arene][player.playerId].x = player.x;
       players[player.arene][player.playerId].y = player.y;
-      players[player.arene][player.playerId].ombreX = player.ombre.x;
-      players[player.arene][player.playerId].ombreY = player.ombre.y;
       players[player.arene][player.playerId].bulletX = this.bullet.x;
       players[player.arene][player.playerId].bulletY = this.bullet.y;
 
@@ -463,10 +430,9 @@ function addPlayer(self, playerInfo) {
   // player.socle.body.friction.x = 0;
   // player.socle.setIgnoreGravity(true);
 
-  joueur.socle = self.add.zone(playerInfo.x, playerInfo.y + 890, 210, 210).setSize(150, 40);
+  joueur.socle = self.add.zone(playerInfo.x, playerInfo.y + 190, 210, 210).setSize(150, 40);
 
 
-  joueur.ombre = self.add.ellipse(joueur.socle.x, joueur.socle.y - 35, 100, 20, 0x0009).setAlpha(0.5);
 
   var socleJoueur = self.matter.add.gameObject(joueur.socle);
   socleJoueur.setIgnoreGravity(true).setStatic(true).setFriction(0)
