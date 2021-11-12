@@ -431,7 +431,7 @@ function addPlayer(self, playerInfo) {
   // player.socle.setIgnoreGravity(true);
 
   joueur.socle = self.add.zone(playerInfo.x + 300, playerInfo.y + 190, 210, 210).setSize(3500, 40);
-  joueur.socle2 = self.add.zone(playerInfo.x + 300, playerInfo.y - 390, 210, 210).setSize(3000, 40);
+  joueur.socle2 = self.add.zone(playerInfo.x + 300, playerInfo.y - 390, 210, 210).setSize(1631, 40);
 
 
 
