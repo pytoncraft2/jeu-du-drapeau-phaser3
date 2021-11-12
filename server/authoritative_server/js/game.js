@@ -430,12 +430,16 @@ function addPlayer(self, playerInfo) {
   // player.socle.body.friction.x = 0;
   // player.socle.setIgnoreGravity(true);
 
-  joueur.socle = self.add.zone(playerInfo.x, playerInfo.y + 190, 210, 210).setSize(150, 40);
+  joueur.socle = self.add.zone(playerInfo.x + 300, playerInfo.y + 190, 210, 210).setSize(3500, 40);
+  joueur.socle2 = self.add.zone(playerInfo.x + 300, playerInfo.y - 390, 210, 210).setSize(3000, 40);
 
 
 
   var socleJoueur = self.matter.add.gameObject(joueur.socle);
   socleJoueur.setIgnoreGravity(true).setStatic(true).setFriction(0)
+  var socleJoueur2 = self.matter.add.gameObject(joueur.socle2);
+  socleJoueur2.setIgnoreGravity(true).setStatic(true).setFriction(0)
+
   // self.matter.add.constraint(self.bullet, joueur, 500, 0.2);
 
 
