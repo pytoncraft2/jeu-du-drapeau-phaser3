@@ -44,16 +44,16 @@ function create() {
   // this.matter.add.image(-250, 360, 'tobogan', null, { isStatic: true });
   // this.matter.add.image(7300, -1400, 'tobogan', null, { isStatic: true });
 
-  let a = this.add.zone(3500, -700, 210, 210).setSize(3246, 40)
-  var socleJoueur = self.matter.add.gameObject(a).setStatic(true).setIgnoreGravity(true).setAngle(-26);
+  // let a = this.add.zone(3500, -700, 210, 210).setSize(3246, 40)
+  // var socleJoueur = self.matter.add.gameObject(a).setStatic(true).setIgnoreGravity(true).setAngle(-26);
 
   this.bullet = this.matter.add.image(1210, -400, 'bullet', null, { ignoreGravity: true });
-  this.bullet.setFixedRotation();
-  this.bullet.setMass(500);
-  this.bullet.setStatic(true);
+  // this.bullet.setFixedRotation();
+  // this.bullet.setMass(500);
+  // this.bullet.setStatic(true);
 
-  this.ellipse1 = this.add.ellipse(1210, 301, 100, 20, 0x0009).setDepth(-1).setAlpha(0.6).setScale(2);
-  this.ellipse2 = this.add.ellipse(5675, -1676 + 301, 100, 20, 0x0009).setDepth(-1).setAlpha(0.6).setScale(2);
+  // this.ellipse1 = this.add.ellipse(1210, 301, 100, 20, 0x0009).setDepth(-1).setAlpha(0.6).setScale(2);
+  // this.ellipse2 = this.add.ellipse(5675, -1676 + 301, 100, 20, 0x0009).setDepth(-1).setAlpha(0.6).setScale(2);
 
 
 
@@ -422,7 +422,7 @@ function update() {
       players[player.arene][player.playerId].bulletCanonX = this.bulletCanon.x
       players[player.arene][player.playerId].bulletCanonScale = this.bulletCanon.scale
       players[player.arene][player.playerId].canonAngle = this.canon1.angle
-      players[player.arene][player.playerId].bulletCanonTintFill = this.bulletCanon.tintBottomLeft 
+      players[player.arene][player.playerId].bulletCanonTintFill = this.bulletCanon.tintBottomLeft
       }
 
       // players[player.arene][player.playerId].ignoreGravity = player.body.ignoreGravity;
@@ -447,7 +447,9 @@ function handlePlayerInput(self, playerId, arene, input) {
 }
 
 function addPlayer(self, playerInfo) {
-  const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, playerInfo.atlas, null).setScale(0.38);
+  const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, playerInfo.atlas, null).setDisplaySize(127, 368.22);
+  joueur.setFixedRotation()
+
   joueur.playerId = playerInfo.playerId;
   joueur.arene = playerInfo.arene;
 
@@ -461,7 +463,8 @@ function addPlayer(self, playerInfo) {
   // player.socle.body.friction.x = 0;
   // player.socle.setIgnoreGravity(true);
 
-  joueur.socle = self.add.zone(playerInfo.x, playerInfo.y + 30, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
+  joueur.socle = self.add.zone(playerInfo.x, playerInfo.y + 890, 210, 210).setSize(150, 40);
+
 
   joueur.ombre = self.add.ellipse(joueur.socle.x, joueur.socle.y - 35, 100, 20, 0x0009).setAlpha(0.5);
 
