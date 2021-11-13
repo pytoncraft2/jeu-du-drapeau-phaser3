@@ -140,7 +140,7 @@ function update() {
           y: -2376,
           onComplete: () => (player.world.localWorld.constraints = []),  // set context? how?
           yoyo: true,
-          // onYoyo: function () { addEvent('onYoyo') },
+          onYoyo: () => ( console.log(this.bullet.x), console.log(this.bullet.y) ),
           duration: 3500,
         });
         input.z = false

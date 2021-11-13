@@ -139,6 +139,7 @@ const Arene = new Phaser.Class({
     let maison2 = this.add.group()
     maison2.addMultiple([interieurMaison2, facade2, toit2]);   // array of game objects
 
+
     this.groupeBullets = this.add.group();
     this.bulletCanon = this.groupeBullets.create(this.canon1.x, this.canon1.y + 20, 'bullet').setScale(0.2).setDepth(100)
 
@@ -158,6 +159,13 @@ const Arene = new Phaser.Class({
 
     this.add.image(3426, -500, 'tobogan', null, { isStatic: true }).setAngle(-26);
     this.bullet = this.add.image(1210, -400, 'bullet');
+
+
+    var fil = new Phaser.Geom.Line(1210, -400, 5675, -2373);
+
+    var graphics = this.add.graphics({ lineStyle: { width: 10, color: 0xaa00aa } });
+
+    graphics.strokeLineShape(fil);
 
     /**
      * AFFICHAGE JOUEURS
