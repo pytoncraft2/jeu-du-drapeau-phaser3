@@ -227,6 +227,10 @@ function update() {
         player.flipX = true;
       }
 
+      player.ombre.x = player.x
+      // player.ombre.y = player.socle.y + 145
+
+
 
       // this.girlMap.flipX = true;
       // if (this.ctrlKey.isDown) {
@@ -381,6 +385,9 @@ function update() {
       players[player.arene][player.playerId].py = player.body.position.y;
       players[player.arene][player.playerId].x = player.x;
       players[player.arene][player.playerId].y = player.y;
+      players[player.arene][player.playerId].ombreX = player.ombre.x;
+      players[player.arene][player.playerId].ombreY = player.ombre.y;
+
       players[player.arene][player.playerId].bulletX = this.bullet.x;
       players[player.arene][player.playerId].bulletY = this.bullet.y;
 
@@ -392,6 +399,7 @@ function update() {
       players[player.arene][player.playerId].bulletCanonTintFill = this.bulletCanon.tintBottomLeft
       }
 
+      // player.
       // players[player.arene][player.playerId].ignoreGravity = player.body.ignoreGravity;
       // players[player.arene][player.playerId].socleX = player.socle.x;
       // players[player.arene][player.playerId].socleY = player.socle.y;
@@ -447,7 +455,7 @@ function addPlayer(self, playerInfo) {
 
 
   // joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -55, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
-  // joueur.ombre = self.add.ellipse(joueur.socle.x, joueur.socle.y - 30, 100, 20, 0x0009).setAlpha(0.5);
+  joueur.ombre = self.add.ellipse(joueur.socle.x, joueur.socle.y - 30, 100, 20, 0x0009).setAlpha(0.5);
 
   // var socleJoueur = self.matter.add.gameObject(joueur.socle);
   // socleJoueur.setIgnoreGravity(true).setStatic(true)
