@@ -442,7 +442,6 @@ const Arene = new Phaser.Class({
     joueur.atlas = playerInfo.atlas;
     // joueur.socle = self.add.zone(playerInfo.x +700, playerInfo.y + 190, 210, 210).setSize(150, 40);
     // joueur.setFixedRotation()
-    joueur.setAngle(270);
 joueur.setFrictionAir(0.05);
 joueur.setMass(30);
 

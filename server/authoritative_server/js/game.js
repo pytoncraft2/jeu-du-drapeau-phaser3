@@ -261,7 +261,6 @@ function addPlayer(self, playerInfo) {
   joueur.playerId = playerInfo.playerId;
   joueur.arene = playerInfo.arene;
   joueur.atlas = playerInfo.atlas;
-  joueur.setAngle(270);
   joueur.setFrictionAir(0.05);
   joueur.setMass(30);
 
