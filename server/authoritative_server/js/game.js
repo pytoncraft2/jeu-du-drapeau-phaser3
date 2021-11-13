@@ -220,7 +220,7 @@ function update() {
     this.players[arene].getChildren().forEach((player) => {
       const input = players[player.arene][player.playerId].input;
 
-      let oldanim = player.anims.getName()
+      // let oldanim = player.anims.getName()
 
 
       if (input.z) {
@@ -308,7 +308,7 @@ function update() {
 
       if (input.right && !input.c) {
         player.setVelocityX(10)
-        player.anims.play(`walk`, true)
+        // player.anims.play(`walk`, true)
         player.flipX = false;
 
 
@@ -316,7 +316,7 @@ function update() {
         player.setVelocityX(-10)
 
         // player.anims.play(`walk_${player.atlas}`, true)
-        player.anims.play(`walk`, true)
+        // player.anims.play(`walk`, true)
         player.flipX = true;
       }
       // console.log(player.anims);
@@ -399,7 +399,7 @@ function update() {
       if (input.a) {
         if (!input.space) {
           // player.anims.play(`attack1_${player.atlas}`, true)
-          player.anims.play(`attack`, true)
+          // player.anims.play(`attack`, true)
         }
         // player.attack = true;
         player.wall = true;
@@ -441,7 +441,7 @@ function update() {
         if (input.left) player.setVelocityX(-100);
         if (input.right) player.setVelocityX(100);
         // player.anims.play(`run_${player.atlas}`, true)
-        player.anims.play(`run`, true)
+        // player.anims.play(`run`, true)
       }
 
 
@@ -457,42 +457,11 @@ function update() {
       players[player.arene][player.playerId].x = player.x;
       players[player.arene][player.playerId].y = player.y;
       // players[player.arene][player.playerId].angle = player.angle;
-      players[player.arene][player.playerId].friction = player.body.friction;
-      players[player.arene][player.playerId].frictionair = player.body.frictionAir;
-      players[player.arene][player.playerId].frictionstatic = player.body.frictionStatic;
-      players[player.arene][player.playerId].mass = player.body.mass;
-      players[player.arene][player.playerId].density = player.body.density;
-      players[player.arene][player.playerId].speed = player.body.speed;
-      players[player.arene][player.playerId].boundsMIX = player.body.bounds.min.x;
-      players[player.arene][player.playerId].boundsMIY = player.body.bounds.min.y;
-      players[player.arene][player.playerId].boundsMAX = player.body.bounds.max.x;
-      players[player.arene][player.playerId].boundsMAY = player.body.bounds.max.y;
-      players[player.arene][player.playerId].px = player.body.position.x;
-      players[player.arene][player.playerId].py = player.body.position.y;
-      players[player.arene][player.playerId].x = player.x;
-      players[player.arene][player.playerId].y = player.y;
-      // players[player.arene][player.playerId].ombreX = player.ombre.x;
-      // players[player.arene][player.playerId].ombreY = player.ombre.y;
-
-      players[player.arene][player.playerId].bulletX = this.bullet.x;
-      players[player.arene][player.playerId].bulletY = this.bullet.y;
-
-      if (this.bulletCanon) {
-      players[player.arene][player.playerId].bulletCanonY = this.bulletCanon.y
-      players[player.arene][player.playerId].bulletCanonX = this.bulletCanon.x
-      players[player.arene][player.playerId].bulletCanonScale = this.bulletCanon.scale
-      players[player.arene][player.playerId].canonAngle = this.canon1.angle
-      players[player.arene][player.playerId].bulletCanonTintFill = this.bulletCanon.tintBottomLeft
-      }
-
-        let newanim = player.anims.getName()
-
-        if (newanim != oldanim) {
-        players[player.arene][player.playerId].animation = player.anims.getName();
-      } else {
-        players[player.arene][player.playerId].animation = null;
-      }
-
+      //   let newanim = player.anims.getName()
+      //
+      //   if (newanim != oldanim) {
+      //   players[player.arene][player.playerId].animation = player.anims.getName();
+      // }
     });
     io.to(arene).emit("playerUpdates", players[arene]);
 

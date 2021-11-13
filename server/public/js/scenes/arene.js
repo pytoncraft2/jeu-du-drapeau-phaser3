@@ -133,6 +133,24 @@ const Arene = new Phaser.Class({
     maison2.addMultiple([interieurMaison2, facade2, toit2]);   // array of game objects
 
 
+
+      let soclePlatformeGauche = self.add.zone(-79, 327, 210, 210).setSize(3500, 40);
+    let socleToitGauche = self.add.zone(-79, -253, 210, 210).setSize(1631, 40);
+      let soclePlatformeDroit = self.add.zone(7300, -1363, 210, 210).setSize(3500, 40);
+      let socleToitDroit = self.add.zone(7300, -1943, 210, 210).setSize(1631, 40);
+
+
+      var socleJoueur = self.matter.add.gameObject(soclePlatformeGauche);
+      socleJoueur.setIgnoreGravity(true).setStatic(true).setFriction(0)
+      var socleJoueur2 = self.matter.add.gameObject(socleToitGauche);
+      socleJoueur2.setIgnoreGravity(true).setStatic(true).setFriction(0)
+
+      var socleJoueur3 = self.matter.add.gameObject(soclePlatformeDroit);
+      socleJoueur3.setIgnoreGravity(true).setStatic(true).setFriction(0)
+      var socleJoueur4 = self.matter.add.gameObject(socleToitDroit);
+      socleJoueur4.setIgnoreGravity(true).setStatic(true).setFriction(0)
+
+
     this.groupeBullets = this.add.group();
     this.bulletCanon = this.groupeBullets.create(this.canon1.x, this.canon1.y + 20, 'bullet').setScale(0.2).setDepth(100)
 
@@ -203,27 +221,13 @@ const Arene = new Phaser.Class({
             // player.setScale(players[id].scale);
             player.setVelocity(players[id].velocityX, players[id].velocityY);
             player.setPosition(players[id].x, players[id].y);
-            player.setAngle(players[id].angle);
-            player.setFrictionStatic(players[id].frictionstatic);
-            player.setIgnoreGravity(players[id].ignoreGravity);
-            player.setMass(players[id].mass);
+            player.setRotation(players[id].rotation);
 
-            if (players[id].animation) {
-            player.play(players[id].animation);
-            }
+            // if (players[id].animation) {
+            // player.play(players[id].animation);
+            // }
             // player.ombre.setPosition(players[id].ombreX, players[id].ombreY)
-            self.bullet.x = players[id].bulletX
-            self.bullet.y = players[id].bulletY
-
-            // console.log(players[id].bulletCanonX);
-            if (self.bulletCanon) {
-            self.bulletCanon.x = players[id].bulletCanonX
-            self.bulletCanon.y = players[id].bulletCanonY
-            self.bulletCanon.setScale(players[id].bulletCanonScale)
-            self.bulletCanon.setTintFill(players[id].bulletCanonTintFill)
-            }
-            self.canon1.setAngle(players[id].canonAngle)
-            // if (players[id].anim && players[id].anim !== false) {
+            // if (players[id].animation) {
               // player.play('' + players[id].anim + '_' + players[id].atlas + '', 5);
             // }
           }
@@ -446,7 +450,9 @@ const Arene = new Phaser.Class({
     joueur.playerId = playerInfo.playerId;
     joueur.arene = playerInfo.arene;
     joueur.atlas = playerInfo.atlas;
-    joueur.socle = self.add.zone(playerInfo.x +700, playerInfo.y + 190, 210, 210).setSize(150, 40);
+    // joueur.socle = self.add.zone(playerInfo.x +700, playerInfo.y + 190, 210, 210).setSize(150, 40);
+    joueur.setFixedRotation()
+
     // joueur.ombre = self.add.ellipse(joueur.socle.x, joueur.socle.y - 30, 100, 20, 0x0009).setAlpha(0.5);
 
     // joueur.socle2 = self.add.zone(playerInfo.x, playerInfo.y + 190, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
