@@ -29,8 +29,34 @@ function create() {
   this.players = {}
   this.players['Naruto'] = this.add.group();
   this.players['Pikachu'] = this.add.group();
+  this.platformeGaucheCollision = this.add.group();
+  this.platformeDroiteCollision = this.add.group();
   this.groupeBullets = this.add.group();
   this.canon1 = this.add.rectangle(0, -460, 333, 125)
+
+
+
+  let soclePlatformeGauche = self.add.zone(-79, 327, 210, 210).setSize(3500, 40);
+let socleToitGauche = self.add.zone(-79, -253, 210, 210).setSize(1631, 40);
+  let soclePlatformeDroit = self.add.zone(7300, -1363, 210, 210).setSize(3500, 40);
+  let socleToitDroit = self.add.zone(7300, -1943, 210, 210).setSize(1631, 40);
+
+
+  var socleJoueur = self.matter.add.gameObject(soclePlatformeGauche);
+  socleJoueur.setIgnoreGravity(true).setStatic(true).setFriction(0)
+  var socleJoueur2 = self.matter.add.gameObject(socleToitGauche);
+  socleJoueur2.setIgnoreGravity(true).setStatic(true).setFriction(0)
+
+  var socleJoueur3 = self.matter.add.gameObject(soclePlatformeDroit);
+  socleJoueur3.setIgnoreGravity(true).setStatic(true).setFriction(0)
+  var socleJoueur4 = self.matter.add.gameObject(socleToitDroit);
+  socleJoueur4.setIgnoreGravity(true).setStatic(true).setFriction(0)
+
+this.platformeGaucheCollision.addMultiple([soclePlatformeGauche, socleToitGauche]);
+this.platformeGaucheCollision.arene = "Naruto"
+this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit]);
+this.platformeDroiteCollision.arene = "Pikachu"
+
 
 
   self.room = ""
@@ -216,7 +242,7 @@ function update() {
         player.flipX = true;
       }
 
-      player.ombre.x = player.x
+      // player.ombre.x = player.x
       // player.ombre.y = player.socle.y + 145
 
 
@@ -374,8 +400,8 @@ function update() {
       players[player.arene][player.playerId].py = player.body.position.y;
       players[player.arene][player.playerId].x = player.x;
       players[player.arene][player.playerId].y = player.y;
-      players[player.arene][player.playerId].ombreX = player.ombre.x;
-      players[player.arene][player.playerId].ombreY = player.ombre.y;
+      // players[player.arene][player.playerId].ombreX = player.ombre.x;
+      // players[player.arene][player.playerId].ombreY = player.ombre.y;
 
       players[player.arene][player.playerId].bulletX = this.bullet.x;
       players[player.arene][player.playerId].bulletY = this.bullet.y;
@@ -428,41 +454,28 @@ function addPlayer(self, playerInfo) {
   // player.socle.setIgnoreGravity(true);
 
   // joueur.socle = self.add.zone(playerInfo.x + 300, playerInfo.y + 190, 210, 210).setSize(3500, 40);
-  /**
-   * PLATFORME GAUCHE
-   * @type {[type]}
-   */
-  joueur.socle = self.add.zone(-79, 327, 210, 210).setSize(3500, 40);
-  // joueur.socle2 = self.add.zone(playerInfo.x + 300, playerInfo.y - 390, 210, 210).setSize(1631, 40);
-  joueur.socle2 = self.add.zone(-79, -253, 210, 210).setSize(1631, 40);
 
-  /**
-   * PLATFORME DROITE
-   * @type {[type]}
-   */
-   console.log("XXXXX");
-   console.log(playerInfo.x + 300);
-   console.log("YYYYYY");
-   console.log(playerInfo.y - 390);
-
-  joueur.socle3 = self.add.zone(7300, -1363, 210, 210).setSize(3500, 40);
-                // joueur.socle2 = self.add.zone(playerInfo.x + 300, playerInfo.y - 390, 210, 210).setSize(1631, 40);
-  joueur.socle4 = self.add.zone(7300, -1943, 210, 210).setSize(1631, 40);
-
-
-  var socleJoueur = self.matter.add.gameObject(joueur.socle);
-  socleJoueur.setIgnoreGravity(true).setStatic(true).setFriction(0)
-  var socleJoueur2 = self.matter.add.gameObject(joueur.socle2);
-  socleJoueur2.setIgnoreGravity(true).setStatic(true).setFriction(0)
-
-  // self.matter.add.constraint(self.bullet, joueur, 500, 0.2);
 
 
   self.players[playerInfo.arene].add(joueur);
 
 
+  // if (self.platformeGaucheCollision.arene == joueur.arene) {
+  // joueur.ombre = self.add.ellipse(self.platformeGaucheCollision.getMatching(''), joueur.socle.y - 30, 100, 20, 0x0009).setAlpha(0.5);
+  // } else {
+  //
+  // }
   // joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -55, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
-  joueur.ombre = self.add.ellipse(joueur.socle.x, joueur.socle.y - 30, 100, 20, 0x0009).setAlpha(0.5);
+  // joueur.ombre = self.add.ellipse(self..x, joueur.socle.y - 30, 100, 20, 0x0009).setAlpha(0.5);
+  // console.log(self.platformeGaucheCollision.getChildren());
+  // console.log("EQUIPE-----------------------");
+  // console.log(self.platformeGaucheCollision.arene);
+  self.platformeGaucheCollision.getChildren().forEach((item, i) => {
+    console.log(item);
+
+  });
+
+
 
   // var socleJoueur = self.matter.add.gameObject(joueur.socle);
   // socleJoueur.setIgnoreGravity(true).setStatic(true)
