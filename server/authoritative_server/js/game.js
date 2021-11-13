@@ -223,25 +223,31 @@ function update() {
 
 
 
-      if (input.right && !input.c) {
-        player.setVelocityX(10)
+      if (input.right) {
+        // player.setVelocityX(10)
         // player.anims.play(`walk`, true)
-        player.flipX = false;
+        // player.flipX = false;
 
 
-      } else if (input.left && !input.c) {
-        player.setVelocityX(-10)
+        player.thrustRight(0.1)
+      } else if (input.left) {
+        // player.setVelocityX(-10)
 
         // player.anims.play(`walk_${player.atlas}`, true)
         // player.anims.play(`walk`, true)
-        player.flipX = true;
+        // player.flipX = true;
+      // player.setAngularVelocity(1);
+      // player.thrust()
+      player.thrustLeft(0.1);
       }
 
-      players[player.arene][player.playerId].velocityX = player.body.velocity.x;
-      players[player.arene][player.playerId].velocityY = player.body.velocity.y;
-      players[player.arene][player.playerId].flipX = player.flipX;
+      // players[player.arene][player.playerId].velocityX = player.body.velocity.x;
+      // players[player.arene][player.playerId].velocityY = player.body.velocity.y;
+      // players[player.arene][player.playerId].flipX = player.flipX;
+
       players[player.arene][player.playerId].x = player.x;
       players[player.arene][player.playerId].y = player.y;
+      players[player.arene][player.playerId].rotation = player.rotation;
     });
     io.to("Naruto").emit("playerUpdates", players["Naruto"]);
 
@@ -266,11 +272,14 @@ function addPlayer(self, playerInfo) {
   joueur.playerId = playerInfo.playerId;
   joueur.arene = playerInfo.arene;
   joueur.atlas = playerInfo.atlas;
+  joueur.setAngle(270);
+  joueur.setFrictionAir(0.05);
+  joueur.setMass(30);
 
-  joueur.setFrictionAir(0.03);
+  // joueur.setFrictionAir(0.03);
   // joueur.setFriction(1);
 
-  joueur.setMass(15);
+  // joueur.setMass(15);
 
   // player.socle = this.add.zone(200, 780, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
   // this.physics.add.existing(ennemy['ennemyzone']);

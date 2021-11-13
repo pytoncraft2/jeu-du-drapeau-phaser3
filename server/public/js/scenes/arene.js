@@ -205,11 +205,13 @@ const Arene = new Phaser.Class({
       Object.keys(players).forEach((id) => {
         self.players.getChildren().forEach(function(player) {
           if (players[id].playerId === player.playerId) {
-            player.flipX = (players[id].flipX);
+            // player.flipX = (players[id].flipX);
             // player.setScale(players[id].scale);
-            player.setVelocity(players[id].velocityX, players[id].velocityY);
+            // player.setVelocity(players[id].velocityX, players[id].velocityY);
             player.setPosition(players[id].x, players[id].y);
             player.setRotation(players[id].rotation);
+
+            // player.setRotation(players[id].rotation);
 
             // if (players[id].animation) {
             // player.play(players[id].animation);
@@ -440,6 +442,11 @@ const Arene = new Phaser.Class({
     joueur.atlas = playerInfo.atlas;
     // joueur.socle = self.add.zone(playerInfo.x +700, playerInfo.y + 190, 210, 210).setSize(150, 40);
     joueur.setFixedRotation()
+    joueur.setAngle(270);
+joueur.setFrictionAir(0.05);
+joueur.setMass(30);
+
+
 
     // joueur.ombre = self.add.ellipse(joueur.socle.x, joueur.socle.y - 30, 100, 20, 0x0009).setAlpha(0.5);
 
