@@ -221,29 +221,18 @@ function update() {
 
       // let oldanim = player.anims.getName()
 
+      if (input.up) {
+        player.thrustLeft(0.1);
+      } else if (input.down) {
+        player.thrustRight(0.1)
+      }
 
 
       if (input.right) {
-        // player.setVelocityX(10)
-        // player.anims.play(`walk`, true)
-        // player.flipX = false;
-
-
-        player.thrustRight(0.1)
+        player.thrust(0.1)
       } else if (input.left) {
-        // player.setVelocityX(-10)
-
-        // player.anims.play(`walk_${player.atlas}`, true)
-        // player.anims.play(`walk`, true)
-        // player.flipX = true;
-      // player.setAngularVelocity(1);
-      // player.thrust()
-      player.thrustLeft(0.1);
+        player.thrustBack(0.1)
       }
-
-      // players[player.arene][player.playerId].velocityX = player.body.velocity.x;
-      // players[player.arene][player.playerId].velocityY = player.body.velocity.y;
-      // players[player.arene][player.playerId].flipX = player.flipX;
 
       players[player.arene][player.playerId].x = player.x;
       players[player.arene][player.playerId].y = player.y;
@@ -267,7 +256,7 @@ function handlePlayerInput(self, playerId, arene, input) {
 
 function addPlayer(self, playerInfo) {
   const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, playerInfo.atlas, 'face1').setDisplaySize(127, 368.22);
-  joueur.setFixedRotation()
+  // joueur.setFixedRotation()
 
   joueur.playerId = playerInfo.playerId;
   joueur.arene = playerInfo.arene;
