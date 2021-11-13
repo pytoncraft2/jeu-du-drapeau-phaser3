@@ -428,21 +428,32 @@ function addPlayer(self, playerInfo) {
   // player.socle.setIgnoreGravity(true);
 
   // joueur.socle = self.add.zone(playerInfo.x + 300, playerInfo.y + 190, 210, 210).setSize(3500, 40);
+  /**
+   * PLATFORME GAUCHE
+   * @type {[type]}
+   */
   joueur.socle = self.add.zone(-79, 327, 210, 210).setSize(3500, 40);
-  // console.log("--X--");
-// console.log(playerInfo.x + 300);
-// console.log("--Y--");
-// console.log(playerInfo.y - 390);
-
   // joueur.socle2 = self.add.zone(playerInfo.x + 300, playerInfo.y - 390, 210, 210).setSize(1631, 40);
   joueur.socle2 = self.add.zone(-79, -253, 210, 210).setSize(1631, 40);
 
+  /**
+   * PLATFORME DROITE
+   * @type {[type]}
+   */
+   console.log("XXXXX");
+   console.log(playerInfo.x + 300);
+   console.log("YYYYYY");
+   console.log(playerInfo.y - 390);
+
+  joueur.socle3 = self.add.zone(7300, -1363, 210, 210).setSize(3500, 40);
+                // joueur.socle2 = self.add.zone(playerInfo.x + 300, playerInfo.y - 390, 210, 210).setSize(1631, 40);
+  joueur.socle4 = self.add.zone(7300, -1943, 210, 210).setSize(1631, 40);
 
 
   var socleJoueur = self.matter.add.gameObject(joueur.socle);
   socleJoueur.setIgnoreGravity(true).setStatic(true).setFriction(0)
-  // var socleJoueur2 = self.matter.add.gameObject(joueur.socle2);
-  // socleJoueur2.setIgnoreGravity(true).setStatic(true).setFriction(0)
+  var socleJoueur2 = self.matter.add.gameObject(joueur.socle2);
+  socleJoueur2.setIgnoreGravity(true).setStatic(true).setFriction(0)
 
   // self.matter.add.constraint(self.bullet, joueur, 500, 0.2);
 
