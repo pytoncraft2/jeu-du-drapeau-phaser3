@@ -209,6 +209,8 @@ function update() {
     this.players[arene].getChildren().forEach((player) => {
       const input = players[player.arene][player.playerId].input;
 
+      let oldanim = player.anims.getName()
+
       // console.log(player);
       // console.log(input.z);
       if (input.z) {
@@ -485,7 +487,33 @@ function update() {
       }
 
       // player.
-      players[player.arene][player.playerId].animation = player.anims.getName();
+      // if (player.anims.getName()) {
+
+      // }
+      // if (players[player.arene][player.playerId].animation) {
+      //   players[player.arene][player.playerId].animation = player.anims.getName()
+      //   console.log("undefined--");
+      // } else if (players[player.arene][player.playerId].animation == player.anims.getName()) {
+      //   players[player.arene][player.playerId].animation = null;
+      //   console.log("autre--");
+      // }
+        let newanim = player.anims.getName()
+
+        if (newanim != oldanim) {
+        players[player.arene][player.playerId].animation = player.anims.getName();
+      } else {
+        players[player.arene][player.playerId].animation = null;
+      }
+
+        // if (players[player.arene][player.playerId].animation != player.anims.getName()) {
+        // players[player.arene][player.playerId].animation = player.anims.getName();
+        // }
+
+      // }
+      // players[player.arene][player.playerId].animation = player.anims.getName();
+      // console.log(players[player.arene][player.playerId].animation);
+      // console.log(player.anims.getFrameName());
+
       // console.log(player.anims.getName());
       // players[player.arene][player.playerId].socleX = player.socle.x;
       // players[player.arene][player.playerId].socleY = player.socle.y;

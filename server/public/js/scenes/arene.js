@@ -207,12 +207,13 @@ const Arene = new Phaser.Class({
             player.setFrictionStatic(players[id].frictionstatic);
             player.setIgnoreGravity(players[id].ignoreGravity);
             player.setMass(players[id].mass);
+
+            if (players[id].animation) {
             player.play(players[id].animation, true);
+            }
             // player.ombre.setPosition(players[id].ombreX, players[id].ombreY)
             self.bullet.x = players[id].bulletX
             self.bullet.y = players[id].bulletY
-
-
 
             // console.log(players[id].bulletCanonX);
             if (self.bulletCanon) {
@@ -222,9 +223,6 @@ const Arene = new Phaser.Class({
             self.bulletCanon.setTintFill(players[id].bulletCanonTintFill)
             }
             self.canon1.setAngle(players[id].canonAngle)
-            // if (players[id].anim && players[id].anim !== false) {
-              // player.play('' + players[id].anim + '_' + players[id].atlas + '', 5);
-            // }
           }
         });
       });
