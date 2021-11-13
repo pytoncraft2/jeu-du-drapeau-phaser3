@@ -201,6 +201,17 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
     });
 
   })
+
+  this.matter.world.on('collisionstart', function (event) {
+  	// if (event.pairs[0].bodyA.gameObject){
+    // if (event.pairs[0].bodyB.gameObject.texture.key == "enemy") {
+    //
+    //  }
+    // }
+    console.log("COLISION");
+	})
+
+
 }
 
 function update() {
@@ -407,19 +418,12 @@ function update() {
       }
 
       if (input.space) {
-        // console.log("_____");
-        // console.log(player.x);
-        // console.log(player.y);
         // player.base = player.y;
         // player.setIgnoreGravity(false)
 
         // player.y -= 5
         // player.setIgnoreGravity(true)
         player.setVelocityY(-10);
-        // console.log("XXX");
-        // console.log(player.x);
-        // console.log("YYY");
-        // console.log(player.y);
 
         // player.anim = 'jump';
       } else {
@@ -487,17 +491,6 @@ function update() {
       players[player.arene][player.playerId].bulletCanonTintFill = this.bulletCanon.tintBottomLeft
       }
 
-      // player.
-      // if (player.anims.getName()) {
-
-      // }
-      // if (players[player.arene][player.playerid].animation) {
-      //   players[player.arene][player.playerid].animation = player.anims.getname()
-      //   console.log("undefined--");
-      // } else if (players[player.arene][player.playerid].animation == player.anims.getname()) {
-      //   players[player.arene][player.playerid].animation = null;
-      //   console.log("autre--");
-      // }
         let newanim = player.anims.getName()
 
         if (newanim != oldanim) {
@@ -506,18 +499,6 @@ function update() {
         players[player.arene][player.playerId].animation = null;
       }
 
-        // if (players[player.arene][player.playerId].animation != player.anims.getName()) {
-        // players[player.arene][player.playerId].animation = player.anims.getName();
-        // }
-
-      // }
-      // players[player.arene][player.playerId].animation = player.anims.getName();
-      // console.log(players[player.arene][player.playerId].animation);
-      // console.log(player.anims.getFrameName());
-
-      // console.log(player.anims.getName());
-      // players[player.arene][player.playerId].socleX = player.socle.x;
-      // players[player.arene][player.playerId].socleY = player.socle.y;
     });
     io.to(arene).emit("playerUpdates", players[arene]);
 
