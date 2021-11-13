@@ -222,9 +222,7 @@ function update() {
 
       let oldanim = player.anims.getName()
 
-      if (player.body.velocity.y == 0 && player.oldanim != "attack") {
-        player.anims.play("idle_walk")
-      }
+
       if (input.z) {
         // TODO: ACTIF SI PRET DU POTEAU
         let bx = 1210;
@@ -319,7 +317,6 @@ function update() {
 
         // player.anims.play(`walk_${player.atlas}`, true)
         player.anims.play(`walk`, true)
-        console.log(player.atlas);
         player.flipX = true;
       }
       // console.log(player.anims);
@@ -404,7 +401,6 @@ function update() {
           // player.anims.play(`attack1_${player.atlas}`, true)
           player.anims.play(`attack`, true)
         }
-        player.setSize(900);
         // player.attack = true;
         player.wall = true;
       }
@@ -454,9 +450,7 @@ function update() {
       players[player.arene][player.playerId].scale = player.scale;
       players[player.arene][player.playerId].flipX = player.flipX;
       players[player.arene][player.playerId].anim = player.anim;
-      // players[player.arene][player.playerId].base = player.base;
       players[player.arene][player.playerId].depth = player.depth;
-      players[player.arene][player.playerId].size = player.size;
       players[player.arene][player.playerId].alpha = player.alpha;
       // players[player.arene][player.playerId].attack = player.attack;
       // players[player.arene][player.playerId].wall = player.wall;

@@ -223,6 +223,9 @@ const Arene = new Phaser.Class({
             self.bulletCanon.setTintFill(players[id].bulletCanonTintFill)
             }
             self.canon1.setAngle(players[id].canonAngle)
+            // if (players[id].anim && players[id].anim !== false) {
+              // player.play('' + players[id].anim + '_' + players[id].atlas + '', 5);
+            // }
           }
         });
       });
