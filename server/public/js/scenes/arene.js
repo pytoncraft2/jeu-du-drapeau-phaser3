@@ -209,7 +209,7 @@ const Arene = new Phaser.Class({
             player.setMass(players[id].mass);
 
             if (players[id].animation) {
-            player.play(players[id].animation, true);
+            player.play(players[id].animation);
             }
             // player.ombre.setPosition(players[id].ombreX, players[id].ombreY)
             self.bullet.x = players[id].bulletX

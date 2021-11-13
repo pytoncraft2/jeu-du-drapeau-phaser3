@@ -24,7 +24,7 @@ function Animations(anims) {
     key: "walk",
     frames: anims.generateFrameNames('dessinatrice1', { prefix: 'walk', start: 1, end: 5 }),
     frameRate: 5,
-    repeat: 0
+    repeat: -1
   });
   anims.create({
     key: "jump",

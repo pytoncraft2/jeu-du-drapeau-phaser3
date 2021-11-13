@@ -211,8 +211,9 @@ function update() {
 
       let oldanim = player.anims.getName()
 
-      // console.log(player);
-      // console.log(input.z);
+      if (player.body.velocity.y == 0) {
+        player.anims.play("idle_walk")
+      }
       if (input.z) {
         // TODO: ACTIF SI PRET DU POTEAU
         let bx = 1210;
@@ -490,11 +491,11 @@ function update() {
       // if (player.anims.getName()) {
 
       // }
-      // if (players[player.arene][player.playerId].animation) {
-      //   players[player.arene][player.playerId].animation = player.anims.getName()
+      // if (players[player.arene][player.playerid].animation) {
+      //   players[player.arene][player.playerid].animation = player.anims.getname()
       //   console.log("undefined--");
-      // } else if (players[player.arene][player.playerId].animation == player.anims.getName()) {
-      //   players[player.arene][player.playerId].animation = null;
+      // } else if (players[player.arene][player.playerid].animation == player.anims.getname()) {
+      //   players[player.arene][player.playerid].animation = null;
       //   console.log("autre--");
       // }
         let newanim = player.anims.getName()
