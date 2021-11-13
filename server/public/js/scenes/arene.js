@@ -155,18 +155,6 @@ const Arene = new Phaser.Class({
     this.bulletCanon = this.groupeBullets.create(this.canon1.x, this.canon1.y + 20, 'bullet').setScale(0.2).setDepth(100)
 
 
-      var ellipse1 = this.add.ellipse(poteau1.x, poteau1.y + poteau1.displayHeight /2, 100, 20, 0x0009).setDepth(-1).setAlpha(0.6).setScale(2);
-      var ellipse2 = this.add.ellipse(poteau2.x, poteau2.y + poteau2.displayHeight /2, 100, 20, 0x0009).setDepth(-1).setAlpha(0.6).setScale(2);
-
-      this.tweens.add({
-
-        targets: [ellipse1, ellipse2],
-        alpha: 0.2,
-        yoyo: true,
-        repeat: 5,
-        ease: 'Sine.easeInOut'
-
-      });
 
     this.add.image(3426, -500, 'tobogan', null, { isStatic: true }).setAngle(-26);
     this.bullet = this.add.image(1210, -400, 'bullet');

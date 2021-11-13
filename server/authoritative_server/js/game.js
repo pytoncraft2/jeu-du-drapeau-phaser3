@@ -202,14 +202,14 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
 
   })
 
-  this.matter.world.on('collisionstart', function (event) {
-  	// if (event.pairs[0].bodyA.gameObject){
-    // if (event.pairs[0].bodyB.gameObject.texture.key == "enemy") {
-    //
-    //  }
-    // }
-    console.log("COLISION");
-	})
+  // this.matter.world.on('collisionstart', function (event) {
+  // 	// if (event.pairs[0].bodyA.gameObject){
+  //   // if (event.pairs[0].bodyB.gameObject.texture.key == "enemy") {
+  //   //
+  //   //  }
+  //   // }
+  //   console.log("COLISION");
+	// })
 
 
 }
