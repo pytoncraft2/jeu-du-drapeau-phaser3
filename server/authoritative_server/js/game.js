@@ -211,7 +211,7 @@ function update() {
 
       let oldanim = player.anims.getName()
 
-      if (player.body.velocity.y == 0) {
+      if (player.body.velocity.y == 0 && player.oldanim != "attack") {
         player.anims.play("idle_walk")
       }
       if (input.z) {
