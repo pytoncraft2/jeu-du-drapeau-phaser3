@@ -132,7 +132,7 @@ function update() {
           y: -2376,
           onComplete: () => (player.world.localWorld.constraints = []),  // set context? how?
           yoyo: true,
-          onYoyo: () => ( console.log(this.bullet.x), console.log(this.bullet.y) ),
+          // onYoyo: () => ( console.log(this.bullet.x), console.log(this.bullet.y) ),
           duration: 3500,
         });
         input.z = false
@@ -150,14 +150,12 @@ function update() {
     }
 
     if (input.v) {
-      console.log("VVVVVVVVVVVVVVVVVV");
       input.v = false;
     this.canon1.setAngle(this.canon1.angle - 5)
     }
 
     if (input.canonMaintenu) {
       input.canonMaintenu = false;
-      console.log("CANON MAINTENU");
       this.bulletCanon = this.groupeBullets.create(this.canon1.x, this.canon1.y + 20, 'bullet').setScale(0.2).setDepth(100);
       this.charge = this.tweens.add({
         targets: this.bulletCanon,
@@ -202,7 +200,6 @@ function update() {
         duration: 500,
         repeat: 0,
       });
-      console.log("RELACHER");
     }
 
 
@@ -430,15 +427,22 @@ function addPlayer(self, playerInfo) {
   // player.socle.body.friction.x = 0;
   // player.socle.setIgnoreGravity(true);
 
-  joueur.socle = self.add.zone(playerInfo.x + 300, playerInfo.y + 190, 210, 210).setSize(3500, 40);
-  joueur.socle2 = self.add.zone(playerInfo.x + 300, playerInfo.y - 390, 210, 210).setSize(1631, 40);
+  // joueur.socle = self.add.zone(playerInfo.x + 300, playerInfo.y + 190, 210, 210).setSize(3500, 40);
+  joueur.socle = self.add.zone(-79, 327, 210, 210).setSize(3500, 40);
+  // console.log("--X--");
+// console.log(playerInfo.x + 300);
+// console.log("--Y--");
+// console.log(playerInfo.y - 390);
+
+  // joueur.socle2 = self.add.zone(playerInfo.x + 300, playerInfo.y - 390, 210, 210).setSize(1631, 40);
+  joueur.socle2 = self.add.zone(-79, -253, 210, 210).setSize(1631, 40);
 
 
 
   var socleJoueur = self.matter.add.gameObject(joueur.socle);
   socleJoueur.setIgnoreGravity(true).setStatic(true).setFriction(0)
-  var socleJoueur2 = self.matter.add.gameObject(joueur.socle2);
-  socleJoueur2.setIgnoreGravity(true).setStatic(true).setFriction(0)
+  // var socleJoueur2 = self.matter.add.gameObject(joueur.socle2);
+  // socleJoueur2.setIgnoreGravity(true).setStatic(true).setFriction(0)
 
   // self.matter.add.constraint(self.bullet, joueur, 500, 0.2);
 

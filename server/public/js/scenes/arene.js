@@ -429,7 +429,6 @@ const Arene = new Phaser.Class({
       tk !== this.tKey ||
       ck !== this.cKey ||
       space !== this.spaceKeyPressed || this.zkey == true) {
-        console.log(this.zKey);
       this.socket.emit('playerInput', {
         left: this.leftKeyPressed,
         right: this.rightKeyPressed,
