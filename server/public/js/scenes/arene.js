@@ -255,24 +255,24 @@ const Arene = new Phaser.Class({
     this.cameras.main.setZoom(0.5);
 
 
-    this.input.keyboard.on('keydown', function (event) {
-      if (event.key == "-") {
-        self.cameras.main.zoomTo(self.cameras.main.zoom - 0.2, 1000)
-      } else if (event.key == "+"){
-        self.cameras.main.zoomTo(self.cameras.main.zoom + 0.2, 1000)
-      } else if (event.key == "Enter") {
-        self.cameras.main.zoomTo(0.5, 2000)
-      } else if (event.key == "End") {
-        self.cameras.main.zoomTo(0.1, 1500)
-      } else if (event.key == "ArrowUp") {
-        // self.rect.setAngle(self.canon1.angle - 5)
-        // self.canon1.setAngle(self.canon1.angle - 5)
-      } else if (event.key == "ArrowDown") {
-        // self.rect.setAngle(self.canon1.angle + 5)
-        // self.canon1.setAngle(self.canon1.angle + 5)
-      }
-
-    });
+    // this.input.keyboard.on('keydown', function (event) {
+    //   if (event.key == "-") {
+    //     self.cameras.main.zoomTo(self.cameras.main.zoom - 0.2, 1000)
+    //   } else if (event.key == "+"){
+    //     self.cameras.main.zoomTo(self.cameras.main.zoom + 0.2, 1000)
+    //   } else if (event.key == "Enter") {
+    //     self.cameras.main.zoomTo(0.5, 2000)
+    //   } else if (event.key == "End") {
+    //     self.cameras.main.zoomTo(0.1, 1500)
+    //   } else if (event.key == "ArrowUp") {
+    //     // self.rect.setAngle(self.canon1.angle - 5)
+    //     // self.canon1.setAngle(self.canon1.angle - 5)
+    //   } else if (event.key == "ArrowDown") {
+    //     // self.rect.setAngle(self.canon1.angle + 5)
+    //     // self.canon1.setAngle(self.canon1.angle + 5)
+    //   }
+    //
+    // });
 
   },
 
@@ -434,6 +434,14 @@ const Arene = new Phaser.Class({
   },
   displayPlayers: function(self, playerInfo, iscurrent) {
     console.log("Ajout joueur function");
+    for (var i = 0; i < 64; i++)
+{
+    var ball = this.matter.add.image(Phaser.Math.Between(playerInfo.x -400, 700), Phaser.Math.Between(playerInfo.x -600, 0), 'bulletVerte');
+    ball.setCircle();
+    ball.setFriction(0.005);
+    ball.setBounce(1);
+    ball.body.collisionFilter.mask = 0
+}
     const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, 'dessinatrice1', 'face1').setScale(0.38);
     // self.add.image(playerInfo.x, playerInfo.y, "dessinatrice1_").setScale(0.38).setOrigin(0.5, 0.5)
 
