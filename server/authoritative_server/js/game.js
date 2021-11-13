@@ -34,20 +34,8 @@ function create() {
 
 
   self.room = ""
-  // let a = this.add.zone(26, 144, 210, 210).setSize(4050, 40);
-  // var socleJoueur = self.matter.add.gameObject(a).setStatic(true).setIgnoreGravity(true);
 
-  // this.matter.world.disableGravity();
-
-
-  // this.matter.add.image(3426, -500, 'tobogan', null, { isStatic: true }).setAngle(-26);
-  // this.matter.add.image(-250, 360, 'tobogan', null, { isStatic: true });
-  // this.matter.add.image(7300, -1400, 'tobogan', null, { isStatic: true });
-
-  // let a = this.add.zone(3500, -700, 210, 210).setSize(3246, 40)
-  // var socleJoueur = self.matter.add.gameObject(a).setStatic(true).setIgnoreGravity(true).setAngle(-26);
-
-  let tobogan = this.add.zone(3500, -700, 210, 210).setSize(3246, 40)
+  let tobogan = this.add.zone(3500, -500, 210, 210).setSize(3246, 40)
   var socleTobogan = self.matter.add.gameObject(tobogan).setStatic(true).setIgnoreGravity(true).setAngle(-26);
 
 
