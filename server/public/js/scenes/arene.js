@@ -87,16 +87,10 @@ const Arene = new Phaser.Class({
      * Envoi dès la connexion un entete avec le nom de l'atlas à charger pour Definir atlas
      * @type {string}
      */
-    this.socket = io({
-      extraHeaders: {
-        "atlas": this.personnage,
-        "page": "Jeu",
-        arene: this.arene,
-        equipe: this.equipe
-      }
-    });
+    this.socket = io();
 
-        this.socket.emit("nouveau_joueur", this.arene, this.equipe);
+
+        this.socket.emit("nouveau_joueur", this.arene, this.equipe, this.personnage);
 
         this.socket.on("nouveau_joueur", (data) => {
           console.log("NOUVEAU JOUEUR DATA");
@@ -444,10 +438,12 @@ const Arene = new Phaser.Class({
   },
   displayPlayers: function(self, playerInfo, iscurrent) {
     console.log("Ajout joueur function");
-    const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, playerInfo.atlas, 'face1').setScale(0.38);
+    const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, 'dessinatrice1', 'face1').setScale(0.38);
+    // self.add.image(playerInfo.x, playerInfo.y, "dessinatrice1_").setScale(0.38).setOrigin(0.5, 0.5)
 
     joueur.playerId = playerInfo.playerId;
     joueur.arene = playerInfo.arene;
+    joueur.atlas = playerInfo.atlas;
     joueur.socle = self.add.zone(playerInfo.x +700, playerInfo.y + 190, 210, 210).setSize(150, 40);
     // joueur.ombre = self.add.ellipse(joueur.socle.x, joueur.socle.y - 30, 100, 20, 0x0009).setAlpha(0.5);
 

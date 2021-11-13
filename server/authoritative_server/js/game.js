@@ -31,96 +31,59 @@ function preload() {
 
 function create() {
 
-this.anims.create({
-  key: "attack1_dessinatrice1",
-  frames: this.anims.generateFrameNumbers('dessinatrice1', {
-    frames: ['profil', 'position_a1', 'position_a2', 'position_a3', 'profil','pas_jkd']
-  }),
-  frameRate: 6,
-  repeat: 0
-});
 
-this.anims.create({
-  key: "run_dessinatrice1",
-  frames: this.anims.generateFrameNumbers('dessinatrice1', {
-    frames: ['pas_jkd','pas_jkd2', 'pas_jkd4','pas_jkd3']
-  }),
-  frameRate: 6,
-  repeat: 0
-});
+      this.anims.create({
+        key: 'attack',
+        frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'attack', start: 1, end: 5 }),
+        frameRate: 6,
+        repeat: 0
+      });
+      this.anims.create({
+        key: "goback",
+        frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'dos', start: 1, end: 7 }),
+        frameRate: 7,
+        repeat: 0
+      });
 
+      this.anims.create({
+        key: "front",
+        frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'face', start: 1, end: 5 }),
+        frameRate: 6,
+        repeat: 0
+      });
+      this.anims.create({
+        key: "walk",
+        frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'walk', start: 1, end: 5 }),
+        frameRate: 5,
+        repeat: 0
+      });
+      this.anims.create({
+        key: "jump",
+        frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'jump', start: 0, end: 5 }),
+        frameRate: 7,
+        repeat: 0
+      });
 
-this.anims.create({
-  key: "goback_dessinatrice1",
-  frames: this.anims.generateFrameNumbers('dessinatrice1', {
-    frames: ['dos5', 'dos7.8', 'dos8', 'dos9', 'dos10', 'dos11', 'dos3']
-  }),
-  frameRate: 7,
-  repeat: 0
-});
+      this.anims.create({
+        key: "idle_walk",
+        frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'walk', start: 5, end: 5 }),
+        frameRate: 1,
+        repeat: -1
+      });
 
+      this.anims.create({
+        key: "idle_attack",
+        frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'run', start: 1, end: 1 }),
+        frameRate: 1,
+        repeat: 0
+      });
 
-this.anims.create({
-  key: "jump_dessinatrice1",
-  frames: this.anims.generateFrameNumbers('dessinatrice1', {
-    frames: ['jump0', 'jump1', 'jump2', 'jump3', 'jump4', 'jump5', 'jump0']
-  }),
-  frameRate: 8,
-  repeat: 0
-});
-
-
-this.anims.create({
-  key: "front_dessinatrice1",
-  frames: this.anims.generateFrameNumbers('dessinatrice1', {
-    frames: ['face5', 'face2', 'face3', 'face4', 'face1']
-  }),
-  frameRate: 6,
-  repeat: 0
-});
-this.anims.create({
-  key: "walk_dessinatrice1",
-  frames: this.anims.generateFrameNumbers('dessinatrice1', {
-    frames: ['profil_jkd11', 'profil_jkd13', 'profil_jkd14', 'profil_jkd15','profil_jkd8']
-  }),
-  frameRate: 5,
-  repeat: 0
-});
-
-this.anims.create({
-  key: "attack1_naruto",
-  frames: this.anims.generateFrameNumbers('naruto', {
-    frames: ['profil', 'position_a1', 'position_a2', 'position_a3', 'profil']
-  }),
-  frameRate: 6,
-  repeat: 0
-});
-
-this.anims.create({
-  key: "goback_naruto",
-  frames: this.anims.generateFrameNumbers('naruto', {
-    frames: ['dos5', 'dos7.8', 'dos8', 'dos9', 'dos10', 'dos11', 'dos3']
-  }),
-  frameRate: 7,
-  repeat: 0
-});
-
-this.anims.create({
-  key: "front_naruto",
-  frames: this.anims.generateFrameNumbers('naruto', {
-    frames: ['face1', 'face2', 'face3', 'face4', 'face5', 'face7']
-  }),
-  frameRate: 6,
-  repeat: 0
-});
-this.anims.create({
-  key: "walk_naruto",
-  frames: this.anims.generateFrameNumbers('naruto', {
-    frames: ['profil3', 'profil4', 'profil5', 'profil6']
-  }),
-  frameRate: 5,
-  repeat: 0
-});
+      this.anims.create({
+        key: "run",
+        frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'run', start: 1, end: 4 }),
+        frameRate: 6,
+        repeat: -1
+      })
 
   const self = this;
   this.players = {}
@@ -172,7 +135,7 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
 
   io.on('connection', function(socket) {
     console.log("ONE CONNEXION");
-    socket.on("nouveau_joueur", (room, equipe) => {
+    socket.on("nouveau_joueur", (room, equipe, atlas) => {
       console.log("EQUIPE");
       console.log(equipe);
       equipe == "A"
@@ -183,8 +146,9 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
       socket.join(room);
       socket.room = room;
       socket.equipe = equipe;
+      socket.atlas = atlas;
       players[socket.room][socket.id] = {
-        atlas: socket.handshake.headers.atlas,
+        atlas: socket.atlas,
         arene: socket.room,
         equipe: socket.equipe,
         wall: false,
@@ -206,6 +170,11 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
           z: false
         },
       };
+
+      // console.log("AAAAAATTTLAS");
+
+      // console.log(socket.atlas);
+
       addPlayer(self, players[socket.room][socket.id]);
       socket.emit("tout_les_joueurs", players);
 
@@ -240,6 +209,7 @@ function update() {
     this.players[arene].getChildren().forEach((player) => {
       const input = players[player.arene][player.playerId].input;
 
+      // console.log(player);
       // console.log(input.z);
       if (input.z) {
         // TODO: ACTIF SI PRET DU POTEAU
@@ -326,16 +296,19 @@ function update() {
 
       if (input.right && !input.c) {
         player.setVelocityX(10)
-        player.play("walk", true)
+        player.anims.play(`walk`, true)
         player.flipX = false;
 
 
       } else if (input.left && !input.c) {
         player.setVelocityX(-10)
 
-        player.play("walk", true)
+        // player.anims.play(`walk_${player.atlas}`, true)
+        player.anims.play(`walk_${player.atlas}`, true)
+        console.log(player.atlas);
         player.flipX = true;
       }
+      // console.log(player.anims);
 
       // player.ombre.x = player.x
       // player.ombre.y = player.socle.y + 145
@@ -414,10 +387,11 @@ function update() {
 
       if (input.a) {
         if (!input.space) {
-          player.play('attack1', true)
+          // player.anims.play(`attack1_${player.atlas}`, true)
+          player.anims.play(`attack1`, true)
         }
         player.setSize(900);
-        player.attack = true;
+        // player.attack = true;
         player.wall = true;
       }
 
@@ -463,7 +437,8 @@ function update() {
       if (input.c) {
         if (input.left) player.setVelocityX(-100);
         if (input.right) player.setVelocityX(100);
-        player.play('run', true)
+        // player.anims.play(`run_${player.atlas}`, true)
+        // player.anims.play(`run`, true)
       }
 
 
@@ -510,7 +485,8 @@ function update() {
       }
 
       // player.
-      // players[player.arene][player.playerId].ignoreGravity = player.body.ignoreGravity;
+      // players[player.arene][player.playerId].animation = player.anims.getFrameName();
+      console.log(player.anims.getFrameName());
       // players[player.arene][player.playerId].socleX = player.socle.x;
       // players[player.arene][player.playerId].socleY = player.socle.y;
     });
@@ -532,11 +508,12 @@ function handlePlayerInput(self, playerId, arene, input) {
 }
 
 function addPlayer(self, playerInfo) {
-  const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, playerInfo.atlas, null).setDisplaySize(127, 368.22);
+  const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, playerInfo.atlas, 'face1').setDisplaySize(127, 368.22);
   joueur.setFixedRotation()
 
   joueur.playerId = playerInfo.playerId;
   joueur.arene = playerInfo.arene;
+  joueur.atlas = playerInfo.atlas;
 
   joueur.setFrictionAir(0.03);
   // joueur.setFriction(1);
@@ -557,7 +534,7 @@ function addPlayer(self, playerInfo) {
 
   // joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -55, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
   // joueur.ombre = self.add.ellipse(self..x, joueur.socle.y - 30, 100, 20, 0x0009).setAlpha(0.5);
-  console.log(self.platformeGaucheCollision.getChildren());
+  // console.log(self.platformeGaucheCollision.getChildren());
 
 
   // var socleJoueur = self.matter.add.gameObject(joueur.socle);
