@@ -90,6 +90,7 @@ const BootScene = new Phaser.Class({
     // this.load.image('profilPanel', 'assets0/liveProfilPanel.png');
     // this.load.image('portal', 'assets0/portal.png');
     this.load.image('bullet', 'assets0/bullet.png');
+    this.load.image('bulletVerte', 'assets0/bullet.png');
     // this.load.image('bgMenu', 'assets/fond/bgMenu.png');
 
     // this.load.image('bg', 'assets/fond/bgGrand.png');

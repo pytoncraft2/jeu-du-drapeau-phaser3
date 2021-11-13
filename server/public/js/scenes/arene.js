@@ -128,7 +128,7 @@ const Arene = new Phaser.Class({
     var particles = this.add.particles('bullet').setDepth(3);
     var emitter = particles.createEmitter();
     emitter.setPosition(fontaine1.x, fontaine1.y - 240);
-    emitter.setSpeed(100);
+    emitter.setSpeed(200);
     emitter.setBlendMode(Phaser.BlendModes.ADD);
     let maison1 = this.add.group()
     maison1.addMultiple([interieurMaison1, facade1, toit1]);   // array of game objects
@@ -142,7 +142,7 @@ const Arene = new Phaser.Class({
     var particles2 = this.add.particles('bulletVerte').setDepth(3);
     var emitter2 = particles2.createEmitter();
     emitter2.setPosition(fontaine2.x, fontaine2.y - 240);
-    emitter2.setSpeed(100);
+    emitter2.setSpeed(200);
     emitter2.setBlendMode(Phaser.BlendModes.ADD);
     let maison2 = this.add.group()
     maison2.addMultiple([interieurMaison2, facade2, toit2]);   // array of game objects
