@@ -216,94 +216,11 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
 
 function update() {
 
-  Object.keys(this.players).forEach((arene) => {
-    this.players[arene].getChildren().forEach((player) => {
+    this.players["Naruto"].getChildren().forEach((player) => {
       const input = players[player.arene][player.playerId].input;
 
       // let oldanim = player.anims.getName()
 
-
-      if (input.z) {
-        // TODO: ACTIF SI PRET DU POTEAU
-        let bx = 1210;
-        let by = -400;
-        if (player.world.localWorld.constraints.length == 0) {
-        this.matter.add.constraint(this.bullet ,player);
-        var tween = this.tweens.add({
-          targets: this.bullet,
-          x: 5675,
-          y: -2376,
-          onComplete: () => (player.world.localWorld.constraints = []),  // set context? how?
-          yoyo: true,
-          // onYoyo: () => ( console.log(this.bullet.x), console.log(this.bullet.y) ),
-          duration: 3500,
-        });
-        input.z = false
-
-      }
-      else {
-        player.world.localWorld.constraints = []
-      }
-      input.z = false;
-    }
-
-    if (input.x) {
-      input.x = false;
-    this.canon1.setAngle(this.canon1.angle + 5)
-    }
-
-    if (input.v) {
-      input.v = false;
-    this.canon1.setAngle(this.canon1.angle - 5)
-    }
-
-    if (input.canonMaintenu) {
-      input.canonMaintenu = false;
-      this.bulletCanon = this.groupeBullets.create(this.canon1.x, this.canon1.y + 20, 'bullet').setScale(0.2).setDepth(100);
-      this.charge = this.tweens.add({
-        targets: this.bulletCanon,
-        scale: 4,
-        paused: false,
-        duration: 2000,
-        repeat: 0,
-        onComplete: function () {
-          console.log('onComplete');
-          arguments[1][0].setTintFill(0xcf0000);
-        },
-      });
-    }
-
-    if (input.canonRelache) {
-      input.canonRelache = false;
-      this.charge.stop()
-
-      this.l = new Phaser.Geom.Line(this.canon1.x, this.canon1.y, this.canon1.x + 5400, this.canon1.y);
-      var rad = Phaser.Math.DegToRad(this.canon1.angle);
-      let line = Phaser.Geom.Line.SetToAngle(this.l, this.canon1.x, this.canon1.y, rad, 4000);
-      // this.graph.lineStyle(10, 0xcf0000, 1);
-      // var b = this.graph.strokeLineShape(this.l).setDepth(1000);
-
-      // b.setAlpha(0)
-
-      // this.charge = this.tweens.add({
-      //   targets: b,
-      //   alpha: 0.7,
-      //   yoyo: true,
-      //   paused: false,
-      //   duration: 200,
-      //   repeat: 0,
-      //   onComplete: function () { console.log('onComplete'); arguments[1][0].clear(); },
-      // });
-
-      this.charge = this.tweens.add({
-        targets: this.bulletCanon,
-        x: this.l.x2,
-        y: this.l.y2,
-        paused: false,
-        duration: 500,
-        repeat: 0,
-      });
-    }
 
 
       if (input.right && !input.c) {
@@ -319,153 +236,15 @@ function update() {
         // player.anims.play(`walk`, true)
         player.flipX = true;
       }
-      // console.log(player.anims);
-
-      // player.ombre.x = player.x
-      // player.ombre.y = player.socle.y + 145
-
-
-
-      // this.girlMap.flipX = true;
-      // if (this.ctrlKey.isDown) {
-      // this.girlMap.anims.play('run', true);
-      // this.girlMap.setVelocityX(-400);
-      // } else {
-      // this.girlMap.anims.play('walk', true);
-      // this.girlMap.setVelocityX(-300);
-      // }
-      // }
-      // if (input.right) {
-      // this.girlMap['direction'] = 'right';
-      // player.zone.x = player.x;
-      // player.ombre.x = player.zone.x
-      // player.ombre.y = player.zone.y - 30
-      // this.girlMap.flipX = false;
-      // if (this.ctrlKey.isDown) {
-      // this.girlMap.anims.play('run', true);
-      // this.girlMap.setVelocityX(400);
-      // } else {
-      // this.girlMap.anims.play('walk', true);
-      // this.girlMap.setVelocityX(300);
-      // }
-      // }
-      // player.base = 0;
-      // player.anim = false;
-      // player.attack = false;
-      // player.wall = false;
-      // if (input.left && !input.c) {
-      // player.thrust(-0.025);
-      // player.socle.x -= 10;
-      // player.setVelocityX(-10)
-      // player.flipX = true, player.anim = 'walk';
-      // }
-
-      // if (input.left && !input.c) {
-      // player.thrust(0.025);
-      // player.socle.x += 10;
-      // player.setVelocityX(-10)
-      // player.flipX = false, player.anim = 'walk';
-      // }
-
-      // if (input.up) {
-      //   if (player.x < 605  ) {
-      //     player.scale = player.scale - 0.003;
-      //     player.y -= 2;
-      //     player.depth = player.depth - 1;
-      //     if (!input.space) {
-      //     player.anim = 'goback';
-      //    }
-      //   }
-      //   if (player.x > 605 ) {
-      //     player.scale = player.scale - 0.003;
-      //     player.y -= 2;
-      //     player.depth = player.depth - 1;
-      //     if (!input.space) {
-      //     player.anim = 'goback';
-      //     }
-      //   }
-      // }
-
-      // bigger
-      // if (input.down && player.scale <= 2) {
-      //   player.scale = player.scale + 0.003;
-      //   player.y += 2;
-      //   player.depth += 1;
-      //   if (!input.space) {
-      //   player.anim = 'front';
-      //   }
-      // }
-
-      if (input.a) {
-        if (!input.space) {
-          // player.anims.play(`attack1_${player.atlas}`, true)
-          // player.anims.play(`attack`, true)
-        }
-        // player.attack = true;
-        player.wall = true;
-      }
-
-      if (input.t) {
-        this.bullet.x += 10
-        this.bullet.y -= 5
-        // player.setVelocityY(10);
-        // player.setIgnoreGravity(false)
-        // player.anim = 'heal';
-      }
-
-      if (input.space) {
-        // player.base = player.y;
-        // player.setIgnoreGravity(false)
-
-        // player.y -= 5
-        // player.setIgnoreGravity(true)
-        player.setVelocityY(-10);
-
-        // player.anim = 'jump';
-      } else {
-        // player.setVelocityY(10);
-      }
-
-      if (player.x !== 0 && player.x === player.base) {
-        // player.setIgnoreGravity(true);
-      }
-      // console.log(player.socle.x);
-      // if (!player.anims.getFrameName().includes("jump") && player.body.touching.down) {
-      // player.anims.play('jump');
-      // }
-      // if (player.body.touching.down) {
-      // player.setVelocityY(-59);
-      // }
-
-      if (input.c) {
-        if (input.left) player.setVelocityX(-100);
-        if (input.right) player.setVelocityX(100);
-        // player.anims.play(`run_${player.atlas}`, true)
-        // player.anims.play(`run`, true)
-      }
-
 
       players[player.arene][player.playerId].velocityX = player.body.velocity.x;
       players[player.arene][player.playerId].velocityY = player.body.velocity.y;
-      players[player.arene][player.playerId].scale = player.scale;
       players[player.arene][player.playerId].flipX = player.flipX;
-      players[player.arene][player.playerId].anim = player.anim;
-      players[player.arene][player.playerId].depth = player.depth;
-      players[player.arene][player.playerId].alpha = player.alpha;
-      // players[player.arene][player.playerId].attack = player.attack;
-      // players[player.arene][player.playerId].wall = player.wall;
       players[player.arene][player.playerId].x = player.x;
       players[player.arene][player.playerId].y = player.y;
-      // players[player.arene][player.playerId].angle = player.angle;
-      //   let newanim = player.anims.getName()
-      //
-      //   if (newanim != oldanim) {
-      //   players[player.arene][player.playerId].animation = player.anims.getName();
-      // }
     });
-    io.to(arene).emit("playerUpdates", players[arene]);
+    io.to("Naruto").emit("playerUpdates", players["Naruto"]);
 
-  });
 }
 
 function handlePlayerInput(self, playerId, arene, input) {
