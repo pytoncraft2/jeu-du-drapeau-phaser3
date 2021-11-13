@@ -124,9 +124,12 @@ const Arene = new Phaser.Class({
     let platforme1 = this.add.image(0, 290, 'platforme').setDepth(-2)
     let facade1 = this.add.image(-135, 106, 'facade').setDepth(1).setAlpha(0.4)
     let toit1 = this.add.image(-135, -245, 'plafond').setDepth(2)
-    console.log("WWWWWWWWWW");
-    console.log(toit1.displayWidth);
     let fontaine1 = this.add.image(-1370, 137, 'fontaine').setDepth(2)
+    var particles = this.add.particles('bullet').setDepth(3);
+    var emitter = particles.createEmitter();
+    emitter.setPosition(fontaine1.x, fontaine1.y - 240);
+    emitter.setSpeed(100);
+    emitter.setBlendMode(Phaser.BlendModes.ADD);
     let maison1 = this.add.group()
     maison1.addMultiple([interieurMaison1, facade1, toit1]);   // array of game objects
 
@@ -136,6 +139,11 @@ const Arene = new Phaser.Class({
     let facade2 = this.add.image(7000, -1584, 'facade').setDepth(1).setAlpha(0.4)
     let toit2 = this.add.image(7000, -1935, 'plafond').setDepth(2)
     let fontaine2 = this.add.image(8235, -1553, 'fontaine').setDepth(2)
+    var particles2 = this.add.particles('bulletVerte').setDepth(3);
+    var emitter2 = particles2.createEmitter();
+    emitter2.setPosition(fontaine2.x, fontaine2.y - 240);
+    emitter2.setSpeed(100);
+    emitter2.setBlendMode(Phaser.BlendModes.ADD);
     let maison2 = this.add.group()
     maison2.addMultiple([interieurMaison2, facade2, toit2]);   // array of game objects
 
