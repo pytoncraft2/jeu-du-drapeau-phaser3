@@ -1,0 +1,450 @@
+{
+    "frames": [
+        {
+            "filename": "dos3",
+            "frame": {
+                "w": 336,
+                "h": 969,
+                "x": 0,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "dos5",
+            "frame": {
+                "w": 333,
+                "h": 969,
+                "x": 336,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "dos7.8",
+            "frame": {
+                "w": 335,
+                "h": 969,
+                "x": 669,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "dos8",
+            "frame": {
+                "w": 336,
+                "h": 969,
+                "x": 1004,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "dos9",
+            "frame": {
+                "w": 314,
+                "h": 969,
+                "x": 1340,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "dos10",
+            "frame": {
+                "w": 337,
+                "h": 969,
+                "x": 1654,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "dos11",
+            "frame": {
+                "w": 339,
+                "h": 969,
+                "x": 0,
+                "y": 969
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "face1",
+            "frame": {
+                "w": 335,
+                "h": 969,
+                "x": 339,
+                "y": 969
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "face2",
+            "frame": {
+                "w": 312,
+                "h": 969,
+                "x": 674,
+                "y": 969
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "face3",
+            "frame": {
+                "w": 313,
+                "h": 969,
+                "x": 986,
+                "y": 969
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "face4",
+            "frame": {
+                "w": 310,
+                "h": 969,
+                "x": 1299,
+                "y": 969
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "face5",
+            "frame": {
+                "w": 318,
+                "h": 969,
+                "x": 1609,
+                "y": 969
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "face6",
+            "frame": {
+                "w": 312,
+                "h": 969,
+                "x": 0,
+                "y": 1938
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "face7",
+            "frame": {
+                "w": 339,
+                "h": 969,
+                "x": 312,
+                "y": 1938
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "jump0",
+            "frame": {
+                "w": 388,
+                "h": 969,
+                "x": 651,
+                "y": 1938
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "jump6",
+            "frame": {
+                "w": 1031,
+                "h": 969,
+                "x": 1039,
+                "y": 1938
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "pas_jkd",
+            "frame": {
+                "w": 445,
+                "h": 969,
+                "x": 2070,
+                "y": 1938
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "pas_jkd2",
+            "frame": {
+                "w": 865,
+                "h": 969,
+                "x": 2515,
+                "y": 1938
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "pas_jkd3",
+            "frame": {
+                "w": 865,
+                "h": 969,
+                "x": 0,
+                "y": 2907
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "pas_jkd4",
+            "frame": {
+                "w": 865,
+                "h": 969,
+                "x": 865,
+                "y": 2907
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "position_a1",
+            "frame": {
+                "w": 787,
+                "h": 969,
+                "x": 1730,
+                "y": 2907
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "position_a2",
+            "frame": {
+                "w": 787,
+                "h": 969,
+                "x": 2517,
+                "y": 2907
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "position_a3",
+            "frame": {
+                "w": 787,
+                "h": 969,
+                "x": 3304,
+                "y": 2907
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "profil_jkd8",
+            "frame": {
+                "w": 244,
+                "h": 969,
+                "x": 4091,
+                "y": 2907
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "profil2",
+            "frame": {
+                "w": 429,
+                "h": 969,
+                "x": 0,
+                "y": 3876
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "profil_jkd11",
+            "frame": {
+                "w": 253,
+                "h": 969,
+                "x": 429,
+                "y": 3876
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "profil_jkd13",
+            "frame": {
+                "w": 427,
+                "h": 969,
+                "x": 682,
+                "y": 3876
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "profil_jkd14",
+            "frame": {
+                "w": 275,
+                "h": 969,
+                "x": 1109,
+                "y": 3876
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "profil_jkd15",
+            "frame": {
+                "w": 427,
+                "h": 969,
+                "x": 1384,
+                "y": 3876
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "jump1",
+            "frame": {
+                "w": 400,
+                "h": 969,
+                "x": 1811,
+                "y": 3876
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "jump5",
+            "frame": {
+                "w": 400,
+                "h": 969,
+                "x": 0,
+                "y": 4845
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "jump2",
+            "frame": {
+                "w": 369,
+                "h": 1067,
+                "x": 400,
+                "y": 4845
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "jump4",
+            "frame": {
+                "w": 361,
+                "h": 1049,
+                "x": 769,
+                "y": 4845
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "jump3",
+            "frame": {
+                "w": 399,
+                "h": 1147,
+                "x": 1130,
+                "y": 4845
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        }
+    ],
+    "meta": {
+        "description": "Atlas generado con Atlas Packer Gamma V2",
+        "web": "https://gammafp.github.io/atlas-packer-phaser/"
+    }
+}

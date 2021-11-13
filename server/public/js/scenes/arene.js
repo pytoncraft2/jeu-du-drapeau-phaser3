@@ -207,6 +207,7 @@ const Arene = new Phaser.Class({
             player.setFrictionStatic(players[id].frictionstatic);
             player.setIgnoreGravity(players[id].ignoreGravity);
             player.setMass(players[id].mass);
+            player.play(players[id].animation, true);
             // player.ombre.setPosition(players[id].ombreX, players[id].ombreY)
             self.bullet.x = players[id].bulletX
             self.bullet.y = players[id].bulletY

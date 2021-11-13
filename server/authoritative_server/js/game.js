@@ -25,7 +25,7 @@ const config = {
 };
 
 function preload() {
-  this.load.atlas('dessinatric1', 'assets/personnages/dessinatrice1/dessinatrice1.png', 'assets/personnages/dessinatrice1/dessinatrice1_atlas.json');
+  this.load.atlas('dessinatrice1', 'assets/personnages/dessinatrice1/dessinatrice1.png', 'assets/personnages/dessinatrice1/dessinatrice1_atlas.json');
 }
 
 
@@ -304,7 +304,7 @@ function update() {
         player.setVelocityX(-10)
 
         // player.anims.play(`walk_${player.atlas}`, true)
-        player.anims.play(`walk_${player.atlas}`, true)
+        player.anims.play(`walk`, true)
         console.log(player.atlas);
         player.flipX = true;
       }
@@ -388,7 +388,7 @@ function update() {
       if (input.a) {
         if (!input.space) {
           // player.anims.play(`attack1_${player.atlas}`, true)
-          player.anims.play(`attack1`, true)
+          player.anims.play(`attack`, true)
         }
         player.setSize(900);
         // player.attack = true;
@@ -438,7 +438,7 @@ function update() {
         if (input.left) player.setVelocityX(-100);
         if (input.right) player.setVelocityX(100);
         // player.anims.play(`run_${player.atlas}`, true)
-        // player.anims.play(`run`, true)
+        player.anims.play(`run`, true)
       }
 
 
@@ -485,8 +485,8 @@ function update() {
       }
 
       // player.
-      // players[player.arene][player.playerId].animation = player.anims.getFrameName();
-      console.log(player.anims.getFrameName());
+      players[player.arene][player.playerId].animation = player.anims.getName();
+      // console.log(player.anims.getName());
       // players[player.arene][player.playerId].socleX = player.socle.x;
       // players[player.arene][player.playerId].socleY = player.socle.y;
     });

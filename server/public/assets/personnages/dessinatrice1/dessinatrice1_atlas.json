@@ -1,7 +1,7 @@
 {
     "frames": [
         {
-            "filename": "dos3",
+            "filename": "dos7",
             "frame": {
                 "w": 336,
                 "h": 969,
@@ -14,7 +14,7 @@
             }
         },
         {
-            "filename": "dos5",
+            "filename": "dos1",
             "frame": {
                 "w": 333,
                 "h": 969,
@@ -27,7 +27,7 @@
             }
         },
         {
-            "filename": "dos7.8",
+            "filename": "dos2",
             "frame": {
                 "w": 335,
                 "h": 969,
@@ -40,7 +40,7 @@
             }
         },
         {
-            "filename": "dos8",
+            "filename": "dos3",
             "frame": {
                 "w": 336,
                 "h": 969,
@@ -53,7 +53,7 @@
             }
         },
         {
-            "filename": "dos9",
+            "filename": "dos4",
             "frame": {
                 "w": 314,
                 "h": 969,
@@ -66,7 +66,7 @@
             }
         },
         {
-            "filename": "dos10",
+            "filename": "dos5",
             "frame": {
                 "w": 337,
                 "h": 969,
@@ -79,7 +79,7 @@
             }
         },
         {
-            "filename": "dos11",
+            "filename": "dos6",
             "frame": {
                 "w": 339,
                 "h": 969,
@@ -209,7 +209,7 @@
             }
         },
         {
-            "filename": "pas_jkd",
+            "filename": "run1",
             "frame": {
                 "w": 445,
                 "h": 969,
@@ -222,7 +222,7 @@
             }
         },
         {
-            "filename": "pas_jkd2",
+            "filename": "run2",
             "frame": {
                 "w": 865,
                 "h": 969,
@@ -235,7 +235,7 @@
             }
         },
         {
-            "filename": "pas_jkd3",
+            "filename": "run4",
             "frame": {
                 "w": 865,
                 "h": 969,
@@ -248,7 +248,7 @@
             }
         },
         {
-            "filename": "pas_jkd4",
+            "filename": "run3",
             "frame": {
                 "w": 865,
                 "h": 969,
@@ -261,7 +261,7 @@
             }
         },
         {
-            "filename": "position_a1",
+            "filename": "attack2",
             "frame": {
                 "w": 787,
                 "h": 969,
@@ -274,7 +274,7 @@
             }
         },
         {
-            "filename": "position_a2",
+            "filename": "attack3",
             "frame": {
                 "w": 787,
                 "h": 969,
@@ -287,7 +287,7 @@
             }
         },
         {
-            "filename": "position_a3",
+            "filename": "attack4",
             "frame": {
                 "w": 787,
                 "h": 969,
@@ -300,7 +300,7 @@
             }
         },
         {
-            "filename": "profil_jkd8",
+            "filename": "walk5",
             "frame": {
                 "w": 244,
                 "h": 969,
@@ -313,7 +313,7 @@
             }
         },
         {
-            "filename": "profil2",
+            "filename": "attack1",
             "frame": {
                 "w": 429,
                 "h": 969,
@@ -339,7 +339,7 @@
             }
         },
         {
-            "filename": "profil_jkd13",
+            "filename": "walk3",
             "frame": {
                 "w": 427,
                 "h": 969,
@@ -352,7 +352,7 @@
             }
         },
         {
-            "filename": "profil_jkd14",
+            "filename": "walk2",
             "frame": {
                 "w": 275,
                 "h": 969,
@@ -365,7 +365,7 @@
             }
         },
         {
-            "filename": "profil_jkd15",
+            "filename": "walk1",
             "frame": {
                 "w": 427,
                 "h": 969,

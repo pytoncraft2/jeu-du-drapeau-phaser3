@@ -1,95 +1,60 @@
 function Animations(anims) {
 
-anims.create({
-  key: "attack1_dessinatrice1",
-  frames: anims.generateFrameNumbers('dessinatrice1', {
-    frames: ['profil', 'position_a1', 'position_a2', 'position_a3', 'profil','pas_jkd']
-  }),
-  frameRate: 6,
-  repeat: 0
-});
 
-anims.create({
-  key: "run_dessinatrice1",
-  frames: anims.generateFrameNumbers('dessinatrice1', {
-    frames: ['pas_jkd','pas_jkd2', 'pas_jkd4','pas_jkd3']
-  }),
-  frameRate: 6,
-  repeat: 0
-});
+  anims.create({
+    key: 'attack',
+    frames: anims.generateFrameNames('dessinatrice1', { prefix: 'attack', start: 1, end: 5 }),
+    frameRate: 6,
+    repeat: 0
+  });
+  anims.create({
+    key: "goback",
+    frames: anims.generateFrameNames('dessinatrice1', { prefix: 'dos', start: 1, end: 7 }),
+    frameRate: 7,
+    repeat: 0
+  });
+
+  anims.create({
+    key: "front",
+    frames: anims.generateFrameNames('dessinatrice1', { prefix: 'face', start: 1, end: 5 }),
+    frameRate: 6,
+    repeat: 0
+  });
+  anims.create({
+    key: "walk",
+    frames: anims.generateFrameNames('dessinatrice1', { prefix: 'walk', start: 1, end: 5 }),
+    frameRate: 5,
+    repeat: 0
+  });
+  anims.create({
+    key: "jump",
+    frames: anims.generateFrameNames('dessinatrice1', { prefix: 'jump', start: 0, end: 5 }),
+    frameRate: 7,
+    repeat: 0
+  });
+
+  anims.create({
+    key: "idle_walk",
+    frames: anims.generateFrameNames('dessinatrice1', { prefix: 'walk', start: 5, end: 5 }),
+    frameRate: 1,
+    repeat: -1
+  });
+
+  anims.create({
+    key: "idle_attack",
+    frames: anims.generateFrameNames('dessinatrice1', { prefix: 'run', start: 1, end: 1 }),
+    frameRate: 1,
+    repeat: 0
+  });
+
+  anims.create({
+    key: "run",
+    frames: anims.generateFrameNames('dessinatrice1', { prefix: 'run', start: 1, end: 4 }),
+    frameRate: 6,
+    repeat: -1
+  })
 
 
-anims.create({
-  key: "goback_dessinatrice1",
-  frames: anims.generateFrameNumbers('dessinatrice1', {
-    frames: ['dos5', 'dos7.8', 'dos8', 'dos9', 'dos10', 'dos11', 'dos3']
-  }),
-  frameRate: 7,
-  repeat: 0
-});
-
-
-anims.create({
-  key: "jump_dessinatrice1",
-  frames: anims.generateFrameNumbers('dessinatrice1', {
-    frames: ['jump0', 'jump1', 'jump2', 'jump3', 'jump4', 'jump5', 'jump0']
-  }),
-  frameRate: 8,
-  repeat: 0
-});
-
-
-anims.create({
-  key: "front_dessinatrice1",
-  frames: anims.generateFrameNumbers('dessinatrice1', {
-    frames: ['face5', 'face2', 'face3', 'face4', 'face1']
-  }),
-  frameRate: 6,
-  repeat: 0
-});
-anims.create({
-  key: "walk_dessinatrice1",
-  frames: anims.generateFrameNumbers('dessinatrice1', {
-    frames: ['profil_jkd11', 'profil_jkd13', 'profil_jkd14', 'profil_jkd15','profil_jkd8']
-  }),
-  frameRate: 5,
-  repeat: 0
-});
-
-anims.create({
-  key: "attack1_naruto",
-  frames: anims.generateFrameNumbers('naruto', {
-    frames: ['profil', 'position_a1', 'position_a2', 'position_a3', 'profil']
-  }),
-  frameRate: 6,
-  repeat: 0
-});
-
-anims.create({
-  key: "goback_naruto",
-  frames: anims.generateFrameNumbers('naruto', {
-    frames: ['dos5', 'dos7.8', 'dos8', 'dos9', 'dos10', 'dos11', 'dos3']
-  }),
-  frameRate: 7,
-  repeat: 0
-});
-
-anims.create({
-  key: "front_naruto",
-  frames: anims.generateFrameNumbers('naruto', {
-    frames: ['face1', 'face2', 'face3', 'face4', 'face5', 'face7']
-  }),
-  frameRate: 6,
-  repeat: 0
-});
-anims.create({
-  key: "walk_naruto",
-  frames: anims.generateFrameNumbers('naruto', {
-    frames: ['profil3', 'profil4', 'profil5', 'profil6']
-  }),
-  frameRate: 5,
-  repeat: 0
-});
 
 
 }

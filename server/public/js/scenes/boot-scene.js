@@ -73,19 +73,21 @@ const BootScene = new Phaser.Class({
 
   loadAssets: function() {
     var liste = ['dessinatrice1_', 'naruto_'];
-    var liste2 = ['dessinatrice1', 'naruto'];
+    // var liste2 = ['dessinatrice1', 'naruto'];
     liste.forEach((item) => {
       this.load.image(item, 'assets/selection/' + item + '.png');
     });
 
-    liste2.forEach((item) => {
-      this.load.atlas(item, 'assets0/personnages/' + item + '/' + item + '.png', 'assets/personnages/' + item + '/' + item + '_atlas.json');
-    });
+    // liste2.forEach((item) => {
+    //   this.load.atlas(item, 'assets0/personnages/' + item + '/' + item + '.png', 'assets/personnages/' + item + '/' + item + '_atlas.json');
+    // });
     // this.load.image('bg', 'assets0/fond/streetOfRage.png');
     // this.load.image('bedroom', 'assets0/fond/bgGrand.png');
     // this.load.image('doors', 'assets0/fond/doors.png');
     // this.load.atlas('ennemy', 'assets0/personnages/dessinatrice1/dessinatrice1.png', 'assets/personnages/dessinatrice1/dessinatrice1_atlas.json');
-    this.load.atlas('dessinatrice1', 'assets0/personnages/dessinatrice1/dessinatrice1.png', 'assets/personnages/dessinatrice1/dessinatrice1_atlas.json');
+    // this.load.atlas('dessinatrice1', 'assets0/personnages/dessinatrice1/dessinatrice1.png', 'assets/personnages/dessinatrice1/dessinatrice1_atlas.json');
+    this.load.atlas('dessinatrice1', 'assets/personnages/dessinatrice1/dessinatrice1.png', 'assets/personnages/dessinatrice1/dessinatrice1_atlas.json');
+
     // this.load.image('barrel', 'assets0/barrel.png')
     // this.load.image('profilPanel', 'assets0/liveProfilPanel.png');
     // this.load.image('portal', 'assets0/portal.png');
