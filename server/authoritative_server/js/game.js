@@ -53,9 +53,7 @@ let socleToitGauche = self.add.zone(-79, -253, 210, 210).setSize(1631, 40);
   socleJoueur4.setIgnoreGravity(true).setStatic(true).setFriction(0)
 
 this.platformeGaucheCollision.addMultiple([soclePlatformeGauche, socleToitGauche]);
-this.platformeGaucheCollision.arene = "Naruto"
 this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit]);
-this.platformeDroiteCollision.arene = "Pikachu"
 
 
 
@@ -460,21 +458,9 @@ function addPlayer(self, playerInfo) {
   self.players[playerInfo.arene].add(joueur);
 
 
-  // if (self.platformeGaucheCollision.arene == joueur.arene) {
-  // joueur.ombre = self.add.ellipse(self.platformeGaucheCollision.getMatching(''), joueur.socle.y - 30, 100, 20, 0x0009).setAlpha(0.5);
-  // } else {
-  //
-  // }
   // joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -55, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
   // joueur.ombre = self.add.ellipse(self..x, joueur.socle.y - 30, 100, 20, 0x0009).setAlpha(0.5);
-  // console.log(self.platformeGaucheCollision.getChildren());
-  // console.log("EQUIPE-----------------------");
-  // console.log(self.platformeGaucheCollision.arene);
-  self.platformeGaucheCollision.getChildren().forEach((item, i) => {
-    console.log(item);
-
-  });
-
+  console.log(self.platformeGaucheCollision.getChildren());
 
 
   // var socleJoueur = self.matter.add.gameObject(joueur.socle);

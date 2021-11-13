@@ -151,7 +151,7 @@ const Arene = new Phaser.Class({
         targets: [ellipse1, ellipse2],
         alpha: 0.2,
         yoyo: true,
-        repeat: -1,
+        repeat: 5,
         ease: 'Sine.easeInOut'
 
       });
