@@ -8,6 +8,7 @@ const config = {
   width: 1500,
   height: 720,
   scene: {
+    preload: preload,
     create: create,
     update: update,
     physics: {
@@ -22,6 +23,10 @@ const config = {
   },
   autoFocus: false
 };
+
+function preload() {
+  this.load.image('dessinatrice1', 'assets/fond/bg.png');
+}
 
 
 function create() {
@@ -229,14 +234,14 @@ function update() {
 
       if (input.right && !input.c) {
         player.setVelocityX(10)
-        player.anim = "walk"
+        player.play("walk", true)
         player.flipX = false;
 
 
       } else if (input.left && !input.c) {
         player.setVelocityX(-10)
 
-        player.anim = "walk"
+        player.play("walk", true)
         player.flipX = true;
       }
 
@@ -317,7 +322,7 @@ function update() {
 
       if (input.a) {
         if (!input.space) {
-          player.anim = 'attack1';
+          player.play('attack1', true)
         }
         player.setSize(900);
         player.attack = true;
@@ -366,7 +371,7 @@ function update() {
       if (input.c) {
         if (input.left) player.setVelocityX(-100);
         if (input.right) player.setVelocityX(100);
-        player.anim = 'run';
+        player.play('run', true)
       }
 
 
