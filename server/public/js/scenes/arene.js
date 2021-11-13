@@ -109,7 +109,7 @@ const Arene = new Phaser.Class({
 
     let interieurMaison1 = this.add.image(-135, 40, 'interieur-maison')
     let poteau1 = this.add.image(1210, 0, 'poteau')
-    this.canon1 = this.add.image(0, -460, 'canon').setDepth(4)
+    this.canons = this.add.group()
 
     this.rect = this.add.rectangle(0, -460, 333, 125)
 
@@ -151,8 +151,8 @@ const Arene = new Phaser.Class({
       socleJoueur4.setIgnoreGravity(true).setStatic(true).setFriction(0)
 
 
-    this.groupeBullets = this.add.group();
-    this.bulletCanon = this.groupeBullets.create(this.canon1.x, this.canon1.y + 20, 'bullet').setScale(0.2).setDepth(100)
+    // this.groupeBullets = this.add.group();
+    // this.bulletCanon = this.groupeBullets.create(this.canon1.x, this.canon1.y + 20, 'bullet').setScale(0.2).setDepth(100)
 
 
 
@@ -434,14 +434,7 @@ const Arene = new Phaser.Class({
   },
   displayPlayers: function(self, playerInfo, iscurrent) {
     console.log("Ajout joueur function");
-    for (var i = 0; i < 64; i++)
-{
-    var ball = this.matter.add.image(Phaser.Math.Between(playerInfo.x -400, 700), Phaser.Math.Between(playerInfo.x -600, 0), 'bulletVerte');
-    ball.setCircle();
-    ball.setFriction(0.005);
-    ball.setBounce(1);
-    ball.body.collisionFilter.mask = 0
-}
+
     const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, 'dessinatrice1', 'face1').setScale(0.38);
     // self.add.image(playerInfo.x, playerInfo.y, "dessinatrice1_").setScale(0.38).setOrigin(0.5, 0.5)
 
@@ -452,6 +445,9 @@ const Arene = new Phaser.Class({
     // joueur.setFixedRotation()
 joueur.setFrictionAir(0.05);
 joueur.setMass(30);
+
+joueur.canon = this.matter.add.image(0, -460, 'canon', { isStatic: true }).setDepth(4)
+
 
 
 
