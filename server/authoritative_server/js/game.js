@@ -219,8 +219,31 @@ function update() {
     this.players["Naruto"].getChildren().forEach((player) => {
       const input = players[player.arene][player.playerId].input;
 
-      // let oldanim = player.anims.getName()
+      //TIROLIENNE
+      if (input.z) {
+        // TODO: ACTIF SI PRET DU POTEAU
+        let bx = 1210;
+        let by = -400;
+        if (player.world.localWorld.constraints.length == 0) {
+        this.matter.add.constraint(this.bullet ,player);
+        var tween = this.tweens.add({
+          targets: this.bullet,
+          x: 5675,
+          y: -2376,
+          onComplete: () => (player.world.localWorld.constraints = []),  // set context? how?
+          yoyo: true,
+          // onYoyo: function () { addEvent('onYoyo') },
+          duration: 3500,
+        });
+        input.z = false
 
+      }
+      else {
+        player.world.localWorld.constraints = []
+      }
+      input.z = false;
+    }
+      //DEPLACEMENT HAUT-BAS
       if (input.up) {
         player.thrustLeft(0.1);
       } else if (input.down) {
@@ -228,6 +251,7 @@ function update() {
       }
 
 
+      //DEPLACEMENT DROITE-GAUCHE
       if (input.right) {
         player.thrust(0.1)
       } else if (input.left) {
