@@ -226,21 +226,24 @@ function update() {
           player.thrust(0.1)
           player.play('walk', true)
           player.setFlipX(false)
-          // input.walk = false;
-          console.log("WALLK R");
+        } else {
+          player.thrust(0)
+          if (player.body.speed < 1.5) {
+            player.play("idle_walk", true)
+          }
         }
       } else if (input.left) {
         if (input.walk) {
           player.thrustBack(0.1)
           player.play('walk', true)
           player.setFlipX(true)
-          // input.walk = false;
-          console.log("WALLK L");
-        }
-      } else {
+        } else {
           player.thrust(0)
+          if (player.body.speed < 1.5) {
+          player.play("idle_walk", true)
+          }
+        }
       }
-
 
 
       // if (input.v) {
