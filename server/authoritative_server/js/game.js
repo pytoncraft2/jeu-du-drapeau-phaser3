@@ -266,14 +266,15 @@ function update() {
       if (input.attaque) {
         if (input.charge) {
           this.tween = this.tweens.add({
-            targets: player,
+            targets: player.ombre,
             from: 0,
             to: 1,
-            alpha: 0.4,
+            scale: 2,
             duration: 2000,
             onComplete: () => console.log("COMPLETERERERE")
           })
           console.log("CHARGE");
+          player.play('idle_attack', true)
           input.charge = false;
         } else {
           // console.log(this.tween);
@@ -287,7 +288,7 @@ function update() {
           player.play('attack', true)
           player.on('animationcomplete', () => {
           player.anims.play('idle_attack', true)
-          player.setAlpha(1)
+          player.ombre.setScale(1)
           })
 
         }
@@ -369,6 +370,7 @@ function update() {
       players[player.arene][player.playerId].flipX = player.flipX;
       players[player.arene][player.playerId].alpha = player.alpha;
       players[player.arene][player.playerId].ombreX = player.ombre.x;
+      players[player.arene][player.playerId].ombreScale = player.ombre.scale;
 
       players[player.arene][player.playerId].rotation = player.rotation;
     });
