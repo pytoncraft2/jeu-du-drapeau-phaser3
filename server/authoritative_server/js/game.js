@@ -226,6 +226,8 @@ function update() {
     this.players["Naruto"].getChildren().forEach((player) => {
       const input = players[player.arene][player.playerId].input;
 
+      player.ombre.x = player.x
+
       if (player.attacked) {
       player.setAlpha(0.5)
       console.log("ATTACKED");
@@ -366,6 +368,7 @@ function update() {
       players[player.arene][player.playerId].anims = player.anims.getName();
       players[player.arene][player.playerId].flipX = player.flipX;
       players[player.arene][player.playerId].alpha = player.alpha;
+      players[player.arene][player.playerId].ombreX = player.ombre.x;
 
       players[player.arene][player.playerId].rotation = player.rotation;
     });
@@ -415,7 +418,7 @@ function addPlayer(self, playerInfo) {
 
 
   // joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -55, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
-  // joueur.ombre = self.add.ellipse(self..x, joueur.socle.y - 30, 100, 20, 0x0009).setAlpha(0.5);
+  joueur.ombre = self.add.ellipse(-79, 327 - 30, 100, 20, 0x0009).setAlpha(0.5);
   // console.log(self.platformeGaucheCollision.getChildren());
 
 

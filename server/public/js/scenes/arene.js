@@ -213,6 +213,7 @@ const Arene = new Phaser.Class({
             player.setRotation(players[id].rotation);
             player.setFlipX(players[id].flipX);
             player.setAlpha(players[id].alpha);
+            player.ombre.x = players[id].ombreX;
             player.play(players[id].anims, true);
 
             // player.setRotation(players[id].rotation);
@@ -400,8 +401,10 @@ joueur.setFrictionAir(0.05);
 joueur.setMass(30);
 
 
+let couleur = playerInfo.equipe == "A" ? 0x0ea733 : 0x0e88bd
+let position = playerInfo.equipe == "A" ? {x: -79, y:327} : {x: 7300, y:-1363}
 
-    // joueur.ombre = self.add.ellipse(joueur.socle.x, joueur.socle.y - 30, 100, 20, 0x0009).setAlpha(0.5);
+    joueur.ombre = self.add.ellipse(position.x, position.y - 30, 100, 20, couleur).setAlpha(0.8).setDepth(-1);
 
     // joueur.socle2 = self.add.zone(playerInfo.x, playerInfo.y + 190, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
     // var socleJoueur = self.matter.add.gameObject(joueur.socle);
