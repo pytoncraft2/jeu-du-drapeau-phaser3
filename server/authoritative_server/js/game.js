@@ -33,6 +33,7 @@ function create() {
   // this.matter.world.disableGravity();
 
   this.tween = null;
+  this.graph = this.add.graphics();
 
       this.anims.create({
         key: 'attack',
@@ -301,28 +302,18 @@ function update() {
         input.attaque = false;
       }
 
+      /**
+       * SAUT
+       */
+
       if (input.saut) {
         player.setVelocityY(-50)
         input.saut = false
       }
 
 
-      // if (input.v) {
-      // player.thrust(0.1)
-      // } else if (input.x) {
-      // player.thrustBack(0.1)
-      // }
-      //
-      // if (input.v) {
-      // player.setVelocityX(-10)
-      // } else if (input.x) {
-      // player.setVelocityX(10)
-      // }
-
-
-
       //TIROLIENNE
-      if (input.z) {
+      if (input.tirolienne) {
         // TODO: ACTIF SI PRET DU POTEAU
         var dist = Phaser.Math.Distance.BetweenPoints(player, this.bullet);
         console.log("DIIISSSTANCE");
@@ -339,44 +330,62 @@ function update() {
           // onYoyo: function () { addEvent('onYoyo') },
           duration: 3500,
         });
-        input.z = false
+        input.tirolienne = false
 
       }
       else {
         player.world.localWorld.constraints = []
       }
     }
-      input.z = false;
+      input.tirolienne = false;
     }
 
-    // if (input.up) {
-      // player.thrustLeft(0.1);
-    // } else if (input.down) {
-      // player.thrustRight(0.1)
-    // }
+    //CANON FEU
+    if (input.canonMaintenu) {
+      input.canonMaintenu = false;
+      console.log("CANON MAINTENU");
+      this.bulletCanon = this.groupeBullets.create(this.canon1.x, this.canon1.y + 20, 'bullet').setScale(0.2).setDepth(100);
+      this.charge = this.tweens.add({
+        targets: this.bulletCanon,
+        scale: 4,
+        paused: false,
+        duration: 2000,
+        repeat: 0
+      });
+    }
 
+    if (input.canonRelache) {
+      input.canonRelache = false;
+      this.charge.stop()
 
-    //DEPLACEMENT DROITE-GAUCHE
-    // if (input.right) {
-      // player.thrust(0.1)
-    // } else if (input.left) {
-      // player.thrustBack(0.1)
-    // }
+      this.l = new Phaser.Geom.Line(this.canon1.x, this.canon1.y, this.canon1.x + 5400, this.canon1.y);
+      var rad = Phaser.Math.DegToRad(this.canon1.angle);
+      let line = Phaser.Geom.Line.SetToAngle(this.l, this.canon1.x, this.canon1.y, rad, 4000);
+      this.graph.lineStyle(10, 0xcf0000, 1);
+      this.charge = this.tweens.add({
+        targets: this.bulletCanon,
+        x: this.l.x2,
+        y: this.l.y2,
+        paused: false,
+        duration: 500,
+        repeat: 0,
+      });
+      console.log("RELACHER");
+    }
 
-      //DEPLACEMENT HAUT-BAS
-      // if (input.up) {
-      //   player.setVelocityY(-10);
-      // } else if (input.down) {
-      //   player.setVelocityY(10)
-      // }
-      //
-      //
-      // //DEPLACEMENT DROITE-GAUCHE
-      // if (input.right) {
-      //   player.setVelocityX(-10)
-      // } else if (input.left) {
-      //   player.setVelocityX(10)
-      // }
+    /**
+     * ROTATION CANON
+     */
+
+    if (input.x) {
+      input.x = false;
+      this.canon1.setAngle(this.canon1.angle + 5)
+    }
+
+    if (input.v) {
+      input.v = false;
+      this.canon1.setAngle(this.canon1.angle - 5)
+    }
 
       players[player.arene][player.playerId].x = player.x;
       players[player.arene][player.playerId].y = player.y;
@@ -389,6 +398,15 @@ function update() {
       players[player.arene][player.playerId].bulletY = this.bullet.y;
 
       players[player.arene][player.playerId].rotation = player.rotation;
+
+
+      if (this.bulletCanon) {
+        players[player.arene][player.playerId].bulletCanonY = this.bulletCanon.y
+        players[player.arene][player.playerId].bulletCanonX = this.bulletCanon.x
+        players[player.arene][player.playerId].bulletCanonScale = this.bulletCanon.scale
+        players[player.arene][player.playerId].canonAngle = this.canon1.angle
+      }
+
     });
     io.to("Naruto").emit("playerUpdates", players["Naruto"]);
 

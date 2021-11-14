@@ -166,7 +166,8 @@ const Arene = new Phaser.Class({
 
 
     this.groupeBullets = this.add.group();
-    this.bulletCanon = this.groupeBullets.create(this.canon1.x, this.canon1.y + 20, 'bullet').setScale(0.2).setDepth(100)
+    this.bulletCanon = this.groupeBullets.create(this.canon1.x, this.canon1.y + 20, 'bullet').setScale(0.2).setDepth(100).setTintFill(0xff0000)
+
 
 
 
@@ -231,6 +232,13 @@ const Arene = new Phaser.Class({
             player.play(players[id].anims, true);
             self.bullet.setPosition(players[id].bulletX, players[id].bulletY)
 
+            if (self.bulletCanon) {
+            self.bulletCanon.x = players[id].bulletCanonX
+            self.bulletCanon.y = players[id].bulletCanonY
+            self.bulletCanon.setScale(players[id].bulletCanonScale)
+            }
+
+            self.canon1.setAngle(players[id].canonAngle)
             // player.setRotation(players[id].rotation);
 
             // if (players[id].animation) {
@@ -392,28 +400,22 @@ const Arene = new Phaser.Class({
       });
     }
 
+    /**
+     * CANON FEU
+     * @param  {[type]} Phaser [description]
+     * @return {[type]}        [description]
+     */
     if (Phaser.Input.Keyboard.JustDown(this.canonKeyPressed)) {
       this.socket.emit('playerInput', {
-        left: this.leftKeyPressed,
-        right: this.rightKeyPressed,
-        up: this.upKeyPressed,
-        down: this.downKeyPressed,
-        a: this.aKey,
-        t: this.tKey,
-        space: this.spaceKeyPressed,
-        c: this.cKey,
         canonMaintenu: true,
-        canonRelache: false,
-        z: false,
+        canonRelache: false
       });
     }
 
     if (Phaser.Input.Keyboard.JustUp(this.canonKeyPressed)) {
       this.socket.emit('playerInput', {
-        c: this.cKey,
         canonMaintenu: false,
-        canonRelache: true,
-        z: false,
+        canonRelache: true
       });
     }
   },
