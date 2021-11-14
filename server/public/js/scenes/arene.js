@@ -300,19 +300,34 @@ const Arene = new Phaser.Class({
 
   update: function () {
 
+
+    /**
+     * TIROLIENNE CONTROLE
+     */
     if (Phaser.Input.Keyboard.JustDown(this.zKeyPressed)) {
       this.socket.emit('playerInput', {
-        left: this.leftKeyPressed,
-        right: this.rightKeyPressed,
-        up: this.upKeyPressed,
-        down: this.downKeyPressed,
-        a: this.aKey,
-        t: this.tKey,
-        space: this.spaceKeyPressed,
-        c: this.cKey,
         z: true,
       });
     }
+
+    /**
+     * SAUT
+     */
+
+    if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
+      this.socket.emit('playerInput', {
+        saut: true,
+        // haut: true
+      });
+    }
+
+    // if (Phaser.Input.Keyboard.JustUp(this.cursors.space)) {
+    //   this.socket.emit('playerInput', {
+    //     saut: true,
+    //     haut: false
+    //   });
+    // }
+
 
     /**
      * DIRECTION DROITE GAUCHE

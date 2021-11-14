@@ -301,6 +301,11 @@ function update() {
         input.attaque = false;
       }
 
+      if (input.saut) {
+        player.setVelocityY(-50)
+        input.saut = false
+      }
+
 
       // if (input.v) {
       // player.thrust(0.1)
