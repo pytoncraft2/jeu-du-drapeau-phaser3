@@ -315,10 +315,7 @@ function update() {
       //TIROLIENNE
       if (input.tirolienne) {
         // TODO: ACTIF SI PRET DU POTEAU
-        console.log("TIROLIENNE");
         var dist = Phaser.Math.Distance.BetweenPoints(player, this.bullet);
-        console.log("DIIISSSTANCE");
-        console.log(dist);
         if (dist < 530 && dist < 540) {
         if (player.world.localWorld.constraints.length == 0) {
         this.matter.add.constraint(this.bullet ,player);
@@ -343,17 +340,23 @@ function update() {
 
     //CANON FEU
     if (input.canonMaintenu) {
-      input.canonMaintenu = false;
-      this.bulletCanon = this.groupeBullets.create(this.canon1.x, this.canon1.y + 20, 'bullet').setScale(0.2).setDepth(100);
-      this.charge = this.tweens.add({
-        targets: this.bulletCanon,
-        scale: 4,
-        paused: false,
-        duration: 2000,
-        repeat: 0
-      });
+      var distCanon = Phaser.Math.Distance.BetweenPoints(player, this.canon1);
+
+      console.log("DISTANCE CANON");
+      console.log(distCanon);
+      if (distCanon < 106 && distCanon < 121) {
+        input.canonMaintenu = false;
+        this.bulletCanon = this.groupeBullets.create(this.canon1.x, this.canon1.y + 20, 'bullet').setScale(0.2).setDepth(100);
+        this.charge = this.tweens.add({
+          targets: this.bulletCanon,
+          scale: 4,
+          paused: false,
+          duration: 2000,
+          repeat: 0
+        });
+      }
     } else if (input.canonRelache) {
-      input.canonRelache = false;
+      if (this.charge) {
       this.charge.stop()
 
       this.l = new Phaser.Geom.Line(this.canon1.x, this.canon1.y, this.canon1.x + 5400, this.canon1.y);
@@ -368,6 +371,9 @@ function update() {
         duration: 500,
         repeat: 0,
       });
+      }
+      input.canonRelache = false;
+
     }
 
     /**
