@@ -304,12 +304,28 @@ const Arene = new Phaser.Class({
       });
     }
 
+
+    if (Phaser.Input.Keyboard.JustUp(this.cursors.left)) {
+      this.socket.emit('playerInput', {
+        left: true,
+        walk: false,
+      });
+    }
+
     if (Phaser.Input.Keyboard.JustDown(this.cursors.right)) {
       this.socket.emit('playerInput', {
         right: true,
         walk: true,
       });
     }
+
+    if (Phaser.Input.Keyboard.JustUp(this.cursors.right)) {
+      this.socket.emit('playerInput', {
+        right: true,
+        walk: false,
+      });
+    }
+
 
 
 

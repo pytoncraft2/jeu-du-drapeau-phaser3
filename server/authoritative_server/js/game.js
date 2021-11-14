@@ -222,19 +222,23 @@ function update() {
 
 
       if (input.right) {
-      player.thrust(0.1)
-      if (input.walk) {
-        player.play('walk', true)
-        player.setFlipX(false)
-        input.walk = false;
-      }
+        if (input.walk) {
+          player.thrust(0.1)
+          player.play('walk', true)
+          player.setFlipX(false)
+          // input.walk = false;
+          console.log("WALLK R");
+        }
       } else if (input.left) {
-      player.thrustBack(0.1)
-      if (input.walk) {
-        player.play('walk', true)
-        player.setFlipX(true)
-        input.walk = false;
-      }
+        if (input.walk) {
+          player.thrustBack(0.1)
+          player.play('walk', true)
+          player.setFlipX(true)
+          // input.walk = false;
+          console.log("WALLK L");
+        }
+      } else {
+          player.thrust(0)
       }
 
 
