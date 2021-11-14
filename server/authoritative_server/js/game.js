@@ -230,7 +230,7 @@ function update() {
 
       if (player.attacked) {
       player.setAlpha(0.5)
-      console.log("ATTACKED");
+      // console.log("ATTACKED");
       player.attacked = false;
       }
 
@@ -277,15 +277,12 @@ function update() {
             duration: 2000,
             onComplete: () => console.log("COMPLETERERERE")
           })
-          console.log("CHARGE");
           player.play('idle_attack', true)
           input.charge = false;
         } else {
-          // console.log(this.tween);
-          console.log("TOTAL PROGRESS");
-          console.log(this.tween.totalProgress)
-          console.log("----PPRRROGGESS 2");
-          console.log(this.tween.getValue());
+          // console.log(this.tween.totalProgress)
+          // console.log("----PPRRROGGESS 2");
+          // console.log(this.tween.getValue());
           if (this.tween.isPlaying()) {
           this.tween.stop()
           }
@@ -322,8 +319,10 @@ function update() {
       //TIROLIENNE
       if (input.z) {
         // TODO: ACTIF SI PRET DU POTEAU
-        let bx = 1210;
-        let by = -400;
+        var dist = Phaser.Math.Distance.BetweenPoints(player, this.bullet);
+        console.log("DIIISSSTANCE");
+        console.log(dist);
+        if (dist < 530 && dist < 540) {
         if (player.world.localWorld.constraints.length == 0) {
         this.matter.add.constraint(this.bullet ,player);
         var tween = this.tweens.add({
@@ -341,6 +340,7 @@ function update() {
       else {
         player.world.localWorld.constraints = []
       }
+    }
       input.z = false;
     }
 
