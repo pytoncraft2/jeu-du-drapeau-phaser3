@@ -263,9 +263,11 @@ function update() {
 
       if (input.attaque) {
         if (input.charge) {
-          this.tween = this.tweens.addCounter({
+          this.tween = this.tweens.add({
+            targets: player,
             from: 0,
             to: 1,
+            alpha: 0.4,
             duration: 2000,
             onComplete: () => console.log("COMPLETERERERE")
           })
@@ -277,9 +279,13 @@ function update() {
           console.log(this.tween.totalProgress)
           console.log("----PPRRROGGESS 2");
           console.log(this.tween.getValue());
+          if (this.tween.isPlaying()) {
+          this.tween.stop()
+          }
           player.play('attack', true)
           player.on('animationcomplete', () => {
           player.anims.play('idle_attack', true)
+          player.setAlpha(1)
           })
 
         }
