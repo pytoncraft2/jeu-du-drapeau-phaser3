@@ -225,14 +225,14 @@ function update() {
       player.thrust(0.1)
       if (input.walk) {
         player.play('walk', true)
-        console.log("wwwwwalk");
+        player.setFlipX(false)
         input.walk = false;
       }
       } else if (input.left) {
       player.thrustBack(0.1)
       if (input.walk) {
-        console.log("wwwwwalk");
         player.play('walk', true)
+        player.setFlipX(true)
         input.walk = false;
       }
       }
@@ -310,6 +310,8 @@ function update() {
       players[player.arene][player.playerId].x = player.x;
       players[player.arene][player.playerId].y = player.y;
       players[player.arene][player.playerId].anims = player.anims.getName();
+      players[player.arene][player.playerId].flipX = player.flipX;
+
       players[player.arene][player.playerId].rotation = player.rotation;
     });
     io.to("Naruto").emit("playerUpdates", players["Naruto"]);

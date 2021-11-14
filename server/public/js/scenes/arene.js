@@ -206,11 +206,12 @@ const Arene = new Phaser.Class({
       Object.keys(players).forEach((id) => {
         self.players.getChildren().forEach(function(player) {
           if (players[id].playerId === player.playerId) {
-            // player.flipX = (players[id].flipX);
+            player.flipX = (players[id].flipX);
             // player.setScale(players[id].scale);
             // player.setVelocity(players[id].velocityX, players[id].velocityY);
             player.setPosition(players[id].x, players[id].y);
             player.setRotation(players[id].rotation);
+            player.setFlipX(players[id].flipX);
             player.play(players[id].anims, true);
 
             // player.setRotation(players[id].rotation);
