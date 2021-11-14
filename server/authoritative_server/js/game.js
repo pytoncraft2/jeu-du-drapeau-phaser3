@@ -32,6 +32,7 @@ function preload() {
 function create() {
   // this.matter.world.disableGravity();
 
+  this.tween = null;
 
       this.anims.create({
         key: 'attack',
@@ -153,7 +154,7 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
         arene: socket.room,
         equipe: socket.equipe,
         wall: false,
-        attack: false,
+        attaque: false,
         alpha: 1,
         attacked: false,
         depth: 30,
@@ -230,6 +231,10 @@ function update() {
       player.attacked = false;
       }
 
+      /**
+       * DROITE-GAUCHE
+       */
+
       if (input.right) {
         if (input.walk) {
           player.thrust(0.1)
@@ -251,6 +256,26 @@ function update() {
           if (player.body.speed < 1.5) {
           player.play("idle_walk", true)
           }
+        }
+      }
+
+
+      if (input.attaque) {
+        if (input.charge) {
+          this.tween = this.tweens.addCounter({
+            from: 0,
+            to: 100,
+            duration: 2000,
+            onComplete: () => console.log("COMPLETERERERE")
+          })
+          console.log("CHARGE");
+          input.charge = false;
+        } else {
+          // console.log(this.tween);
+          console.log("TOTAL PROGRESS");
+          console.log(this.tween.totalProgress)
+          player.play('attack', true)
+          input.attaque = false;
         }
       }
 

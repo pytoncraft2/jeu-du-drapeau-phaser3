@@ -298,6 +298,10 @@ const Arene = new Phaser.Class({
       });
     }
 
+    /**
+     * DIRECTION DROITE GAUCHE
+     */
+
     if (Phaser.Input.Keyboard.JustDown(this.cursors.left)) {
       this.socket.emit('playerInput', {
         left: true,
@@ -324,6 +328,21 @@ const Arene = new Phaser.Class({
       this.socket.emit('playerInput', {
         right: true,
         walk: false,
+      });
+    }
+
+
+      if (Phaser.Input.Keyboard.JustDown(this.aKeyPressed)) {
+      this.socket.emit('playerInput', {
+        attaque: true,
+        charge: true,
+      });
+    }
+
+    if (Phaser.Input.Keyboard.JustUp(this.aKeyPressed)) {
+      this.socket.emit('playerInput', {
+        attaque: true,
+        charge: false,
       });
     }
 
