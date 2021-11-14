@@ -211,6 +211,7 @@ const Arene = new Phaser.Class({
             // player.setVelocity(players[id].velocityX, players[id].velocityY);
             player.setPosition(players[id].x, players[id].y);
             player.setRotation(players[id].rotation);
+            player.play(players[id].anims, true);
 
             // player.setRotation(players[id].rotation);
 
@@ -241,6 +242,8 @@ const Arene = new Phaser.Class({
     this.tKeyPressed = this.input.keyboard.addKey('T');
     this.cKeyPressed = this.input.keyboard.addKey('CTRL');
     this.cursors = this.input.keyboard.createCursorKeys();
+    console.log("CURSOR");
+    console.log(this.cursors);
     this.leftKeyPressed = false;
     this.rightKeyPressed = false;
     this.upKeyPressed = false;
@@ -278,29 +281,6 @@ const Arene = new Phaser.Class({
   },
 
   update: function () {
-    const left = this.leftKeyPressed,
-      right = this.rightKeyPressed,
-      up = this.upKeyPressed,
-      down = this.downKeyPressed,
-      space = this.spaceKeyPressed,
-      ak = this.aKey,
-      tk = this.tKey,
-      ck = this.cKey;
-
-    this.cursors.left.isDown ? this.leftKeyPressed = true :
-      this.cursors.right.isDown ? this.rightKeyPressed = true :
-      (this.leftKeyPressed = false, this.rightKeyPressed = false)
-
-    this.cursors.up.isDown ? this.upKeyPressed = true :
-      this.cursors.down.isDown ? this.downKeyPressed = true :
-      (this.upKeyPressed = false, this.downKeyPressed = false)
-
-    this.aKeyPressed.isDown ? this.aKey = true : this.aKey = false
-    this.tKeyPressed.isDown ? this.tKey = true : this.tKey = false
-
-    this.cKeyPressed.isDown ? this.cKey = true : this.cKey = false
-
-    this.cursors.space.isDown ? this.spaceKeyPressed = true : this.spaceKeyPressed = false
 
     if (Phaser.Input.Keyboard.JustDown(this.zKeyPressed)) {
       this.socket.emit('playerInput', {
@@ -316,6 +296,21 @@ const Arene = new Phaser.Class({
       });
     }
 
+    if (Phaser.Input.Keyboard.JustDown(this.cursors.left)) {
+      this.socket.emit('playerInput', {
+        left: true,
+        walk: true,
+      });
+    }
+
+    if (Phaser.Input.Keyboard.JustDown(this.cursors.right)) {
+      this.socket.emit('playerInput', {
+        right: true,
+        walk: true,
+      });
+    }
+
+
 
     if (Phaser.Input.Keyboard.JustDown(this.vKeyPressed)) {
       this.socket.emit('playerInput', {
@@ -323,15 +318,11 @@ const Arene = new Phaser.Class({
       });
     }
 
-
     if (Phaser.Input.Keyboard.JustDown(this.xKeyPressed)) {
       this.socket.emit('playerInput', {
         x: true,
       });
     }
-
-
-
 
     if (Phaser.Input.Keyboard.JustDown(this.canonKeyPressed)) {
       this.socket.emit('playerInput', {
@@ -347,89 +338,14 @@ const Arene = new Phaser.Class({
         canonRelache: false,
         z: false,
       });
-
-      /*
-      this.bulletCanon = this.groupeBullets.create(this.canon1.x, this.canon1.y + 20, 'bullet').setScale(0.2).setDepth(100);
-      this.charge = this.tweens.add({
-        targets: this.bulletCanon,
-        scale: 4,
-        paused: false,
-        duration: 2000,
-        repeat: 0,
-        onComplete: function () {
-          console.log('onComplete');
-          arguments[1][0].setTintFill(0xcf0000);
-        },
-      });
-      */
     }
 
     if (Phaser.Input.Keyboard.JustUp(this.canonKeyPressed)) {
       this.socket.emit('playerInput', {
-        left: this.leftKeyPressed,
-        right: this.rightKeyPressed,
-        up: this.upKeyPressed,
-        down: this.downKeyPressed,
-        a: this.aKey,
-        t: this.tKey,
-        space: this.spaceKeyPressed,
         c: this.cKey,
         canonMaintenu: false,
         canonRelache: true,
         z: false,
-      });
-
-      /*
-      this.charge.stop()
-
-      console.log(this.groupeBullets.getChildren()[0]);
-      this.l = new Phaser.Geom.Line(this.canon1.x, this.canon1.y, this.canon1.x + 5400, this.canon1.y);
-      var rad = Phaser.Math.DegToRad(this.canon1.angle);
-      let line = Phaser.Geom.Line.SetToAngle(this.l, this.canon1.x, this.canon1.y, rad, 4000);
-      this.graph.lineStyle(10, 0xcf0000, 1);
-      var b = this.graph.strokeLineShape(this.l).setDepth(1000);
-
-      b.setAlpha(0)
-
-      this.charge = this.tweens.add({
-        targets: b,
-        alpha: 0.7,
-        yoyo: true,
-        paused: false,
-        duration: 200,
-        repeat: 0,
-        onComplete: function () { console.log('onComplete'); arguments[1][0].clear(); },
-      });
-
-      this.charge = this.tweens.add({
-        targets: this.bulletCanon,
-        x: this.l.x2,
-        y: this.l.y2,
-        paused: false,
-        duration: 500,
-        repeat: 0,
-      });
-      */
-    }
-
-    if (left !== this.leftKeyPressed ||
-      right !== this.rightKeyPressed ||
-      up !== this.upKeyPressed ||
-      down !== this.downKeyPressed ||
-      ak !== this.aKey ||
-      tk !== this.tKey ||
-      ck !== this.cKey ||
-      space !== this.spaceKeyPressed || this.zkey == true) {
-      this.socket.emit('playerInput', {
-        left: this.leftKeyPressed,
-        right: this.rightKeyPressed,
-        up: this.upKeyPressed,
-        down: this.downKeyPressed,
-        a: this.aKey,
-        t: this.tKey,
-        space: this.spaceKeyPressed,
-        c: this.cKey,
-        z: this.zKey,
       });
     }
   },

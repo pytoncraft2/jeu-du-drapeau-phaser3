@@ -56,7 +56,7 @@ function create() {
         key: "walk",
         frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'walk', start: 1, end: 5 }),
         frameRate: 5,
-        repeat: 0
+        repeat: -1
       });
       this.anims.create({
         key: "jump",
@@ -223,9 +223,35 @@ function update() {
 
       if (input.right) {
       player.thrust(0.1)
+      if (input.walk) {
+        player.play('walk', true)
+        console.log("wwwwwalk");
+        input.walk = false;
+      }
       } else if (input.left) {
       player.thrustBack(0.1)
+      if (input.walk) {
+        console.log("wwwwwalk");
+        player.play('walk', true)
+        input.walk = false;
       }
+      }
+
+
+
+      // if (input.v) {
+      // player.thrust(0.1)
+      // } else if (input.x) {
+      // player.thrustBack(0.1)
+      // }
+      //
+      // if (input.v) {
+      // player.setVelocityX(-10)
+      // } else if (input.x) {
+      // player.setVelocityX(10)
+      // }
+
+
 
       //TIROLIENNE
       if (input.z) {
@@ -283,6 +309,7 @@ function update() {
 
       players[player.arene][player.playerId].x = player.x;
       players[player.arene][player.playerId].y = player.y;
+      players[player.arene][player.playerId].anims = player.anims.getName();
       players[player.arene][player.playerId].rotation = player.rotation;
     });
     io.to("Naruto").emit("playerUpdates", players["Naruto"]);
