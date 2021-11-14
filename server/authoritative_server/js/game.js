@@ -99,9 +99,9 @@ function create() {
 
 
   let soclePlatformeGauche = self.add.zone(0, 327, 210, 210).setSize(3500, 40);
-let socleToitGauche = self.add.zone(-79, -253, 210, 210).setSize(1631, 40);
+let socleToitGauche = self.add.zone(-120, -253, 210, 210).setSize(1631, 40);
   let soclePlatformeDroit = self.add.zone(7000, -1363, 210, 210).setSize(3500, 40);
-  let socleToitDroit = self.add.zone(7300, -1943, 210, 210).setSize(1631, 40);
+  let socleToitDroit = self.add.zone(7000, -1943, 210, 210).setSize(1631, 40);
 
 
   var socleJoueur = self.matter.add.gameObject(soclePlatformeGauche);
