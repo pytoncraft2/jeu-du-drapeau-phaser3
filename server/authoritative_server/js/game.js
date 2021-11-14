@@ -15,8 +15,7 @@ const config = {
       matter: {
         debug: false,
         gravity: {
-          y: 0,
-          x: 0
+          y: 3,
         },
       }
 
@@ -31,7 +30,7 @@ function preload() {
 
 
 function create() {
-  this.matter.world.disableGravity();
+  // this.matter.world.disableGravity();
 
 
       this.anims.create({
@@ -222,12 +221,12 @@ function update() {
       const input = players[player.arene][player.playerId].input;
 
 
-      if (input.v) {
-        player.thrustBack(0.1)
-      } else if (input.x) {
-        player.thrustLeft(0.1)
-        input.x = false;
+      if (input.right) {
+      player.thrust(0.1)
+      } else if (input.left) {
+      player.thrustBack(0.1)
       }
+
       //TIROLIENNE
       if (input.z) {
         // TODO: ACTIF SI PRET DU POTEAU
@@ -284,7 +283,7 @@ function update() {
 
       players[player.arene][player.playerId].x = player.x;
       players[player.arene][player.playerId].y = player.y;
-      // players[player.arene][player.playerId].rotation = player.rotation;
+      players[player.arene][player.playerId].rotation = player.rotation;
     });
     io.to("Naruto").emit("playerUpdates", players["Naruto"]);
 
