@@ -155,6 +155,7 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
         wall: false,
         attack: false,
         alpha: 1,
+        attacked: false,
         depth: 30,
         anim: 'profil',
         scale: 0.38,
@@ -203,14 +204,17 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
 
   })
 
-  // this.matter.world.on('collisionstart', function (event) {
+  this.matter.world.on('collisionstart', function (event) {
+    // if (event.pairs[0].bodyB.gameObject.equipe != event.pairs[0].bodyA.gameObject.equipe) {
+      event.pairs[0].bodyA.gameObject.attacked = true
+    // }
   // 	// if (event.pairs[0].bodyA.gameObject){
   //   // if (event.pairs[0].bodyB.gameObject.texture.key == "enemy") {
   //   //
   //   //  }
   //   // }
-  //   console.log("COLISION");
-	// })
+    console.log("COLISION");
+	})
 
 
 }
@@ -220,6 +224,11 @@ function update() {
     this.players["Naruto"].getChildren().forEach((player) => {
       const input = players[player.arene][player.playerId].input;
 
+      if (player.attacked) {
+      player.setAlpha(0.5)
+      console.log("ATTACKED");
+      player.attacked = false;
+      }
 
       if (input.right) {
         if (input.walk) {
@@ -318,6 +327,7 @@ function update() {
       players[player.arene][player.playerId].y = player.y;
       players[player.arene][player.playerId].anims = player.anims.getName();
       players[player.arene][player.playerId].flipX = player.flipX;
+      players[player.arene][player.playerId].alpha = player.alpha;
 
       players[player.arene][player.playerId].rotation = player.rotation;
     });
@@ -344,6 +354,7 @@ function addPlayer(self, playerInfo) {
   joueur.playerId = playerInfo.playerId;
   joueur.arene = playerInfo.arene;
   joueur.atlas = playerInfo.atlas;
+  joueur.attacked = playerInfo.attacked;
   joueur.setFrictionAir(0.05);
   joueur.setMass(30);
 
