@@ -122,7 +122,7 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
   self.room = ""
 
   let tobogan = this.add.zone(3500, -500, 210, 210).setSize(3246, 40)
-  var socleTobogan = self.matter.add.gameObject(tobogan).setStatic(true).setIgnoreGravity(true).setAngle(-26);
+  var socleTobogan = self.matter.add.gameObject(tobogan).setStatic(true).setIgnoreGravity(true).setAngle(-26).setFriction(0);
 
 
   this.bullet = this.matter.add.image(1210, -400, 'bullet', null, { ignoreGravity: true });
@@ -263,6 +263,10 @@ function update() {
       }
 
 
+      /**
+       * ANIMATION ATTAQUE + ombre
+       */
+
       if (input.attaque) {
         if (input.charge) {
           this.tween = this.tweens.add({
@@ -376,6 +380,8 @@ function update() {
       players[player.arene][player.playerId].alpha = player.alpha;
       players[player.arene][player.playerId].ombreX = player.ombre.x;
       players[player.arene][player.playerId].ombreScale = player.ombre.scale;
+      players[player.arene][player.playerId].bulletX = this.bullet.x;
+      players[player.arene][player.playerId].bulletY = this.bullet.y;
 
       players[player.arene][player.playerId].rotation = player.rotation;
     });

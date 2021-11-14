@@ -157,7 +157,7 @@ const Arene = new Phaser.Class({
 
 
     this.add.image(3426, -500, 'tobogan', null, { isStatic: true }).setAngle(-26);
-    this.bullet = this.add.image(1210, -400, 'bullet');
+    this.bullet = this.add.image(1210, -400, 'bullet').setDepth(2);
 
 
     var fil = new Phaser.Geom.Line(1210, -400, 5675, -2373);
@@ -215,6 +215,7 @@ const Arene = new Phaser.Class({
             player.ombre.x = players[id].ombreX;
             player.ombre.setScale(players[id].ombreScale);
             player.play(players[id].anims, true);
+            self.bullet.setPosition(players[id].bulletX, players[id].bulletY)
 
             // player.setRotation(players[id].rotation);
 
