@@ -314,7 +314,7 @@ const Arene = new Phaser.Class({
      */
     if (Phaser.Input.Keyboard.JustDown(this.zKeyPressed)) {
       this.socket.emit('playerInput', {
-        z: true,
+        tirolienne: true,
       });
     }
 

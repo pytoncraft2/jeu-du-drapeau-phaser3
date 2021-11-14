@@ -216,7 +216,7 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
   //   //
   //   //  }
   //   // }
-    console.log("COLISION");
+    // console.log("COLISION");
 	})
 
 
@@ -315,6 +315,7 @@ function update() {
       //TIROLIENNE
       if (input.tirolienne) {
         // TODO: ACTIF SI PRET DU POTEAU
+        console.log("TIROLIENNE");
         var dist = Phaser.Math.Distance.BetweenPoints(player, this.bullet);
         console.log("DIIISSSTANCE");
         console.log(dist);
@@ -343,7 +344,6 @@ function update() {
     //CANON FEU
     if (input.canonMaintenu) {
       input.canonMaintenu = false;
-      console.log("CANON MAINTENU");
       this.bulletCanon = this.groupeBullets.create(this.canon1.x, this.canon1.y + 20, 'bullet').setScale(0.2).setDepth(100);
       this.charge = this.tweens.add({
         targets: this.bulletCanon,
@@ -352,9 +352,7 @@ function update() {
         duration: 2000,
         repeat: 0
       });
-    }
-
-    if (input.canonRelache) {
+    } else if (input.canonRelache) {
       input.canonRelache = false;
       this.charge.stop()
 
@@ -370,7 +368,6 @@ function update() {
         duration: 500,
         repeat: 0,
       });
-      console.log("RELACHER");
     }
 
     /**
