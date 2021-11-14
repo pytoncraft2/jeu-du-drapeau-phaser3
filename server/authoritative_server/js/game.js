@@ -277,6 +277,7 @@ function update() {
           player.play('attack', true)
           input.attaque = false;
         }
+        input.attaque = false;
       }
 
 
