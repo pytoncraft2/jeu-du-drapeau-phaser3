@@ -157,6 +157,7 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
         attaque: false,
         alpha: 1,
         attacked: false,
+        degat: 0,
         depth: 30,
         anim: 'profil',
         scale: 0.38,
@@ -264,7 +265,7 @@ function update() {
         if (input.charge) {
           this.tween = this.tweens.addCounter({
             from: 0,
-            to: 100,
+            to: 1,
             duration: 2000,
             onComplete: () => console.log("COMPLETERERERE")
           })
@@ -274,8 +275,13 @@ function update() {
           // console.log(this.tween);
           console.log("TOTAL PROGRESS");
           console.log(this.tween.totalProgress)
+          console.log("----PPRRROGGESS 2");
+          console.log(this.tween.getValue());
           player.play('attack', true)
-          input.attaque = false;
+          player.on('animationcomplete', () => {
+          player.anims.play('idle_attack', true)
+          })
+
         }
         input.attaque = false;
       }
@@ -380,6 +386,7 @@ function addPlayer(self, playerInfo) {
   joueur.playerId = playerInfo.playerId;
   joueur.arene = playerInfo.arene;
   joueur.atlas = playerInfo.atlas;
+  joueur.degat = playerInfo.degat;
   joueur.attacked = playerInfo.attacked;
   joueur.setFrictionAir(0.05);
   joueur.setMass(30);
