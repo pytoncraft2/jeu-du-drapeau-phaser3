@@ -13,9 +13,10 @@ const config = {
     update: update,
     physics: {
       matter: {
-        debug: true,
+        debug: false,
         gravity: {
-          y: 3
+          y: 0,
+          x: 0
         },
       }
 
@@ -30,6 +31,7 @@ function preload() {
 
 
 function create() {
+  this.matter.world.disableGravity();
 
 
       this.anims.create({
@@ -219,6 +221,13 @@ function update() {
     this.players["Naruto"].getChildren().forEach((player) => {
       const input = players[player.arene][player.playerId].input;
 
+
+      if (input.v) {
+        player.thrustBack(0.1)
+      } else if (input.x) {
+        player.thrustLeft(0.1)
+        input.x = false;
+      }
       //TIROLIENNE
       if (input.z) {
         // TODO: ACTIF SI PRET DU POTEAU
@@ -243,24 +252,39 @@ function update() {
       }
       input.z = false;
     }
+
+    // if (input.up) {
+      // player.thrustLeft(0.1);
+    // } else if (input.down) {
+      // player.thrustRight(0.1)
+    // }
+
+
+    //DEPLACEMENT DROITE-GAUCHE
+    // if (input.right) {
+      // player.thrust(0.1)
+    // } else if (input.left) {
+      // player.thrustBack(0.1)
+    // }
+
       //DEPLACEMENT HAUT-BAS
-      if (input.up) {
-        player.thrustLeft(0.1);
-      } else if (input.down) {
-        player.thrustRight(0.1)
-      }
-
-
-      //DEPLACEMENT DROITE-GAUCHE
-      if (input.right) {
-        player.thrust(0.1)
-      } else if (input.left) {
-        player.thrustBack(0.1)
-      }
+      // if (input.up) {
+      //   player.setVelocityY(-10);
+      // } else if (input.down) {
+      //   player.setVelocityY(10)
+      // }
+      //
+      //
+      // //DEPLACEMENT DROITE-GAUCHE
+      // if (input.right) {
+      //   player.setVelocityX(-10)
+      // } else if (input.left) {
+      //   player.setVelocityX(10)
+      // }
 
       players[player.arene][player.playerId].x = player.x;
       players[player.arene][player.playerId].y = player.y;
-      players[player.arene][player.playerId].rotation = player.rotation;
+      // players[player.arene][player.playerId].rotation = player.rotation;
     });
     io.to("Naruto").emit("playerUpdates", players["Naruto"]);
 

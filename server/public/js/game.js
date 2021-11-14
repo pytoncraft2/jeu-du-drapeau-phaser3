@@ -13,10 +13,11 @@ var config = {
   physics: {
     default: 'matter',
     matter: {
-        debug: true,
-        // gravity: {
-          // y: 10
-        // },
+        debug: false,
+        gravity: {
+          y: 0,
+          x: 0
+        },
     },
     arcade: {
       debug: true

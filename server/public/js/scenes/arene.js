@@ -68,6 +68,8 @@ const Arene = new Phaser.Class({
 
     create: function ()
     {
+      this.matter.world.disableGravity();
+
 
       this.players = {}
 
@@ -133,7 +135,7 @@ const Arene = new Phaser.Class({
     maison2.addMultiple([interieurMaison2, facade2, toit2]);   // array of game objects
 
 
-
+/*
       let soclePlatformeGauche = self.add.zone(-79, 327, 210, 210).setSize(3500, 40);
     let socleToitGauche = self.add.zone(-79, -253, 210, 210).setSize(1631, 40);
       let soclePlatformeDroit = self.add.zone(7300, -1363, 210, 210).setSize(3500, 40);
@@ -149,6 +151,7 @@ const Arene = new Phaser.Class({
       socleJoueur3.setIgnoreGravity(true).setStatic(true).setFriction(0)
       var socleJoueur4 = self.matter.add.gameObject(socleToitDroit);
       socleJoueur4.setIgnoreGravity(true).setStatic(true).setFriction(0)
+      */
 
 
     this.groupeBullets = this.add.group();
@@ -208,8 +211,8 @@ const Arene = new Phaser.Class({
             // player.flipX = (players[id].flipX);
             // player.setScale(players[id].scale);
             // player.setVelocity(players[id].velocityX, players[id].velocityY);
-            player.setPosition(players[id].x, players[id].y);
-            player.setRotation(players[id].rotation);
+            self.bullet.setPosition(players[id].x, players[id].y);
+            // player.setRotation(players[id].rotation);
 
             // player.setRotation(players[id].rotation);
 
@@ -255,66 +258,9 @@ const Arene = new Phaser.Class({
     this.cameras.main.setZoom(0.5);
 
 
-    this.input.keyboard.on('keydown', function (event) {
-      if (event.key == "-") {
-        self.cameras.main.zoomTo(self.cameras.main.zoom - 0.2, 1000)
-      } else if (event.key == "+"){
-        self.cameras.main.zoomTo(self.cameras.main.zoom + 0.2, 1000)
-      } else if (event.key == "Enter") {
-        self.cameras.main.zoomTo(0.5, 2000)
-      } else if (event.key == "End") {
-        self.cameras.main.zoomTo(0.1, 1500)
-      } else if (event.key == "ArrowUp") {
-        // self.rect.setAngle(self.canon1.angle - 5)
-        // self.canon1.setAngle(self.canon1.angle - 5)
-      } else if (event.key == "ArrowDown") {
-        // self.rect.setAngle(self.canon1.angle + 5)
-        // self.canon1.setAngle(self.canon1.angle + 5)
-      }
-
-    });
-
   },
 
   update: function () {
-    const left = this.leftKeyPressed,
-      right = this.rightKeyPressed,
-      up = this.upKeyPressed,
-      down = this.downKeyPressed,
-      space = this.spaceKeyPressed,
-      ak = this.aKey,
-      tk = this.tKey,
-      ck = this.cKey;
-
-    this.cursors.left.isDown ? this.leftKeyPressed = true :
-      this.cursors.right.isDown ? this.rightKeyPressed = true :
-      (this.leftKeyPressed = false, this.rightKeyPressed = false)
-
-    this.cursors.up.isDown ? this.upKeyPressed = true :
-      this.cursors.down.isDown ? this.downKeyPressed = true :
-      (this.upKeyPressed = false, this.downKeyPressed = false)
-
-    this.aKeyPressed.isDown ? this.aKey = true : this.aKey = false
-    this.tKeyPressed.isDown ? this.tKey = true : this.tKey = false
-
-    this.cKeyPressed.isDown ? this.cKey = true : this.cKey = false
-
-    this.cursors.space.isDown ? this.spaceKeyPressed = true : this.spaceKeyPressed = false
-
-    if (Phaser.Input.Keyboard.JustDown(this.zKeyPressed)) {
-      this.socket.emit('playerInput', {
-        left: this.leftKeyPressed,
-        right: this.rightKeyPressed,
-        up: this.upKeyPressed,
-        down: this.downKeyPressed,
-        a: this.aKey,
-        t: this.tKey,
-        space: this.spaceKeyPressed,
-        c: this.cKey,
-        z: true,
-      });
-    }
-
 
     if (Phaser.Input.Keyboard.JustDown(this.vKeyPressed)) {
       this.socket.emit('playerInput', {
@@ -329,108 +275,26 @@ const Arene = new Phaser.Class({
       });
     }
 
-
-
-
-    if (Phaser.Input.Keyboard.JustDown(this.canonKeyPressed)) {
-      this.socket.emit('playerInput', {
-        left: this.leftKeyPressed,
-        right: this.rightKeyPressed,
-        up: this.upKeyPressed,
-        down: this.downKeyPressed,
-        a: this.aKey,
-        t: this.tKey,
-        space: this.spaceKeyPressed,
-        c: this.cKey,
-        canonMaintenu: true,
-        canonRelache: false,
-        z: false,
-      });
-
-      /*
-      this.bulletCanon = this.groupeBullets.create(this.canon1.x, this.canon1.y + 20, 'bullet').setScale(0.2).setDepth(100);
-      this.charge = this.tweens.add({
-        targets: this.bulletCanon,
-        scale: 4,
-        paused: false,
-        duration: 2000,
-        repeat: 0,
-        onComplete: function () {
-          console.log('onComplete');
-          arguments[1][0].setTintFill(0xcf0000);
-        },
-      });
-      */
-    }
-
-    if (Phaser.Input.Keyboard.JustUp(this.canonKeyPressed)) {
-      this.socket.emit('playerInput', {
-        left: this.leftKeyPressed,
-        right: this.rightKeyPressed,
-        up: this.upKeyPressed,
-        down: this.downKeyPressed,
-        a: this.aKey,
-        t: this.tKey,
-        space: this.spaceKeyPressed,
-        c: this.cKey,
-        canonMaintenu: false,
-        canonRelache: true,
-        z: false,
-      });
-
-      /*
-      this.charge.stop()
-
-      console.log(this.groupeBullets.getChildren()[0]);
-      this.l = new Phaser.Geom.Line(this.canon1.x, this.canon1.y, this.canon1.x + 5400, this.canon1.y);
-      var rad = Phaser.Math.DegToRad(this.canon1.angle);
-      let line = Phaser.Geom.Line.SetToAngle(this.l, this.canon1.x, this.canon1.y, rad, 4000);
-      this.graph.lineStyle(10, 0xcf0000, 1);
-      var b = this.graph.strokeLineShape(this.l).setDepth(1000);
-
-      b.setAlpha(0)
-
-      this.charge = this.tweens.add({
-        targets: b,
-        alpha: 0.7,
-        yoyo: true,
-        paused: false,
-        duration: 200,
-        repeat: 0,
-        onComplete: function () { console.log('onComplete'); arguments[1][0].clear(); },
-      });
-
-      this.charge = this.tweens.add({
-        targets: this.bulletCanon,
-        x: this.l.x2,
-        y: this.l.y2,
-        paused: false,
-        duration: 500,
-        repeat: 0,
-      });
-      */
-    }
-
-    if (left !== this.leftKeyPressed ||
-      right !== this.rightKeyPressed ||
-      up !== this.upKeyPressed ||
-      down !== this.downKeyPressed ||
-      ak !== this.aKey ||
-      tk !== this.tKey ||
-      ck !== this.cKey ||
-      space !== this.spaceKeyPressed || this.zkey == true) {
-      this.socket.emit('playerInput', {
-        left: this.leftKeyPressed,
-        right: this.rightKeyPressed,
-        up: this.upKeyPressed,
-        down: this.downKeyPressed,
-        a: this.aKey,
-        t: this.tKey,
-        space: this.spaceKeyPressed,
-        c: this.cKey,
-        z: this.zKey,
-      });
-    }
+    // if (left !== this.leftKeyPressed ||
+    //   right !== this.rightKeyPressed ||
+    //   up !== this.upKeyPressed ||
+    //   down !== this.downKeyPressed ||
+    //   ak !== this.aKey ||
+    //   tk !== this.tKey ||
+    //   ck !== this.cKey ||
+    //   space !== this.spaceKeyPressed || this.zkey == true) {
+    //   this.socket.emit('playerInput', {
+    //     left: this.leftKeyPressed,
+    //     right: this.rightKeyPressed,
+    //     up: this.upKeyPressed,
+    //     down: this.downKeyPressed,
+    //     a: this.aKey,
+    //     t: this.tKey,
+    //     space: this.spaceKeyPressed,
+    //     c: this.cKey,
+    //     z: this.zKey,
+    //   });
+    // }
   },
   displayPlayers: function(self, playerInfo, iscurrent) {
     console.log("Ajout joueur function");
@@ -455,7 +319,7 @@ joueur.setMass(30);
 
     self.players.add(joueur);
     if (iscurrent) {
-      self.cameras.main.startFollow(joueur, false, 0.2, 0.2);
+      self.cameras.main.startFollow(this.bullet);
     }
   },
 });
