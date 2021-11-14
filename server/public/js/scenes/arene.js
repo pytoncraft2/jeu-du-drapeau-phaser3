@@ -261,6 +261,11 @@ const Arene = new Phaser.Class({
 
 
     this.zKeyPressed = this.input.keyboard.addKey('Z');
+    this.zoom1 = this.input.keyboard.addKey('ZERO');
+    this.zoom2 = this.input.keyboard.addKey('NINE');
+    this.zoom3 = this.input.keyboard.addKey('EIGHT');
+    this.zoom4 = this.input.keyboard.addKey('SEVEN');
+    this.zoom5 = this.input.keyboard.addKey('SIX');
     this.vKeyPressed = this.input.keyboard.addKey('V');
     this.xKeyPressed = this.input.keyboard.addKey('X');
     this.canonKeyPressed = this.input.keyboard.addKey('C');
@@ -283,26 +288,6 @@ const Arene = new Phaser.Class({
     this.matter.add.mouseSpring();
 
     this.cameras.main.setZoom(0.5);
-
-
-    this.input.keyboard.on('keydown', function (event) {
-      if (event.key == "-") {
-        self.cameras.main.zoomTo(self.cameras.main.zoom - 0.2, 1000)
-      } else if (event.key == "+"){
-        self.cameras.main.zoomTo(self.cameras.main.zoom + 0.2, 1000)
-      } else if (event.key == "Enter") {
-        self.cameras.main.zoomTo(0.5, 2000)
-      } else if (event.key == "End") {
-        self.cameras.main.zoomTo(0.1, 1500)
-      } else if (event.key == "ArrowUp") {
-        // self.rect.setAngle(self.canon1.angle - 5)
-        // self.canon1.setAngle(self.canon1.angle - 5)
-      } else if (event.key == "ArrowDown") {
-        // self.rect.setAngle(self.canon1.angle + 5)
-        // self.canon1.setAngle(self.canon1.angle + 5)
-      }
-
-    });
 
   },
 
@@ -412,12 +397,40 @@ const Arene = new Phaser.Class({
       });
     }
 
+
+
     if (Phaser.Input.Keyboard.JustUp(this.canonKeyPressed)) {
       this.socket.emit('playerInput', {
         canonMaintenu: false,
         canonRelache: true
       });
     }
+
+
+    /**
+     * ZOOM DE LA CAMERA
+     */
+
+    if (Phaser.Input.Keyboard.JustDown(this.zoom1)) {
+      this.cameras.main.zoomTo(0.1, 1500)
+    }
+
+    if (Phaser.Input.Keyboard.JustDown(this.zoom2)) {
+      this.cameras.main.zoomTo(0.2, 1500)
+    }
+
+    if (Phaser.Input.Keyboard.JustDown(this.zoom3)) {
+      this.cameras.main.zoomTo(0.3, 2000)
+    }
+
+    if (Phaser.Input.Keyboard.JustDown(this.zoom4)) {
+      this.cameras.main.zoomTo(0.4, 1000)
+    }
+
+    if (Phaser.Input.Keyboard.JustDown(this.zoom5)) {
+      this.cameras.main.zoomTo(0.5, 1000)
+    }
+
   },
   displayPlayers: function(self, playerInfo, iscurrent) {
     console.log("Ajout joueur function");
