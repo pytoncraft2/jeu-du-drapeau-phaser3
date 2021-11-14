@@ -288,9 +288,14 @@ function update() {
           player.play('attack', true)
           player.on('animationcomplete', () => {
           player.anims.play('idle_attack', true)
-          player.ombre.setScale(1)
           })
-
+          this.tween = this.tweens.add({
+            targets: player.ombre,
+            from: 0,
+            to: 1,
+            scale: 1,
+            duration: 500
+          })
         }
         input.attaque = false;
       }
