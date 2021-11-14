@@ -133,6 +133,20 @@ const Arene = new Phaser.Class({
     let maison2 = this.add.group()
     maison2.addMultiple([interieurMaison2, facade2, toit2]);   // array of game objects
 
+    var ellipse1Potteau = this.add.ellipse(poteau1.x, poteau1.y + poteau1.displayHeight /2, 100, 20, 0x0009).setDepth(-1).setAlpha(0.6).setScale(2);
+    var ellipse2Potteau = this.add.ellipse(poteau2.x, poteau2.y + poteau2.displayHeight /2, 100, 20, 0x0009).setDepth(-1).setAlpha(0.6).setScale(2);
+
+    this.tweens.add({
+
+      targets: [ellipse1Potteau, ellipse2Potteau],
+      alpha: 0.2,
+      yoyo: true,
+      repeat: -1,
+      ease: 'Sine.easeInOut'
+
+    });
+
+
     let soclePlatformeGauche = self.add.zone(0, 327, 210, 210).setSize(3500, 40);
   let socleToitGauche = self.add.zone(-120, -253, 210, 210).setSize(1631, 40);
     let soclePlatformeDroit = self.add.zone(7000, -1363, 210, 210).setSize(3500, 40);
