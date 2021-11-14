@@ -128,7 +128,7 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
   this.bullet = this.matter.add.image(1210, -400, 'bullet', null, { ignoreGravity: true });
   this.bullet.setFixedRotation();
   // this.bullet.setMass(500);
-  this.bullet.setStatic(true);
+  this.bullet.setStatic(true).setDepth(2);
 
   // this.ellipse1 = this.add.ellipse(1210, 301, 100, 20, 0x0009).setDepth(-1).setAlpha(0.6).setScale(2);
   // this.ellipse2 = this.add.ellipse(5675, -1676 + 301, 100, 20, 0x0009).setDepth(-1).setAlpha(0.6).setScale(2);
