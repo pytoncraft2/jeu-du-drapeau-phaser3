@@ -304,11 +304,13 @@ return;
           if (this.tween.isPlaying()) {
           this.tween.stop()
           }
-          player.play('attack', true)
-          player.on('animationcomplete', () => {
-          player.setFrame(0)
-          console.log("boucle");
-          })
+          // player.play('attack', true)
+          // player.on('animationcomplete', () => {
+          // player.setFrame(0)
+          // player.play('idle_walk', true)
+          // player.stop()
+          // console.log("boucle");
+          // })
           this.tween = this.tweens.add({
             targets: player.ombre,
             from: 0,
