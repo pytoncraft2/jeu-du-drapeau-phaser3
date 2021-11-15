@@ -289,6 +289,20 @@ function update() {
           }
           player.play('attack', true)
           player.on('animationcomplete', () => {
+            if (this.fontainezone.getBounds().right < this.players.getChildren()[0].x ||
+            this.fontainezone.getBounds().left > this.players.getChildren()[0].x ||
+            this.fontainezone.getBounds().top > this.players.getChildren()[0].y ||
+            this.fontainezone.getBounds().bottom < this.players.getChildren()[0].y
+          ) {
+            console.log("non");
+            //attaque uniquement sur le joueur ennemie
+          } else {
+            console.log("oui");
+            //attaque fontaine ennemie
+            // diminution alpha
+            // emit diminue_vie_equipe
+          }
+
           player.anims.play('idle_attack', true)
           })
           this.tween = this.tweens.add({
