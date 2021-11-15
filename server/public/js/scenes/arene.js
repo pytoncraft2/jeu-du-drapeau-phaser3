@@ -196,7 +196,9 @@ const Arene = new Phaser.Class({
             player.setAlpha(players[id].alpha);
             player.ombre.x = players[id].ombreX;
             player.ombre.setScale(players[id].ombreScale);
+            if (players[id].anims) {
             player.play(players[id].anims, true);
+            }
             self.bullet.setPosition(players[id].bulletX, players[id].bulletY)
 
             if (self.bulletCanon) {
@@ -235,26 +237,10 @@ const Arene = new Phaser.Class({
     // let fontaine1 = this.matter.add.image(-1370, 137, 'fontaine').setDepth(2).setCollisionGroup(1).setCollidesWith(0)
     // console.log(fontaine1.displayWidth); //640
     // console.log(fontaine1.displayHeight); //613
-    // let fo = this.add.zone(-1370, 137, 210, 210).setSize(640, 613)
-    // var f = this.matter.add.gameObject(fo);
-    // f.setIgnoreGravity(true).setStatic(true).setFriction(0)
-    var rect = new Phaser.Geom.Rectangle(250, 200, 300, 200);
+    this.fontainezone = this.add.zone(-1370, 137, 210, 210).setSize(640, 613)
 
-    var g = this.add.graphics({ fillStyle:{ color: 0xaa0000 } });
-
-    g.fillRectShape(rect);
-    g.setDepth(50)
-this.input.on('pointermove', function (pointer) {
-
-    // g.clear();
-
-    console.log(g.x);
-    console.log(pointer.x);
-    if(rect.contains(pointer.x, pointer.y)) {
-      console.log("CONTAIN");
-    }
-
-  });
+    // var s = self.matter.add.gameObject(this.fontainezone);
+    // s.setIgnoreGravity(true).setStatic(true).setFriction(0)
 
 
     let maison1 = this.add.group()
@@ -471,6 +457,16 @@ this.input.on('pointermove', function (pointer) {
         canonMaintenu: false,
         canonRelache: true
       });
+      if (this.fontainezone.getBounds().right < this.players.getChildren()[0].x ||
+      this.fontainezone.getBounds().left > this.players.getChildren()[0].x ||
+      this.fontainezone.getBounds().top > this.players.getChildren()[0].y ||
+      this.fontainezone.getBounds().bottom < this.players.getChildren()[0].y
+    ) {
+        console.log("non");
+      } else {
+        console.log("oui");
+      }
+
     }
 
 
