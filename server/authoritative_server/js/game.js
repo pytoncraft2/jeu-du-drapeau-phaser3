@@ -96,8 +96,6 @@ function create() {
   this.platformeDroiteCollision = this.add.group();
   this.groupeBullets = this.add.group();
   this.canon1 = this.add.rectangle(0, -460, 333, 125)
-  this.fontainezone = this.add.zone(-1370, 137, 210, 210).setSize(640, 613)
-
 
 
 
@@ -269,7 +267,24 @@ function update() {
       /**
        * ANIMATION ATTAQUE + ombre
        */
-
+/*
+       if (this.fontainezone.getBounds().right < player.x ||
+this.fontainezone.getBounds().left > player.x ||
+this.fontainezone.getBounds().top > player.y ||
+this.fontainezone.getBounds().bottom < player.y
+) {
+console.log("non");
+return;
+//attaque uniquement sur le joueur ennemie
+} else {
+console.log("oui");
+io.to(player.arene).emit("diminue_vie_equipe", "degat", "equipe");
+return;
+//attaque fontaine ennemie
+// diminution alpha
+// emit diminue_vie_equipe
+}
+*/
       if (input.attaque) {
         if (input.charge) {
           this.tween = this.tweens.add({
@@ -289,30 +304,11 @@ function update() {
           if (this.tween.isPlaying()) {
           this.tween.stop()
           }
-          console.log("PLAYER ANIM");
-          if (player.anims.getName() != "attack") {
-            player.play('attack', false)
+          player.play('attack', true)
           player.on('animationcomplete', () => {
-            if (this.fontainezone.getBounds().right < player.x ||
-            this.fontainezone.getBounds().left > player.x ||
-            this.fontainezone.getBounds().top > player.y ||
-            this.fontainezone.getBounds().bottom < player.y
-          ) {
-            console.log("non");
-            // return;
-            //attaque uniquement sur le joueur ennemie
-          } else {
-            console.log("oui");
-            io.to(player.arene).emit("diminue_vie_equipe", "degat", "equipe");
-            // return;
-            //attaque fontaine ennemie
-            // diminution alpha
-            // emit diminue_vie_equipe
-          }
-
+          player.setFrame(0)
+          console.log("boucle");
           })
-
-
           this.tween = this.tweens.add({
             targets: player.ombre,
             from: 0,
@@ -320,8 +316,6 @@ function update() {
             scale: 1,
             duration: 500
           })
-
-        }
         }
         input.attaque = false;
       }
