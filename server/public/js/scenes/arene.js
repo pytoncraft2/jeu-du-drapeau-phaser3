@@ -114,6 +114,90 @@ const Arene = new Phaser.Class({
           });
         });
 
+
+      this.socket.on("recoit_degat", (degat) {
+        self.health = Phaser.Math.Clamp(self.health - 1, 0, 100)
+        self.events.emit('health-changed', self.health, self.players.getMatching('playerId', self.socket.id)[0])
+      });
+
+
+
+
+
+
+    /**
+     * AFFICHAGE JOUEURS
+     * Affiche le joueur principal si l'id correspond a mon id
+     * sinon Affiche les autres personnes
+     * @param  {Object} players liste de l'id du socket de tout les joueurs
+     * @return {void}
+     */
+
+    /**
+     * NOUVEAU JOUEUR
+     * Affiche les nouveau joueur
+     * @param  {Object} playerInfo liste des parametres(coordonnés,scale,depth...)
+     * @return {void}
+     */
+
+    /**
+     * DÉCONNEXION
+     * Cherche l'id de la personne déconnecté et supprime le joueur
+     * @param  {string} playerId id du joueur (ou l'id du socket)
+     * @return {[type]}          [description]
+     */
+
+    this.socket.on('disconnection', function(playerId) {
+      self.players.getChildren().forEach(function(player) {
+        if (playerId === player.playerId) player.destroy();
+      });
+    });
+
+    /**
+     * MISE À JOUR DU JOUEUR
+     * Cherche l'id du joueur et Modifie les parametres de celui ci
+     * @param  {Object} players liste de l'id du socket de tout les joueurs
+     * @return {void}
+     */
+
+    this.socket.on('playerUpdates', function(players) {
+      Object.keys(players).forEach((id) => {
+        self.players.getChildren().forEach(function(player) {
+          if (players[id].playerId === player.playerId) {
+            player.flipX = (players[id].flipX);
+            // player.setScale(players[id].scale);
+            // player.setVelocity(players[id].velocityX, players[id].velocityY);
+            player.setPosition(players[id].x, players[id].y);
+            player.setRotation(players[id].rotation);
+            player.setFlipX(players[id].flipX);
+            player.setAlpha(players[id].alpha);
+            player.ombre.x = players[id].ombreX;
+            player.ombre.setScale(players[id].ombreScale);
+            player.play(players[id].anims, true);
+            self.bullet.setPosition(players[id].bulletX, players[id].bulletY)
+
+            if (self.bulletCanon) {
+            self.bulletCanon.x = players[id].bulletCanonX
+            self.bulletCanon.y = players[id].bulletCanonY
+            self.bulletCanon.setScale(players[id].bulletCanonScale)
+            }
+
+            self.canon1.setAngle(players[id].canonAngle)
+            // player.setRotation(players[id].rotation);
+
+            // if (players[id].animation) {
+            // player.play(players[id].animation);
+            // }
+            // player.ombre.setPosition(players[id].ombreX, players[id].ombreY)
+            // if (players[id].animation) {
+              // player.play('' + players[id].anim + '_' + players[id].atlas + '', 5);
+            // }
+          }
+        });
+      });
+    });
+
+
     let interieurMaison1 = this.add.image(-135, 40, 'interieur-maison')
     let poteau1 = this.add.image(1210, 0, 'poteau')
     this.canon1 = this.add.image(0, -460, 'canon').setDepth(4)
@@ -187,77 +271,7 @@ const Arene = new Phaser.Class({
 
     graphics.strokeLineShape(fil);
 
-    /**
-     * AFFICHAGE JOUEURS
-     * Affiche le joueur principal si l'id correspond a mon id
-     * sinon Affiche les autres personnes
-     * @param  {Object} players liste de l'id du socket de tout les joueurs
-     * @return {void}
-     */
 
-    /**
-     * NOUVEAU JOUEUR
-     * Affiche les nouveau joueur
-     * @param  {Object} playerInfo liste des parametres(coordonnés,scale,depth...)
-     * @return {void}
-     */
-
-    /**
-     * DÉCONNEXION
-     * Cherche l'id de la personne déconnecté et supprime le joueur
-     * @param  {string} playerId id du joueur (ou l'id du socket)
-     * @return {[type]}          [description]
-     */
-
-    this.socket.on('disconnection', function(playerId) {
-      self.players.getChildren().forEach(function(player) {
-        if (playerId === player.playerId) player.destroy();
-      });
-    });
-
-    /**
-     * MISE À JOUR DU JOUEUR
-     * Cherche l'id du joueur et Modifie les parametres de celui ci
-     * @param  {Object} players liste de l'id du socket de tout les joueurs
-     * @return {void}
-     */
-
-    this.socket.on('playerUpdates', function(players) {
-      Object.keys(players).forEach((id) => {
-        self.players.getChildren().forEach(function(player) {
-          if (players[id].playerId === player.playerId) {
-            player.flipX = (players[id].flipX);
-            // player.setScale(players[id].scale);
-            // player.setVelocity(players[id].velocityX, players[id].velocityY);
-            player.setPosition(players[id].x, players[id].y);
-            player.setRotation(players[id].rotation);
-            player.setFlipX(players[id].flipX);
-            player.setAlpha(players[id].alpha);
-            player.ombre.x = players[id].ombreX;
-            player.ombre.setScale(players[id].ombreScale);
-            player.play(players[id].anims, true);
-            self.bullet.setPosition(players[id].bulletX, players[id].bulletY)
-
-            if (self.bulletCanon) {
-            self.bulletCanon.x = players[id].bulletCanonX
-            self.bulletCanon.y = players[id].bulletCanonY
-            self.bulletCanon.setScale(players[id].bulletCanonScale)
-            }
-
-            self.canon1.setAngle(players[id].canonAngle)
-            // player.setRotation(players[id].rotation);
-
-            // if (players[id].animation) {
-            // player.play(players[id].animation);
-            // }
-            // player.ombre.setPosition(players[id].ombreX, players[id].ombreY)
-            // if (players[id].animation) {
-              // player.play('' + players[id].anim + '_' + players[id].atlas + '', 5);
-            // }
-          }
-        });
-      });
-    });
     /**
      * ---------Définis la valeur par défault des touches------
      * par default :false (touche non appuyé)
@@ -337,8 +351,6 @@ const Arene = new Phaser.Class({
         left: true,
         walk: true,
       });
-      this.health = Phaser.Math.Clamp(this.health - 1, 0, 100)
-      this.events.emit('health-changed', this.health, this.players.getMatching('playerId', this.socket.id)[0])
     }
 
 
