@@ -77,12 +77,12 @@ const Arene = new Phaser.Class({
       this.derniereVieEquipe = 100;
 
       this.graphics = this.add.graphics()
-      this.graphics2 = this.add.graphics()
+      this.graphicsEquipe = this.add.graphics()
       this.setHealthBar(100)
-      this.setVieEquipeBarre(100)
+      // this.setVieEquipeBarre(100)
       this.events = new Phaser.Events.EventEmitter()
       this.events.on('health-changed', this.handleHealthChanged, this)
-      this.events.on('changement-vie-equipe', this.gestionChangementVieEquipe, this)
+      // this.events.on('changement-vie-equipe', this.gestionChangementVieEquipe, this)
       this.players = {}
 
       this.players = this.add.group();
@@ -123,17 +123,20 @@ const Arene = new Phaser.Class({
         });
 
 
-      this.socket.on("recoit_degat", (degat) {
+      this.socket.on("recoit_degat", (degat) => {
         self.health = Phaser.Math.Clamp(self.health - 1, 0, 100)
         self.events.emit('health-changed', self.health, self.players.getMatching('playerId', self.socket.id)[0])
       });
 
-      this.socket.on("diminue_vie_equipe", (degat, equipe) {
+      this.socket.on("diminue_vie_equipe", (degat, equipe) => {
         self.health = Phaser.Math.Clamp(self.health - 1, 0, 100)
         self.events.emit('health-changed', self.health, self.players.getMatching('playerId', self.socket.id)[0])
       });
 
 
+      this.graphicsEquipe.clear()
+      this.graphicsEquipe.fillStyle(0xd00b0b)
+      this.graphicsEquipe.fillRoundedRect(1700, -330, 500, 20, 5).setScrollFactor(0).setDepth(20)
 
 
 
