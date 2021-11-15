@@ -69,6 +69,12 @@ const Arene = new Phaser.Class({
     create: function ()
     {
 
+      this.health = 100
+      this.lastHealth = 100;
+      this.graphics = this.add.graphics()
+      this.setHealthBar(100)
+      this.events = new Phaser.Events.EventEmitter()
+      this.events.on('health-changed', this.handleHealthChanged, this)
       this.players = {}
 
       this.players = this.add.group();
@@ -331,6 +337,8 @@ const Arene = new Phaser.Class({
         left: true,
         walk: true,
       });
+      this.health = Phaser.Math.Clamp(this.health - 1, 0, 100)
+      this.events.emit('health-changed', this.health, this.players.getMatching('playerId', this.socket.id)[0])
     }
 
 
@@ -432,6 +440,48 @@ const Arene = new Phaser.Class({
     }
 
   },
+  setHealthBar: function(value) {
+  const width = 500
+  const percent = Phaser.Math.Clamp(value, 0, 100) / 100
+  this.graphics.clear()
+  this.graphics.fillStyle(0xd00b0b)
+  this.graphics.fillRoundedRect(-710, -330, width, 20, 5).setScrollFactor(0).setDepth(20)
+  if (percent > 0) {
+    this.graphics.fillStyle(0x0ddb0d)
+    this.graphics.fillRoundedRect(-710, -330, width * percent, 20, 5)
+  }
+
+},
+
+handleHealthChanged: function(value, player) {
+  this.tweens.addCounter({
+    from: this.lastHealth,
+    to: value,
+    duration: 200,
+    ease: Phaser.Math.Easing.Sine.InOut,
+    onUpdate: tween => {
+      const value = tween.getValue()
+      this.setHealthBar(value)
+    },
+  })
+  this.lastHealth = value
+
+  this.tweens.addCounter({
+    from: 150,
+    to: 255,
+    duration: 1000,
+    onUpdate: (tween) => (
+      player.setTint(
+        Phaser.Display.Color.GetColor(
+          tween.getValue(),
+          tween.getValue(),
+          tween.getValue(),
+        )
+      )),
+  })
+},
+
+
   displayPlayers: function(self, playerInfo, iscurrent) {
     console.log("Ajout joueur function");
     const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, 'dessinatrice1', 'face1').setScale(0.38);
