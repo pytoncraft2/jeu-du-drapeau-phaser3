@@ -235,9 +235,26 @@ const Arene = new Phaser.Class({
     // let fontaine1 = this.matter.add.image(-1370, 137, 'fontaine').setDepth(2).setCollisionGroup(1).setCollidesWith(0)
     // console.log(fontaine1.displayWidth); //640
     // console.log(fontaine1.displayHeight); //613
-    let fo = this.add.zone(-1370, 137, 210, 210).setSize(640, 613)
-    var f = this.matter.add.gameObject(fo);
-    f.setIgnoreGravity(true).setStatic(true).setFriction(0)
+    // let fo = this.add.zone(-1370, 137, 210, 210).setSize(640, 613)
+    // var f = this.matter.add.gameObject(fo);
+    // f.setIgnoreGravity(true).setStatic(true).setFriction(0)
+    var rect = new Phaser.Geom.Rectangle(250, 200, 300, 200);
+
+    var g = this.add.graphics({ fillStyle:{ color: 0xaa0000 } });
+
+    g.fillRectShape(rect);
+    g.setDepth(50)
+this.input.on('pointermove', function (pointer) {
+
+    // g.clear();
+
+    console.log(g.x);
+    console.log(pointer.x);
+    if(rect.contains(pointer.x, pointer.y)) {
+      console.log("CONTAIN");
+    }
+
+  });
 
 
     let maison1 = this.add.group()
