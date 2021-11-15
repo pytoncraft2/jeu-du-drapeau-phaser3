@@ -71,10 +71,18 @@ const Arene = new Phaser.Class({
 
       this.health = 100
       this.lastHealth = 100;
+
+
+      this.vieEquipe = 100
+      this.derniereVieEquipe = 100;
+
       this.graphics = this.add.graphics()
+      this.graphics2 = this.add.graphics()
       this.setHealthBar(100)
+      this.setVieEquipeBarre(100)
       this.events = new Phaser.Events.EventEmitter()
       this.events.on('health-changed', this.handleHealthChanged, this)
+      this.events.on('changement-vie-equipe', this.gestionChangementVieEquipe, this)
       this.players = {}
 
       this.players = this.add.group();
@@ -120,6 +128,10 @@ const Arene = new Phaser.Class({
         self.events.emit('health-changed', self.health, self.players.getMatching('playerId', self.socket.id)[0])
       });
 
+      this.socket.on("diminue_vie_equipe", (degat, equipe) {
+        self.health = Phaser.Math.Clamp(self.health - 1, 0, 100)
+        self.events.emit('health-changed', self.health, self.players.getMatching('playerId', self.socket.id)[0])
+      });
 
 
 
