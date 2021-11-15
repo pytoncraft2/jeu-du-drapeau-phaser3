@@ -96,6 +96,8 @@ function create() {
   this.platformeDroiteCollision = this.add.group();
   this.groupeBullets = this.add.group();
   this.canon1 = this.add.rectangle(0, -460, 333, 125)
+  this.fontainezone = this.add.zone(-1370, 137, 210, 210).setSize(640, 613)
+
 
 
 
@@ -287,24 +289,30 @@ function update() {
           if (this.tween.isPlaying()) {
           this.tween.stop()
           }
-          player.play('attack', true)
+          console.log("PLAYER ANIM");
+          if (player.anims.getName() != "attack") {
+            player.play('attack', false)
           player.on('animationcomplete', () => {
-            if (this.fontainezone.getBounds().right < this.players.getChildren()[0].x ||
-            this.fontainezone.getBounds().left > this.players.getChildren()[0].x ||
-            this.fontainezone.getBounds().top > this.players.getChildren()[0].y ||
-            this.fontainezone.getBounds().bottom < this.players.getChildren()[0].y
+            if (this.fontainezone.getBounds().right < player.x ||
+            this.fontainezone.getBounds().left > player.x ||
+            this.fontainezone.getBounds().top > player.y ||
+            this.fontainezone.getBounds().bottom < player.y
           ) {
             console.log("non");
+            // return;
             //attaque uniquement sur le joueur ennemie
           } else {
             console.log("oui");
+            io.to(player.arene).emit("diminue_vie_equipe", "degat", "equipe");
+            // return;
             //attaque fontaine ennemie
             // diminution alpha
             // emit diminue_vie_equipe
           }
 
-          player.anims.play('idle_attack', true)
           })
+
+
           this.tween = this.tweens.add({
             targets: player.ombre,
             from: 0,
@@ -312,6 +320,8 @@ function update() {
             scale: 1,
             duration: 500
           })
+
+        }
         }
         input.attaque = false;
       }

@@ -234,10 +234,10 @@ const Arene = new Phaser.Class({
     let platforme1 = this.add.image(0, 290, 'platforme').setDepth(-2)
     let facade1 = this.add.image(-135, 106, 'facade').setDepth(1).setAlpha(0.4)
     let toit1 = this.add.image(-135, -245, 'plafond').setDepth(2)
-    // let fontaine1 = this.matter.add.image(-1370, 137, 'fontaine').setDepth(2).setCollisionGroup(1).setCollidesWith(0)
+    let fontaine1 = this.add.image(-1370, 137, 'fontaine').setDepth(2)
     // console.log(fontaine1.displayWidth); //640
     // console.log(fontaine1.displayHeight); //613
-    this.fontainezone = this.add.zone(-1370, 137, 210, 210).setSize(640, 613)
+    // this.fontainezone = this.add.zone(-1370, 137, 210, 210).setSize(640, 613)
 
     // var s = self.matter.add.gameObject(this.fontainezone);
     // s.setIgnoreGravity(true).setStatic(true).setFriction(0)
@@ -457,16 +457,6 @@ const Arene = new Phaser.Class({
         canonMaintenu: false,
         canonRelache: true
       });
-      if (this.fontainezone.getBounds().right < this.players.getChildren()[0].x ||
-      this.fontainezone.getBounds().left > this.players.getChildren()[0].x ||
-      this.fontainezone.getBounds().top > this.players.getChildren()[0].y ||
-      this.fontainezone.getBounds().bottom < this.players.getChildren()[0].y
-    ) {
-        console.log("non");
-      } else {
-        console.log("oui");
-      }
-
     }
 
 
