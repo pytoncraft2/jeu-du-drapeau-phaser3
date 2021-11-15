@@ -77,7 +77,8 @@ const Arene = new Phaser.Class({
       this.derniereVieEquipe = 100;
 
       this.graphics = this.add.graphics()
-      this.graphicsEquipe = this.add.graphics()
+      this.graphicsEquipeA = this.add.graphics()
+      this.graphicsEquipeB = this.add.graphics()
       this.setHealthBar(100)
       // this.setVieEquipeBarre(100)
       this.events = new Phaser.Events.EventEmitter()
@@ -134,9 +135,16 @@ const Arene = new Phaser.Class({
       });
 
 
-      this.graphicsEquipe.clear()
-      this.graphicsEquipe.fillStyle(0xd00b0b)
-      this.graphicsEquipe.fillRoundedRect(1700, -330, 500, 20, 5).setScrollFactor(0).setDepth(20)
+      //EQUIPE BLEU
+      this.graphicsEquipeA.clear()
+      this.graphicsEquipeA.fillStyle(0x0e88bd)
+      this.graphicsEquipeA.fillRoundedRect(1700, -330, 500, 20, 5).setScrollFactor(0).setDepth(20)
+
+      //EQUIPE VERTE
+      this.graphics.clear()
+      this.graphics.fillStyle(0x0ea733)
+      this.graphics.fillRoundedRect(-710, -330, 500, 20, 5).setScrollFactor(0).setDepth(20)
+
 
 
 
