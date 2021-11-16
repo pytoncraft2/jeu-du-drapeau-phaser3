@@ -343,13 +343,13 @@ return;
                   var distance2 = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone2.x, y: fontainezone2.y});
                   if (distance < 530 && distance < 540) {
                     vieEquipeB = Phaser.Math.Clamp(vieEquipeB - (puissance / 2) * 10 , 0, 100)
-                    events.emit('changement-vie-equipe-B', vieEquipeB, player.arene)
+                    events.emit('changement-vie-equipe-B', vieEquipeB)
                     // io.to(player.arene).emit("diminue_vie_equipe", puissance, "B");
                     // FIXME: resultat difference entre le client et le serveur
                     // data.set('vieEquipeB', Phaser.Math.Clamp(vieEquipeB - (puissance / 2) * 10 , 0, 100));
                   } else if (distance2 < 530 && distance2 < 540) {
                     vieEquipeA = Phaser.Math.Clamp(vieEquipeA - (puissance / 2) * 10 , 0, 100)
-                    events.emit('changement-vie-equipe-A', vieEquipeA, player.arene)
+                    events.emit('changement-vie-equipe-A', vieEquipeA)
                     // io.to(player.arene).emit("diminue_vie_equipe", puissance, "A");
                     // FIXME: resultat difference entre le client et le serveur
                     // data.set('vieEquipeA', Phaser.Math.Clamp(vieEquipeA - (puissance / 2) * 10 , 0, 100));
@@ -482,24 +482,19 @@ return;
 
 }
 
-function changementVieEquipeA(value, arene) {
+function changementVieEquipeA(value) {
   setVieEquipeA(value)
    this.lastHealthEquipeA = value
    console.log("changementVieEquipeA OOOOOOOOKKKK");
       this.data.set('vieEquipeA', value);
-      io.to(arene).emit("diminue_vie_equipe", value, "A");
-      // io.to(player.arene).emit("diminue_vie_equipe", puissance, "B");
       console.log("VALUE---------");
       console.log(value);
  }
- function changementVieEquipeB(value, arene) {
+ function changementVieEquipeB(value) {
    console.log("changementVieEquipeB OOOOOOOOKKKK");
       setVieEquipeB(value)
       this.lastHealthEquipeB = value
       this.data.set('vieEquipeB', value);
-      // io.to(player.arene).emit("diminue_vie_equipe", puissance, "B");
-      io.to(arene).emit("diminue_vie_equipe", value, "B");
-
       console.log("-----VALUE---------");
       console.log(value);
 
@@ -510,11 +505,22 @@ function setVieEquipeA(value) {
   const width = 500
   const percent = Phaser.Math.Clamp(value, 0, 100) / 100
 //width * percent
+console.log();
+console.log("POURCENTAGE 2");
+
+let pourcentage = width * percent;
+io.to("Naruto").emit("diminue_vie_equipe", pourcentage, value,"A");
+
+
 }
 
 function setVieEquipeB(value) {
   const width = 500
   const percent = Phaser.Math.Clamp(value, 0, 100) / 100
+  console.log("POURCENTAGE");
+  console.log(width * percent);
+  let pourcentage = width * percent;
+  io.to("Naruto").emit("diminue_vie_equipe", pourcentage, value, "B");
 //width * percent
 }
 
