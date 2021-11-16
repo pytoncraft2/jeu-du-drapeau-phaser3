@@ -196,9 +196,10 @@ const Arene = new Phaser.Class({
             player.setAlpha(players[id].alpha);
             player.ombre.x = players[id].ombreX;
             player.ombre.setScale(players[id].ombreScale);
-            if (players[id].anims) {
-            player.play(players[id].anims, true);
-            }
+            // if (players[id].anims) {
+            // player.play(players[id].anims);
+            // }
+            player.setFrame(players[id].frame);
             self.bullet.setPosition(players[id].bulletX, players[id].bulletY)
 
             if (self.bulletCanon) {

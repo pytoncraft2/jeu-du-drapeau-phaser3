@@ -304,13 +304,13 @@ return;
           if (this.tween.isPlaying()) {
           this.tween.stop()
           }
-          // player.play('attack', true)
-          // player.on('animationcomplete', () => {
-          // player.setFrame(0)
+          player.play('attack', true)
+          player.on('animationcomplete', () => {
+          player.setFrame(0)
           // player.play('idle_walk', true)
-          // player.stop()
-          // console.log("boucle");
-          // })
+          player.stop()
+          console.log("boucle?");
+          })
           this.tween = this.tweens.add({
             targets: player.ombre,
             from: 0,
@@ -412,7 +412,8 @@ return;
 
       players[player.arene][player.playerId].x = player.x;
       players[player.arene][player.playerId].y = player.y;
-      players[player.arene][player.playerId].anims = player.anims.getName();
+      // players[player.arene][player.playerId].anims = player.anims.getName();
+      players[player.arene][player.playerId].frame = player.anims.getFrameName();
       players[player.arene][player.playerId].flipX = player.flipX;
       players[player.arene][player.playerId].alpha = player.alpha;
       players[player.arene][player.playerId].ombreX = player.ombre.x;
