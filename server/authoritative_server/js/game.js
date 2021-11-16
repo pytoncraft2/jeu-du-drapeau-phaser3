@@ -26,7 +26,6 @@ const config = {
 
 var fontainezone;
 var fontainezone2;
-var ev;
 
 function preload() {
   this.load.atlas('dessinatrice1', 'assets/personnages/dessinatrice1/dessinatrice1.png', 'assets/personnages/dessinatrice1/dessinatrice1_atlas.json');
@@ -111,11 +110,11 @@ function create() {
   fontainezone2 = this.add.zone(8235, -1553, 210, 210).setSize(640, 613)
 
 
-  ev = new Phaser.Events.EventEmitter()
-ev.on('changement-vie-equipe-A', changementVieEquipeA, this)
-ev.on('changement-vie-equipe-B', changementVieEquipeB, this)
-setVieEquipeA(100)
-setVieEquipeB(100)
+  this.events = new Phaser.Events.EventEmitter()
+this.events.on('changement-vie-equipe-A', changementVieEquipeA, this)
+this.events.on('changement-vie-equipe-B', changementVieEquipeB, this)
+// setVieEquipeA(100)
+// setVieEquipeB(100)
 
   let soclePlatformeGauche = self.add.zone(0, 327, 210, 210).setSize(3500, 40);
 let socleToitGauche = self.add.zone(-120, -253, 210, 210).setSize(1631, 40);
@@ -335,7 +334,7 @@ return;
             to: 1,
             scale: 1,
             duration: 500,
-            onUpdateParams: [ this.data , this.vieEquipeA, this.vieEquipeB, ev],
+            onUpdateParams: [ this.data , this.vieEquipeA, this.vieEquipeB],
             onUpdate: function functionName(tween, targets, data, vieEquipeA, vieEquipeB, events) {
               if (player.anims.getFrameName() == "attack4") {
                 if (count) {
@@ -343,14 +342,14 @@ return;
                   var distance2 = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone2.x, y: fontainezone2.y});
                   if (distance < 530 && distance < 540) {
                     vieEquipeB = Phaser.Math.Clamp(vieEquipeB - (puissance / 2) * 10 , 0, 100)
-                    events.emit('changement-vie-equipe-B', vieEquipeB)
-                    // io.to(player.arene).emit("diminue_vie_equipe", puissance, "B");
+                    // events.emit('changement-vie-equipe-B', vieEquipeB)
+                    io.to(player.arene).emit("diminue_vie_equipe", puissance, "B");
                     // FIXME: resultat difference entre le client et le serveur
                     // data.set('vieEquipeB', Phaser.Math.Clamp(vieEquipeB - (puissance / 2) * 10 , 0, 100));
                   } else if (distance2 < 530 && distance2 < 540) {
                     vieEquipeA = Phaser.Math.Clamp(vieEquipeA - (puissance / 2) * 10 , 0, 100)
-                    events.emit('changement-vie-equipe-A', vieEquipeA)
-                    // io.to(player.arene).emit("diminue_vie_equipe", puissance, "A");
+                    // events.emit('changement-vie-equipe-A', vieEquipeA)
+                    io.to(player.arene).emit("diminue_vie_equipe", puissance, "A");
                     // FIXME: resultat difference entre le client et le serveur
                     // data.set('vieEquipeA', Phaser.Math.Clamp(vieEquipeA - (puissance / 2) * 10 , 0, 100));
                   }
@@ -483,47 +482,18 @@ return;
 }
 
 function changementVieEquipeA(value) {
-  setVieEquipeA(value)
-   this.lastHealthEquipeA = value
+  // setVieEquipeA(value)
+   // this.lastHealthEquipeA = value
    console.log("changementVieEquipeA OOOOOOOOKKKK");
       this.data.set('vieEquipeA', value);
-      console.log("VALUE---------");
-      console.log(value);
  }
  function changementVieEquipeB(value) {
    console.log("changementVieEquipeB OOOOOOOOKKKK");
-      setVieEquipeB(value)
-      this.lastHealthEquipeB = value
+      // setVieEquipeB(value)
+      // this.lastHealthEquipeB = value
       this.data.set('vieEquipeB', value);
-      console.log("-----VALUE---------");
-      console.log(value);
-
 
 }
-
-function setVieEquipeA(value) {
-  const width = 500
-  const percent = Phaser.Math.Clamp(value, 0, 100) / 100
-//width * percent
-console.log();
-console.log("POURCENTAGE 2");
-
-let pourcentage = width * percent;
-io.to("Naruto").emit("diminue_vie_equipe", pourcentage, value,"A");
-
-
-}
-
-function setVieEquipeB(value) {
-  const width = 500
-  const percent = Phaser.Math.Clamp(value, 0, 100) / 100
-  console.log("POURCENTAGE");
-  console.log(width * percent);
-  let pourcentage = width * percent;
-  io.to("Naruto").emit("diminue_vie_equipe", pourcentage, value, "B");
-//width * percent
-}
-
 
 
 function handlePlayerInput(self, playerId, arene, input) {
