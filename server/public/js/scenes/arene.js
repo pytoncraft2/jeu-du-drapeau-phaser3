@@ -70,20 +70,21 @@ const Arene = new Phaser.Class({
     {
 
       this.health = 100
-      this.lastHealth = 100;
+      this.lastHealthEquipe = 100;
 
 
       this.vieEquipe = 100
       this.derniereVieEquipe = 100;
 
       this.graphics = this.add.graphics()
-      this.graphicsEquipeA = this.add.graphics()
-      this.graphicsEquipeB = this.add.graphics()
-      this.setHealthBar(100, "A")
-      this.setHealthBar(100, "B")
+      this.barreEquipeA = this.add.graphics()
+      this.barreEquipeB = this.add.graphics()
       // this.setVieEquipeBarre(100)
       this.events = new Phaser.Events.EventEmitter()
-      this.events.on('health-changed', this.handleHealthChanged, this)
+      this.events.on('changement-vie-equipe-A', this.changementVieEquipeA, this)
+      this.events.on('changement-vie-equipe-B', this.changementVieEquipeB, this)
+      this.setVieEquipeA(100)
+      this.setVieEquipeB(100)
       // this.events.on('changement-vie-equipe', this.gestionChangementVieEquipe, this)
       this.players = {}
 
@@ -131,34 +132,33 @@ const Arene = new Phaser.Class({
       });
 
       this.socket.on("diminue_vie_equipe", (puissance, equipe) => {
-        console.log("PUISSANCE----------");
-        console.log((puissance / 2) * 10);
-        console.log("_vie_");
-        console.log(self.health);
+      //   console.log("PUISSANCE----------");
+      //   console.log((puissance / 2) * 10);
+      //   console.log("_vie_");
+      //   console.log(self.health);
         if (equipe == "A") {
-          console.log("AAAAAAAAAAA");
         self.health = Phaser.Math.Clamp(self.health - (puissance / 2) * 10 , 0, 100)
-        self.events.emit('health-changed', self.health, equipe)
-      } else {
-        console.log("BBBBBBBBB");
-        self.vieEquipe = Phaser.Math.Clamp(self.vieEquipe + 2 , 0, 100)
-        self.events.emit('health-changed', self.vieEquipe, equipe)
+        self.events.emit('changement-vie-equipe-A', self.health)
+        console.log("AAAAAAA");
+      } else if (equipe == "B") {
+        self.health = Phaser.Math.Clamp(self.health - (puissance / 2) * 10 , 0, 100)
+        self.events.emit('changement-vie-equipe-B', self.health)
+        console.log("BBBBBB");
+        // self.health = Phaser.Math.Clamp(self.vieEquipe + 2 , 0, 100)
+        // self.events.emit('changement-vie-equipe-B', self.health)
       }
-        // console.log("res");
-        // console.log(self.health);
       });
 
 
       //EQUIPE BLEU
-      this.graphicsEquipeA.clear()
-      this.graphicsEquipeA.fillStyle(0x0e88bd)
-      this.graphicsEquipeA.fillRoundedRect(1700, -330, 500, 20, 5).setScrollFactor(0).setDepth(20)
+      this.barreEquipeA.clear()
+      this.barreEquipeA.fillStyle(0x0e88bd)
+      this.barreEquipeA.fillRoundedRect(1700, -330, 500, 20, 5).setScrollFactor(0).setDepth(20)
 
       //EQUIPE VERTE
-      this.graphics.clear()
-      this.graphics.fillStyle(0x0ea733)
-      this.graphics.fillRoundedRect(-710, -330, 500, 20, 5).setScrollFactor(0).setDepth(20)
-
+      this.barreEquipeB.clear()
+      this.barreEquipeB.fillStyle(0x0ea733)
+      this.barreEquipeB.fillRoundedRect(-710, -330, 500, 20, 5).setScrollFactor(0).setDepth(20)
 
 
 
@@ -358,6 +358,85 @@ const Arene = new Phaser.Class({
     this.cameras.main.setZoom(0.5);
 
   },
+  changementVieEquipeA: function(value) {
+   this.tweens.addCounter({
+     from: this.lastHealthEquipe,
+     to: value,
+     duration: 200,
+     ease: Phaser.Math.Easing.Sine.InOut,
+     onUpdate: tween => {
+       const value = tween.getValue()
+       this.setVieEquipeA(value)
+     },
+   })
+   this.lastHealthEquipe = value
+
+   // this.tweens.addCounter({
+   //   from: 150,
+   //   to: 255,
+   //   duration: 1000,
+   //   onUpdate: (tween) => (
+   //     this.girlMap.setTint(
+   //       Phaser.Display.Color.GetColor(
+   //         tween.getValue(),
+   //         tween.getValue(),
+   //         tween.getValue(),
+   //       )
+   //     )),
+   // })
+ },
+ changementVieEquipeB: function(value) {
+  this.tweens.addCounter({
+    from: this.lastHealthEquipe,
+    to: value,
+    duration: 200,
+    ease: Phaser.Math.Easing.Sine.InOut,
+    onUpdate: tween => {
+      const value = tween.getValue()
+      this.setVieEquipeB(value)
+    },
+  })
+  this.lastHealthEquipe = value
+
+  // this.tweens.addCounter({
+  //   from: 150,
+  //   to: 255,
+  //   duration: 1000,
+  //   onUpdate: (tween) => (
+  //     this.girlMap.setTint(
+  //       Phaser.Display.Color.GetColor(
+  //         tween.getValue(),
+  //         tween.getValue(),
+  //         tween.getValue(),
+  //       )
+  //     )),
+  // })
+},
+setVieEquipeA: function(value) {
+  const width = 500
+  const percent = Phaser.Math.Clamp(value, 0, 100) / 100
+  this.barreEquipeA.clear()
+  this.barreEquipeA.fillStyle(0xd00b0b)
+  this.barreEquipeA.fillRoundedRect(10, 10, width, 20, 5).setScrollFactor(0)
+  if (percent > 0) {
+    this.barreEquipeA.fillStyle(0x0ddb0d)
+    this.barreEquipeA.fillRoundedRect(10, 10, width * percent, 20, 5)
+  }
+},
+
+
+setVieEquipeB: function(value) {
+  const width = 500
+  const percent = Phaser.Math.Clamp(value, 0, 100) / 100
+  this.barreEquipeA.clear()
+  this.barreEquipeA.fillStyle(0xd00b0b)
+  this.barreEquipeA.fillRoundedRect(10, 10, width, 20, 5).setScrollFactor(0)
+  if (percent > 0) {
+    this.barreEquipeA.fillStyle(0x0ddb0d)
+    this.barreEquipeA.fillRoundedRect(10, 10, width * percent, 20, 5)
+  }
+},
+
 
   update: function () {
 
@@ -500,58 +579,6 @@ const Arene = new Phaser.Class({
     }
 
   },
-  setHealthBar: function(value, equipe) {
-
-  if (equipe == "A") {
-    var g =this.graphics
-  } else {
-    var g = this.graphicsEquipeA
-    console.log("BBBBBBBBBBBBBB");
-  }
-  const width = 500
-  const percent = Phaser.Math.Clamp(value, 0, 100) / 100
-  g.clear()
-  g.fillStyle(0xd00b0b)
-  g.fillRoundedRect(-710, -330, width, 20, 5).setScrollFactor(0).setDepth(20)
-  if (percent > 0) {
-    g.fillStyle(0x0ddb0d)
-    g.fillRoundedRect(-710, -330, width * percent, 20, 5)
-  }
-},
-
-handleHealthChanged: function(value, equipe) {
-  if (equipe == "A") {
-    var lastHealth = this.derniereVieEquipe
-  } else {
-    var lastHealth = this.lastHealth
-  }
-  this.tweens.addCounter({
-    from: lastHealth,
-    to: value,
-    duration: 200,
-    ease: Phaser.Math.Easing.Sine.InOut,
-    onUpdate: tween => {
-      const value = tween.getValue()
-      this.setHealthBar(value, equipe)
-    },
-  })
-  lastHealth = value
-
-  // this.tweens.addCounter({
-  //   from: 150,
-  //   to: 255,
-  //   duration: 1000,
-  //   onUpdate: (tween) => (
-  //     equipe.setTint(
-  //       Phaser.Display.Color.GetColor(
-  //         tween.getValue(),
-  //         tween.getValue(),
-  //         tween.getValue(),
-  //       )
-  //     )),
-  // })
-},
-
 
   displayPlayers: function(self, playerInfo, iscurrent) {
     console.log("Ajout joueur function");
