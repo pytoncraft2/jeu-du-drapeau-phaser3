@@ -133,17 +133,27 @@ const Arene = new Phaser.Class({
         self.events.emit('health-changed', self.health, self.players.getMatching('playerId', self.socket.id)[0])
       });
 
-      this.socket.on("diminue_vie_equipe", (puissance, equipe) => {
+      this.socket.on("diminue_vie_equipe", (valeur, equipe) => {
       //   console.log("PUISSANCE----------");
       //   console.log((puissance / 2) * 10);
       //   console.log("_vie_");
       //   console.log(self.health);
         if (equipe == "A") {
-        self.vieEquipeA = Phaser.Math.Clamp(self.vieEquipeA - (puissance / 2) * 10 , 0, 100)
-        self.events.emit('changement-vie-equipe-A', self.vieEquipeA)
+            self.vieEquipeA = Phaser.Math.Clamp(self.vieEquipeA - (valeur / 2) * 10 , 0, 100)
+
+          self.changementVieEquipeA(self.vieEquipeA)
+        // self.lastHealthEquipeA = value
+      //   self.vieEquipeA = Phaser.Math.Clamp(self.vieEquipeA - (puissance / 2) * 10 , 0, 100)
+        // self.events.emit('changement-vie-equipe-A', valeur)
       } else if (equipe == "B") {
-        self.vieEquipeB = Phaser.Math.Clamp(self.vieEquipeB - (puissance / 2) * 10 , 0, 100)
-        self.events.emit('changement-vie-equipe-B', self.vieEquipeB)
+
+        self.vieEquipeB = Phaser.Math.Clamp(self.vieEquipeB - (valeur / 2) * 10 , 0, 100)
+
+          self.changementVieEquipeB(self.vieEquipeB)
+        // self.lastHealthEquipeB = value
+        // self.events.emit('changement-vie-equipe-B', valeur)
+      //   self.vieEquipeB = Phaser.Math.Clamp(self.vieEquipeB - (puissance / 2) * 10 , 0, 100)
+      //   self.events.emit('changement-vie-equipe-B', self.vieEquipeB)
       }
       });
 
@@ -357,30 +367,30 @@ const Arene = new Phaser.Class({
 
   },
   changementVieEquipeA: function(value) {
-   // this.tweens.addCounter({
-   //   from: this.lastHealthEquipeA,
-   //   to: value,
-   //   duration: 200,
-   //   ease: Phaser.Math.Easing.Sine.InOut,
-   //   onUpdate: tween => {
-   //     const value = tween.getValue()
-   //     this.setVieEquipeA(value)
-   //   },
-   // })
+   this.tweens.addCounter({
+     from: this.lastHealthEquipeA,
+     to: value,
+     duration: 200,
+     ease: Phaser.Math.Easing.Sine.InOut,
+     onUpdate: tween => {
+       const value = tween.getValue()
+       this.setVieEquipeA(value)
+     },
+   })
        this.setVieEquipeA(value)
    this.lastHealthEquipeA = value
  },
  changementVieEquipeB: function(value) {
-  // this.tweens.addCounter({
-  //   from: this.lastHealthEquipeB,
-  //   to: value,
-  //   duration: 200,
-  //   ease: Phaser.Math.Easing.Sine.InOut,
-  //   onUpdate: tween => {
-  //     const value = tween.getValue()
-  //     this.setVieEquipeB(value)
-  //   },
-  // })
+  this.tweens.addCounter({
+    from: this.lastHealthEquipeB,
+    to: value,
+    duration: 200,
+    ease: Phaser.Math.Easing.Sine.InOut,
+    onUpdate: tween => {
+      const value = tween.getValue()
+      this.setVieEquipeB(value)
+    },
+  })
       this.setVieEquipeB(value)
 
   this.lastHealthEquipeB = value

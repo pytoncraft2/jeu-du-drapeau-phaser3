@@ -343,14 +343,14 @@ return;
                   var distance2 = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone2.x, y: fontainezone2.y});
                   if (distance < 530 && distance < 540) {
                     vieEquipeB = Phaser.Math.Clamp(vieEquipeB - (puissance / 2) * 10 , 0, 100)
-                    events.emit('changement-vie-equipe-B', vieEquipeB)
-                    io.to(player.arene).emit("diminue_vie_equipe", puissance, "B");
+                    events.emit('changement-vie-equipe-B', vieEquipeB, player.arene)
+                    // io.to(player.arene).emit("diminue_vie_equipe", puissance, "B");
                     // FIXME: resultat difference entre le client et le serveur
                     // data.set('vieEquipeB', Phaser.Math.Clamp(vieEquipeB - (puissance / 2) * 10 , 0, 100));
                   } else if (distance2 < 530 && distance2 < 540) {
                     vieEquipeA = Phaser.Math.Clamp(vieEquipeA - (puissance / 2) * 10 , 0, 100)
-                    events.emit('changement-vie-equipe-A', vieEquipeA)
-                    io.to(player.arene).emit("diminue_vie_equipe", puissance, "A");
+                    events.emit('changement-vie-equipe-A', vieEquipeA, player.arene)
+                    // io.to(player.arene).emit("diminue_vie_equipe", puissance, "A");
                     // FIXME: resultat difference entre le client et le serveur
                     // data.set('vieEquipeA', Phaser.Math.Clamp(vieEquipeA - (puissance / 2) * 10 , 0, 100));
                   }
@@ -482,17 +482,27 @@ return;
 
 }
 
-function changementVieEquipeA(value) {
+function changementVieEquipeA(value, arene) {
   setVieEquipeA(value)
    this.lastHealthEquipeA = value
    console.log("changementVieEquipeA OOOOOOOOKKKK");
       this.data.set('vieEquipeA', value);
+      io.to(arene).emit("diminue_vie_equipe", value, "A");
+      // io.to(player.arene).emit("diminue_vie_equipe", puissance, "B");
+      console.log("VALUE---------");
+      console.log(value);
  }
- function changementVieEquipeB(value) {
+ function changementVieEquipeB(value, arene) {
    console.log("changementVieEquipeB OOOOOOOOKKKK");
       setVieEquipeB(value)
       this.lastHealthEquipeB = value
       this.data.set('vieEquipeB', value);
+      // io.to(player.arene).emit("diminue_vie_equipe", puissance, "B");
+      io.to(arene).emit("diminue_vie_equipe", value, "B");
+
+      console.log("-----VALUE---------");
+      console.log(value);
+
 
 }
 
