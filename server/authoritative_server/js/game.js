@@ -25,6 +25,7 @@ const config = {
 };
 
 var fontainezone;
+var fontainezone2;
 
 function preload() {
   this.load.atlas('dessinatrice1', 'assets/personnages/dessinatrice1/dessinatrice1.png', 'assets/personnages/dessinatrice1/dessinatrice1_atlas.json');
@@ -101,6 +102,7 @@ function create() {
   this.groupeBullets = this.add.group();
   this.canon1 = this.add.rectangle(0, -460, 333, 125)
   fontainezone = this.add.zone(-1370, 137, 210, 210).setSize(640, 613)
+  fontainezone2 = this.add.zone(8235, -1553, 210, 210).setSize(640, 613)
 
 
 
@@ -326,17 +328,26 @@ return;
             onUpdate: function functionName() {
               if (player.anims.getFrameName() == "attack4") {
                 if (count) {
-                  if (fontainezone.getBounds().right < player.x ||
-                  fontainezone.getBounds().left > player.x ||
-                  fontainezone.getBounds().top > player.y ||
-                  fontainezone.getBounds().bottom < player.y
-                ) {
-                  // diminue vie de l'ennemi le plus proche
-                  count = false;
-                } else {
-                  io.to(player.arene).emit("diminue_vie_equipe", puissance, "equipe");
-                  count = false;
-                }
+              if (fontainezone.getBounds().right > player.x ||
+              fontainezone.getBounds().left < player.x ||
+              fontainezone.getBounds().top > player.y ||
+              fontainezone.getBounds().bottom < player.y
+            ) {
+
+              io.to(player.arene).emit("diminue_vie_equipe", puissance, "B");
+              count = false;
+
+            } else if (fontainezone2.getBounds().right < player.x ||
+                            fontainezone2.getBounds().left > player.x ||
+                            fontainezone2.getBounds().top > player.y ||
+                            fontainezone2.getBounds().bottom < player.y
+                          ) {
+
+            // diminue vie de l'ennemi le plus proche
+            // io.to(player.arene).emit("diminue_vie_equipe", puissance, "B");
+            count = false;
+          }
+
                }
               }
             }
