@@ -372,20 +372,6 @@ const Arene = new Phaser.Class({
      },
    })
    this.lastHealthEquipeA = value
-
-   // this.tweens.addCounter({
-   //   from: 150,
-   //   to: 255,
-   //   duration: 1000,
-   //   onUpdate: (tween) => (
-   //     this.girlMap.setTint(
-   //       Phaser.Display.Color.GetColor(
-   //         tween.getValue(),
-   //         tween.getValue(),
-   //         tween.getValue(),
-   //       )
-   //     )),
-   // })
  },
  changementVieEquipeB: function(value) {
   this.tweens.addCounter({
@@ -399,20 +385,6 @@ const Arene = new Phaser.Class({
     },
   })
   this.lastHealthEquipeB = value
-
-  // this.tweens.addCounter({
-  //   from: 150,
-  //   to: 255,
-  //   duration: 1000,
-  //   onUpdate: (tween) => (
-  //     this.girlMap.setTint(
-  //       Phaser.Display.Color.GetColor(
-  //         tween.getValue(),
-  //         tween.getValue(),
-  //         tween.getValue(),
-  //       )
-  //     )),
-  // })
 },
 setVieEquipeA: function(value) {
   const width = 500
@@ -425,8 +397,6 @@ setVieEquipeA: function(value) {
     this.barreEquipeA.fillRoundedRect(1700, -330, width * percent, 20, 5)
   }
 },
-
-
 setVieEquipeB: function(value) {
   const width = 500
   const percent = Phaser.Math.Clamp(value, 0, 100) / 100

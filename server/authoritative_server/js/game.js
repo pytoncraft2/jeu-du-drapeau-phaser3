@@ -104,6 +104,8 @@ function create() {
   fontainezone = this.add.zone(-1370, 137, 210, 210).setSize(640, 613)
   fontainezone2 = this.add.zone(8235, -1553, 210, 210).setSize(640, 613)
 
+  this.data.set('vieEquipeA', 100);
+  this.data.set('vieEquipeB', 100);
 
 
 
@@ -325,15 +327,18 @@ return;
             to: 1,
             scale: 1,
             duration: 500,
-            onUpdate: function functionName() {
+            onUpdateParams: [ this.data ],
+            onUpdate: function functionName(tween, targets, data) {
               if (player.anims.getFrameName() == "attack4") {
                 if (count) {
                   var distance = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone.x, y: fontainezone.y});
                   var distance2 = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone2.x, y: fontainezone2.y});
                   if (distance < 530 && distance < 540) {
                     io.to(player.arene).emit("diminue_vie_equipe", puissance, "B");
+                    console.log(data.get('vieEquipeB'));
                   } else if (distance2 < 530 && distance2 < 540) {
                     io.to(player.arene).emit("diminue_vie_equipe", puissance, "A");
+                    console.log(data.set('vieEquipeA', data.get('vieEquipeA') - puissance));
                   }
                   count = false;
                 }
