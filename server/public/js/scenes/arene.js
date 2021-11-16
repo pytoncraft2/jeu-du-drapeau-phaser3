@@ -135,10 +135,15 @@ const Arene = new Phaser.Class({
         console.log((puissance / 2) * 10);
         console.log("_vie_");
         console.log(self.health);
+        if (equipe == "A") {
         self.health = Phaser.Math.Clamp(self.health - (puissance / 2) * 10 , 0, 100)
-        console.log("res");
-        console.log(self.health);
         self.events.emit('health-changed', self.health, equipe)
+      } else {
+        self.vieEquipe = Phaser.Math.Clamp(self.vieEquipe + 2 , 0, 100)
+        self.events.emit('health-changed', self.vieEquipe, equipe)
+      }
+        // console.log("res");
+        // console.log(self.health);
       });
 
 
