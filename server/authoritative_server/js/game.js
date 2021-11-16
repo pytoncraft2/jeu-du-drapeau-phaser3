@@ -26,8 +26,7 @@ const config = {
 
 var fontainezone;
 var fontainezone2;
-var vieEquipeA;
-var vieEquipeB;
+var ev;
 
 function preload() {
   this.load.atlas('dessinatrice1', 'assets/personnages/dessinatrice1/dessinatrice1.png', 'assets/personnages/dessinatrice1/dessinatrice1_atlas.json');
@@ -39,9 +38,11 @@ function create() {
 
   this.tween = null;
   this.graph = this.add.graphics();
-  vieEquipeA = 100
-  vieEquipeB = 100
 
+  this.vieEquipeA = 100
+  this.vieEquipeB = 100
+  this.lastHealthEquipeA = 100;
+  this.lastHealthEquipeB = 100;
 
       this.anims.create({
         key: 'attack',
@@ -109,10 +110,12 @@ function create() {
   fontainezone = this.add.zone(-1370, 137, 210, 210).setSize(640, 613)
   fontainezone2 = this.add.zone(8235, -1553, 210, 210).setSize(640, 613)
 
-  this.data.set('vieEquipeA', 100);
-  this.data.set('vieEquipeB', 100);
 
-
+  ev = new Phaser.Events.EventEmitter()
+ev.on('changement-vie-equipe-A', changementVieEquipeA, this)
+ev.on('changement-vie-equipe-B', changementVieEquipeB, this)
+setVieEquipeA(100)
+setVieEquipeB(100)
 
   let soclePlatformeGauche = self.add.zone(0, 327, 210, 210).setSize(3500, 40);
 let socleToitGauche = self.add.zone(-120, -253, 210, 210).setSize(1631, 40);
@@ -332,20 +335,24 @@ return;
             to: 1,
             scale: 1,
             duration: 500,
-            onUpdateParams: [ this.data , vieEquipeA, vieEquipeB],
-            onUpdate: function functionName(tween, targets, data) {
+            onUpdateParams: [ this.data , this.vieEquipeA, this.vieEquipeB, ev],
+            onUpdate: function functionName(tween, targets, data, vieEquipeA, vieEquipeB, events) {
               if (player.anims.getFrameName() == "attack4") {
                 if (count) {
                   var distance = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone.x, y: fontainezone.y});
                   var distance2 = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone2.x, y: fontainezone2.y});
                   if (distance < 530 && distance < 540) {
+                    vieEquipeB = Phaser.Math.Clamp(vieEquipeB - (puissance / 2) * 10 , 0, 100)
+                    events.emit('changement-vie-equipe-B', vieEquipeB)
                     io.to(player.arene).emit("diminue_vie_equipe", puissance, "B");
                     // FIXME: resultat difference entre le client et le serveur
-                    data.set('vieEquipeB', Phaser.Math.Clamp(vieEquipeB - (puissance / 2) * 10 , 0, 100));
+                    // data.set('vieEquipeB', Phaser.Math.Clamp(vieEquipeB - (puissance / 2) * 10 , 0, 100));
                   } else if (distance2 < 530 && distance2 < 540) {
+                    vieEquipeA = Phaser.Math.Clamp(vieEquipeA - (puissance / 2) * 10 , 0, 100)
+                    events.emit('changement-vie-equipe-A', vieEquipeA)
                     io.to(player.arene).emit("diminue_vie_equipe", puissance, "A");
                     // FIXME: resultat difference entre le client et le serveur
-                    data.set('vieEquipeA', Phaser.Math.Clamp(vieEquipeA - (puissance / 2) * 10 , 0, 100));
+                    // data.set('vieEquipeA', Phaser.Math.Clamp(vieEquipeA - (puissance / 2) * 10 , 0, 100));
                   }
                   count = false;
                 }
@@ -474,6 +481,34 @@ return;
     io.to("Naruto").emit("playerUpdates", players["Naruto"]);
 
 }
+
+function changementVieEquipeA(value) {
+  setVieEquipeA(value)
+   this.lastHealthEquipeA = value
+   console.log("changementVieEquipeA OOOOOOOOKKKK");
+      this.data.set('vieEquipeA', value);
+ }
+ function changementVieEquipeB(value) {
+   console.log("changementVieEquipeB OOOOOOOOKKKK");
+      setVieEquipeB(value)
+      this.lastHealthEquipeB = value
+      this.data.set('vieEquipeB', value);
+
+}
+
+function setVieEquipeA(value) {
+  const width = 500
+  const percent = Phaser.Math.Clamp(value, 0, 100) / 100
+//width * percent
+}
+
+function setVieEquipeB(value) {
+  const width = 500
+  const percent = Phaser.Math.Clamp(value, 0, 100) / 100
+//width * percent
+}
+
+
 
 function handlePlayerInput(self, playerId, arene, input) {
 
