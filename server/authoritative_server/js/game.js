@@ -24,6 +24,8 @@ const config = {
   autoFocus: false
 };
 
+var fontainezone;
+
 function preload() {
   this.load.atlas('dessinatrice1', 'assets/personnages/dessinatrice1/dessinatrice1.png', 'assets/personnages/dessinatrice1/dessinatrice1_atlas.json');
 }
@@ -98,6 +100,8 @@ function create() {
   this.platformeDroiteCollision = this.add.group();
   this.groupeBullets = this.add.group();
   this.canon1 = this.add.rectangle(0, -460, 333, 125)
+  fontainezone = this.add.zone(-1370, 137, 210, 210).setSize(640, 613)
+
 
 
 
@@ -312,7 +316,7 @@ return;
           this.tween.stop()
           }
           player.play('attack', true)
-          var count = true;
+          count = true;
           this.tween = this.tweens.add({
             targets: player.ombre,
             from: 0,
@@ -322,8 +326,17 @@ return;
             onUpdate: function functionName() {
               if (player.anims.getFrameName() == "attack4") {
                 if (count) {
+                  if (fontainezone.getBounds().right < player.x ||
+                  fontainezone.getBounds().left > player.x ||
+                  fontainezone.getBounds().top > player.y ||
+                  fontainezone.getBounds().bottom < player.y
+                ) {
+                  // diminue vie de l'ennemi le plus proche
+                  count = false;
+                } else {
                   io.to(player.arene).emit("diminue_vie_equipe", puissance, "equipe");
                   count = false;
+                }
                }
               }
             }
