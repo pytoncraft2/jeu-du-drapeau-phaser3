@@ -69,7 +69,8 @@ const Arene = new Phaser.Class({
     create: function ()
     {
 
-      this.health = 100
+      this.vieEquipeA = 100
+      this.vieEquipeB = 100
       this.lastHealthEquipe = 100;
 
 
@@ -137,12 +138,12 @@ const Arene = new Phaser.Class({
       //   console.log("_vie_");
       //   console.log(self.health);
         if (equipe == "A") {
-        self.health = Phaser.Math.Clamp(self.health - (puissance / 2) * 10 , 0, 100)
-        self.events.emit('changement-vie-equipe-A', self.health)
+        self.vieEquipeA = Phaser.Math.Clamp(self.vieEquipeA - (puissance / 2) * 10 , 0, 100)
+        self.events.emit('changement-vie-equipe-A', self.vieEquipeA)
         console.log("AAAAAAA");
       } else if (equipe == "B") {
-        self.health = Phaser.Math.Clamp(self.health - (puissance / 2) * 10 , 0, 100)
-        self.events.emit('changement-vie-equipe-B', self.health)
+        self.vieEquipeB = Phaser.Math.Clamp(self.vieEquipeB - (puissance / 2) * 10 , 0, 100)
+        self.events.emit('changement-vie-equipe-B', self.vieEquipeB)
         console.log("BBBBBB");
         // self.health = Phaser.Math.Clamp(self.vieEquipe + 2 , 0, 100)
         // self.events.emit('changement-vie-equipe-B', self.health)
