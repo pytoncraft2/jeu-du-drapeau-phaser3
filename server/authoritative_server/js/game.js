@@ -331,9 +331,9 @@ return;
                   var distance = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone.x, y: fontainezone.y});
                   var distance2 = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone2.x, y: fontainezone2.y});
                   if (distance < 530 && distance < 540) {
-                    io.to(player.arene).emit("diminue_vie_equipe", puissance, "A");
-                  } else if (distance2 < 530 && distance2 < 540) {
                     io.to(player.arene).emit("diminue_vie_equipe", puissance, "B");
+                  } else if (distance2 < 530 && distance2 < 540) {
+                    io.to(player.arene).emit("diminue_vie_equipe", puissance, "A");
                   }
                   count = false;
                 }
