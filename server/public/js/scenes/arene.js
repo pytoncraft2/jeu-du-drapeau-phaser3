@@ -357,29 +357,32 @@ const Arene = new Phaser.Class({
 
   },
   changementVieEquipeA: function(value) {
-   this.tweens.addCounter({
-     from: this.lastHealthEquipeA,
-     to: value,
-     duration: 200,
-     ease: Phaser.Math.Easing.Sine.InOut,
-     onUpdate: tween => {
-       const value = tween.getValue()
+   // this.tweens.addCounter({
+   //   from: this.lastHealthEquipeA,
+   //   to: value,
+   //   duration: 200,
+   //   ease: Phaser.Math.Easing.Sine.InOut,
+   //   onUpdate: tween => {
+   //     const value = tween.getValue()
+   //     this.setVieEquipeA(value)
+   //   },
+   // })
        this.setVieEquipeA(value)
-     },
-   })
    this.lastHealthEquipeA = value
  },
  changementVieEquipeB: function(value) {
-  this.tweens.addCounter({
-    from: this.lastHealthEquipeB,
-    to: value,
-    duration: 200,
-    ease: Phaser.Math.Easing.Sine.InOut,
-    onUpdate: tween => {
-      const value = tween.getValue()
+  // this.tweens.addCounter({
+  //   from: this.lastHealthEquipeB,
+  //   to: value,
+  //   duration: 200,
+  //   ease: Phaser.Math.Easing.Sine.InOut,
+  //   onUpdate: tween => {
+  //     const value = tween.getValue()
+  //     this.setVieEquipeB(value)
+  //   },
+  // })
       this.setVieEquipeB(value)
-    },
-  })
+
   this.lastHealthEquipeB = value
 },
 setVieEquipeA: function(value) {
