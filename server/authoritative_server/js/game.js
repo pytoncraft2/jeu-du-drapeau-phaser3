@@ -39,6 +39,7 @@ function create() {
         key: 'attack',
         frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'attack', start: 1, end: 5 }),
         frameRate: 6,
+        yoyo: true,
         repeat: 0
       });
       this.anims.create({
@@ -78,6 +79,7 @@ function create() {
         key: "idle_attack",
         frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'run', start: 1, end: 1 }),
         frameRate: 1,
+        delay: 1,
         repeat: 0
       });
 
@@ -286,7 +288,9 @@ return;
 }
 */
       if (input.attaque) {
+        var count;
         if (input.charge) {
+          count = false;
           this.tween = this.tweens.add({
             targets: player.ombre,
             from: 0,
@@ -305,32 +309,34 @@ return;
           this.tween.stop()
           }
           player.play('attack', true)
-          player.setFrame("attack1")
-          console.log("BOUCLE");
+
           // player.on('animationcomplete', () => {
-          // player.setFrame(0)
-          // player.play('idle_walk', true)
-          // player.stop()
+          // player.anims.play('idle_attack', true)
           // console.log("boucle");
           // })
+          var count = true;
           this.tween = this.tweens.add({
             targets: player.ombre,
             from: 0,
             to: 1,
             scale: 1,
-            duration: 500
+            duration: 500,
+            onUpdate: function functionName() {
+              if (player.anims.getFrameName() == "attack4") {
+                if (count) {
+                  console.log("oui");
+                  io.to(player.arene).emit("diminue_vie_equipe", "degat", "equipe");
+                    // player.anims.play('idle_attack', false)
+                    // player.setFrame(0)
+                    console.log("boucle???????");
+                  // player.play("idle_attack")
+                  count = false;
+               }
+              }
+            }
           })
         }
-        if (player.anims.getFrameName() == "attack4") {
-          io.to(player.arene).emit("diminue_vie_equipe", "degat", "equipe");
-          console.log("yyyaayayayy");
-          // player.setFrame("attack5")
-          // player.play("idle_walk", true)
-          input.attaque = false;
-
-        } else {
-          // input.attaque = false;
-        }
+        input.attaque = false;
       }
 
       /**
@@ -425,6 +431,7 @@ return;
       players[player.arene][player.playerId].y = player.y;
       // players[player.arene][player.playerId].anims = player.anims.getName();
       players[player.arene][player.playerId].frame = player.anims.getFrameName();
+
       players[player.arene][player.playerId].flipX = player.flipX;
       players[player.arene][player.playerId].alpha = player.alpha;
       players[player.arene][player.playerId].ombreX = player.ombre.x;
