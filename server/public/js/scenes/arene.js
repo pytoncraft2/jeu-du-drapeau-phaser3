@@ -140,16 +140,10 @@ const Arene = new Phaser.Class({
       //   console.log(self.health);
         if (equipe == "A") {
         self.vieEquipeA = Phaser.Math.Clamp(self.vieEquipeA - (puissance / 2) * 10 , 0, 100)
-        console.log("VIE EQUIPE A");
-        console.log(self.vieEquipeA);
         self.events.emit('changement-vie-equipe-A', self.vieEquipeA)
       } else if (equipe == "B") {
-        console.log("VIE EQUIPE B");
         self.vieEquipeB = Phaser.Math.Clamp(self.vieEquipeB - (puissance / 2) * 10 , 0, 100)
         self.events.emit('changement-vie-equipe-B', self.vieEquipeB)
-        console.log(self.vieEquipeB);
-        // self.health = Phaser.Math.Clamp(self.vieEquipe + 2 , 0, 100)
-        // self.events.emit('changement-vie-equipe-B', self.health)
       }
       });
 
@@ -363,8 +357,6 @@ const Arene = new Phaser.Class({
 
   },
   changementVieEquipeA: function(value) {
-    console.log("CCCCCCCCCCCCCCC");
-    console.log(value);
    this.tweens.addCounter({
      from: this.lastHealthEquipeA,
      to: value,
@@ -404,18 +396,12 @@ setVieEquipeA: function(value) {
 setVieEquipeB: function(value) {
   const width = 500
   const percent = Phaser.Math.Clamp(value, 0, 100) / 100
-  console.log("POURCENTAGE");
-  console.log(percent);
-  console.log("VALEUR");
-  console.log(value);
   this.barreEquipeB.clear()
   this.barreEquipeB.fillStyle(0xd00b0b)
   this.barreEquipeB.fillRoundedRect(-710, -330, width, 20, 5).setScrollFactor(0)
   if (percent > 0) {
     this.barreEquipeB.fillStyle(0x0ea733)
     this.barreEquipeB.fillRoundedRect(-710, -330, width * percent , 20, 5)
-    console.log("WIDTH * PERCENT");
-    console.log(width * percent);
   }
 },
 
