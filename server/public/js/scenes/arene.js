@@ -139,11 +139,11 @@ const Arene = new Phaser.Class({
       //   console.log("_vie_");
       //   console.log(self.health);
         if (equipe == "A") {
-        self.vieEquipeA = Phaser.Math.Clamp(self.vieEquipeA - (puissance / 2) * 10 , 0, 100)
+        self.vieEquipeA = puissance
         self.events.emit('changement-vie-equipe-A', self.vieEquipeA)
         console.log("AAAAAAA");
       } else if (equipe == "B") {
-        self.vieEquipeB = Phaser.Math.Clamp(self.vieEquipeB - (puissance / 2) * 10 , 0, 100)
+        self.vieEquipeB = puissance
         self.events.emit('changement-vie-equipe-B', self.vieEquipeB)
         console.log("BBBBBB");
         // self.health = Phaser.Math.Clamp(self.vieEquipe + 2 , 0, 100)

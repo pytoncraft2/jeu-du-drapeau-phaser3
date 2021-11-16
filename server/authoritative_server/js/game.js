@@ -36,6 +36,8 @@ function create() {
   // this.matter.world.disableGravity();
 
   this.tween = null;
+  this.vieEquipeA = 100
+  this.vieEquipeB = 100
   this.graph = this.add.graphics();
 
       this.anims.create({
@@ -327,18 +329,21 @@ return;
             to: 1,
             scale: 1,
             duration: 500,
-            onUpdateParams: [ this.data ],
-            onUpdate: function functionName(tween, targets, data) {
+            onUpdateParams: [ this.data, this.vieEquipeA, this.vieEquipeB ],
+            onUpdate: function functionName(tween, targets, data, vieEquipeA, vieEquipeB) {
               if (player.anims.getFrameName() == "attack4") {
                 if (count) {
                   var distance = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone.x, y: fontainezone.y});
                   var distance2 = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone2.x, y: fontainezone2.y});
                   if (distance < 530 && distance < 540) {
-                    io.to(player.arene).emit("diminue_vie_equipe", puissance, "B");
+                    vieEquipeB = Phaser.Math.Clamp(vieEquipeB - (puissance / 2) * 10 , 0, 100)
+                    io.to(player.arene).emit("diminue_vie_equipe", vieEquipeB, "B");
                     console.log(data.get('vieEquipeB'));
                   } else if (distance2 < 530 && distance2 < 540) {
-                    io.to(player.arene).emit("diminue_vie_equipe", puissance, "A");
-                    console.log(data.set('vieEquipeA', data.get('vieEquipeA') - puissance));
+                    vieEquipeA = Phaser.Math.Clamp(vieEquipeA - (puissance / 2) * 10 , 0, 100)
+                    io.to(player.arene).emit("diminue_vie_equipe", vieEquipeA, "A");
+                    console.log(data.get('vieEquipeA'));
+                    // console.log(data.set('vieEquipeA', data.get('vieEquipeA') - puissance));
                   }
                   count = false;
                 }
