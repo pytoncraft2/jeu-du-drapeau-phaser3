@@ -417,10 +417,10 @@ setVieEquipeA: function(value) {
   const percent = Phaser.Math.Clamp(value, 0, 100) / 100
   this.barreEquipeA.clear()
   this.barreEquipeA.fillStyle(0xd00b0b)
-  this.barreEquipeA.fillRoundedRect(10, 10, width, 20, 5).setScrollFactor(0)
+  this.barreEquipeA.fillRoundedRect(1700, -330, width, 20, 5 ).setScrollFactor(0)
   if (percent > 0) {
     this.barreEquipeA.fillStyle(0x0ddb0d)
-    this.barreEquipeA.fillRoundedRect(10, 10, width * percent, 20, 5)
+    this.barreEquipeA.fillRoundedRect(1700, -330, width * percent, 20, 5)
   }
 },
 
@@ -428,12 +428,12 @@ setVieEquipeA: function(value) {
 setVieEquipeB: function(value) {
   const width = 500
   const percent = Phaser.Math.Clamp(value, 0, 100) / 100
-  this.barreEquipeA.clear()
-  this.barreEquipeA.fillStyle(0xd00b0b)
-  this.barreEquipeA.fillRoundedRect(10, 10, width, 20, 5).setScrollFactor(0)
+  this.barreEquipeB.clear()
+  this.barreEquipeB.fillStyle(0xd00b0b)
+  this.barreEquipeB.fillRoundedRect(-710, -330, width, 20, 5).setScrollFactor(0)
   if (percent > 0) {
-    this.barreEquipeA.fillStyle(0x0ddb0d)
-    this.barreEquipeA.fillRoundedRect(10, 10, width * percent, 20, 5)
+    this.barreEquipeB.fillStyle(0x0ddb0d)
+    this.barreEquipeB.fillRoundedRect(-710, -330, width * percent , 20, 5)
   }
 },
 
