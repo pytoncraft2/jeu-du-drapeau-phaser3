@@ -303,17 +303,15 @@ return;
           input.charge = false;
         } else {
           // console.log(this.tween.totalProgress)
+          console.log("PROGRESS");
+          console.log(this.tween.totalProgress);
+          let puissance = this.tween.totalProgress;
           // console.log("----PPRRROGGESS 2");
           // console.log(this.tween.getValue());
           if (this.tween.isPlaying()) {
           this.tween.stop()
           }
           player.play('attack', true)
-
-          // player.on('animationcomplete', () => {
-          // player.anims.play('idle_attack', true)
-          // console.log("boucle");
-          // })
           var count = true;
           this.tween = this.tweens.add({
             targets: player.ombre,
@@ -324,12 +322,7 @@ return;
             onUpdate: function functionName() {
               if (player.anims.getFrameName() == "attack4") {
                 if (count) {
-                  console.log("oui");
-                  io.to(player.arene).emit("diminue_vie_equipe", "degat", "equipe");
-                    // player.anims.play('idle_attack', false)
-                    // player.setFrame(0)
-                    console.log("boucle???????");
-                  // player.play("idle_attack")
+                  io.to(player.arene).emit("diminue_vie_equipe", puissance, "equipe");
                   count = false;
                }
               }

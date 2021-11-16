@@ -129,8 +129,14 @@ const Arene = new Phaser.Class({
         self.events.emit('health-changed', self.health, self.players.getMatching('playerId', self.socket.id)[0])
       });
 
-      this.socket.on("diminue_vie_equipe", (degat, equipe) => {
-        self.health = Phaser.Math.Clamp(self.health - 1, 0, 100)
+      this.socket.on("diminue_vie_equipe", (puissance, equipe) => {
+        console.log("PUISSANCE----------");
+        console.log((puissance / 2) * 10);
+        console.log("_vie_");
+        console.log(self.health);
+        self.health = Phaser.Math.Clamp(self.health - (puissance / 2) * 10 , 0, 100)
+        console.log("res");
+        console.log(self.health);
         self.events.emit('health-changed', self.health, self.players.getMatching('playerId', self.socket.id)[0])
       });
 
