@@ -71,7 +71,8 @@ const Arene = new Phaser.Class({
 
       this.vieEquipeA = 100
       this.vieEquipeB = 100
-      this.lastHealthEquipe = 100;
+      this.lastHealthEquipeA = 100;
+      this.lastHealthEquipeB = 100;
 
 
       this.vieEquipe = 100
@@ -361,7 +362,7 @@ const Arene = new Phaser.Class({
   },
   changementVieEquipeA: function(value) {
    this.tweens.addCounter({
-     from: this.lastHealthEquipe,
+     from: this.lastHealthEquipeA,
      to: value,
      duration: 200,
      ease: Phaser.Math.Easing.Sine.InOut,
@@ -370,7 +371,7 @@ const Arene = new Phaser.Class({
        this.setVieEquipeA(value)
      },
    })
-   this.lastHealthEquipe = value
+   this.lastHealthEquipeA = value
 
    // this.tweens.addCounter({
    //   from: 150,
@@ -388,7 +389,7 @@ const Arene = new Phaser.Class({
  },
  changementVieEquipeB: function(value) {
   this.tweens.addCounter({
-    from: this.lastHealthEquipe,
+    from: this.lastHealthEquipeB,
     to: value,
     duration: 200,
     ease: Phaser.Math.Easing.Sine.InOut,
@@ -397,7 +398,7 @@ const Arene = new Phaser.Class({
       this.setVieEquipeB(value)
     },
   })
-  this.lastHealthEquipe = value
+  this.lastHealthEquipeB = value
 
   // this.tweens.addCounter({
   //   from: 150,
@@ -420,7 +421,7 @@ setVieEquipeA: function(value) {
   this.barreEquipeA.fillStyle(0xd00b0b)
   this.barreEquipeA.fillRoundedRect(1700, -330, width, 20, 5 ).setScrollFactor(0)
   if (percent > 0) {
-    this.barreEquipeA.fillStyle(0x0ddb0d)
+    this.barreEquipeA.fillStyle(0x0e88bd)
     this.barreEquipeA.fillRoundedRect(1700, -330, width * percent, 20, 5)
   }
 },
@@ -433,7 +434,7 @@ setVieEquipeB: function(value) {
   this.barreEquipeB.fillStyle(0xd00b0b)
   this.barreEquipeB.fillRoundedRect(-710, -330, width, 20, 5).setScrollFactor(0)
   if (percent > 0) {
-    this.barreEquipeB.fillStyle(0x0ddb0d)
+    this.barreEquipeB.fillStyle(0x0ea733)
     this.barreEquipeB.fillRoundedRect(-710, -330, width * percent , 20, 5)
   }
 },
