@@ -136,9 +136,11 @@ const Arene = new Phaser.Class({
         console.log("_vie_");
         console.log(self.health);
         if (equipe == "A") {
+          console.log("AAAAAAAAAAA");
         self.health = Phaser.Math.Clamp(self.health - (puissance / 2) * 10 , 0, 100)
         self.events.emit('health-changed', self.health, equipe)
       } else {
+        console.log("BBBBBBBBB");
         self.vieEquipe = Phaser.Math.Clamp(self.vieEquipe + 2 , 0, 100)
         self.events.emit('health-changed', self.vieEquipe, equipe)
       }
