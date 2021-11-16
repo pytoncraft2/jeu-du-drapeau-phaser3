@@ -363,6 +363,8 @@ const Arene = new Phaser.Class({
 
   },
   changementVieEquipeA: function(value) {
+    console.log("CCCCCCCCCCCCCCC");
+    console.log(value);
    this.tweens.addCounter({
      from: this.lastHealthEquipeA,
      to: value,
@@ -402,12 +404,18 @@ setVieEquipeA: function(value) {
 setVieEquipeB: function(value) {
   const width = 500
   const percent = Phaser.Math.Clamp(value, 0, 100) / 100
+  console.log("POURCENTAGE");
+  console.log(percent);
+  console.log("VALEUR");
+  console.log(value);
   this.barreEquipeB.clear()
   this.barreEquipeB.fillStyle(0xd00b0b)
   this.barreEquipeB.fillRoundedRect(-710, -330, width, 20, 5).setScrollFactor(0)
   if (percent > 0) {
     this.barreEquipeB.fillStyle(0x0ea733)
     this.barreEquipeB.fillRoundedRect(-710, -330, width * percent , 20, 5)
+    console.log("WIDTH * PERCENT");
+    console.log(width * percent);
   }
 },
 

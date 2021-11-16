@@ -26,6 +26,8 @@ const config = {
 
 var fontainezone;
 var fontainezone2;
+var vieEquipeA;
+var vieEquipeB;
 
 function preload() {
   this.load.atlas('dessinatrice1', 'assets/personnages/dessinatrice1/dessinatrice1.png', 'assets/personnages/dessinatrice1/dessinatrice1_atlas.json');
@@ -37,6 +39,9 @@ function create() {
 
   this.tween = null;
   this.graph = this.add.graphics();
+  vieEquipeA = 100
+  vieEquipeB = 100
+
 
       this.anims.create({
         key: 'attack',
@@ -327,7 +332,7 @@ return;
             to: 1,
             scale: 1,
             duration: 500,
-            onUpdateParams: [ this.data ],
+            onUpdateParams: [ this.data , vieEquipeA, vieEquipeB],
             onUpdate: function functionName(tween, targets, data) {
               if (player.anims.getFrameName() == "attack4") {
                 if (count) {
@@ -335,10 +340,10 @@ return;
                   var distance2 = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone2.x, y: fontainezone2.y});
                   if (distance < 530 && distance < 540) {
                     io.to(player.arene).emit("diminue_vie_equipe", puissance, "B");
-                    data.set('vieEquipeB', Phaser.Math.Clamp(100 - (puissance / 2) * 10 , 0, 100));
+                    data.set('vieEquipeB', Phaser.Math.Clamp(vieEquipeB - (puissance / 2) * 10 , 0, 100));
                   } else if (distance2 < 530 && distance2 < 540) {
                     io.to(player.arene).emit("diminue_vie_equipe", puissance, "A");
-                    data.set('vieEquipeA', Phaser.Math.Clamp(100 - (puissance / 2) * 10 , 0, 100));
+                    data.set('vieEquipeA', Phaser.Math.Clamp(vieEquipeA - (puissance / 2) * 10 , 0, 100));
                   }
                   count = false;
                 }
@@ -355,6 +360,10 @@ return;
 
       if (input.saut) {
         player.setVelocityY(-50)
+        console.log("A");
+        console.log(this.data.get('vieEquipeA'));
+        console.log("B");
+        console.log(this.data.get('vieEquipeB'));
         input.saut = false
       }
 
