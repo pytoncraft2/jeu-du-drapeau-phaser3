@@ -305,12 +305,14 @@ return;
           this.tween.stop()
           }
           player.play('attack', true)
-          player.on('animationcomplete', () => {
-          player.setFrame(0)
+          player.setFrame("attack1")
+          console.log("BOUCLE");
+          // player.on('animationcomplete', () => {
+          // player.setFrame(0)
           // player.play('idle_walk', true)
-          player.stop()
-          console.log("boucle?");
-          })
+          // player.stop()
+          // console.log("boucle");
+          // })
           this.tween = this.tweens.add({
             targets: player.ombre,
             from: 0,
@@ -319,7 +321,16 @@ return;
             duration: 500
           })
         }
-        input.attaque = false;
+        if (player.anims.getFrameName() == "attack4") {
+          io.to(player.arene).emit("diminue_vie_equipe", "degat", "equipe");
+          console.log("yyyaayayayy");
+          // player.setFrame("attack5")
+          // player.play("idle_walk", true)
+          input.attaque = false;
+
+        } else {
+          // input.attaque = false;
+        }
       }
 
       /**
