@@ -79,7 +79,8 @@ const Arene = new Phaser.Class({
       this.graphics = this.add.graphics()
       this.graphicsEquipeA = this.add.graphics()
       this.graphicsEquipeB = this.add.graphics()
-      this.setHealthBar(100)
+      this.setHealthBar(100, "A")
+      this.setHealthBar(100, "B")
       // this.setVieEquipeBarre(100)
       this.events = new Phaser.Events.EventEmitter()
       this.events.on('health-changed', this.handleHealthChanged, this)
@@ -137,7 +138,7 @@ const Arene = new Phaser.Class({
         self.health = Phaser.Math.Clamp(self.health - (puissance / 2) * 10 , 0, 100)
         console.log("res");
         console.log(self.health);
-        self.events.emit('health-changed', self.health, self.players.getMatching('playerId', self.socket.id)[0])
+        self.events.emit('health-changed', self.health, equipe)
       });
 
 
@@ -492,45 +493,56 @@ const Arene = new Phaser.Class({
     }
 
   },
-  setHealthBar: function(value) {
+  setHealthBar: function(value, equipe) {
+
+  if (equipe == "A") {
+    var g =this.graphics
+  } else {
+    var g = this.graphicsEquipeA
+    console.log("BBBBBBBBBBBBBB");
+  }
   const width = 500
   const percent = Phaser.Math.Clamp(value, 0, 100) / 100
-  this.graphics.clear()
-  this.graphics.fillStyle(0xd00b0b)
-  this.graphics.fillRoundedRect(-710, -330, width, 20, 5).setScrollFactor(0).setDepth(20)
+  g.clear()
+  g.fillStyle(0xd00b0b)
+  g.fillRoundedRect(-710, -330, width, 20, 5).setScrollFactor(0).setDepth(20)
   if (percent > 0) {
-    this.graphics.fillStyle(0x0ddb0d)
-    this.graphics.fillRoundedRect(-710, -330, width * percent, 20, 5)
+    g.fillStyle(0x0ddb0d)
+    g.fillRoundedRect(-710, -330, width * percent, 20, 5)
   }
-
 },
 
-handleHealthChanged: function(value, player) {
+handleHealthChanged: function(value, equipe) {
+  if (equipe == "A") {
+    var lastHealth = this.derniereVieEquipe
+  } else {
+    var lastHealth = this.lastHealth
+  }
   this.tweens.addCounter({
-    from: this.lastHealth,
+    from: lastHealth,
     to: value,
     duration: 200,
     ease: Phaser.Math.Easing.Sine.InOut,
     onUpdate: tween => {
       const value = tween.getValue()
-      this.setHealthBar(value)
+      this.setHealthBar(value, equipe)
     },
   })
-  this.lastHealth = value
+  lastHealth = value
 
-  this.tweens.addCounter({
-    from: 150,
-    to: 255,
-    duration: 1000,
-    onUpdate: (tween) => (
-      player.setTint(
-        Phaser.Display.Color.GetColor(
-          tween.getValue(),
-          tween.getValue(),
-          tween.getValue(),
-        )
-      )),
-  })
+  // this.tweens.addCounter({
+  //   from: 150,
+  //   to: 255,
+  //   duration: 1000,
+  //   onUpdate: (tween) => (
+  //     equipe.setTint(
+  //       Phaser.Display.Color.GetColor(
+  //         tween.getValue(),
+  //         tween.getValue(),
+  //         tween.getValue(),
+  //       )
+  //     )),
+  // })
 },
 
 

@@ -328,27 +328,16 @@ return;
             onUpdate: function functionName() {
               if (player.anims.getFrameName() == "attack4") {
                 if (count) {
-              if (fontainezone.getBounds().right > player.x ||
-              fontainezone.getBounds().left < player.x ||
-              fontainezone.getBounds().top > player.y ||
-              fontainezone.getBounds().bottom < player.y
-            ) {
-
-              io.to(player.arene).emit("diminue_vie_equipe", puissance, "B");
-              count = false;
-
-            } else if (fontainezone2.getBounds().right < player.x ||
-                            fontainezone2.getBounds().left > player.x ||
-                            fontainezone2.getBounds().top > player.y ||
-                            fontainezone2.getBounds().bottom < player.y
-                          ) {
-
-            // diminue vie de l'ennemi le plus proche
-            // io.to(player.arene).emit("diminue_vie_equipe", puissance, "B");
-            count = false;
-          }
-
-               }
+                  var distance = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone.x, y: fontainezone.y});
+                  var distance2 = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone2.x, y: fontainezone2.y});
+                  if (distance < 530 && distance < 540) {
+                    io.to(player.arene).emit("diminue_vie_equipe", puissance, "A");
+                    count = false;
+                  } else if (distance2 < 530 && distance2 < 540) {
+                    io.to(player.arene).emit("diminue_vie_equipe", puissance, "B");
+                    count = false;
+                  }
+                }
               }
             }
           })
