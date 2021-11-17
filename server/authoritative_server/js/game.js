@@ -518,6 +518,7 @@ function changementVieEquipeA(value) {
 function setVieEquipeA(value) {
 const width = 500
 const percent = Phaser.Math.Clamp(value, 0, 100) / 100
+/*
 barreEquipeA.clear()
 barreEquipeA.fillStyle(0xd00b0b)
 barreEquipeA.fillRoundedRect(1700, -330, width, 20, 5 ).setScrollFactor(0)
@@ -525,6 +526,11 @@ if (percent > 0) {
   barreEquipeA.fillStyle(0x0e88bd)
   barreEquipeA.fillRoundedRect(1700, -330, width * percent, 20, 5)
 }
+*/
+console.log("BARRE");
+// console.log(barreEquipeA.fillStyle);
+io.to("Naruto").emit("setVieEquipeA", [1700, -330, width, 20, 5], [1700, -330, width * percent, 20, 5], value);
+
 console.log(width * percent);
 if (width * percent < 400) {
   console.log("EQUIPE A PERDU");
@@ -534,6 +540,7 @@ if (width * percent < 400) {
 function setVieEquipeB(value) {
 const width = 500
 const percent = Phaser.Math.Clamp(value, 0, 100) / 100
+/*
 barreEquipeB.clear()
 barreEquipeB.fillStyle(0xd00b0b)
 barreEquipeB.fillRoundedRect(-710, -330, width, 20, 5).setScrollFactor(0)
@@ -541,6 +548,12 @@ if (percent > 0) {
   barreEquipeB.fillStyle(0x0ea733)
   barreEquipeB.fillRoundedRect(-710, -330, width * percent , 20, 5)
 }
+*/
+io.to("Naruto").emit("setVieEquipeB", [-710, -330, width, 20, 5], [-710, -330, width * percent , 20, 5], value);
+
+console.log("BARRE B");
+// console.log(barreEquipeB);
+
 console.log(width * percent);
 if (width * percent < 400) {
   console.log("EQUIPE B PERDU");

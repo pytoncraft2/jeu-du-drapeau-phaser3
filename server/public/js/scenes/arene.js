@@ -128,6 +128,21 @@ const Arene = new Phaser.Class({
         });
 
 
+
+        this.socket.on("setVieEquipeA", (rec1, rec2, value) => {
+          // self.health = Phaser.Math.Clamp(self.health - 1, 0, 100)
+          // self.events.emit('health-changed', self.health, self.players.getMatching('playerId', self.socket.id)[0])
+          self.setVieEquipeAA(rec1, rec2, value)
+        });
+
+
+        this.socket.on("setVieEquipeB", (rec1, rec2, value) => {
+          // self.health = Phaser.Math.Clamp(self.health - 1, 0, 100)
+          // self.events.emit('health-changed', self.health, self.players.getMatching('playerId', self.socket.id)[0])
+          self.setVieEquipeBB(rec1, rec2, value)
+        });
+
+
       this.socket.on("recoit_degat", (degat) => {
         self.health = Phaser.Math.Clamp(self.health - 1, 0, 100)
         self.events.emit('health-changed', self.health, self.players.getMatching('playerId', self.socket.id)[0])
@@ -396,6 +411,45 @@ setVieEquipeB: function(value) {
     console.log("EQUIPE B PERDU");
   }
 },
+
+
+
+
+setVieEquipeAA: function(rec1, rec2, value) {
+  const width = 500
+  const percent = Phaser.Math.Clamp(value, 0, 100) / 100
+  this.barreEquipeA.clear()
+  this.barreEquipeA.fillStyle(0xd00b0b)
+  this.barreEquipeA.fillRoundedRect(rec1[0], rec1[1], rec1[2], rec1[3], rec1[4]).setScrollFactor(0)
+  if (percent > 0) {
+    this.barreEquipeA.fillStyle(0x0e88bd)
+    this.barreEquipeA.fillRoundedRect(rec2[0], rec2[1], rec2[2], rec2[3], rec2[4])
+  }
+  // if (width * percent < 80) {
+    // console.log("EQUIPE A PERDU");
+  // }
+},
+setVieEquipeBB: function(rec1, rec2, value) {
+  const width = 500
+  const percent = Phaser.Math.Clamp(value, 0, 100) / 100
+  this.barreEquipeB.clear()
+  this.barreEquipeB.fillStyle(0xd00b0b)
+  this.barreEquipeB.fillRoundedRect(rec1[0], rec1[1], rec1[2], rec1[3], rec1[4]).setScrollFactor(0)
+  if (percent > 0) {
+    this.barreEquipeB.fillStyle(0x0ea733)
+    this.barreEquipeB.fillRoundedRect(rec2[0], rec2[1], rec2[2], rec2[3], rec2[4])
+  }
+  // if (width * percent < 80) {
+    // console.log("EQUIPE B PERDU");
+  // }
+},
+
+
+
+
+
+
+
 
 
   update: function () {
