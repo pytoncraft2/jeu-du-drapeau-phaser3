@@ -26,6 +26,8 @@ const config = {
 
 var fontainezone;
 var fontainezone2;
+var barreEquipeA
+var barreEquipeB
 
 function preload() {
   this.load.atlas('dessinatrice1', 'assets/personnages/dessinatrice1/dessinatrice1.png', 'assets/personnages/dessinatrice1/dessinatrice1_atlas.json');
@@ -37,6 +39,8 @@ function create() {
 
   this.tween = null;
   this.graph = this.add.graphics();
+  barreEquipeA = this.add.graphics()
+  barreEquipeB = this.add.graphics()
 
   this.vieEquipeA = 100
   this.vieEquipeB = 100
@@ -111,13 +115,13 @@ function create() {
 
 
   this.events = new Phaser.Events.EventEmitter()
-this.events.on('changement-vie-equipe-A', changementVieEquipeA, this)
-this.events.on('changement-vie-equipe-B', changementVieEquipeB, this)
-// setVieEquipeA(100)
-// setVieEquipeB(100)
+  this.events.on('changement-vie-equipe-A', changementVieEquipeA, this)
+  this.events.on('changement-vie-equipe-B', changementVieEquipeB, this)
+  setVieEquipeA(100)
+  setVieEquipeB(100)
 
   let soclePlatformeGauche = self.add.zone(0, 327, 210, 210).setSize(3500, 40);
-let socleToitGauche = self.add.zone(-120, -253, 210, 210).setSize(1631, 40);
+  let socleToitGauche = self.add.zone(-120, -253, 210, 210).setSize(1631, 40);
   let soclePlatformeDroit = self.add.zone(7000, -1363, 210, 210).setSize(3500, 40);
   let socleToitDroit = self.add.zone(7000, -1943, 210, 210).setSize(1631, 40);
 
@@ -150,6 +154,15 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
 
   // this.ellipse1 = this.add.ellipse(1210, 301, 100, 20, 0x0009).setDepth(-1).setAlpha(0.6).setScale(2);
   // this.ellipse2 = this.add.ellipse(5675, -1676 + 301, 100, 20, 0x0009).setDepth(-1).setAlpha(0.6).setScale(2);
+barreEquipeA.clear()
+barreEquipeA.fillStyle(0x0e88bd)
+barreEquipeA.fillRoundedRect(1700, -330, 500, 20, 5).setScrollFactor(0).setDepth(20)
+
+//EQUIPE VERTE
+barreEquipeB.clear()
+barreEquipeB.fillStyle(0x0ea733)
+barreEquipeB.fillRoundedRect(-710, -330, 500, 20, 5).setScrollFactor(0).setDepth(20)
+
 
 
 
@@ -223,6 +236,7 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
     });
 
   })
+
 
   this.matter.world.on('collisionstart', function (event) {
     // if (event.pairs[0].bodyB.gameObject.equipe != event.pairs[0].bodyA.gameObject.equipe) {
@@ -334,22 +348,22 @@ return;
             to: 1,
             scale: 1,
             duration: 500,
-            onUpdateParams: [ this.data , this.vieEquipeA, this.vieEquipeB],
+            onUpdateParams: [ this.data , this.vieEquipeA, this.vieEquipeB, this.events],
             onUpdate: function functionName(tween, targets, data, vieEquipeA, vieEquipeB, events) {
               if (player.anims.getFrameName() == "attack4") {
                 if (count) {
                   var distance = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone.x, y: fontainezone.y});
                   var distance2 = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone2.x, y: fontainezone2.y});
                   if (distance < 530 && distance < 540) {
-                    vieEquipeB = Phaser.Math.Clamp(vieEquipeB - (puissance / 2) * 10 , 0, 100)
-                    // events.emit('changement-vie-equipe-B', vieEquipeB)
-                    io.to(player.arene).emit("diminue_vie_equipe", puissance, "B");
+                    // vieEquipeB = Phaser.Math.Clamp(vieEquipeB - (puissance / 2) * 10 , 0, 100)
+                    events.emit('changement-vie-equipe-B', puissance)
+                    // io.to(player.arene).emit("diminue_vie_equipe", puissance, "B");
                     // FIXME: resultat difference entre le client et le serveur
                     // data.set('vieEquipeB', Phaser.Math.Clamp(vieEquipeB - (puissance / 2) * 10 , 0, 100));
                   } else if (distance2 < 530 && distance2 < 540) {
-                    vieEquipeA = Phaser.Math.Clamp(vieEquipeA - (puissance / 2) * 10 , 0, 100)
-                    // events.emit('changement-vie-equipe-A', vieEquipeA)
-                    io.to(player.arene).emit("diminue_vie_equipe", puissance, "A");
+                    // vieEquipeA = Phaser.Math.Clamp(vieEquipeA - (puissance / 2) * 10 , 0, 100)
+                    events.emit('changement-vie-equipe-A', puissance)
+                    // io.to(player.arene).emit("diminue_vie_equipe", puissance, "A");
                     // FIXME: resultat difference entre le client et le serveur
                     // data.set('vieEquipeA', Phaser.Math.Clamp(vieEquipeA - (puissance / 2) * 10 , 0, 100));
                   }
@@ -481,19 +495,71 @@ return;
 
 }
 
-function changementVieEquipeA(value) {
-  // setVieEquipeA(value)
-   // this.lastHealthEquipeA = value
-   console.log("changementVieEquipeA OOOOOOOOKKKK");
-      this.data.set('vieEquipeA', value);
- }
- function changementVieEquipeB(value) {
-   console.log("changementVieEquipeB OOOOOOOOKKKK");
-      // setVieEquipeB(value)
-      // this.lastHealthEquipeB = value
-      this.data.set('vieEquipeB', value);
 
+function changementVieEquipeA(value) {
+  console.log("INSIDE");
+ this.tweens.addCounter({
+   from: this.lastHealthEquipeA,
+   to: value,
+   duration: 200,
+   ease: Phaser.Math.Easing.Sine.InOut,
+   onUpdate: tween => {
+     const value = tween.getValue()
+     setVieEquipeA(value)
+   },
+ })
+ this.lastHealthEquipeA = value
 }
+
+
+ function changementVieEquipeB(value) {
+   console.log("INSIDE 2");
+
+this.tweens.addCounter({
+  from: this.lastHealthEquipeB,
+  to: value,
+  duration: 200,
+  ease: Phaser.Math.Easing.Sine.InOut,
+  onUpdate: tween => {
+    const value = tween.getValue()
+    setVieEquipeB(value)
+  },
+})
+this.lastHealthEquipeB = value
+}
+
+function setVieEquipeA(value) {
+const width = 500
+const percent = Phaser.Math.Clamp(value, 0, 100) / 100
+barreEquipeA.clear()
+barreEquipeA.fillStyle(0xd00b0b)
+barreEquipeA.fillRoundedRect(1700, -330, width, 20, 5 ).setScrollFactor(0)
+if (percent > 0) {
+  barreEquipeA.fillStyle(0x0e88bd)
+  barreEquipeA.fillRoundedRect(1700, -330, width * percent, 20, 5)
+}
+console.log(width * percent);
+if (width * percent < 400) {
+  console.log("EQUIPE A PERDU");
+}
+}
+
+function setVieEquipeB(value) {
+const width = 500
+const percent = Phaser.Math.Clamp(value, 0, 100) / 100
+barreEquipeB.clear()
+barreEquipeB.fillStyle(0xd00b0b)
+barreEquipeB.fillRoundedRect(-710, -330, width, 20, 5).setScrollFactor(0)
+if (percent > 0) {
+  barreEquipeB.fillStyle(0x0ea733)
+  barreEquipeB.fillRoundedRect(-710, -330, width * percent , 20, 5)
+}
+console.log(width * percent);
+if (width * percent < 400) {
+  console.log("EQUIPE B PERDU");
+}
+}
+
 
 
 function handlePlayerInput(self, playerId, arene, input) {
