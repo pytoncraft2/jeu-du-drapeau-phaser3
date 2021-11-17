@@ -132,14 +132,24 @@ const Arene = new Phaser.Class({
         this.socket.on("setVieEquipeA", (rec1, rec2, value) => {
           // self.health = Phaser.Math.Clamp(self.health - 1, 0, 100)
           // self.events.emit('health-changed', self.health, self.players.getMatching('playerId', self.socket.id)[0])
-          self.setVieEquipeAA(rec1, rec2, value)
+          // self.setVieEquipeAA(rec1, rec2, value)
+          // self.setVieEquipeA(50)
+          self.vieEquipeA = Phaser.Math.Clamp(self.vieEquipeA - 3, 0, 100)
+
+          self.setVieEquipeA(self.vieEquipeA)
+
+
         });
 
 
         this.socket.on("setVieEquipeB", (rec1, rec2, value) => {
           // self.health = Phaser.Math.Clamp(self.health - 1, 0, 100)
           // self.events.emit('health-changed', self.health, self.players.getMatching('playerId', self.socket.id)[0])
-          self.setVieEquipeBB(rec1, rec2, value)
+          // self.setVieEquipeB(value * 100)
+          self.vieEquipeB = Phaser.Math.Clamp(self.vieEquipeB - 3, 0, 100)
+
+          self.setVieEquipeB(self.vieEquipeB)
+
         });
 
 
