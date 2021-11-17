@@ -497,16 +497,22 @@ return;
 
 
 function changementVieEquipeA(value) {
-  console.log("INSIDE");
+  // console.log("INSIDE");
      setVieEquipeA(value)
  this.lastHealthEquipeA = value
+
+ console.log("LAST HEALH");
+ console.log(this.lastHealthEquipeA);
+
 }
 
 
  function changementVieEquipeB(value) {
-   console.log("INSIDE 2");
+   // console.log("INSIDE 2");
     setVieEquipeB(value)
     this.lastHealthEquipeB = value
+    console.log("LAST HEALH 2");
+    console.log(this.lastHealthEquipeB);
 }
 
 function setVieEquipeA(value) {
