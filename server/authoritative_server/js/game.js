@@ -498,34 +498,15 @@ return;
 
 function changementVieEquipeA(value) {
   console.log("INSIDE");
- this.tweens.addCounter({
-   from: this.lastHealthEquipeA,
-   to: value,
-   duration: 200,
-   ease: Phaser.Math.Easing.Sine.InOut,
-   onUpdate: tween => {
-     const value = tween.getValue()
      setVieEquipeA(value)
-   },
- })
  this.lastHealthEquipeA = value
 }
 
 
  function changementVieEquipeB(value) {
    console.log("INSIDE 2");
-
-this.tweens.addCounter({
-  from: this.lastHealthEquipeB,
-  to: value,
-  duration: 200,
-  ease: Phaser.Math.Easing.Sine.InOut,
-  onUpdate: tween => {
-    const value = tween.getValue()
     setVieEquipeB(value)
-  },
-})
-this.lastHealthEquipeB = value
+    this.lastHealthEquipeB = value
 }
 
 function setVieEquipeA(value) {
