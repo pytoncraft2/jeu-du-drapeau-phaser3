@@ -68,7 +68,6 @@ const Arene = new Phaser.Class({
 
     create: function ()
     {
-
       this.vieEquipeA = 100
       this.vieEquipeB = 100
       this.lastHealthEquipeA = 100;
