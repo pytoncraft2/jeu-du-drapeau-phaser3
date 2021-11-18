@@ -466,10 +466,12 @@ function changementVieEquipe(equipe, puissance) {
   // console.log("TOTAL CALCUL");
   // console.log(puissance);
   // console.log("VIE EQUIPE XXX");
+
+  this.vieEquipe[equipe] -= puissance * 10;
   if (this.vieEquipe[equipe] <= 0) {
+  this.scene.stop()
   io.to("Naruto").emit("fin_de_partie", equipe);
   }
-  this.vieEquipe[equipe] -= puissance * 10;
   // console.log("");
   // let vie = 40
   // this.vieEquipeB = Phaser.Math.Clamp(this.vieEquipeB - 5, 0, 100)
