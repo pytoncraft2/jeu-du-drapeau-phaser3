@@ -498,26 +498,32 @@ return;
 
 function changementVieEquipeA(value) {
   // console.log("INSIDE");
-     setVieEquipeA(value)
- this.lastHealthEquipeA = value
-
- console.log("LAST HEALH");
- console.log(this.lastHealthEquipeA);
+     // setVieEquipeA(value)
+ // this.lastHealthEquipeA = value
+ // setVieEquipeA(value)
+ // io.to("Naruto").emit("setVieEquipeA", value, this.lastHealthEquipeA);
+ // this.lastHealthEquipeA = value
+ // console.log("LAST HEALH");
+ // console.log(this.lastHealthEquipeA);
 
 }
 
 
  function changementVieEquipeB(value) {
    // console.log("INSIDE 2");
-    setVieEquipeB(value)
-    this.lastHealthEquipeB = value
-    console.log("LAST HEALH 2");
-    console.log(this.lastHealthEquipeB);
+    // setVieEquipeB(value, this.lastHealthEquipeB)
+
+
 }
 
-function setVieEquipeA(value) {
+function setVieEquipeA(value, last) {
 const width = 500
 const percent = Phaser.Math.Clamp(value, 0, 100) / 100
+
+
+
+io.to("Naruto").emit("setVieEquipeB", value, last);
+this.lastHealthEquipeB = value
 /*
 barreEquipeA.clear()
 barreEquipeA.fillStyle(0xd00b0b)
@@ -529,7 +535,7 @@ if (percent > 0) {
 */
 console.log("BARRE");
 // console.log(barreEquipeA.fillStyle);
-io.to("Naruto").emit("setVieEquipeA", [1700, -330, width, 20, 5], [1700, -330, width * percent, 20, 5], value);
+// io.to("Naruto").emit("setVieEquipeA", [1700, -330, width, 20, 5], [1700, -330, width * percent, 20, 5], value);
 
 console.log(width * percent);
 if (width * percent < 400) {
@@ -549,7 +555,7 @@ if (percent > 0) {
   barreEquipeB.fillRoundedRect(-710, -330, width * percent , 20, 5)
 }
 */
-io.to("Naruto").emit("setVieEquipeB", [-710, -330, width, 20, 5], [-710, -330, width * percent , 20, 5], value);
+// io.to("Naruto").emit("setVieEquipeB", [-710, -330, width, 20, 5], [-710, -330, width * percent , 20, 5], value);
 
 console.log("BARRE B");
 // console.log(barreEquipeB);
