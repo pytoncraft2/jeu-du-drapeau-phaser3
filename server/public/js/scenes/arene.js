@@ -131,13 +131,23 @@ const Arene = new Phaser.Class({
 
       this.socket.on("changement_vie_equipe", (equipe, value) => {
         if (equipe == "A") {
+        // self.setVieEquipeA(value)
+        self.changementVieEquipeA(value)
+      } else {
+        // self.setVieEquipeB(value)
+        self.changementVieEquipeB(value)
+      }
+      });
+
+      this.socket.on("vie_equipes", (equipe, value) => {
+        if (equipe == "A") {
         self.setVieEquipeA(value)
       } else {
         self.setVieEquipeB(value)
       }
-        // self.vieEquipe[equipe] = Phaser.Math.Clamp(self.vieEquipe[equipe] - 1, 0, 100)
-        // self.events.emit('changement-vie-equipe-B', self.vieEquipe[equipe])
       });
+
+
 
 
       //EQUIPE BLEU
@@ -366,12 +376,31 @@ const Arene = new Phaser.Class({
   },
 
   changementVieEquipeA: function(value) {
-       this.setVieEquipeA(value)
-       this.lastHealthEquipeA = value
+     this.tweens.addCounter({
+   from: this.lastHealthEquipeA,
+   to: value,
+   duration: 200,
+   ease: Phaser.Math.Easing.Sine.InOut,
+   onUpdate: tween => {
+     const value = tween.getValue()
+     this.setVieEquipeA(value)
+   },
+ })
+ this.lastHealthEquipeA = value
  },
  changementVieEquipeB: function(value) {
-   this.setVieEquipeB(value)
-   this.lastHealthEquipeB = value
+
+this.tweens.addCounter({
+  from: this.lastHealthEquipeB,
+  to: value,
+  duration: 200,
+  ease: Phaser.Math.Easing.Sine.InOut,
+  onUpdate: tween => {
+    const value = tween.getValue()
+    this.setVieEquipeB(value)
+  },
+})
+this.lastHealthEquipeB = value
 },
 setVieEquipeA: function(value) {
   const width = 500
@@ -412,10 +441,6 @@ setVieEquipeB: function(value) {
       this.socket.emit('playerInput', {
         tirolienne: true,
       });
-      this.vieEquipeB = Phaser.Math.Clamp(this.vieEquipeB - 1, 0, 100)
-      // this.events.emit('health-changed', this.health)
-      this.events.emit('changement-vie-equipe-B', this.vieEquipeB)
-
     }
 
     /**
@@ -506,10 +531,6 @@ setVieEquipeB: function(value) {
      * @return {[type]}        [description]
      */
     if (Phaser.Input.Keyboard.JustDown(this.canonKeyPressed)) {
-      this.vieEquipeA = Phaser.Math.Clamp(this.vieEquipeA - 1, 0, 100)
-// this.events.emit('health-changed', this.health)
-this.events.emit('changement-vie-equipe-A', this.vieEquipeA)
-
       this.socket.emit('playerInput', {
         canonMaintenu: true,
         canonRelache: false

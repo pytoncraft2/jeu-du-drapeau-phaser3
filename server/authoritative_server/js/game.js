@@ -26,8 +26,6 @@ const config = {
 
 var fontainezone;
 var fontainezone2;
-var barreEquipeA
-var barreEquipeB
 
 function preload() {
   this.load.atlas('dessinatrice1', 'assets/personnages/dessinatrice1/dessinatrice1.png', 'assets/personnages/dessinatrice1/dessinatrice1_atlas.json');
@@ -39,15 +37,11 @@ function create() {
 
   this.tween = null;
   this.graph = this.add.graphics();
-  barreEquipeA = this.add.graphics()
-  barreEquipeB = this.add.graphics()
 
   this.vieEquipe = {
     "A": 100,
     "B": 100
   }
-  this.lastHealthEquipeA = 100;
-  this.lastHealthEquipeB = 100;
 
       this.anims.create({
         key: 'attack',
@@ -150,20 +144,6 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
   this.bullet.setFixedRotation();
   // this.bullet.setMass(500);
   this.bullet.setStatic(true).setDepth(2);
-
-  // this.ellipse1 = this.add.ellipse(1210, 301, 100, 20, 0x0009).setDepth(-1).setAlpha(0.6).setScale(2);
-  // this.ellipse2 = this.add.ellipse(5675, -1676 + 301, 100, 20, 0x0009).setDepth(-1).setAlpha(0.6).setScale(2);
-barreEquipeA.clear()
-barreEquipeA.fillStyle(0x0e88bd)
-barreEquipeA.fillRoundedRect(1700, -330, 500, 20, 5).setScrollFactor(0).setDepth(20)
-
-//EQUIPE VERTE
-barreEquipeB.clear()
-barreEquipeB.fillStyle(0x0ea733)
-barreEquipeB.fillRoundedRect(-710, -330, 500, 20, 5).setScrollFactor(0).setDepth(20)
-
-
-
 
   io.on('connection', function(socket) {
     console.log("ONE CONNEXION");
@@ -354,9 +334,9 @@ return;
                   var distance = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone.x, y: fontainezone.y});
                   var distance2 = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone2.x, y: fontainezone2.y});
                   if (distance < 530 && distance < 540) {
-                    events.emit('changement-vie-equipe', "A", puissance)
-                  } else if (distance2 < 530 && distance2 < 540) {
                     events.emit('changement-vie-equipe', "B", puissance)
+                  } else if (distance2 < 530 && distance2 < 540) {
+                    events.emit('changement-vie-equipe', "A", puissance)
                   }
                   count = false;
                 }
@@ -373,10 +353,6 @@ return;
 
       if (input.saut) {
         player.setVelocityY(-50)
-        console.log("A");
-        console.log(this.data.get('vieEquipeA'));
-        console.log("B");
-        console.log(this.data.get('vieEquipeB'));
         input.saut = false
       }
 
@@ -493,6 +469,11 @@ function changementVieEquipe(equipe, puissance) {
   this.vieEquipe[equipe] -= 5;
   // console.log("");
   // let vie = 40
+  // this.vieEquipeB = Phaser.Math.Clamp(this.vieEquipeB - 5, 0, 100)
+// this.events.emit('health-changed', this.health)
+// this.events.emit('changement-vie-equipe-B', this.vieEquipeB)
+
+
   io.to("Naruto").emit("changement_vie_equipe", equipe, this.vieEquipe[equipe]);
 }
 
