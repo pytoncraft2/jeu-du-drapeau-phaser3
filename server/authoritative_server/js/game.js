@@ -42,8 +42,10 @@ function create() {
   barreEquipeA = this.add.graphics()
   barreEquipeB = this.add.graphics()
 
-  this.vieEquipeA = 100
-  this.vieEquipeB = 100
+  this.vieEquipe = {
+    "A": 100,
+    "B": 100
+  }
   this.lastHealthEquipeA = 100;
   this.lastHealthEquipeB = 100;
 
@@ -345,16 +347,16 @@ return;
             to: 1,
             scale: 1,
             duration: 500,
-            onUpdateParams: [ this.data , this.vieEquipeA, this.vieEquipeB, this.events],
-            onUpdate: function functionName(tween, targets, data, vieEquipeA, vieEquipeB, events) {
+            onUpdateParams: [ this.events ],
+            onUpdate: function functionName(tween, targets, events) {
               if (player.anims.getFrameName() == "attack4") {
                 if (count) {
                   var distance = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone.x, y: fontainezone.y});
                   var distance2 = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone2.x, y: fontainezone2.y});
                   if (distance < 530 && distance < 540) {
-                    events.emit('changement-vie-equipe', "A")
+                    events.emit('changement-vie-equipe', "A", puissance)
                   } else if (distance2 < 530 && distance2 < 540) {
-                    events.emit('changement-vie-equipe', "B")
+                    events.emit('changement-vie-equipe', "B", puissance)
                   }
                   count = false;
                 }
@@ -484,8 +486,14 @@ return;
 
 }
 
-function changementVieEquipe(equipe) {
-  io.to("Naruto").emit("changement_vie_equipe", equipe);
+function changementVieEquipe(equipe, puissance) {
+  // console.log("TOTAL CALCUL");
+  // console.log(puissance);
+  // console.log("VIE EQUIPE XXX");
+  this.vieEquipe[equipe] -= 5;
+  // console.log("");
+  // let vie = 40
+  io.to("Naruto").emit("changement_vie_equipe", equipe, this.vieEquipe[equipe]);
 }
 
 

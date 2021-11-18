@@ -130,8 +130,6 @@ const Arene = new Phaser.Class({
 
 
       this.socket.on("changement_vie_equipe", (equipe, value) => {
-        alert(equipe)
-        alert(self.vieEquipe[equipe])
         if (equipe == "A") {
         self.setVieEquipeA(value)
       } else {
