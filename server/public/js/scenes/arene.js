@@ -76,6 +76,22 @@ const Arene = new Phaser.Class({
 
 
       this.lastHealthEquipe = {"A": 100, "B": 100}
+
+      this.Equipe = {
+        "A": {
+          "vie": 100,
+          "barre":
+        },
+        "B": {
+          "vie": 100
+        }
+      }
+
+
+      this.barreEquipeA.clear()
+this.barreEquipeA.fillStyle(0x0e88bd)
+this.barreEquipeA.fillRoundedRect(1700, -330, 500, 20, 5).setScrollFactor(0).setDepth(20)
+
       this.vieEquipe = {"A": 100, "B": 100}
       this.derniereVieEquipe = 100;
 
@@ -129,64 +145,11 @@ const Arene = new Phaser.Class({
         });
 
 
-
-        this.socket.on("setVieEquipeA", (value, lastHealth) => {
-          // self.health = Phaser.Math.Clamp(self.health - 1, 0, 100)
-          // self.events.emit('health-changed', self.health, self.players.getMatching('playerId', self.socket.id)[0])
-          // self.changementVieEquipeA(value, lastHealth)
-          // self.setVieEquipeA(50)
-          // self.vieEquipeA = Phaser.Math.Clamp(self.vieEquipeA - 3, 0, 100)
-
-          // self.setVieEquipeA(self.vieEquipeA)
-
-          // self.vieEquipeA = Phaser.Math.Clamp(lastHealth - (value / 2) * 10, 0, 100)
-          // 500 * percent
-          // Phaser.Math.Clamp(vieEquipeA - (puissance / 2) * 10 , 0, 100);
-
-          // const percent = Phaser.Math.Clamp(value, 0, 100) / 100
-          // alert(self.vieEquipeA * 500);
-          alert("setVieEquipeA")
-
-
-        });
-
-
-        this.socket.on("setVieEquipeB", (value, lastHealth) => {
-
-
-
-          alert("setVieEquipeB")
-          // self.vieEquipeB = Phaser.Math.Clamp(lastHealth - (value / 2) * 10, 0, 100)
-          // Phaser.Math.Clamp(vieEquipeA - (puissance / 2) * 10 , 0, 100);
-
-          // const percent = Phaser.Math.Clamp(value, 0, 100) / 100
-          // alert(self.vieEquipeA);
-
-
-          // self.health = Phaser.Math.Clamp(self.health - 1, 0, 100)
-          // const percent = Phaser.Math.Clamp(value, 0, 100) / 100
-
-          // alert(self.vieEquipeB * 500);
-          // self.changementVieEquipeB(value, lastHealth)
-          // self.events.emit('health-changed', self.health, self.players.getMatching('playerId', self.socket.id)[0])
-          // self.setVieEquipeB(value * 100)
-          // self.vieEquipeB = Phaser.Math.Clamp(self.vieEquipeB - 3, 0, 100)
-
-          // self.setVieEquipeB(self.vieEquipeB)
-
-        });
-
-
-      this.socket.on("recoit_degat", (degat) => {
-        self.health = Phaser.Math.Clamp(self.health - 1, 0, 100)
-        self.events.emit('health-changed', self.health, self.players.getMatching('playerId', self.socket.id)[0])
-      });
-
       this.socket.on("changement_vie_equipe", (equipe) => {
-        alert("Changement")
-        self.vieEquipeB = Phaser.Math.Clamp(self.vieEquipeB - 1, 0, 100)
-        self.events.emit('changement-vie-equipe-B', self.vieEquipeB)
-
+        alert(equipe)
+        alert(self.Equipe[equipe].vie)
+        // self.vieEquipe[equipe] = Phaser.Math.Clamp(self.vieEquipe[equipe] - 1, 0, 100)
+        // self.events.emit('changement-vie-equipe-B', self.vieEquipe[equipe])
       });
 
 
@@ -398,13 +361,30 @@ const Arene = new Phaser.Class({
     this.cameras.main.setZoom(0.5);
 
   },
+
+  setVieEquipe: function(value, equipe) {
+    const width = 500
+    const percent = Phaser.Math.Clamp(value, 0, 100) / 100
+    this.barreEquipe[equipe].clear()
+    this.barreEquipe[equipe].fillStyle(0xd00b0b)
+    this.barreEquipe[equipe].fillRoundedRect(1700, -330, width, 20, 5 ).setScrollFactor(0)
+    if (percent > 0) {
+      this.barreEquipe[equipe].fillStyle(0x0e88bd)
+      this.barreEquipe[equipe].fillRoundedRect(1700, -330, width * percent, 20, 5)
+    }
+  },
+  changementVieEquipe: function(value) {
+    this.setVieEquipe(value, equipe)
+    this.lastHealthEquipe[equipe] = value
+  },
+
   changementVieEquipeA: function(value) {
        this.setVieEquipeA(value)
-   this.lastHealthEquipeA = value
+       this.lastHealthEquipeA = value
  },
  changementVieEquipeB: function(value) {
    this.setVieEquipeB(value)
-  this.lastHealthEquipeB = value
+   this.lastHealthEquipeB = value
 },
 setVieEquipeA: function(value) {
   const width = 500
@@ -434,46 +414,6 @@ setVieEquipeB: function(value) {
     console.log("EQUIPE B PERDU");
   }
 },
-
-
-
-
-setVieEquipeAA: function(rec1, rec2, value) {
-  const width = 500
-  const percent = Phaser.Math.Clamp(value, 0, 100) / 100
-  this.barreEquipeA.clear()
-  this.barreEquipeA.fillStyle(0xd00b0b)
-  this.barreEquipeA.fillRoundedRect(rec1[0], rec1[1], rec1[2], rec1[3], rec1[4]).setScrollFactor(0)
-  if (percent > 0) {
-    this.barreEquipeA.fillStyle(0x0e88bd)
-    this.barreEquipeA.fillRoundedRect(rec2[0], rec2[1], rec2[2], rec2[3], rec2[4])
-  }
-  // if (width * percent < 80) {
-    // console.log("EQUIPE A PERDU");
-  // }
-},
-setVieEquipeBB: function(rec1, rec2, value) {
-  const width = 500
-  const percent = Phaser.Math.Clamp(value, 0, 100) / 100
-  this.barreEquipeB.clear()
-  this.barreEquipeB.fillStyle(0xd00b0b)
-  this.barreEquipeB.fillRoundedRect(rec1[0], rec1[1], rec1[2], rec1[3], rec1[4]).setScrollFactor(0)
-  if (percent > 0) {
-    this.barreEquipeB.fillStyle(0x0ea733)
-    this.barreEquipeB.fillRoundedRect(rec2[0], rec2[1], rec2[2], rec2[3], rec2[4])
-  }
-  // if (width * percent < 80) {
-    // console.log("EQUIPE B PERDU");
-  // }
-},
-
-
-
-
-
-
-
-
 
   update: function () {
 
