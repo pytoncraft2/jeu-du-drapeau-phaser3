@@ -147,6 +147,19 @@ const Arene = new Phaser.Class({
       });
 
 
+      this.socket.on("fin_de_partie", (equipe) => {
+
+        let moi = self.players.getMatching('playerId', self.socket.id)[0].equipe
+        if (moi == equipe) {
+          self.scene.start('areneEquipes', {
+            equipe: true
+          })
+        } else {
+          self.scene.start('areneEquipes', {
+            equipe: false
+          })
+        }
+      });
 
 
       //EQUIPE BLEU

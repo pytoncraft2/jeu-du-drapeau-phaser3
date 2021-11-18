@@ -35,11 +35,11 @@ const AreneEquipes = new Phaser.Class({
   finDePartie: function() {
 
 
-    if (this.equipeGagnante == "A") {
+    if (this.equipeGagnante == true) {
       var couleur1 = "#0ea733"
       var couleur2 = "#0e88bd"
       var image = "bulletVerte"
-    } else if (this.equipeGagnante == "B") {
+    } else if (this.equipeGagnante == false) {
       var couleur1 = "#0e88bd"
       var couleur2 = "#0ea733"
       var image = "bulletBleu"

@@ -466,6 +466,9 @@ function changementVieEquipe(equipe, puissance) {
   // console.log("TOTAL CALCUL");
   // console.log(puissance);
   // console.log("VIE EQUIPE XXX");
+  if (this.vieEquipe[equipe] <= 0) {
+  io.to("Naruto").emit("fin_de_partie", equipe);
+  }
   this.vieEquipe[equipe] -= puissance * 10;
   // console.log("");
   // let vie = 40
