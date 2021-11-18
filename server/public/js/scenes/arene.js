@@ -75,7 +75,8 @@ const Arene = new Phaser.Class({
       this.lastHealthEquipeB = 100;
 
 
-      this.vieEquipe = 100
+      this.lastHealthEquipe = {"A": 100, "B": 100}
+      this.vieEquipe = {"A": 100, "B": 100}
       this.derniereVieEquipe = 100;
 
       this.graphics = this.add.graphics()
@@ -138,12 +139,14 @@ const Arene = new Phaser.Class({
 
           // self.setVieEquipeA(self.vieEquipeA)
 
-          self.vieEquipeA = Phaser.Math.Clamp(lastHealth - (value / 2) * 10, 0, 100)
+          // self.vieEquipeA = Phaser.Math.Clamp(lastHealth - (value / 2) * 10, 0, 100)
           // 500 * percent
           // Phaser.Math.Clamp(vieEquipeA - (puissance / 2) * 10 , 0, 100);
 
           // const percent = Phaser.Math.Clamp(value, 0, 100) / 100
-          alert(self.vieEquipeA * 500);
+          // alert(self.vieEquipeA * 500);
+          alert("setVieEquipeA")
+
 
         });
 
@@ -152,7 +155,8 @@ const Arene = new Phaser.Class({
 
 
 
-          self.vieEquipeB = Phaser.Math.Clamp(lastHealth - (value / 2) * 10, 0, 100)
+          alert("setVieEquipeB")
+          // self.vieEquipeB = Phaser.Math.Clamp(lastHealth - (value / 2) * 10, 0, 100)
           // Phaser.Math.Clamp(vieEquipeA - (puissance / 2) * 10 , 0, 100);
 
           // const percent = Phaser.Math.Clamp(value, 0, 100) / 100
@@ -162,7 +166,7 @@ const Arene = new Phaser.Class({
           // self.health = Phaser.Math.Clamp(self.health - 1, 0, 100)
           // const percent = Phaser.Math.Clamp(value, 0, 100) / 100
 
-          alert(self.vieEquipeB * 500);
+          // alert(self.vieEquipeB * 500);
           // self.changementVieEquipeB(value, lastHealth)
           // self.events.emit('health-changed', self.health, self.players.getMatching('playerId', self.socket.id)[0])
           // self.setVieEquipeB(value * 100)
@@ -178,22 +182,11 @@ const Arene = new Phaser.Class({
         self.events.emit('health-changed', self.health, self.players.getMatching('playerId', self.socket.id)[0])
       });
 
-      this.socket.on("diminue_vie_equipe", (puissance, equipe) => {
-      //   console.log("PUISSANCE----------");
-      //   console.log((puissance / 2) * 10);
-      //   console.log("_vie_");
-      //   console.log(self.health);
-        if (equipe == "A") {
-        self.vieEquipeA = Phaser.Math.Clamp(self.vieEquipeA - (puissance / 2) * 10 , 0, 100)
-        // self.events.emit('changement-vie-equipe-A', self.vieEquipeA)
-        console.log("AAAAAAA");
-      } else if (equipe == "B") {
-        self.vieEquipeB = Phaser.Math.Clamp(self.vieEquipeB - (puissance / 2) * 10 , 0, 100)
-        // self.events.emit('changement-vie-equipe-B', self.vieEquipeB)
-        console.log("BBBBBB");
-        // self.health = Phaser.Math.Clamp(self.vieEquipe + 2 , 0, 100)
-        // self.events.emit('changement-vie-equipe-B', self.health)
-      }
+      this.socket.on("changement_vie_equipe", (equipe) => {
+        alert("Changement")
+        self.vieEquipeB = Phaser.Math.Clamp(self.vieEquipeB - 1, 0, 100)
+        self.events.emit('changement-vie-equipe-B', self.vieEquipeB)
+
       });
 
 

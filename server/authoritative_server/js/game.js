@@ -115,10 +115,7 @@ function create() {
 
 
   this.events = new Phaser.Events.EventEmitter()
-  this.events.on('changement-vie-equipe-A', changementVieEquipeA, this)
-  this.events.on('changement-vie-equipe-B', changementVieEquipeB, this)
-  setVieEquipeA(100)
-  setVieEquipeB(100)
+  this.events.on('changement-vie-equipe', changementVieEquipe, this)
 
   let soclePlatformeGauche = self.add.zone(0, 327, 210, 210).setSize(3500, 40);
   let socleToitGauche = self.add.zone(-120, -253, 210, 210).setSize(1631, 40);
@@ -355,17 +352,9 @@ return;
                   var distance = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone.x, y: fontainezone.y});
                   var distance2 = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone2.x, y: fontainezone2.y});
                   if (distance < 530 && distance < 540) {
-                    // vieEquipeB = Phaser.Math.Clamp(vieEquipeB - (puissance / 2) * 10 , 0, 100)
-                    events.emit('changement-vie-equipe-B', puissance)
-                    // io.to(player.arene).emit("diminue_vie_equipe", puissance, "B");
-                    // FIXME: resultat difference entre le client et le serveur
-                    // data.set('vieEquipeB', Phaser.Math.Clamp(vieEquipeB - (puissance / 2) * 10 , 0, 100));
+                    events.emit('changement-vie-equipe', "A")
                   } else if (distance2 < 530 && distance2 < 540) {
-                    // vieEquipeA = Phaser.Math.Clamp(vieEquipeA - (puissance / 2) * 10 , 0, 100)
-                    events.emit('changement-vie-equipe-A', puissance)
-                    // io.to(player.arene).emit("diminue_vie_equipe", puissance, "A");
-                    // FIXME: resultat difference entre le client et le serveur
-                    // data.set('vieEquipeA', Phaser.Math.Clamp(vieEquipeA - (puissance / 2) * 10 , 0, 100));
+                    events.emit('changement-vie-equipe', "B")
                   }
                   count = false;
                 }
@@ -495,77 +484,9 @@ return;
 
 }
 
-
-function changementVieEquipeA(value) {
-  // console.log("INSIDE");
-     // setVieEquipeA(value)
- // this.lastHealthEquipeA = value
- // setVieEquipeA(value)
- // io.to("Naruto").emit("setVieEquipeA", value, this.lastHealthEquipeA);
- // this.lastHealthEquipeA = value
- // console.log("LAST HEALH");
- // console.log(this.lastHealthEquipeA);
-
+function changementVieEquipe(equipe) {
+  io.to("Naruto").emit("changement_vie_equipe", equipe);
 }
-
-
- function changementVieEquipeB(value) {
-   // console.log("INSIDE 2");
-    // setVieEquipeB(value, this.lastHealthEquipeB)
-
-
-}
-
-function setVieEquipeA(value, last) {
-const width = 500
-const percent = Phaser.Math.Clamp(value, 0, 100) / 100
-
-
-
-io.to("Naruto").emit("setVieEquipeB", value, last);
-this.lastHealthEquipeB = value
-/*
-barreEquipeA.clear()
-barreEquipeA.fillStyle(0xd00b0b)
-barreEquipeA.fillRoundedRect(1700, -330, width, 20, 5 ).setScrollFactor(0)
-if (percent > 0) {
-  barreEquipeA.fillStyle(0x0e88bd)
-  barreEquipeA.fillRoundedRect(1700, -330, width * percent, 20, 5)
-}
-*/
-console.log("BARRE");
-// console.log(barreEquipeA.fillStyle);
-// io.to("Naruto").emit("setVieEquipeA", [1700, -330, width, 20, 5], [1700, -330, width * percent, 20, 5], value);
-
-console.log(width * percent);
-if (width * percent < 400) {
-  console.log("EQUIPE A PERDU");
-}
-}
-
-function setVieEquipeB(value) {
-const width = 500
-const percent = Phaser.Math.Clamp(value, 0, 100) / 100
-/*
-barreEquipeB.clear()
-barreEquipeB.fillStyle(0xd00b0b)
-barreEquipeB.fillRoundedRect(-710, -330, width, 20, 5).setScrollFactor(0)
-if (percent > 0) {
-  barreEquipeB.fillStyle(0x0ea733)
-  barreEquipeB.fillRoundedRect(-710, -330, width * percent , 20, 5)
-}
-*/
-// io.to("Naruto").emit("setVieEquipeB", [-710, -330, width, 20, 5], [-710, -330, width * percent , 20, 5], value);
-
-console.log("BARRE B");
-// console.log(barreEquipeB);
-
-console.log(width * percent);
-if (width * percent < 400) {
-  console.log("EQUIPE B PERDU");
-}
-}
-
 
 
 function handlePlayerInput(self, playerId, arene, input) {
