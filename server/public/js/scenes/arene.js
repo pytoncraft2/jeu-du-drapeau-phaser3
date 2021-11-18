@@ -80,7 +80,6 @@ const Arene = new Phaser.Class({
       this.Equipe = {
         "A": {
           "vie": 100,
-          "barre":
         },
         "B": {
           "vie": 100
@@ -88,10 +87,10 @@ const Arene = new Phaser.Class({
       }
 
 
-      this.barreEquipeA.clear()
-this.barreEquipeA.fillStyle(0x0e88bd)
-this.barreEquipeA.fillRoundedRect(1700, -330, 500, 20, 5).setScrollFactor(0).setDepth(20)
-
+      // this.barreEquipeA.clear()
+      // this.barreEquipeA.fillStyle(0x0e88bd)
+      // this.barreEquipeA.fillRoundedRect(1700, -330, 500, 20, 5).setScrollFactor(0).setDepth(20)
+      //
       this.vieEquipe = {"A": 100, "B": 100}
       this.derniereVieEquipe = 100;
 
@@ -108,6 +107,7 @@ this.barreEquipeA.fillRoundedRect(1700, -330, 500, 20, 5).setScrollFactor(0).set
       this.players = {}
 
       this.players = this.add.group();
+      this.equipe = this.add.group();
 
 
 
@@ -146,8 +146,8 @@ this.barreEquipeA.fillRoundedRect(1700, -330, 500, 20, 5).setScrollFactor(0).set
 
 
       this.socket.on("changement_vie_equipe", (equipe) => {
-        alert(equipe)
-        alert(self.Equipe[equipe].vie)
+        // alert(equipe)
+        // alert(self.Equipe[equipe].vie)
         // self.vieEquipe[equipe] = Phaser.Math.Clamp(self.vieEquipe[equipe] - 1, 0, 100)
         // self.events.emit('changement-vie-equipe-B', self.vieEquipe[equipe])
       });
