@@ -12,11 +12,21 @@ const AreneEquipes = new Phaser.Class({
   },
   init: function(data) {
   this.personnage = data.personnage;
+  this.equipeGagnante = "A";
  },
 
   create: function() {
 
-          var p0 = new Phaser.Math.Vector2(200, 500);
+    if (this.equipeGagnante == "A") {
+      var couleur1 = "#0ea733"
+      var couleur2 = "#0e88bd"
+      var image = "bulletVerte"
+    } else if (this.equipeGagnante == "B") {
+      var couleur1 = "#0e88bd"
+      var couleur2 = "#0ea733"
+      var image = "bulletBleu"
+    }
+    var p0 = new Phaser.Math.Vector2(200, 500);
      var p1 = new Phaser.Math.Vector2(200, 200);
      var p2 = new Phaser.Math.Vector2(600, 200);
      var p3 = new Phaser.Math.Vector2(600, 500);
@@ -38,7 +48,7 @@ const AreneEquipes = new Phaser.Class({
      var tempVec = new Phaser.Math.Vector2();
 
      var spark0 = this.add.particles('bullet').setDepth(200);
-     var spark1 = this.add.particles('bulletVerte').setDepth(200);
+     var spark1 = this.add.particles(image).setDepth(200);
 
 
      for (var i = 0; i < points.length; i++)
@@ -97,9 +107,8 @@ const AreneEquipes = new Phaser.Class({
     var top = 400;
 
     // this.equipe = this.add.text(300, 120, ['CHOISIR UNE ARENE ET VOTRE EQUIPE']).setFontSize(47).setFontFamily('Trebuchet MS').setColor('#6badce').setShadow(2, 2, "white", 2, true, true);
-    this.victoire = this.add.text(287, 380, ['VICTOIRE']).setFontSize(47).setFontFamily('Trebuchet MS').setColor('#2eed12').setShadow(2, 2, "white", 2, true, true);
-    this.defaite = this.add.text(900, 380, ['DEFAITE']).setFontSize(47).setFontFamily('Trebuchet MS').setColor('#6badce').setShadow(2, 2, "white", 2, true, true);
-    alert()
+    this.victoire = this.add.text(287, 380, ['VICTOIRE']).setFontSize(47).setFontFamily('Trebuchet MS').setColor(couleur1).setShadow(2, 2, "white", 2, true, true);
+    this.defaite = this.add.text(900, 380, ['DEFAITE']).setFontSize(47).setFontFamily('Trebuchet MS').setColor(couleur2).setShadow(2, 2, "white", 2, true, true);
     var emitter0 = this.add.particles('bullet').createEmitter({
     x: 900 + this.defaite.displayWidth / 2,
     alpha: 0.4,
