@@ -172,6 +172,7 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
         anim: 'profil',
         scale: 0.38,
         size: 200,
+        vieEquipe: self.vieEquipe,
         x: x,
         y: y,
         playerId: socket.id,
@@ -471,8 +472,10 @@ function changementVieEquipe(equipe, puissance) {
   if (this.vieEquipe[equipe] <= 0) {
   // this.scene.stop()
   io.to("Naruto").emit("fin_de_partie", equipe);
-  this.scene.restart()
-  this.scene.stop()
+  // this.scene.restart()
+  // this.scene.stop()
+  this.players.clear();
+
   }
   // console.log("");
   // let vie = 40
@@ -505,6 +508,7 @@ function addPlayer(self, playerInfo) {
   joueur.arene = playerInfo.arene;
   joueur.equipe = playerInfo.equipe;
   joueur.atlas = playerInfo.atlas;
+  joueur.vieEquipe = playerInfo.vieEquipe;
   joueur.degat = playerInfo.degat;
   joueur.attacked = playerInfo.attacked;
   joueur.setFrictionAir(0.05);

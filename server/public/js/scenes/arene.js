@@ -139,11 +139,12 @@ const Arene = new Phaser.Class({
       });
 
       this.socket.on("vie_equipes", (equipe, value) => {
-        if (equipe == "A") {
-        self.setVieEquipeA(value)
-      } else {
-        self.setVieEquipeB(value)
-      }
+        // if (equipe == "A") {
+        // self.setVieEquipeA(value)
+      // } else {
+        // self.setVieEquipeB(value)
+      // }
+      alert("SET VIE EQUIPES")
       });
 
 
@@ -597,6 +598,11 @@ setVieEquipeB: function(value) {
     joueur.arene = playerInfo.arene;
     joueur.atlas = playerInfo.atlas;
     joueur.equipe = playerInfo.equipe;
+    joueur.vieEquipe = playerInfo.vieEquipe;
+
+    self.setVieEquipeA(playerInfo.vieEquipe["A"])
+    self.setVieEquipeB(playerInfo.vieEquipe["B"])
+
     // joueur.socle = self.add.zone(playerInfo.x +700, playerInfo.y + 190, 210, 210).setSize(150, 40);
     // joueur.setFixedRotation()
 joueur.setFrictionAir(0.05);
