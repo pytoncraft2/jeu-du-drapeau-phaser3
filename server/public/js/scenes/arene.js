@@ -152,20 +152,15 @@ const Arene = new Phaser.Class({
         let moi = self.players.getMatching('playerId', self.socket.id)[0].equipe
         if (moi == equipe) {
           self.scene.stop()
-          setTimeout(function(){
           self.scene.start('areneEquipes', {
             equipe: true
           })
-          }, 3000);
 
         } else {
           self.scene.stop()
-
-          setTimeout(function(){
           self.scene.start('areneEquipes', {
             equipe: false
           })
-          }, 3000);
         }
       });
 

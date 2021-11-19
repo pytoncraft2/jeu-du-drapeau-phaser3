@@ -47,10 +47,10 @@ const AreneEquipes = new Phaser.Class({
       var message = "VICTOIRE !"
 
 
-    var p0 = new Phaser.Math.Vector2(200, 500);
-    var p1 = new Phaser.Math.Vector2(200, 200);
-    var p2 = new Phaser.Math.Vector2(600, 200);
-    var p3 = new Phaser.Math.Vector2(600, 500);
+    var p0 = new Phaser.Math.Vector2(500 + 80, 500);
+    var p1 = new Phaser.Math.Vector2(500 + 80, 200);
+    var p2 = new Phaser.Math.Vector2(900 + 80, 200);
+    var p3 = new Phaser.Math.Vector2(900 + 80, 500);
 
     var curve = new Phaser.Curves.CubicBezier(p0, p1, p2, p3);
 
@@ -98,7 +98,11 @@ const AreneEquipes = new Phaser.Class({
       });
     }
 
-    this.victoire = this.add.text(halfWidth - 90, halfHeight - 10, [message]).setFontSize(47).setFontFamily('Trebuchet MS').setColor(couleur1).setShadow(2, 2, "white", 2, true, true);
+    this.victoire = this.add.text(halfWidth - 90, halfHeight + 20, [message]).setFontSize(47).setFontFamily('Trebuchet MS').setColor(couleur1).setShadow(2, 2, "white", 2, true, true);
+    this.victoire.setInteractive().on('pointerdown', function() {
+      this.scene.start('mainMenu');
+    },this);
+
 
 
     } else if (this.equipeGagnante == false) {
@@ -108,6 +112,10 @@ const AreneEquipes = new Phaser.Class({
       var message = "PERDU !"
 
           this.fin = this.add.text(halfWidth - 90, halfHeight - 10, [message]).setFontSize(47).setFontFamily('Trebuchet MS').setColor(couleur1).setShadow(2, 2, "white", 2, true, true);
+          this.fin.setInteractive().on('pointerdown', function() {
+            this.scene.start('mainMenu');
+          },this);
+
 
     var emitter0 = this.add.particles('bullet').createEmitter({
       x: this.fin.x + this.fin.displayWidth / 2,

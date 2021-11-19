@@ -469,8 +469,10 @@ function changementVieEquipe(equipe, puissance) {
 
   this.vieEquipe[equipe] -= puissance * 10;
   if (this.vieEquipe[equipe] <= 0) {
-  this.scene.stop()
+  // this.scene.stop()
   io.to("Naruto").emit("fin_de_partie", equipe);
+  this.scene.restart()
+  this.scene.stop()
   }
   // console.log("");
   // let vie = 40
