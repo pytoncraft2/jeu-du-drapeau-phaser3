@@ -142,7 +142,6 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
 
   this.bullet = this.matter.add.image(1210, -400, 'bullet', null, { ignoreGravity: true });
   this.bullet.setFixedRotation();
-  // this.bullet.setMass(500);
   this.bullet.setStatic(true).setDepth(2);
 
   io.on('connection', function(socket) {
@@ -185,10 +184,6 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
           z: false
         },
       };
-
-      // console.log("AAAAAATTTLAS");
-
-      // console.log(socket.atlas);
 
       addPlayer(self, players[socket.room][socket.id]);
       socket.emit("tout_les_joueurs", players);
@@ -242,7 +237,6 @@ function update() {
 
       if (player.attacked) {
       player.setAlpha(0.5)
-      // console.log("ATTACKED");
       player.attacked = false;
       }
 
@@ -278,24 +272,6 @@ function update() {
       /**
        * ANIMATION ATTAQUE + ombre
        */
-/*
-       if (this.fontainezone.getBounds().right < player.x ||
-this.fontainezone.getBounds().left > player.x ||
-this.fontainezone.getBounds().top > player.y ||
-this.fontainezone.getBounds().bottom < player.y
-) {
-console.log("non");
-return;
-//attaque uniquement sur le joueur ennemie
-} else {
-console.log("oui");
-io.to(player.arene).emit("diminue_vie_equipe", "degat", "equipe");
-return;
-//attaque fontaine ennemie
-// diminution alpha
-// emit diminue_vie_equipe
-}
-*/
       if (input.attaque) {
         var count;
         if (input.charge) {
@@ -305,18 +281,12 @@ return;
             from: 0,
             to: 1,
             scale: 2,
-            duration: 2000,
-            onComplete: () => console.log("COMPLETERERERE")
+            duration: 2000
           })
           player.play('idle_attack', true)
           input.charge = false;
         } else {
-          // console.log(this.tween.totalProgress)
-          console.log("PROGRESS");
-          console.log(this.tween.totalProgress);
           let puissance = this.tween.totalProgress;
-          // console.log("----PPRRROGGESS 2");
-          // console.log(this.tween.getValue());
           if (this.tween.isPlaying()) {
           this.tween.stop()
           }
@@ -360,7 +330,6 @@ return;
 
       //TIROLIENNE
       if (input.tirolienne) {
-        // TODO: ACTIF SI PRET DU POTEAU
         var dist = Phaser.Math.Distance.BetweenPoints(player, this.bullet);
         if (dist < 530 && dist < 540) {
         if (player.world.localWorld.constraints.length == 0) {
@@ -440,14 +409,12 @@ return;
       players[player.arene][player.playerId].y = player.y;
       // players[player.arene][player.playerId].anims = player.anims.getName();
       players[player.arene][player.playerId].frame = player.anims.getFrameName();
-
       players[player.arene][player.playerId].flipX = player.flipX;
       players[player.arene][player.playerId].alpha = player.alpha;
       players[player.arene][player.playerId].ombreX = player.ombre.x;
       players[player.arene][player.playerId].ombreScale = player.ombre.scale;
       players[player.arene][player.playerId].bulletX = this.bullet.x;
       players[player.arene][player.playerId].bulletY = this.bullet.y;
-
       players[player.arene][player.playerId].rotation = player.rotation;
 
 
@@ -467,7 +434,6 @@ function changementVieEquipe(equipe, puissance) {
   this.vieEquipe[equipe] -= puissance * 10;
   if (this.vieEquipe[equipe] <= 0) {
   io.to("Naruto").emit("fin_de_partie", equipe);
-  // this.players["Naruto"].clear();
   this.players["Naruto"].remove(true);
   this.vieEquipe["A"] = 100;
   this.vieEquipe["B"] = 100;
@@ -492,8 +458,6 @@ function handlePlayerInput(self, playerId, arene, input) {
 
 function addPlayer(self, playerInfo) {
   const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, playerInfo.atlas, 'face1').setDisplaySize(127, 368.22);
-  // joueur.setFixedRotation()
-
   joueur.playerId = playerInfo.playerId;
   joueur.arene = playerInfo.arene;
   joueur.equipe = playerInfo.equipe;
@@ -503,35 +467,11 @@ function addPlayer(self, playerInfo) {
   joueur.attacked = playerInfo.attacked;
   joueur.setFrictionAir(0.05);
   joueur.setMass(30);
-
-  // joueur.setFrictionAir(0.03);
-  // joueur.setFriction(1);
-
-  // joueur.setMass(15);
-
-  // player.socle = this.add.zone(200, 780, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
-  // this.physics.add.existing(ennemy['ennemyzone']);
-  // player.socle.body.friction.x = 0;
-  // player.socle.setIgnoreGravity(true);
-
-  // joueur.socle = self.add.zone(playerInfo.x + 300, playerInfo.y + 190, 210, 210).setSize(3500, 40);
-
-
-
   self.players[playerInfo.arene].add(joueur);
-
-
   // joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -55, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
   joueur.ombre = self.add.ellipse(-79, 327 - 30, 100, 20, 0x0009).setAlpha(0.5);
-  // console.log(self.platformeGaucheCollision.getChildren());
-
-
   // var socleJoueur = self.matter.add.gameObject(joueur.socle);
   // socleJoueur.setIgnoreGravity(true).setStatic(true)
-
-
-  // joueur.setIgnoreGravity(true)
-
 }
 
 function removePlayer(self, playerId, arene) {
