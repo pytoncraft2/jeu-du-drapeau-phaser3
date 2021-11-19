@@ -474,7 +474,7 @@ function changementVieEquipe(equipe, puissance) {
   io.to("Naruto").emit("fin_de_partie", equipe);
   // this.scene.restart()
   // this.scene.stop()
-  this.players.clear();
+  this.players["Naruto"].clear();
 
   }
   // console.log("");
