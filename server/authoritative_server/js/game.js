@@ -167,6 +167,7 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
         alpha: 1,
         attacked: false,
         degat: 0,
+        vie: 5,
         depth: 30,
         anim: 'profil',
         scale: 0.38,
@@ -462,6 +463,7 @@ function addPlayer(self, playerInfo) {
   joueur.arene = playerInfo.arene;
   joueur.equipe = playerInfo.equipe;
   joueur.atlas = playerInfo.atlas;
+  joueur.vie = playerInfo.vie;
   joueur.vieEquipe = playerInfo.vieEquipe;
   joueur.degat = playerInfo.degat;
   joueur.attacked = playerInfo.attacked;

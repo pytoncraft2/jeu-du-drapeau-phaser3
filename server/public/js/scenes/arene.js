@@ -552,6 +552,9 @@ setVieEquipeB: function(value) {
         canonMaintenu: false,
         canonRelache: true
       });
+      // this.vies.shiftPosition(0, 0, 1);
+      this.vies.getFirstAlive().setAlpha(0.2).setActive(false)
+      // this.vies.killAndHide()
     }
 
 
@@ -591,6 +594,8 @@ setVieEquipeB: function(value) {
     joueur.atlas = playerInfo.atlas;
     joueur.equipe = playerInfo.equipe;
     joueur.vieEquipe = playerInfo.vieEquipe;
+    joueur.vie = playerInfo.vie;
+    // -710, -330
 
     self.setVieEquipeA(playerInfo.vieEquipe["A"])
     self.setVieEquipeB(playerInfo.vieEquipe["B"])
@@ -613,6 +618,15 @@ let position = playerInfo.equipe == "A" ? {x: -79, y:327} : {x: 7300, y:-1363}
     self.players.add(joueur);
     if (iscurrent) {
       self.cameras.main.startFollow(joueur);
+      let c1 = self.add.circle(-660, -270, 15,0x008000).setDepth(200).setScrollFactor(0);
+      let c2 = self.add.circle(-560, -270, 15,0x008000).setDepth(200).setScrollFactor(0);
+      let c3 = self.add.circle(-460, -270, 15,0x008000).setDepth(200).setScrollFactor(0);
+      let c4 = self.add.circle(-360, -270, 15,0x008000).setDepth(200).setScrollFactor(0);
+      let c5 = self.add.circle(-260, -270, 15,0x008000).setDepth(200).setScrollFactor(0);
+
+      self.vies = self.add.group()
+      self.vies.addMultiple([c1, c2, c3, c4, c5]);   // array of game objects
+
     }
   },
 });
