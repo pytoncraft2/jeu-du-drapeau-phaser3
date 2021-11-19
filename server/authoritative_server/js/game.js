@@ -464,24 +464,14 @@ return;
 }
 
 function changementVieEquipe(equipe, puissance) {
-  // console.log("TOTAL CALCUL");
-  // console.log(puissance);
-  // console.log("VIE EQUIPE XXX");
-
   this.vieEquipe[equipe] -= puissance * 10;
   if (this.vieEquipe[equipe] <= 0) {
-  // this.scene.stop()
   io.to("Naruto").emit("fin_de_partie", equipe);
-  // this.scene.restart()
-  // this.scene.stop()
-  this.players["Naruto"].clear();
-
+  // this.players["Naruto"].clear();
+  this.players["Naruto"].remove(true);
+  this.vieEquipe["A"] = 100;
+  this.vieEquipe["B"] = 100;
   }
-  // console.log("");
-  // let vie = 40
-  // this.vieEquipeB = Phaser.Math.Clamp(this.vieEquipeB - 5, 0, 100)
-// this.events.emit('health-changed', this.health)
-// this.events.emit('changement-vie-equipe-B', this.vieEquipeB)
 
 
   io.to("Naruto").emit("changement_vie_equipe", equipe, this.vieEquipe[equipe]);

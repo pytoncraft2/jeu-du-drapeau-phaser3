@@ -138,19 +138,11 @@ const Arene = new Phaser.Class({
       }
       });
 
-      this.socket.on("vie_equipes", (equipe, value) => {
-        // if (equipe == "A") {
-        // self.setVieEquipeA(value)
-      // } else {
-        // self.setVieEquipeB(value)
-      // }
-      alert("SET VIE EQUIPES")
-      });
-
 
       this.socket.on("fin_de_partie", (equipe) => {
 
         let moi = self.players.getMatching('playerId', self.socket.id)[0].equipe
+        self.socket.disconnect()
         if (moi == equipe) {
           self.scene.stop()
           self.scene.start('areneEquipes', {
