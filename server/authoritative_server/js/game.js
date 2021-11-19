@@ -236,8 +236,14 @@ function update() {
 
       player.ombre.x = player.x
 
+      if (input.special) {
+        player.setScale(0.8)
+        input.special = false;
+      }
+
       if (player.attacked) {
       player.setAlpha(0.5)
+      // player.setAngularVelocity(5)
       player.attacked = false;
       }
 
@@ -411,6 +417,7 @@ function update() {
       // players[player.arene][player.playerId].anims = player.anims.getName();
       players[player.arene][player.playerId].frame = player.anims.getFrameName();
       players[player.arene][player.playerId].flipX = player.flipX;
+      players[player.arene][player.playerId].scale = player.scale;
       players[player.arene][player.playerId].alpha = player.alpha;
       players[player.arene][player.playerId].ombreX = player.ombre.x;
       players[player.arene][player.playerId].ombreScale = player.ombre.scale;

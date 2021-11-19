@@ -210,7 +210,7 @@ const Arene = new Phaser.Class({
         self.players.getChildren().forEach(function(player) {
           if (players[id].playerId === player.playerId) {
             player.flipX = (players[id].flipX);
-            // player.setScale(players[id].scale);
+            player.setScale(players[id].scale);
             // player.setVelocity(players[id].velocityX, players[id].velocityY);
             player.setPosition(players[id].x, players[id].y);
             player.setRotation(players[id].rotation);
@@ -345,6 +345,7 @@ const Arene = new Phaser.Class({
     this.vKeyPressed = this.input.keyboard.addKey('V');
     this.xKeyPressed = this.input.keyboard.addKey('X');
     this.canonKeyPressed = this.input.keyboard.addKey('C');
+    this.specialKeyPressed = this.input.keyboard.addKey('R');
     this.aKeyPressed = this.input.keyboard.addKey('A');
     this.tKeyPressed = this.input.keyboard.addKey('T');
     this.cKeyPressed = this.input.keyboard.addKey('CTRL');
@@ -545,7 +546,11 @@ setVieEquipeB: function(value) {
       });
     }
 
-
+    if (Phaser.Input.Keyboard.JustUp(this.specialKeyPressed)) {
+      this.socket.emit('playerInput', {
+        special: true
+      });
+    }
 
     if (Phaser.Input.Keyboard.JustUp(this.canonKeyPressed)) {
       this.socket.emit('playerInput', {
