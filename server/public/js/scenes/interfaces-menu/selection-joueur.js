@@ -24,7 +24,7 @@
    create: function() {
      var liste = ['dessinatrice1_', 'naruto_'];
      const self = this;
-     var x = 400;
+     var x = 600;
      var y = 400;
      var up = 0;
      liste.forEach((item, i) => {
