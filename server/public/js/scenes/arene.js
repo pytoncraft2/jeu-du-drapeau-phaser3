@@ -146,7 +146,13 @@ const Arene = new Phaser.Class({
         }
       })
 
+      this.socket.on("fin_de_vie", (id, vie) => {
+        let moi = self.players.getMatching('playerId', self.socket.id)[0].playerId
 
+        // if (id == moi) {
+          // this.vies.getFirstAlive().setAlpha(0.2).setActive(false)
+        // }
+      })
 
       this.socket.on("fin_de_partie", (equipe) => {
 
@@ -302,22 +308,22 @@ const Arene = new Phaser.Class({
     });
 
 
-    let soclePlatformeGauche = self.add.zone(0, 327, 210, 210).setSize(3500, 40);
-  let socleToitGauche = self.add.zone(-120, -253, 210, 210).setSize(1631, 40);
-    let soclePlatformeDroit = self.add.zone(7000, -1363, 210, 210).setSize(3500, 40);
-    let socleToitDroit = self.add.zone(7000, -1943, 210, 210).setSize(1631, 40);
+    // let soclePlatformeGauche = self.add.zone(0, 327, 210, 210).setSize(3500, 40);
+  // let socleToitGauche = self.add.zone(-120, -253, 210, 210).setSize(1631, 40);
+    // let soclePlatformeDroit = self.add.zone(7000, -1363, 210, 210).setSize(3500, 40);
+    // let socleToitDroit = self.add.zone(7000, -1943, 210, 210).setSize(1631, 40);
 
 
 
-      var socleJoueur = self.matter.add.gameObject(soclePlatformeGauche);
-      socleJoueur.setIgnoreGravity(true).setStatic(true).setFriction(0)
-      var socleJoueur2 = self.matter.add.gameObject(socleToitGauche);
-      socleJoueur2.setIgnoreGravity(true).setStatic(true).setFriction(0)
+      // var socleJoueur = self.matter.add.gameObject(soclePlatformeGauche);
+      // socleJoueur.setIgnoreGravity(true).setStatic(true).setFriction(0)
+      // var socleJoueur2 = self.matter.add.gameObject(socleToitGauche);
+      // socleJoueur2.setIgnoreGravity(true).setStatic(true).setFriction(0)
 
-      var socleJoueur3 = self.matter.add.gameObject(soclePlatformeDroit);
-      socleJoueur3.setIgnoreGravity(true).setStatic(true).setFriction(0)
-      var socleJoueur4 = self.matter.add.gameObject(socleToitDroit);
-      socleJoueur4.setIgnoreGravity(true).setStatic(true).setFriction(0)
+      // var socleJoueur3 = self.matter.add.gameObject(soclePlatformeDroit);
+      // socleJoueur3.setIgnoreGravity(true).setStatic(true).setFriction(0)
+      // var socleJoueur4 = self.matter.add.gameObject(socleToitDroit);
+      // socleJoueur4.setIgnoreGravity(true).setStatic(true).setFriction(0)
 
 
     this.groupeBullets = this.add.group();

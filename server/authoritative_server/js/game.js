@@ -113,6 +113,7 @@ function create() {
   this.events = new Phaser.Events.EventEmitter()
   this.events.on('changement-vie-equipe', changementVieEquipe, this)
   this.events.on('changement-vie', changementVie, this)
+  this.events.on('fin-de-vie', finDeVie, this)
 
   let soclePlatformeGauche = self.add.zone(0, 327, 210, 210).setSize(3500, 40);
   let socleToitGauche = self.add.zone(-120, -253, 210, 210).setSize(1631, 40);
@@ -220,8 +221,11 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
       console.log("VIE B");
       console.log(event.pairs[0].bodyB.gameObject.vie);
       console.log("VIE A");
-      console.log(event.pairs[0].bodyA.gameObject.vie);
-      this.events.emit('changement-vie', event.pairs[0].bodyA.gameObject.playerId)
+      if (event.pairs[0].bodyA.gameObject.vie > 0) {
+        this.events.emit('changement-vie', event.pairs[0].bodyA.gameObject.playerId)
+      } else {
+        this.events.emit('fin-de-vie', event.pairs[0].bodyA.gameObject.playerId)
+      }
     }
     // if (event.pairs[0].bodyB.gameObject.equipe != event.pairs[0].bodyA.gameObject.equipe) {
     //   this.events.emit('changement-vie', event.pairs[0].bodyA.gameObject.playerId)
@@ -467,6 +471,35 @@ function changementVie(id) {
   joueur.vie -= 1;
   // this.vieEquipe[equipe] -= puissance * 10;
   io.to("Naruto").emit("changement_vie", id, joueur.vie);
+}
+
+
+function finDeVie(id) {
+  let joueur = this.players["Naruto"].getMatching("playerId", id)[0]
+  joueur.vie = 5;
+  // joueur.setAngularVelocity(10)
+  // joueur.setScale(0.1)
+  // joueur.setActive(false)
+  joueur.setCollisionGroup(1)
+  joueur.setCollidesWith(0)
+
+
+  let x = joueur.equipe == "A" ? -379 : 7000
+  let y = joueur.equipe == "A" ? 137 : -1553
+
+
+  io.to("Naruto").emit("fin_de_vie", id, joueur.vie);
+  this.tweens.add({
+    targets: joueur,
+    x: x,
+    y: y,
+    scale: 0,
+    duration: 1000,
+    onComplete: () => (joueur.setScale(0.4), joueur.setCollidesWith(0), joueur.setCollisionGroup(-1)),
+    ease: 'Sine.easeInOut'
+  });
+
+  // this.vieEquipe[equipe] -= puissance * 10;
 }
 
 
