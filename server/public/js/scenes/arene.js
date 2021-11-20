@@ -139,7 +139,11 @@ const Arene = new Phaser.Class({
       });
 
       this.socket.on("changement_vie", (id, vie) => {
-        this.vies.getFirstAlive().setAlpha(0.2).setActive(false)
+        let moi = self.players.getMatching('playerId', self.socket.id)[0].playerId
+
+        if (id == moi) {
+          this.vies.getFirstAlive().setAlpha(0.2).setActive(false)
+        }
       })
 
 

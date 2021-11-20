@@ -217,6 +217,10 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
 
   this.matter.world.on('collisionstart', function (event) {
     if (event.pairs[0].bodyB.gameObject.equipe && event.pairs[0].bodyA.gameObject.equipe) {
+      console.log("VIE B");
+      console.log(event.pairs[0].bodyB.gameObject.vie);
+      console.log("VIE A");
+      console.log(event.pairs[0].bodyA.gameObject.vie);
       this.events.emit('changement-vie', event.pairs[0].bodyA.gameObject.playerId)
     }
     // if (event.pairs[0].bodyB.gameObject.equipe != event.pairs[0].bodyA.gameObject.equipe) {
@@ -458,7 +462,7 @@ function changementVieEquipe(equipe, puissance) {
 }
 
 
-function changementVie(equipe, id) {
+function changementVie(id) {
   let joueur = this.players["Naruto"].getMatching("playerId", id)[0]
   joueur.vie -= 1;
   // this.vieEquipe[equipe] -= puissance * 10;
