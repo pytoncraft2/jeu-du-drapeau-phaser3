@@ -605,8 +605,9 @@ setVieEquipeB: function(value) {
 
   displayPlayers: function(self, playerInfo, iscurrent) {
     console.log("Ajout joueur function");
-    const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, 'dessinatrice1', 'face1').setScale(0.38);
+    const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, 'dessinatrice1', 'face1').setScale(0.38).setDepth(0.3);
     // self.add.image(playerInfo.x, playerInfo.y, "dessinatrice1_").setScale(0.38).setOrigin(0.5, 0.5)
+
 
     joueur.playerId = playerInfo.playerId;
     joueur.arene = playerInfo.arene;
@@ -618,6 +619,7 @@ setVieEquipeB: function(value) {
 
     self.setVieEquipeA(playerInfo.vieEquipe["A"])
     self.setVieEquipeB(playerInfo.vieEquipe["B"])
+    self.apparitionPortail(playerInfo.x, playerInfo.y)
 
     // joueur.socle = self.add.zone(playerInfo.x +700, playerInfo.y + 190, 210, 210).setSize(150, 40);
     // joueur.setFixedRotation()
@@ -649,6 +651,25 @@ let position = playerInfo.equipe == "A" ? {x: -79, y:327} : {x: 7300, y:-1363}
 
     }
   },
+  apparitionPortail: function(x, y) {
+    const portail = this.add.image(x, y, 'portal').setDepth(0).setScale(0).setAngle(0);
+
+    this.tweens.add({
+      targets: portail,
+      scale: 1,
+      repeat: 0,
+      yoyo: true,
+      duration: 1200,
+    })
+
+    this.tweens.add({
+      targets: portail,
+      angle: 660,
+      repeat: 0,
+      duration: 2400,
+    })
+
+  }
 });
 
 export default Arene;
