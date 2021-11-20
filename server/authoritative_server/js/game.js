@@ -480,22 +480,22 @@ function finDeVie(id) {
   // joueur.setAngularVelocity(10)
   // joueur.setScale(0.1)
   // joueur.setActive(false)
-  joueur.setCollisionGroup(1)
-  joueur.setCollidesWith(0)
+  // joueur.setCollisionGroup(1)
+  // joueur.setCollidesWith(0)
 
 
   let x = joueur.equipe == "A" ? -379 : 7000
   let y = joueur.equipe == "A" ? 137 : -1553
 
 
-  io.to("Naruto").emit("fin_de_vie", id, joueur.vie);
+  // io.to("Naruto").emit("fin_de_vie", id, joueur.vie);
   this.tweens.add({
     targets: joueur,
     x: x,
     y: y,
-    scale: 0,
-    duration: 1000,
-    onComplete: () => (joueur.setScale(0.4), joueur.setCollidesWith(0), joueur.setCollisionGroup(-1)),
+    // scale: 0,
+    duration:0,
+    // onComplete: () => (joueur.setScale(0.4), joueur.setCollidesWith(0), joueur.setCollisionGroup(-1)),
     ease: 'Sine.easeInOut'
   });
 
