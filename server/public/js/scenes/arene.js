@@ -605,7 +605,7 @@ setVieEquipeB: function(value) {
 
   displayPlayers: function(self, playerInfo, iscurrent) {
     console.log("Ajout joueur function");
-    const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, 'dessinatrice1', 'face1').setScale(0.38).setDepth(0.3);
+    const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, 'dessinatrice1', 'face1').setScale(0.38).setDepth(0.3).setAlpha(0);
     // self.add.image(playerInfo.x, playerInfo.y, "dessinatrice1_").setScale(0.38).setOrigin(0.5, 0.5)
 
 
