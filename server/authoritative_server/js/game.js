@@ -112,6 +112,7 @@ function create() {
 
   this.events = new Phaser.Events.EventEmitter()
   this.events.on('changement-vie-equipe', changementVieEquipe, this)
+  this.events.on('changement-vie', changementVie, this)
 
   let soclePlatformeGauche = self.add.zone(0, 327, 210, 210).setSize(3500, 40);
   let socleToitGauche = self.add.zone(-120, -253, 210, 210).setSize(1631, 40);
@@ -215,16 +216,20 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
 
 
   this.matter.world.on('collisionstart', function (event) {
+    if (event.pairs[0].bodyB.gameObject.equipe && event.pairs[0].bodyA.gameObject.equipe) {
+      this.events.emit('changement-vie', event.pairs[0].bodyA.gameObject.playerId)
+    }
     // if (event.pairs[0].bodyB.gameObject.equipe != event.pairs[0].bodyA.gameObject.equipe) {
-      event.pairs[0].bodyA.gameObject.attacked = true
+    //   this.events.emit('changement-vie', event.pairs[0].bodyA.gameObject.playerId)
     // }
-  // 	// if (event.pairs[0].bodyA.gameObject){
+    // if (event.pairs[0].bodyB.gameObject.texture.key == "enemy") {
+  	// if (event.pairs[0].bodyA.gameObject){
   //   // if (event.pairs[0].bodyB.gameObject.texture.key == "enemy") {
   //   //
   //   //  }
   //   // }
     // console.log("COLISION");
-	})
+	},this)
 
 
 }
@@ -244,6 +249,7 @@ function update() {
       if (player.attacked) {
       player.setAlpha(0.5)
       // player.setAngularVelocity(5)
+      this.socket.
       player.attacked = false;
       }
 
@@ -449,6 +455,14 @@ function changementVieEquipe(equipe, puissance) {
 
 
   io.to("Naruto").emit("changement_vie_equipe", equipe, this.vieEquipe[equipe]);
+}
+
+
+function changementVie(equipe, id) {
+  let joueur = this.players["Naruto"].getMatching("playerId", id)[0]
+  joueur.vie -= 1;
+  // this.vieEquipe[equipe] -= puissance * 10;
+  io.to("Naruto").emit("changement_vie", id, joueur.vie);
 }
 
 

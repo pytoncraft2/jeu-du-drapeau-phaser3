@@ -138,6 +138,11 @@ const Arene = new Phaser.Class({
       }
       });
 
+      this.socket.on("changement_vie", (id, vie) => {
+        this.vies.getFirstAlive().setAlpha(0.2).setActive(false)
+      })
+
+
 
       this.socket.on("fin_de_partie", (equipe) => {
 
@@ -558,7 +563,6 @@ setVieEquipeB: function(value) {
         canonRelache: true
       });
       // this.vies.shiftPosition(0, 0, 1);
-      this.vies.getFirstAlive().setAlpha(0.2).setActive(false)
       // this.vies.killAndHide()
     }
 
@@ -624,7 +628,6 @@ let position = playerInfo.equipe == "A" ? {x: -79, y:327} : {x: 7300, y:-1363}
     if (iscurrent) {
       self.cameras.main.startFollow(joueur);
 
-      alert(joueur.vie)
       self.vies = self.add.group()
       let c = -660;
       for (var i = 0; i < joueur.vie; i++) {
