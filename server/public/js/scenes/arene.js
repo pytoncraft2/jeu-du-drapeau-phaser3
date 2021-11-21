@@ -364,6 +364,7 @@ const Arene = new Phaser.Class({
     this.xKeyPressed = this.input.keyboard.addKey('X');
     this.canonKeyPressed = this.input.keyboard.addKey('C');
     this.specialKeyPressed = this.input.keyboard.addKey('R');
+    this.special2KeyPressed = this.input.keyboard.addKey('T');
     this.aKeyPressed = this.input.keyboard.addKey('A');
     this.tKeyPressed = this.input.keyboard.addKey('T');
     this.cKeyPressed = this.input.keyboard.addKey('CTRL');
@@ -567,6 +568,13 @@ setVieEquipeB: function(value) {
     if (Phaser.Input.Keyboard.JustUp(this.specialKeyPressed)) {
       this.socket.emit('playerInput', {
         special: true
+      });
+    }
+
+
+    if (Phaser.Input.Keyboard.JustUp(this.special2KeyPressed)) {
+      this.socket.emit('playerInput', {
+        special2: true
       });
     }
 

@@ -251,8 +251,6 @@ function update() {
       player.ombre.x = player.x
 
       if (input.special) {
-        // player.pouvoirPret = false;
-
         this.tweens.addCounter({
           duration: 10000,
           onComplete: () => (player.setScale(0.38), player.puissanceBonus = 0)
@@ -262,6 +260,17 @@ function update() {
         player.puissanceBonus = 3;
         input.special = false;
       }
+
+      if (input.special2) {
+        this.tweens.addCounter({
+          duration: 10000,
+          onComplete: () => (player.setAlpha(1))
+        })
+
+        player.setAlpha(0.1)
+        input.special = false;
+      }
+
 
       if (player.attacked) {
       player.setAlpha(0.5)
