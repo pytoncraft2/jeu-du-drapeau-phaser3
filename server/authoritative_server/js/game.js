@@ -278,14 +278,14 @@ function update() {
       if (input.special2) {
         this.tweens.addCounter({
           duration: 10000,
-          onComplete: () => (player.body.collisionFilter.mask = 1)
+          onComplete: () => (player.body.collisionFilter.mask = 1, player.body.collisionFilter.group = CATEGORIE_JOUEUR, player.setAlpha(1))
         })
 
         // player.setCollisionGroup(CATEGORIE_JOUEUR)
         player.setAlpha(0.1)
         player.body.collisionFilter.group = 7
         player.body.collisionFilter.mask = Phaser.Math.Between(1, 9)
-        input.special = false;
+        input.special2 = false;
       }
 
 
