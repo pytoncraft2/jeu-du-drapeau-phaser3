@@ -251,20 +251,14 @@ function update() {
       player.ombre.x = player.x
 
       if (input.special) {
-        // player.setScale(0.8)
-        console.log("debut");
-        console.log(player.displayWidth);
-        console.log(player.displayHeight);
-        console.log("______");
-        this.tweens.add({
-            targets: player,
-            scale: 0.8,
-            from: 0,
-            to: 1,
-            // y: player.y - 300,
-            duration: 500,
-            onComplete: () => (player.setDisplaySize(player.displayWidth,player.displayHeight))
-          })
+        // player.pouvoirPret = false;
+
+        this.tweens.addCounter({
+          duration: 10000,
+          onComplete: () => (player.setScale(0.38), player.puissanceBonus = 0)
+        })
+
+        player.setScale(0.8)
         player.puissanceBonus = 3;
         input.special = false;
       }
