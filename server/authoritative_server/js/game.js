@@ -168,10 +168,16 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
       socket.room = room;
       socket.equipe = equipe;
       socket.atlas = atlas;
+      if (socket.equipe == "A") {
+      mask = 0b0001
+    } else {
+      mask = 0b0010
+    }
       players[socket.room][socket.id] = {
         atlas: socket.atlas,
         arene: socket.room,
         equipe: socket.equipe,
+        mask: mask,
         wall: false,
         attaque: false,
         puissanceBonus: 0,
@@ -542,13 +548,7 @@ function handlePlayerInput(self, playerId, arene, input) {
 }
 
 function addPlayer(self, playerInfo) {
-  let categorie;
-  if (playerInfo.equipe == "A") {
-    categorie = CATEGORIE_JOUEUR
-  } else {
-    categorie = CATEGORIE_ENNEMIE
-  }
-  const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, playerInfo.atlas, 'face1').setDisplaySize(127, 368.22).setAlpha(0).setCollisionGroup(CATEGORIE_JOUEUR).setCollidesWith([CATEGORIE_PLATFORME, categorie]);
+  const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, playerInfo.atlas, 'face1').setDisplaySize(127, 368.22).setAlpha(0).setCollisionGroup(playerInfo.mask).setCollidesWith([CATEGORIE_JOUEUR, CATEGORIE_ENNEMIE, CATEGORIE_PLATFORME]);
   joueur.playerId = playerInfo.playerId;
   joueur.arene = playerInfo.arene;
   joueur.equipe = playerInfo.equipe;
