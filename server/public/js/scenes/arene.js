@@ -237,7 +237,7 @@ const Arene = new Phaser.Class({
             // if (players[id].anims) {
             // player.play(players[id].anims);
             // }
-            if (players[id].frame != undefined && players[id].frame != "") {
+            if (players[id].frame != "") {
               player.setFrame(players[id].frame);
             }
             self.bullet.setPosition(players[id].bulletX, players[id].bulletY)
