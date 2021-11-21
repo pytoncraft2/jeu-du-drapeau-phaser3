@@ -224,6 +224,7 @@ const Arene = new Phaser.Class({
       Object.keys(players).forEach((id) => {
         self.players.getChildren().forEach(function(player) {
           if (players[id].playerId === player.playerId) {
+
             player.flipX = (players[id].flipX);
             player.setScale(players[id].scale);
             // player.setVelocity(players[id].velocityX, players[id].velocityY);
@@ -236,7 +237,9 @@ const Arene = new Phaser.Class({
             // if (players[id].anims) {
             // player.play(players[id].anims);
             // }
-            player.setFrame(players[id].frame);
+            if (players[id].frame != undefined && players[id].frame != "") {
+              player.setFrame(players[id].frame);
+            }
             self.bullet.setPosition(players[id].bulletX, players[id].bulletY)
 
             if (self.bulletCanon) {
@@ -619,12 +622,13 @@ setVieEquipeB: function(value) {
 
     self.setVieEquipeA(playerInfo.vieEquipe["A"])
     self.setVieEquipeB(playerInfo.vieEquipe["B"])
-    self.apparitionPortail(playerInfo.x, playerInfo.y)
 
     // joueur.socle = self.add.zone(playerInfo.x +700, playerInfo.y + 190, 210, 210).setSize(150, 40);
     // joueur.setFixedRotation()
 joueur.setFrictionAir(0.05);
 joueur.setMass(30);
+
+// joueur.setFrame("attack2")
 
 
 let couleur = playerInfo.equipe == "A" ? 0x0ea733 : 0x0e88bd
@@ -638,6 +642,7 @@ let position = playerInfo.equipe == "A" ? {x: -79, y:327} : {x: 7300, y:-1363}
 
     self.players.add(joueur);
     if (iscurrent) {
+    self.apparitionPortail(playerInfo.x, playerInfo.y)
       self.cameras.main.startFollow(joueur);
 
       self.vies = self.add.group()

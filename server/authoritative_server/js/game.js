@@ -533,7 +533,7 @@ function addPlayer(self, playerInfo) {
   self.tweens.add({
   targets: joueur,
   alpha: 1,
-  duration:3000,
+  duration:2000,
   // onComplete: () => (joueur.setScale(0.4), joueur.setCollidesWith(0), joueur.setCollisionGroup(-1)),
   ease: 'Sine.easeInOut'
 });
