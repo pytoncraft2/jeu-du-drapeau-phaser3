@@ -635,8 +635,9 @@ setVieEquipeB: function(value) {
     // joueur.setFixedRotation()
 joueur.setFrictionAir(0.05);
 joueur.setMass(30);
-joueur.body.collisionFilter.group = Phaser.Math.Between(1, 9)
+joueur.body.collisionFilter.group = Phaser.Math.Between(1, 10)
 joueur.body.collisionFilter.mask = 0
+
 
 // joueur.setFrame("attack2")
 
