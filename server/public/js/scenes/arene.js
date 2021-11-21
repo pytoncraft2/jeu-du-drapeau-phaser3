@@ -147,11 +147,13 @@ const Arene = new Phaser.Class({
       })
 
       this.socket.on("fin_de_vie", (id, vie) => {
-        // let moi = self.players.getMatching('playerId', self.socket.id)[0].playerId
+        let moi = self.players.getMatching('playerId', self.socket.id)[0].playerId
 
-        // if (id == moi) {
-          // this.vies.getFirstAlive().setAlpha(0.2).setActive(false)
-        // }
+        if (id == moi) {
+          this.vies.getChildren().forEach((cercle, i) => {
+          cercle.setActive(true).setAlpha(1)
+          });
+        }
       })
 
       this.socket.on("fin_de_partie", (equipe) => {

@@ -520,7 +520,7 @@ function finDeVie(id) {
   let y = joueur.equipe == "A" ? 137 : -1553
 
 
-  // io.to("Naruto").emit("fin_de_vie", id, joueur.vie);
+  io.to("Naruto").emit("fin_de_vie", id, joueur.vie);
   this.tweens.add({
     targets: joueur,
     x: x,
