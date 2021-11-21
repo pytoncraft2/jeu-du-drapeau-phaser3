@@ -26,6 +26,9 @@ const config = {
 
 var fontainezone;
 var fontainezone2;
+var CATEGORIE_JOUEUR = 0b0001
+var CATEGORIE_ENNEMIE = 0b0010
+var CATEGORIE_PLATFORME = 0b0100
 
 function preload() {
   this.load.atlas('dessinatrice1', 'assets/personnages/dessinatrice1/dessinatrice1.png', 'assets/personnages/dessinatrice1/dessinatrice1_atlas.json');
@@ -120,16 +123,21 @@ function create() {
   let soclePlatformeDroit = self.add.zone(7000, -1363, 210, 210).setSize(3500, 40);
   let socleToitDroit = self.add.zone(7000, -1943, 210, 210).setSize(1631, 40);
 
+  /**
+   * COLISION GROUPE
+   * 1: platforme
+   * 2: joueur
+   */
 
   var socleJoueur = self.matter.add.gameObject(soclePlatformeGauche);
-  socleJoueur.setIgnoreGravity(true).setStatic(true).setFriction(0)
+  socleJoueur.setIgnoreGravity(true).setStatic(true).setFriction(0).setCollisionGroup(CATEGORIE_PLATFORME).setCollidesWith([CATEGORIE_JOUEUR, CATEGORIE_ENNEMIE])
   var socleJoueur2 = self.matter.add.gameObject(socleToitGauche);
-  socleJoueur2.setIgnoreGravity(true).setStatic(true).setFriction(0)
+  socleJoueur2.setIgnoreGravity(true).setStatic(true).setFriction(0).setCollisionGroup(CATEGORIE_PLATFORME).setCollidesWith([CATEGORIE_JOUEUR, CATEGORIE_ENNEMIE])
 
   var socleJoueur3 = self.matter.add.gameObject(soclePlatformeDroit);
-  socleJoueur3.setIgnoreGravity(true).setStatic(true).setFriction(0)
+  socleJoueur3.setIgnoreGravity(true).setStatic(true).setFriction(0).setCollisionGroup(CATEGORIE_PLATFORME).setCollidesWith([CATEGORIE_JOUEUR, CATEGORIE_ENNEMIE])
   var socleJoueur4 = self.matter.add.gameObject(socleToitDroit);
-  socleJoueur4.setIgnoreGravity(true).setStatic(true).setFriction(0)
+  socleJoueur4.setIgnoreGravity(true).setStatic(true).setFriction(0).setCollisionGroup(CATEGORIE_PLATFORME).setCollidesWith([CATEGORIE_JOUEUR, CATEGORIE_ENNEMIE])
 
 this.platformeGaucheCollision.addMultiple([soclePlatformeGauche, socleToitGauche]);
 this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit]);
@@ -139,7 +147,7 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
   self.room = ""
 
   let tobogan = this.add.zone(3500, -500, 210, 210).setSize(3246, 40)
-  var socleTobogan = self.matter.add.gameObject(tobogan).setStatic(true).setIgnoreGravity(true).setAngle(-26).setFriction(0);
+  var socleTobogan = self.matter.add.gameObject(tobogan).setStatic(true).setIgnoreGravity(true).setAngle(-26).setFriction(0).setCollisionGroup(CATEGORIE_PLATFORME).setCollidesWith([CATEGORIE_JOUEUR, CATEGORIE_ENNEMIE]);
 
 
   this.bullet = this.matter.add.image(1210, -400, 'bullet', null, { ignoreGravity: true });
@@ -268,6 +276,7 @@ function update() {
         })
 
         player.setAlpha(0.1)
+        player.set
         input.special = false;
       }
 
@@ -533,7 +542,13 @@ function handlePlayerInput(self, playerId, arene, input) {
 }
 
 function addPlayer(self, playerInfo) {
-  const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, playerInfo.atlas, 'face1').setDisplaySize(127, 368.22).setAlpha(0);
+  let categorie;
+  if (playerInfo.equipe == "A") {
+    categorie = CATEGORIE_JOUEUR
+  } else {
+    categorie = CATEGORIE_ENNEMIE
+  }
+  const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, playerInfo.atlas, 'face1').setDisplaySize(127, 368.22).setAlpha(0).setCollisionGroup(CATEGORIE_JOUEUR).setCollidesWith([CATEGORIE_PLATFORME, categorie]);
   joueur.playerId = playerInfo.playerId;
   joueur.arene = playerInfo.arene;
   joueur.equipe = playerInfo.equipe;
