@@ -278,11 +278,11 @@ function update() {
       if (input.special2) {
         this.tweens.addCounter({
           duration: 10000,
-          onComplete: () => (player.setAlpha(1))
+          onComplete: () => (player.setAlpha(1).setCollidesWith([CATEGORIE_JOUEUR, CATEGORIE_ENNEMIE, CATEGORIE_PLATFORME]))
         })
 
         player.setAlpha(0.1)
-        player.set
+        player.setCollidesWith([CATEGORIE_JOUEUR])
         input.special = false;
       }
 
