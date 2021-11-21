@@ -166,6 +166,7 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
         equipe: socket.equipe,
         wall: false,
         attaque: false,
+        puissanceBonus: 0,
         alpha: 1,
         attacked: false,
         degat: 0,
@@ -251,6 +252,7 @@ function update() {
 
       if (input.special) {
         player.setScale(0.8)
+        player.puissanceBonus = 3;
         input.special = false;
       }
 
@@ -325,9 +327,9 @@ function update() {
                   var distance = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone.x, y: fontainezone.y});
                   var distance2 = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone2.x, y: fontainezone2.y});
                   if (distance < 530 && distance < 540) {
-                    events.emit('changement-vie-equipe', "B", puissance + puissanceBonus)
+                    events.emit('changement-vie-equipe', "B", puissance + player.puissanceBonus)
                   } else if (distance2 < 530 && distance2 < 540) {
-                    events.emit('changement-vie-equipe', "A", puissance + puissanceBonus)
+                    events.emit('changement-vie-equipe', "A", puissance + player.puissanceBonus)
                   }
                   count = false;
                 }
@@ -524,6 +526,7 @@ function addPlayer(self, playerInfo) {
   joueur.vieEquipe = playerInfo.vieEquipe;
   joueur.degat = playerInfo.degat;
   joueur.attacked = playerInfo.attacked;
+  joueur.puissanceBonus = playerInfo.puissanceBonus;
   joueur.setFrictionAir(0.05);
   joueur.setMass(30);
   self.players[playerInfo.arene].add(joueur);
