@@ -257,7 +257,6 @@ function update() {
       if (player.attacked) {
       player.setAlpha(0.5)
       // player.setAngularVelocity(5)
-      this.socket.
       player.attacked = false;
       }
 
@@ -326,9 +325,9 @@ function update() {
                   var distance = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone.x, y: fontainezone.y});
                   var distance2 = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone2.x, y: fontainezone2.y});
                   if (distance < 530 && distance < 540) {
-                    events.emit('changement-vie-equipe', "B", puissance)
+                    events.emit('changement-vie-equipe', "B", puissance + puissanceBonus)
                   } else if (distance2 < 530 && distance2 < 540) {
-                    events.emit('changement-vie-equipe', "A", puissance)
+                    events.emit('changement-vie-equipe', "A", puissance + puissanceBonus)
                   }
                   count = false;
                 }
