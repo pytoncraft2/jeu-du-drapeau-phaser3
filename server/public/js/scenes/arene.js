@@ -366,7 +366,6 @@ const Arene = new Phaser.Class({
     this.specialKeyPressed = this.input.keyboard.addKey('R');
     this.special2KeyPressed = this.input.keyboard.addKey('T');
     this.aKeyPressed = this.input.keyboard.addKey('A');
-    this.tKeyPressed = this.input.keyboard.addKey('T');
     this.cKeyPressed = this.input.keyboard.addKey('CTRL');
     this.cursors = this.input.keyboard.createCursorKeys();
     console.log("CURSOR");
@@ -378,7 +377,6 @@ const Arene = new Phaser.Class({
     this.spaceKeyPressed = false;
     this.cKey = false;
     this.aKey = false;
-    this.tKey = false;
     this.zKey = false;
 
     this.matter.add.mouseSpring();
