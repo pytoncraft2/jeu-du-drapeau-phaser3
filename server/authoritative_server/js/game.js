@@ -130,14 +130,14 @@ function create() {
    */
 
   var socleJoueur = self.matter.add.gameObject(soclePlatformeGauche);
-  socleJoueur.setIgnoreGravity(true).setStatic(true).setFriction(0).setCollisionGroup(1).setCollidesWith([CATEGORIE_JOUEUR])
+  socleJoueur.setIgnoreGravity(true).setStatic(true).setFriction(0).setCollisionGroup(2).setCollidesWith([CATEGORIE_JOUEUR, 7, 2])
   var socleJoueur2 = self.matter.add.gameObject(socleToitGauche);
-  socleJoueur2.setIgnoreGravity(true).setStatic(true).setFriction(0).setCollisionGroup(1).setCollidesWith([CATEGORIE_JOUEUR])
+  socleJoueur2.setIgnoreGravity(true).setStatic(true).setFriction(0).setCollisionGroup(2).setCollidesWith([CATEGORIE_JOUEUR, 7, 2])
 
   var socleJoueur3 = self.matter.add.gameObject(soclePlatformeDroit);
-  socleJoueur3.setIgnoreGravity(true).setStatic(true).setFriction(0).setCollisionGroup(1).setCollidesWith([CATEGORIE_JOUEUR])
+  socleJoueur3.setIgnoreGravity(true).setStatic(true).setFriction(0).setCollisionGroup(2).setCollidesWith([CATEGORIE_JOUEUR, 7, 2])
   var socleJoueur4 = self.matter.add.gameObject(socleToitDroit);
-  socleJoueur4.setIgnoreGravity(true).setStatic(true).setFriction(0).setCollisionGroup(1).setCollidesWith([CATEGORIE_JOUEUR])
+  socleJoueur4.setIgnoreGravity(true).setStatic(true).setFriction(0).setCollisionGroup(2).setCollidesWith([CATEGORIE_JOUEUR, 7, 2])
 
 this.platformeGaucheCollision.addMultiple([soclePlatformeGauche, socleToitGauche]);
 this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit]);
@@ -147,7 +147,7 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
   self.room = ""
 
   let tobogan = this.add.zone(3500, -500, 210, 210).setSize(3246, 40)
-  var socleTobogan = self.matter.add.gameObject(tobogan).setStatic(true).setIgnoreGravity(true).setAngle(-26).setFriction(0).setCollisionGroup(2).setCollidesWith([CATEGORIE_JOUEUR]);
+  var socleTobogan = self.matter.add.gameObject(tobogan).setStatic(true).setIgnoreGravity(true).setAngle(-26).setFriction(0).setCollisionGroup(2).setCollidesWith([7]);
 
 
   this.bullet = this.matter.add.image(1210, -400, 'bullet', null, { ignoreGravity: true });
@@ -283,8 +283,9 @@ function update() {
 
         // player.setCollisionGroup(CATEGORIE_JOUEUR)
         player.setAlpha(0.1)
-        player.body.collisionFilter.group = 7
-        player.body.collisionFilter.mask = Phaser.Math.Between(1, 9)
+        player.body.collisionFilter.group = CATEGORIE_PLATFORME
+        // player.body.collisionFilter.mask = 0
+        player.setCollidesWith([2, 7])
         input.special2 = false;
       }
 
@@ -550,7 +551,7 @@ function handlePlayerInput(self, playerId, arene, input) {
 }
 
 function addPlayer(self, playerInfo) {
-  const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, playerInfo.atlas, 'face1').setDisplaySize(127, 368.22).setAlpha(0).setCollisionGroup(CATEGORIE_JOUEUR).setCollidesWith(1);
+  const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, playerInfo.atlas, 'face1').setDisplaySize(127, 368.22).setAlpha(0).setCollisionGroup(CATEGORIE_JOUEUR).setCollidesWith(2);
   joueur.playerId = playerInfo.playerId;
   joueur.arene = playerInfo.arene;
   joueur.equipe = playerInfo.equipe;
