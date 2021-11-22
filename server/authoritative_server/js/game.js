@@ -525,6 +525,7 @@ function finDeVie(id) {
 
   let x = joueur.equipe == "A" ? -379 : 7000
   let y = joueur.equipe == "A" ? 137 : -1553
+  joueur.setCollisionGroup(6).setCollidesWith(4)
 
 
   io.to("Naruto").emit("fin_de_vie", id, joueur.vie);
@@ -535,7 +536,7 @@ function finDeVie(id) {
       y: { value: y, delay: 1000, duration: 1500, ease: 'Power2' },
       x: { value: x, delay: 1000, duration: 1500, ease: 'Power2'},
     },
-   onComplete: () => (joueur.setAlpha(1)),
+   onComplete: () => joueur.setAlpha(1).setCollisionGroup(CATEGORIE_JOUEUR).setCollidesWith(-1),
     // x: x,
     // y: y,
     // scale: 0,
