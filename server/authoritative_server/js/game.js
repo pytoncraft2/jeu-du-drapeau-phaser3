@@ -263,7 +263,7 @@ function update() {
       if (input.special2) {
         var invisible = true;
         this.tweens.addCounter({
-          duration: 10000,
+          duration: 5000,
           onComplete: () => (player.active ? (player.setAlpha(1), player.ombre.setAlpha(1)) : null, invisible = false)
         })
         this.tweens.add({
