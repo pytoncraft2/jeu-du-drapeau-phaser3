@@ -221,10 +221,8 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
 
 
       socket.on('playerInput', function(inputData) {
-        // console.log(inputData);
         handlePlayerInput(self, socket.id, socket.room, inputData);
       });
-
 
     });
 
@@ -233,27 +231,14 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
 
   this.matter.world.on('collisionstart', function (event) {
     if (event.pairs[0].bodyB.gameObject.equipe && event.pairs[0].bodyA.gameObject.equipe) {
-      console.log("VIE B");
       console.log(event.pairs[0].bodyB.gameObject.vie);
-      console.log("VIE A");
       if (event.pairs[0].bodyA.gameObject.vie > 0) {
         this.events.emit('changement-vie', event.pairs[0].bodyA.gameObject.playerId)
       } else {
         this.events.emit('fin-de-vie', event.pairs[0].bodyA.gameObject.playerId)
       }
     }
-    // if (event.pairs[0].bodyB.gameObject.equipe != event.pairs[0].bodyA.gameObject.equipe) {
-    //   this.events.emit('changement-vie', event.pairs[0].bodyA.gameObject.playerId)
-    // }
-    // if (event.pairs[0].bodyB.gameObject.texture.key == "enemy") {
-  	// if (event.pairs[0].bodyA.gameObject){
-  //   // if (event.pairs[0].bodyB.gameObject.texture.key == "enemy") {
-  //   //
-  //   //  }
-  //   // }
-    // console.log("COLISION");
 	},this)
-
 
 }
 
@@ -281,20 +266,13 @@ function update() {
           duration: 10000,
           onComplete: () => (player.active ? player.setAlpha(1) : null, invisible = false)
         })
-
-        // player.setCollisionGroup(CATEGORIE_JOUEUR)
-        // player.setAlpha(0.1)
-        // player.body.collisionFilter.group = CATEGORIE_JOUEUR
-        // player.body.collisionFilter.mask = 7
-        // player.setCollidesWith(2)
-        // player.setIgnoreGravity(true)
+        player.setAlpha(0)
         input.special2 = false;
       }
 
 
       if (player.attacked) {
       player.setAlpha(0.5)
-      // player.setAngularVelocity(5)
       player.attacked = false;
       }
 
@@ -491,6 +469,13 @@ function update() {
 
 }
 
+/**
+ * DIMINUTION VIE EQUIPE SELON LA PUISSANCE DE L'ATTAQUE DU JOUEUR
+ * @param  {[type]} equipe    [description]
+ * @param  {[type]} puissance [description]
+ * @return {[type]}           [description]
+ */
+
 function changementVieEquipe(equipe, puissance) {
   this.vieEquipe[equipe] -= puissance * 10;
   if (this.vieEquipe[equipe] <= 0) {
@@ -500,29 +485,33 @@ function changementVieEquipe(equipe, puissance) {
   this.vieEquipe["B"] = 100;
   }
 
-
   io.to("Naruto").emit("changement_vie_equipe", equipe, this.vieEquipe[equipe]);
 }
 
 
+/**
+ * DIMINUTION VIE DU JOUEUR: NOMBRE DE VIE -1
+ * @param  {[type]} id [description]
+ * @return {[type]}    [description]
+ */
+
 function changementVie(id) {
   let joueur = this.players["Naruto"].getMatching("playerId", id)[0]
   joueur.vie -= 1;
-  // this.vieEquipe[equipe] -= puissance * 10;
   io.to("Naruto").emit("changement_vie", id, joueur.vie);
 }
 
 
+/**
+ * REMISE A 5 DE LA VIE DU JOUEUR
+ * RESPAWN AVEC ANIMATION
+ * @param  {[type]} id [description]
+ * @return {[type]}    [description]
+ */
+
 function finDeVie(id) {
   let joueur = this.players["Naruto"].getMatching("playerId", id)[0]
   joueur.vie = 5;
-  // joueur.setAngularVelocity(10)
-  // joueur.setScale(0.1)
-  // joueur.setActive(false)
-  // joueur.setCollisionGroup(1)
-  // joueur.setCollidesWith(0)
-
-
   let x = joueur.equipe == "A" ? -379 : 7000
   let y = joueur.equipe == "A" ? 137 : -1553
   joueur.setCollisionGroup(6).setCollidesWith(4)
@@ -537,15 +526,8 @@ function finDeVie(id) {
       x: { value: x, delay: 1000, duration: 1500, ease: 'Power2'},
     },
    onComplete: () => joueur.setAlpha(1).setCollisionGroup(CATEGORIE_JOUEUR).setCollidesWith(-1),
-    // x: x,
-    // y: y,
-    // scale: 0,
-    // duration:0,
-    // onComplete: () => (joueur.setScale(0.4), joueur.setCollidesWith(0), joueur.setCollisionGroup(-1)),
     ease: 'Sine.easeInOut'
   });
-
-  // this.vieEquipe[equipe] -= puissance * 10;
 }
 
 
