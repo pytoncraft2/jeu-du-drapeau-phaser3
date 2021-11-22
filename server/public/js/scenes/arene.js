@@ -626,6 +626,8 @@ setVieEquipeB: function(value) {
     joueur.equipe = playerInfo.equipe;
     joueur.vieEquipe = playerInfo.vieEquipe;
     joueur.vie = playerInfo.vie;
+    alert(joueur.displayWidth)
+    alert(joueur.displayHeight)
     // -710, -330
 
     self.setVieEquipeA(playerInfo.vieEquipe["A"])
