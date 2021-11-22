@@ -530,8 +530,13 @@ function finDeVie(id) {
   io.to("Naruto").emit("fin_de_vie", id, joueur.vie);
   this.tweens.add({
     targets: joueur,
-    x: x,
-    y: y,
+    props: {
+    scale: { value: 0.1, duration: 4000, ease: 'Power2' },
+    y: { value: y, delay: 4000, duration: 1500, ease: 'Bounce.easeOut' },
+    x: { value: x, delay: 4000, duration: 1500, ease: 'Bounce.easeOut' }
+  },
+    // x: x,
+    // y: y,
     // scale: 0,
     duration:0,
     // onComplete: () => (joueur.setScale(0.4), joueur.setCollidesWith(0), joueur.setCollisionGroup(-1)),
@@ -584,7 +589,7 @@ function addPlayer(self, playerInfo) {
 
 function removePlayer(self, playerId, arene) {
   self.players[arene].getChildren().forEach((player) => {
-    if (playerId === player.playerId) player.destroy()
+    if (playerId === player.playerId) player.destroy(true)
   });
 }
 
