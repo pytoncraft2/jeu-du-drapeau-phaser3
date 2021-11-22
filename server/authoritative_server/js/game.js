@@ -130,14 +130,14 @@ function create() {
    */
 
   var socleJoueur = self.matter.add.gameObject(soclePlatformeGauche);
-  socleJoueur.setIgnoreGravity(true).setStatic(true).setFriction(0).setCollisionGroup(2).setCollidesWith([CATEGORIE_JOUEUR, 7, 2])
+  socleJoueur.setIgnoreGravity(true).setStatic(true).setFriction(0).setCollisionGroup(2).setCollidesWith(CATEGORIE_JOUEUR)
   var socleJoueur2 = self.matter.add.gameObject(socleToitGauche);
-  socleJoueur2.setIgnoreGravity(true).setStatic(true).setFriction(0).setCollisionGroup(2).setCollidesWith([CATEGORIE_JOUEUR, 7, 2])
+  socleJoueur2.setIgnoreGravity(true).setStatic(true).setFriction(0).setCollisionGroup(2).setCollidesWith(CATEGORIE_JOUEUR)
 
   var socleJoueur3 = self.matter.add.gameObject(soclePlatformeDroit);
-  socleJoueur3.setIgnoreGravity(true).setStatic(true).setFriction(0).setCollisionGroup(2).setCollidesWith([CATEGORIE_JOUEUR, 7, 2])
+  socleJoueur3.setIgnoreGravity(true).setStatic(true).setFriction(0).setCollisionGroup(2).setCollidesWith(CATEGORIE_JOUEUR)
   var socleJoueur4 = self.matter.add.gameObject(socleToitDroit);
-  socleJoueur4.setIgnoreGravity(true).setStatic(true).setFriction(0).setCollisionGroup(2).setCollidesWith([CATEGORIE_JOUEUR, 7, 2])
+  socleJoueur4.setIgnoreGravity(true).setStatic(true).setFriction(0).setCollisionGroup(2).setCollidesWith(CATEGORIE_JOUEUR)
 
 this.platformeGaucheCollision.addMultiple([soclePlatformeGauche, socleToitGauche]);
 this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit]);
@@ -267,7 +267,7 @@ function update() {
       if (input.special) {
         this.tweens.addCounter({
           duration: 10000,
-          onComplete: () => (player.setScale(0.38), player.puissanceBonus = 0)
+          onComplete: () => (player.active ? player.setScale(0.38) : null, player.puissanceBonus = 0)
         })
 
         player.setScale(0.8)
@@ -276,16 +276,18 @@ function update() {
       }
 
       if (input.special2) {
+        var invisible = true;
         this.tweens.addCounter({
           duration: 10000,
-          onComplete: () => (player.body.collisionFilter.mask = 1, player.body.collisionFilter.group = CATEGORIE_JOUEUR, player.setAlpha(1))
+          onComplete: () => (player.active ? player.setAlpha(1) : null, invisible = false)
         })
 
         // player.setCollisionGroup(CATEGORIE_JOUEUR)
-        player.setAlpha(0.1)
-        player.body.collisionFilter.group = CATEGORIE_PLATFORME
-        // player.body.collisionFilter.mask = 0
-        player.setCollidesWith([2, 7])
+        // player.setAlpha(0.1)
+        // player.body.collisionFilter.group = CATEGORIE_JOUEUR
+        // player.body.collisionFilter.mask = 7
+        // player.setCollidesWith(2)
+        // player.setIgnoreGravity(true)
         input.special2 = false;
       }
 
@@ -356,6 +358,7 @@ function update() {
             duration: 500,
             onUpdateParams: [ this.events ],
             onUpdate: function functionName(tween, targets, events) {
+              if (player.active) {
               if (player.anims.getFrameName() == "attack4") {
                 if (count) {
                   var distance = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone.x, y: fontainezone.y});
@@ -368,6 +371,7 @@ function update() {
                   count = false;
                 }
               }
+            }
             }
           })
         }
@@ -551,7 +555,7 @@ function handlePlayerInput(self, playerId, arene, input) {
 }
 
 function addPlayer(self, playerInfo) {
-  const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, playerInfo.atlas, 'face1').setDisplaySize(127, 368.22).setAlpha(0).setCollisionGroup(CATEGORIE_JOUEUR).setCollidesWith(2);
+  const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, playerInfo.atlas, 'face1').setDisplaySize(127, 368.22).setAlpha(0);
   joueur.playerId = playerInfo.playerId;
   joueur.arene = playerInfo.arene;
   joueur.equipe = playerInfo.equipe;
