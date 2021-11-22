@@ -531,17 +531,15 @@ function finDeVie(id) {
   this.tweens.add({
     targets: joueur,
     props: {
-    displayWidth: { value: 10, duration: 4000, ease: 'Power2' },
-    displayHeight: { value: 10, duration: 4000, ease: 'Power2' },
-    y: { value: y, delay: 4000, duration: 1500, ease: 'Power2' },
-    x: { value: x, delay: 4000, duration: 1500, ease: 'Power2'},
-
-  },
-   onComplete: () => (joueur.displayWidth = 127.3, joueur.displayHeight = 368.22),
+      alpha: {value: 0.1, duration: 1000},
+      y: { value: y, delay: 1000, duration: 1500, ease: 'Power2' },
+      x: { value: x, delay: 1000, duration: 1500, ease: 'Power2'},
+    },
+   onComplete: () => (joueur.setAlpha(1)),
     // x: x,
     // y: y,
     // scale: 0,
-    duration:0,
+    // duration:0,
     // onComplete: () => (joueur.setScale(0.4), joueur.setCollidesWith(0), joueur.setCollisionGroup(-1)),
     ease: 'Sine.easeInOut'
   });
