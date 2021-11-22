@@ -235,6 +235,7 @@ const Arene = new Phaser.Class({
             player.setFlipX(players[id].flipX);
             player.setAlpha(players[id].alpha);
             player.ombre.x = players[id].ombreX;
+            player.ombre.setAlpha(players[id].ombreAlpha);
             player.ombre.setScale(players[id].ombreScale);
             // if (players[id].anims) {
             // player.play(players[id].anims);

@@ -264,9 +264,10 @@ function update() {
         var invisible = true;
         this.tweens.addCounter({
           duration: 10000,
-          onComplete: () => (player.active ? player.setAlpha(1) : null, invisible = false)
+          onComplete: () => (player.active ? (player.setAlpha(1), player.ombre.setAlpha(1)) : null, invisible = false)
         })
         player.setAlpha(0)
+        player.ombre.setAlpha(0)
         input.special2 = false;
       }
 
@@ -452,6 +453,7 @@ function update() {
       players[player.arene][player.playerId].alpha = player.alpha;
       players[player.arene][player.playerId].ombreX = player.ombre.x;
       players[player.arene][player.playerId].ombreScale = player.ombre.scale;
+      players[player.arene][player.playerId].ombreAlpha = player.ombre.alpha;
       players[player.arene][player.playerId].bulletX = this.bullet.x;
       players[player.arene][player.playerId].bulletY = this.bullet.y;
       players[player.arene][player.playerId].rotation = player.rotation;
