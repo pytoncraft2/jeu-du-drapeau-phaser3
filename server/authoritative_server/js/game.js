@@ -266,7 +266,12 @@ function update() {
           duration: 10000,
           onComplete: () => (player.active ? (player.setAlpha(1), player.ombre.setAlpha(1)) : null, invisible = false)
         })
-        player.setAlpha(0)
+        this.tweens.add({
+          targets: player,
+          alpha: 0,
+          duration: 500
+        })
+        // player.setAlpha(0)
         player.ombre.setAlpha(0)
         input.special2 = false;
       }
