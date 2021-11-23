@@ -15,7 +15,7 @@ const config = {
       matter: {
         debug: false,
         gravity: {
-          y: 3,
+          y: 6,
         },
       }
 
@@ -336,7 +336,7 @@ function update() {
           }
         }
         if (input.ctrl) {
-          player.angle += 8
+          player.angle += 20
           input.ctrl = false;
         }
       } else if (input.left) {
@@ -351,7 +351,7 @@ function update() {
           }
         }
         if (input.ctrl) {
-          player.angle -= 8
+          player.angle -= 20
           input.ctrl = false;
         }
       }
