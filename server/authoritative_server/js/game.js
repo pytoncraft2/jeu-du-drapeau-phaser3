@@ -109,7 +109,7 @@ function create() {
   this.platformeDroiteCollision = this.add.group();
   this.groupeBullets = this.add.group();
   this.canon1 = this.add.rectangle(0, -460, 333, 125)
-  fontainezone = this.add.zone(-4670, 20, 210, 210).setSize(640, 613)
+  fontainezone = this.add.zone(-4870, -790, 210, 210).setSize(640, 613)
   fontainezone2 = this.add.zone(8235, -1553, 210, 210).setSize(640, 613)
 
 
@@ -121,7 +121,7 @@ function create() {
   this.events.on('fin-de-vie', finDeVie, this)
 
   //mini socles de gauche + min platforme
-  let baseFontaine = self.add.zone(-4700, 290, 210, 210).setSize(1500, 40);
+  let baseFontaine = self.add.zone(-4820, -490, 210, 210).setSize(1500, 40);
   let plotFontaine1 = self.add.zone(-3300, -490, 210, 210).setSize(300, 40);
   let plotFontaine2 = self.add.zone(-2500, -190, 210, 210).setSize(300, 40);
 
