@@ -326,7 +326,9 @@ const Arene = new Phaser.Class({
 
     let baseFontaine = self.add.zone(-4700, -490, 210, 210).setSize(1500, 40);
 
-    let plotFontaine1 = self.add.zone(-3300, -490, 210, 210).setSize(300, 40);
+    // let plotFontaine1 = self.add.zone(-3300, -490, 210, 210).setSize(300, 40);
+    let miniPlatformeFixGauche = this.add.rectangle(-3300, -490, 210, 210, 0xd4af2b).setSize(300, 40).setOrigin(0.5, 0.5)
+
     let soclePlatformeBas = self.add.zone(-2500, 1800, 210, 210).setSize(3500, 40);
     let plotFontaine2 = self.add.zone(-2500, -190, 210, 210).setSize(300, 40);
   // let socleToitGauche = self.add.zone(-120, -253, 210, 210).setSize(1631, 40);
@@ -339,7 +341,7 @@ const Arene = new Phaser.Class({
       // socleJoueur
       var socleFontaineJoueur = self.matter.add.gameObject(baseFontaine).setIgnoreGravity(true).setStatic(true).setFriction(0);
       this.plots2 = this.add.rectangle(-2500, -190, 210, 210, 0xd4af2b).setSize(300, 40).setOrigin(0.5, 0.5)
-      var plots1 = self.matter.add.gameObject(plotFontaine1).setIgnoreGravity(true).setStatic(true).setFriction(0);
+      // var plots1 = self.matter.add.gameObject(plotFontaine1).setIgnoreGravity(true).setStatic(true).setFriction(0);
       // this.plots2 = self.matter.add.gameObject(plotFontaine2).setIgnoreGravity(true).setStatic(true).setFriction(0);
       var platformeBas = self.matter.add.gameObject(soclePlatformeBas).setIgnoreGravity(true).setStatic(true).setFriction(0);
 
