@@ -88,7 +88,7 @@ const BootScene = new Phaser.Class({
     // this.load.atlas('dessinatrice1', 'assets0/personnages/dessinatrice1/dessinatrice1.png', 'assets/personnages/dessinatrice1/dessinatrice1_atlas.json');
     this.load.atlas('dessinatrice1', 'assets/personnages/dessinatrice1/dessinatrice1.png', 'assets/personnages/dessinatrice1/dessinatrice1_atlas.json');
 
-    // this.load.image('barrel', 'assets0/barrel.png')
+    this.load.image('tonneau', 'assets0/barrel.png')
     // this.load.image('profilPanel', 'assets0/liveProfilPanel.png');
     this.load.image('portal', 'assets0/portal.png');
     this.load.image('bullet', 'assets0/bullet.png');
