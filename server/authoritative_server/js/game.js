@@ -122,8 +122,8 @@ function create() {
 
   //mini socles de gauche + min platforme
   let baseFontaine = self.add.zone(-4700, 290, 210, 210).setSize(1500, 40);
-  let plotFontaine1 = self.add.zone(-3300, 290, 210, 210).setSize(300, 40);
-  let plotFontaine2 = self.add.zone(-2500, 290, 210, 210).setSize(300, 40);
+  let plotFontaine1 = self.add.zone(-3300, -490, 210, 210).setSize(300, 40);
+  let plotFontaine2 = self.add.zone(-2500, -190, 210, 210).setSize(300, 40);
 
   //platforme principal
   let soclePlatformeGauche = self.add.zone(0, 327, 210, 210).setSize(3500, 40);

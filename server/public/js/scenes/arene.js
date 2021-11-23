@@ -278,7 +278,7 @@ const Arene = new Phaser.Class({
     let platforme1 = this.add.image(0, 290, 'platforme').setDepth(-2)
     let facade1 = this.add.image(-135, 106, 'facade').setDepth(1).setAlpha(0.4)
     let toit1 = this.add.image(-135, -245, 'plafond').setDepth(2)
-    let fontaine1 = this.add.image(-4670, 20, 'fontaine').setDepth(2)
+    let fontaine1 = this.add.image(-4870, 20, 'fontaine').setDepth(2)
     // console.log(fontaine1.displayWidth); //640
     // console.log(fontaine1.displayHeight); //613
     // this.fontainezone = this.add.zone(-1370, 137, 210, 210).setSize(640, 613)
@@ -315,10 +315,13 @@ const Arene = new Phaser.Class({
 
 
     let soclePlatformeGauche = self.add.zone(1400, 1927, 210, 210).setSize(3500, 40);
+    let platformeSocleGaucheImage = this.add.image(-4820, 290, 'platforme').setDepth(-2)
+    platformeSocleGaucheImage.displayWidth = platformeSocleGaucheImage.displayWidth / 2
+
     let baseFontaine = self.add.zone(-4700, 290, 210, 210).setSize(1500, 40);
 
-    let plotFontaine1 = self.add.zone(-3300, 290, 210, 210).setSize(300, 40);
-    let plotFontaine2 = self.add.zone(-2500, 290, 210, 210).setSize(300, 40);
+    let plotFontaine1 = self.add.zone(-3300, -490, 210, 210).setSize(300, 40);
+    let plotFontaine2 = self.add.zone(-2500, -190, 210, 210).setSize(300, 40);
   // let socleToitGauche = self.add.zone(-120, -253, 210, 210).setSize(1631, 40);
     // let soclePlatformeDroit = self.add.zone(7000, -1363, 210, 210).setSize(3500, 40);
     // let socleToitDroit = self.add.zone(7000, -1943, 210, 210).setSize(1631, 40);
