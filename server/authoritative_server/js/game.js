@@ -15,7 +15,7 @@ const config = {
       matter: {
         debug: false,
         gravity: {
-          y: 7,
+          y: 3,
         },
       }
 
@@ -150,7 +150,7 @@ function create() {
 
       var socleFontaineJoueur = self.matter.add.gameObject(baseFontaine).setIgnoreGravity(true).setStatic(true).setFriction(0);
       var plots1 = self.matter.add.gameObject(plotFontaine1).setIgnoreGravity(true).setStatic(true).setFriction(0);
-      this.plots2 = self.matter.add.gameObject(plotFontaine2).setIgnoreGravity(true).setStatic(true).setFriction(2);
+      this.plots2 = self.matter.add.gameObject(plotFontaine2).setIgnoreGravity(true).setStatic(true).setFriction(0);
       this.tweens.add({
         targets: this.plots2,
         y: this.plots2.y + 2000,
