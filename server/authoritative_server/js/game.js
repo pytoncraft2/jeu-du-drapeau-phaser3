@@ -276,6 +276,16 @@ function update() {
         input.special2 = false;
       }
 
+      if (input.special3) {
+        this.tweens.addCounter({
+          duration: 3000,
+          onComplete: () => (player.active ? (player.setRotation(0)) : null)
+        })
+        player.setAngularVelocity(1)
+        input.special3 = false;
+      }
+
+
 
       if (player.attacked) {
       player.setAlpha(0.5)
@@ -532,7 +542,7 @@ function finDeVie(id) {
       y: { value: y, delay: 1000, duration: 1500, ease: 'Power2' },
       x: { value: x, delay: 1000, duration: 1500, ease: 'Power2'},
     },
-   onComplete: () => joueur.setAlpha(1).setCollisionGroup(CATEGORIE_JOUEUR).setCollidesWith(-1),
+   onComplete: () => joueur.setAlpha(1).setCollisionGroup(CATEGORIE_JOUEUR).setCollidesWith(-1).setRotation(0),
     ease: 'Sine.easeInOut'
   });
 }
