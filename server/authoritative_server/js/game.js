@@ -230,14 +230,36 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
 
 
   this.matter.world.on('collisionstart', function (event) {
-    if (event.pairs[0].bodyB.gameObject.equipe && event.pairs[0].bodyA.gameObject.equipe) {
-      console.log(event.pairs[0].bodyB.gameObject.vie);
+    // if (event.pairs[0].bodyB.gameObject.equipe && event.pairs[0].bodyA.gameObject.equipe) {
+      // console.log(event.pairs[0].bodyB.gameObject.vie);
+      // if (event.pairs[0].bodyA.gameObject.vie > 0) {
+        // this.events.emit('changement-vie', event.pairs[0].bodyA.gameObject.playerId)
+      // } else {
+        // this.events.emit('fin-de-vie', event.pairs[0].bodyA.gameObject.playerId)
+      // }
+
+      console.log("TYPE a");
+        console.log(event.pairs[0].bodyA.gameObject.type);
+
+      console.log("TYPE b");
+        console.log(event.pairs[0].bodyB.gameObject.type);
+      if (event.pairs[0].bodyA.gameObject.type == "boulet" && event.pairs[0].bodyB.gameObject.equipe) {
+
+      if (event.pairs[0].bodyB.gameObject.vie > 0) {
+        this.events.emit('changement-vie', event.pairs[0].bodyB.gameObject.playerId)
+      } else {
+        this.events.emit('fin-de-vie', event.pairs[0].bodyB.gameObject.playerId)
+      }
+
+    } else if (event.pairs[0].bodyB.gameObject.type == "boulet" && event.pairs[0].bodyA.gameObject.equipe) {
+
       if (event.pairs[0].bodyA.gameObject.vie > 0) {
         this.events.emit('changement-vie', event.pairs[0].bodyA.gameObject.playerId)
       } else {
         this.events.emit('fin-de-vie', event.pairs[0].bodyA.gameObject.playerId)
       }
-    }
+      }
+    // }
 	},this)
 
 }
@@ -416,6 +438,8 @@ function update() {
       if (distCanon < 106 && distCanon < 121) {
         input.canonMaintenu = false;
         this.bulletCanon = this.matter.add.image(this.canon1.x, this.canon1.y + 20, 'bullet').setCircle().setIgnoreGravity(true).setBounce(1.6)
+        // console.log(this.bulletCanon);
+        this.bulletCanon.type = "boulet";
         this.charge = this.tweens.add({
           targets: this.bulletCanon,
           scale: 4,
