@@ -325,10 +325,10 @@ const Arene = new Phaser.Class({
 
 
 
-      var socleJoueur = self.matter.add.gameObject(soclePlatformeGauche);
-      var socleFontaineJoueur = self.matter.add.gameObject(baseFontaine);
-      var plots1 = self.matter.add.gameObject(plotFontaine1);
-      var plots3 = self.matter.add.gameObject(plotFontaine2);
+      var socleJoueur = self.matter.add.gameObject(soclePlatformeGauche).setIgnoreGravity(true).setStatic(true).setFriction(0);
+      var socleFontaineJoueur = self.matter.add.gameObject(baseFontaine).setIgnoreGravity(true).setStatic(true).setFriction(0);
+      var plots1 = self.matter.add.gameObject(plotFontaine1).setIgnoreGravity(true).setStatic(true).setFriction(0);
+      var plots3 = self.matter.add.gameObject(plotFontaine2).setIgnoreGravity(true).setStatic(true).setFriction(0);
       this.matter.add.mouseSpring();
 
       this.input.on('pointermove', listener)

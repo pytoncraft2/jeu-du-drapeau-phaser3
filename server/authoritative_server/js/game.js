@@ -113,11 +113,19 @@ function create() {
   fontainezone2 = this.add.zone(8235, -1553, 210, 210).setSize(640, 613)
 
 
+
+
   this.events = new Phaser.Events.EventEmitter()
   this.events.on('changement-vie-equipe', changementVieEquipe, this)
   this.events.on('changement-vie', changementVie, this)
   this.events.on('fin-de-vie', finDeVie, this)
 
+  //mini socles de gauche + min platforme
+  let baseFontaine = self.add.zone(-4700, 290, 210, 210).setSize(1500, 40);
+  let plotFontaine1 = self.add.zone(-3300, 290, 210, 210).setSize(300, 40);
+  let plotFontaine2 = self.add.zone(-2500, 290, 210, 210).setSize(300, 40);
+
+  //platforme principal
   let soclePlatformeGauche = self.add.zone(0, 327, 210, 210).setSize(3500, 40);
   let socleToitGauche = self.add.zone(-120, -253, 210, 210).setSize(1631, 40);
   let soclePlatformeDroit = self.add.zone(7000, -1363, 210, 210).setSize(3500, 40);
@@ -138,6 +146,12 @@ function create() {
   socleJoueur3.setIgnoreGravity(true).setStatic(true).setFriction(0).setCollisionGroup(2).setCollidesWith(CATEGORIE_JOUEUR)
   var socleJoueur4 = self.matter.add.gameObject(socleToitDroit);
   socleJoueur4.setIgnoreGravity(true).setStatic(true).setFriction(0).setCollisionGroup(2).setCollidesWith(CATEGORIE_JOUEUR)
+
+
+      var socleFontaineJoueur = self.matter.add.gameObject(baseFontaine).setIgnoreGravity(true).setStatic(true).setFriction(0);
+      var plots1 = self.matter.add.gameObject(plotFontaine1).setIgnoreGravity(true).setStatic(true).setFriction(0);
+      var plots3 = self.matter.add.gameObject(plotFontaine2).setIgnoreGravity(true).setStatic(true).setFriction(0);
+
 
 this.platformeGaucheCollision.addMultiple([soclePlatformeGauche, socleToitGauche]);
 this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit]);
