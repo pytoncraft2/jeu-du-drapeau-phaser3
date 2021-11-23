@@ -338,8 +338,9 @@ const Arene = new Phaser.Class({
       var socleMicroPlatforme = self.matter.add.gameObject(microPlatforme).setIgnoreGravity(true).setStatic(true).setFriction(0);
       // socleJoueur
       var socleFontaineJoueur = self.matter.add.gameObject(baseFontaine).setIgnoreGravity(true).setStatic(true).setFriction(0);
+      this.plots2 = this.add.rectangle(-2500, -190, 210, 210, 0xd4af2b).setSize(300, 40).setOrigin(0.5, 0.5)
       var plots1 = self.matter.add.gameObject(plotFontaine1).setIgnoreGravity(true).setStatic(true).setFriction(0);
-      this.plots2 = self.matter.add.gameObject(plotFontaine2).setIgnoreGravity(true).setStatic(true).setFriction(0);
+      // this.plots2 = self.matter.add.gameObject(plotFontaine2).setIgnoreGravity(true).setStatic(true).setFriction(0);
       var platformeBas = self.matter.add.gameObject(soclePlatformeBas).setIgnoreGravity(true).setStatic(true).setFriction(0);
 
 
