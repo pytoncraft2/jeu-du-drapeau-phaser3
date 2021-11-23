@@ -415,7 +415,13 @@ function update() {
       console.log(distCanon);
       if (distCanon < 106 && distCanon < 121) {
         input.canonMaintenu = false;
-        this.bulletCanon = this.groupeBullets.create(this.canon1.x, this.canon1.y + 20, 'bullet').setScale(0.2).setDepth(100);
+        // this.bulletCanon = this.groupeBullets.create(this.canon1.x, this.canon1.y + 20, 'bullet').setScale(0.2).setDepth(100).setCircle();
+        this.bulletCanon = this.matter.add.image(this.canon1.x, this.canon1.y + 20, 'bullet').setCircle()
+//         ball.setCircle();
+// ball.setFriction(0.005);
+// ball.setBounce(0.6);
+// ball.setVelocityX(1);
+// ball.setAngularVelocity(0.15);
         this.charge = this.tweens.add({
           targets: this.bulletCanon,
           scale: 4,
@@ -437,7 +443,7 @@ function update() {
         x: this.l.x2,
         y: this.l.y2,
         paused: false,
-        duration: 500,
+        duration: 2000,
         repeat: 0,
       });
       }
