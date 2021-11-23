@@ -277,6 +277,8 @@ const Arene = new Phaser.Class({
 
     let canonSocle1 = this.add.image(0, -340, 'canon-socle').setDepth(3)
     let platforme1 = this.add.image(0, 290, 'platforme').setDepth(-2)
+    let platformeZoneTonneaux = this.add.image(-2500, 1790, 'platforme').setDepth(-2)
+
     let facade1 = this.add.image(-135, 106, 'facade').setDepth(1).setAlpha(0.4)
     let toit1 = this.add.image(-135, -245, 'plafond').setDepth(2)
     let fontaine1 = this.add.image(-4870, -790, 'fontaine').setDepth(2)
@@ -325,6 +327,7 @@ const Arene = new Phaser.Class({
     let baseFontaine = self.add.zone(-4700, -490, 210, 210).setSize(1500, 40);
 
     let plotFontaine1 = self.add.zone(-3300, -490, 210, 210).setSize(300, 40);
+    let soclePlatformeBas = self.add.zone(-2500, 1800, 210, 210).setSize(3500, 40);
     let plotFontaine2 = self.add.zone(-2500, -190, 210, 210).setSize(300, 40);
   // let socleToitGauche = self.add.zone(-120, -253, 210, 210).setSize(1631, 40);
     // let soclePlatformeDroit = self.add.zone(7000, -1363, 210, 210).setSize(3500, 40);
@@ -332,11 +335,14 @@ const Arene = new Phaser.Class({
 
 
 
-      var socleJoueur = self.matter.add.gameObject(microPlatforme).setIgnoreGravity(true).setStatic(true).setFriction(0);
+      var socleMicroPlatforme = self.matter.add.gameObject(microPlatforme).setIgnoreGravity(true).setStatic(true).setFriction(0);
       // socleJoueur
       var socleFontaineJoueur = self.matter.add.gameObject(baseFontaine).setIgnoreGravity(true).setStatic(true).setFriction(0);
       var plots1 = self.matter.add.gameObject(plotFontaine1).setIgnoreGravity(true).setStatic(true).setFriction(0);
       this.plots2 = self.matter.add.gameObject(plotFontaine2).setIgnoreGravity(true).setStatic(true).setFriction(0);
+      var platformeBas = self.matter.add.gameObject(soclePlatformeBas).setIgnoreGravity(true).setStatic(true).setFriction(0);
+
+
 
       // this.tweens.add({
       //   targets: this.plots2,

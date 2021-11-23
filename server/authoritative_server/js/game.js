@@ -138,6 +138,12 @@ function create() {
   let soclePlatformeDroit = self.add.zone(7000, -1363, 210, 210).setSize(3500, 40);
   let socleToitDroit = self.add.zone(7000, -1943, 210, 210).setSize(1631, 40);
 
+
+  //platforme bas
+  let soclePlatformeBas = self.add.zone(-2500, 1800, 210, 210).setSize(3500, 40);
+  var platformeBas = self.matter.add.gameObject(soclePlatformeBas);
+  platformeBas.setIgnoreGravity(true).setStatic(true).setFriction(0)
+
   /**
    * COLISION GROUPE
    * 1: platforme
