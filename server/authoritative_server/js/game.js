@@ -115,10 +115,17 @@ function create() {
 
 
 
+
+
   this.events = new Phaser.Events.EventEmitter()
   this.events.on('changement-vie-equipe', changementVieEquipe, this)
   this.events.on('changement-vie', changementVie, this)
   this.events.on('fin-de-vie', finDeVie, this)
+
+  //tobogan mini socles
+  let microPlatforme = self.add.zone(1916, 235, 210, 210).setSize(200, 40);
+  var socleJoueur = self.matter.add.gameObject(microPlatforme).setIgnoreGravity(true).setStatic(true).setFriction(0);
+
 
   //mini socles de gauche + min platforme
   let baseFontaine = self.add.zone(-4820, -490, 210, 210).setSize(1500, 40);

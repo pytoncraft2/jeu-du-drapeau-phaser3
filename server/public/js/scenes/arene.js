@@ -315,7 +315,10 @@ const Arene = new Phaser.Class({
     });
 
 
-    let soclePlatformeGauche = self.add.zone(1400, 1927, 210, 210).setSize(3500, 40);
+    let microPlatforme = self.add.zone(1916, 235, 210, 210).setSize(200, 40);
+    var microPlatformeColore = this.add.rectangle(1916, 321, 210, 210, 0xd4af2b).setSize(200, 40);
+
+
     let platformeSocleGaucheImage = this.add.image(-4820, -490, 'platforme').setDepth(-2)
     platformeSocleGaucheImage.displayWidth = platformeSocleGaucheImage.displayWidth / 2
 
@@ -329,7 +332,8 @@ const Arene = new Phaser.Class({
 
 
 
-      var socleJoueur = self.matter.add.gameObject(soclePlatformeGauche).setIgnoreGravity(true).setStatic(true).setFriction(0);
+      var socleJoueur = self.matter.add.gameObject(microPlatforme).setIgnoreGravity(true).setStatic(true).setFriction(0);
+      // socleJoueur
       var socleFontaineJoueur = self.matter.add.gameObject(baseFontaine).setIgnoreGravity(true).setStatic(true).setFriction(0);
       var plots1 = self.matter.add.gameObject(plotFontaine1).setIgnoreGravity(true).setStatic(true).setFriction(0);
       this.plots2 = self.matter.add.gameObject(plotFontaine2).setIgnoreGravity(true).setStatic(true).setFriction(0);
