@@ -109,7 +109,7 @@ function create() {
   this.platformeDroiteCollision = this.add.group();
   this.groupeBullets = this.add.group();
   this.canon1 = this.add.rectangle(0, -460, 333, 125)
-  fontainezone = this.add.zone(-1370, 137, 210, 210).setSize(640, 613)
+  fontainezone = this.add.zone(-4670, 20, 210, 210).setSize(640, 613)
   fontainezone2 = this.add.zone(8235, -1553, 210, 210).setSize(640, 613)
 
 
