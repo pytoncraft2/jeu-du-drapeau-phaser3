@@ -315,29 +315,29 @@ const Arene = new Phaser.Class({
 
 
     let soclePlatformeGauche = self.add.zone(1400, 1927, 210, 210).setSize(3500, 40);
-    let baseFontaine = self.add.zone(-4800, 290, 210, 210).setSize(1500, 40);
+    let baseFontaine = self.add.zone(-4700, 290, 210, 210).setSize(1500, 40);
 
-    let plotFontaine1 = self.add.zone(-3200, 290, 210, 210).setSize(300, 40);
+    let plotFontaine1 = self.add.zone(-3300, 290, 210, 210).setSize(300, 40);
     let plotFontaine2 = self.add.zone(-2500, 290, 210, 210).setSize(300, 40);
   // let socleToitGauche = self.add.zone(-120, -253, 210, 210).setSize(1631, 40);
     // let soclePlatformeDroit = self.add.zone(7000, -1363, 210, 210).setSize(3500, 40);
     // let socleToitDroit = self.add.zone(7000, -1943, 210, 210).setSize(1631, 40);
 
 
-    var input = this.input;
 
-    input.on('dragstart', function () {
-        input.manager.setCursor({ cursor: 'grabbing' });
-    });
-
-    input.on('dragend', function () {
-        input.manager.resetCursor({ cursor: true });
-    });
       var socleJoueur = self.matter.add.gameObject(soclePlatformeGauche);
       var socleFontaineJoueur = self.matter.add.gameObject(baseFontaine);
       var plots1 = self.matter.add.gameObject(plotFontaine1);
       var plots3 = self.matter.add.gameObject(plotFontaine2);
       this.matter.add.mouseSpring();
+
+      this.input.on('pointermove', listener)
+
+      function listener(e, f) {
+        if (e.isDown) {
+          console.log(e);
+        }
+      }
 
       // socleJoueur.setIgnoreGravity(true).setStatic(true).setFriction(0)
       // var socleJoueur2 = self.matter.add.gameObject(socleToitGauche);
