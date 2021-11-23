@@ -150,17 +150,16 @@ function create() {
 
       var socleFontaineJoueur = self.matter.add.gameObject(baseFontaine).setIgnoreGravity(true).setStatic(true).setFriction(0);
       var plots1 = self.matter.add.gameObject(plotFontaine1).setIgnoreGravity(true).setStatic(true).setFriction(0);
-      var plots2 = self.matter.add.gameObject(plotFontaine2).setIgnoreGravity(true).setStatic(true).setFriction(2);
-
-
+      this.plots2 = self.matter.add.gameObject(plotFontaine2).setIgnoreGravity(true).setStatic(true).setFriction(2);
       this.tweens.add({
-        targets: plots2,
-        y: plots2.y + 2000,
+        targets: this.plots2,
+        y: this.plots2.y + 2000,
         yoyo: true,
         repeat: -1,
         duration: 3000,
         ease: 'Sine.easeInOut'
       });
+
 
 
 this.platformeGaucheCollision.addMultiple([soclePlatformeGauche, socleToitGauche]);
@@ -504,6 +503,7 @@ function update() {
       players[player.arene][player.playerId].bulletY = this.bullet.y;
       players[player.arene][player.playerId].rotation = player.rotation;
 
+      players[player.arene][player.playerId].socleMouventY = this.plots2.y
 
       if (this.bulletCanon) {
         players[player.arene][player.playerId].bulletCanonY = this.bulletCanon.y
