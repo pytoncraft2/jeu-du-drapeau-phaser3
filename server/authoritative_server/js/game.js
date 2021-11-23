@@ -15,7 +15,7 @@ const config = {
       matter: {
         debug: false,
         gravity: {
-          y: 3,
+          y: 7,
         },
       }
 
