@@ -335,6 +335,10 @@ function update() {
             player.play("idle_walk", true)
           }
         }
+        if (input.ctrl) {
+          player.angle += 8
+          input.ctrl = false;
+        }
       } else if (input.left) {
         if (input.walk) {
           player.thrustBack(0.1)
@@ -345,6 +349,10 @@ function update() {
           if (player.body.speed < 1.5) {
           player.play("idle_walk", true)
           }
+        }
+        if (input.ctrl) {
+          player.angle -= 8
+          input.ctrl = false;
         }
       }
 
