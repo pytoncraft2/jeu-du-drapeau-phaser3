@@ -278,7 +278,7 @@ function update() {
 
       if (input.special3) {
         this.tweens.addCounter({
-          duration: 3000,
+          duration: 2000,
           onComplete: () => (player.active ? (player.setRotation(0)) : null)
         })
         player.setAngularVelocity(1)
