@@ -113,8 +113,7 @@ function create() {
   fontainezone = this.add.zone(-4870, -790, 210, 210).setSize(640, 613)
   fontainezone2 = this.add.zone(8235, -1553, 210, 210).setSize(640, 613)
 
-  this.tonneaux = this.add.group();
-
+this.tonneaux = this.add.group()
 let tonneau1 = this.add.zone(1300, 1700, 210, 210).setSize(162.58, 215.6)
 let tonneau2 = this.add.zone(-1500, 1700, 210, 210).setSize(162.58, 215.6)
 let tonneau3 = this.add.zone(-1700, 1700, 210, 210).setSize(162.58, 215.6)
@@ -137,7 +136,7 @@ t4.setMass(40).setFriction(2).setFrictionAir(0.1)
 
 this.tonneaux.addMultiple([t1, t2, t3, t4])
 
-console.log(this.tonneaux.getChildren());
+// console.log(this.tonneaux.getChildren());
 
 //width 162.58
 //height 215.6
@@ -192,10 +191,10 @@ console.log(this.tonneaux.getChildren());
   socleJoueur4.setIgnoreGravity(true).setStatic(true).setFriction(0).setCollisionGroup(2).setCollidesWith(CATEGORIE_JOUEUR)
 
 
-  let tonneau = this.add.zone(-2000, 1700, 210, 210).setSize(162.58, 215.6)
+  // let tonneau = this.add.zone(-2000, 1700, 210, 210).setSize(162.58, 215.6)
 
-  this.tonneau = self.matter.add.gameObject(tonneau);
-  this.tonneau.setMass(40).setFriction(2).setFrictionAir(0.1)
+  // this.tonneau = self.matter.add.gameObject(tonneau);
+  // this.tonneau.setMass(40).setFriction(2).setFrictionAir(0.1)
 
 
       var socleFontaineJoueur = self.matter.add.gameObject(baseFontaine).setIgnoreGravity(true).setStatic(true).setFriction(0);
@@ -591,9 +590,9 @@ function update() {
       players[player.arene][player.playerId].rotation = player.rotation;
 
       players[player.arene][player.playerId].socleMouventY = this.plots2.y
-      players[player.arene][player.playerId].tonneauX = this.tonneau.x
-      players[player.arene][player.playerId].tonneauY = this.tonneau.y
-      players[player.arene][player.playerId].tonneauAngle = this.tonneau.angle
+      // players[player.arene][player.playerId].tonneauX = this.tonneau.x
+      // players[player.arene][player.playerId].tonneauY = this.tonneau.y
+      // players[player.arene][player.playerId].tonneauAngle = this.tonneau.angle
 
       if (this.bulletCanon) {
         players[player.arene][player.playerId].bulletCanonY = this.bulletCanon.y
