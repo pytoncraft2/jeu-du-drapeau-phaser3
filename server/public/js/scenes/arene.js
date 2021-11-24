@@ -3,6 +3,8 @@ import Animations from './elements/liste-animations.js'
 import Maison from './elements/objets/maison.js'
 
 var gfx
+var group;
+
 
 const Arene = new Phaser.Class({
 
@@ -22,6 +24,32 @@ const Arene = new Phaser.Class({
   },
 
   create: function() {
+    group = this.add.group({
+    defaultKey: 'bullet',
+    bounceX: 1,
+    bounceY: 1,
+    collideWorldBounds: true
+});
+
+group.create(100, 200)
+group.create(500, 200)
+group.create(300, 400)
+group.create(600, 300)
+
+gfx = this.add.graphics();
+
+var cursor = this.add.image(0, 0, 'cursor').setVisible(false);
+
+// Loads the spatial tree
+// this.physics.world.step(0);
+
+this.input.on('pointermove', function (pointer)
+{
+    cursor.setVisible(true).setPosition(pointer.x, pointer.y);
+});
+
+    console.log(Phaser.Physics.Arcade.ArcadePhysics);
+
     this.vieEquipeA = 100
     this.vieEquipeB = 100
     this.lastHealthEquipeA = 100;
@@ -373,6 +401,8 @@ const Arene = new Phaser.Class({
     this.matter.add.mouseSpring();
 
     this.cameras.main.setZoom(0.5);
+    let test = new Phaser.Physics.Arcade.ArcadePhysics(this).closest(this.players.getChildren()[0])
+
 
   },
 
@@ -491,7 +521,18 @@ const Arene = new Phaser.Class({
         walk: true,
         ctrl: this.ctrlKey.isDown
       });
+      // console.log(this.physics.closest(this.players.getChildren()[0]));
+
     }
+    var pointer = this.input.activePointer;
+// var closest = Phaser.Phythis.physics.closest(pointer);
+// var furthest = this.physics.furthest(pointer);
+
+// gfx.clear()
+//     .lineStyle(2, 0xff3300)
+//     .lineBetween(closest.x, closest.y, pointer.x, pointer.y)
+//     .lineStyle(2, 0x0099ff)
+//     .lineBetween(furthest.x, furthest.y, pointer.x, pointer.y);
 
 
     if (Phaser.Input.Keyboard.JustUp(this.cursors.left)) {

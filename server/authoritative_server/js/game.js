@@ -18,8 +18,10 @@ const config = {
         gravity: {
           y: 6,
         },
+      },
+      arcade: {
+        debug: false
       }
-
     }
   },
   autoFocus: false
