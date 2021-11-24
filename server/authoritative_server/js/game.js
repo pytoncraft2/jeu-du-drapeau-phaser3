@@ -322,9 +322,9 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
 function update() {
 
     this.tonneaux.getChildren().forEach((tonneau) => {
-      barils.tonneauX = tonneau.x
-      barils.tonneauY = tonneau.y
-      barils.tonneauAngle = tonneau.angle
+      barils.x = tonneau.x
+      barils.y = tonneau.y
+      barils.angle = tonneau.angle
     });
 
 
@@ -599,7 +599,7 @@ function update() {
       }
 
     });
-    io.to("Naruto").emit("playerUpdates", players["Naruto"]);
+    io.to("Naruto").emit("playerUpdates", players["Naruto"], barils);
 
 }
 

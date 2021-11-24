@@ -96,10 +96,10 @@ const Arene = new Phaser.Class({
         dragX: 800
       });
 
-      this.tonneau1 = this.tonneaux.create(-1300, 1700, 'tonneau').setScale(0.22)
-      this.tonneau2 = this.tonneaux.create(-1500, 1700, 'tonneau').setScale(0.22)
-      this.tonneau3 = this.tonneaux.create(-1700, 1700, 'tonneau').setScale(0.22)
-      this.tonneau4 = this.tonneaux.create(-1900, 1700, 'tonneau').setScale(0.22)
+      this.tonneau1 = this.tonneaux.create(-1300, 1700, 'tonneau').setScale(0.22).setDepth(800)
+      this.tonneau2 = this.tonneaux.create(-1500, 1700, 'tonneau').setScale(0.22).setDepth(800)
+      this.tonneau3 = this.tonneaux.create(-1700, 1700, 'tonneau').setScale(0.22).setDepth(800)
+      this.tonneau4 = this.tonneaux.create(-1900, 1700, 'tonneau').setScale(0.22).setDepth(800)
 
     this.cameras.main.fadeIn(1000);
     gfx = this.add.graphics();
@@ -231,10 +231,23 @@ const Arene = new Phaser.Class({
 
     this.socket.on('playerUpdates', function(players, tonneaux) {
 
-      self.tonneaux.getChildren().forEach(function(tonneau) {
-        tonneau.setPosition(tonneau.x, tonneau.y)
-        tonneau.setAngle(tonneau.angle)
-      })
+      // console.log(tonneaux);
+    // Object.keys(tonneaux).forEach((el) => {
+      // console.log(el);
+      // tonneau.getChildren().forEach(function(tonneau, i) {
+      Object.values(tonneaux).forEach((tonneau, i) => {
+        self.tonneaux.getChildren().forEach((item, i) => {
+        item.x = tonneau.x
+        item.y = tonneau.y
+        });
+        // ;
+        // self.tonneaux.getChildren()[i].setAngle(tonneau.angle)
+      });
+
+        // console.log(tonneaux.x);
+        // tonneau.setPosition(tonneau.x, tonneaux.y)
+      // })
+    // });
 
       Object.keys(players).forEach((id) => {
         self.players.getChildren().forEach(function(player) {
