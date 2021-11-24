@@ -231,21 +231,30 @@ const Arene = new Phaser.Class({
 
     this.socket.on('playerUpdates', function(players, tonneaux) {
 
+    Object.keys(tonneaux).forEach((id) => {
+      self.tonneaux.getChildren().forEach((tonneau) => {
+        if (tonneaux[id].id === tonneau.body.id) {
+        tonneau.setPosition(tonneaux[id].x, tonneaux[id].y])
+        }
+      });
+    })
+
+    // });
       // console.log(tonneaux);
     // Object.keys(tonneaux).forEach((el) => {
       // console.log(el);
       // tonneau.getChildren().forEach(function(tonneau, i) {
       // Object.values(tonneaux).forEach((tonneau, i) => {
-        self.tonneaux.getChildren().forEach((item, i) => {
-        item.x = Object.values(tonneaux)[0]
-        item.y = Object.values(tonneaux)[1]
+        // self.tonneaux.getChildren().forEach((item, i) => {
+        // item.x = Object.values(tonneaux)[0]
+        // item.y = Object.values(tonneaux)[1]
         // });
         // ;
         // self.tonneaux.getChildren()[i].setAngle(tonneau.angle)
 
         // Object.values(tonneaux)[0];
 
-      });
+      // });
 
         // console.log(tonneaux.x);
         // tonneau.setPosition(tonneau.x, tonneaux.y)

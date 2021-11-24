@@ -137,6 +137,7 @@ t4.setMass(40).setFriction(2).setFrictionAir(0.1)
 
 this.tonneaux.addMultiple([t1, t2, t3, t4])
 
+console.log(this.tonneaux.getChildren());
 
 //width 162.58
 //height 215.6
@@ -322,9 +323,11 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
 function update() {
 
     this.tonneaux.getChildren().forEach((tonneau) => {
-      barils.x = tonneau.x
-      barils.y = tonneau.y
-      barils.angle = tonneau.angle
+      barils[tonneau.body.id] = {
+        x: tonneau.x,
+        y: tonneau.y,
+        angle: tonneau.angle
+      }
     });
 
 
