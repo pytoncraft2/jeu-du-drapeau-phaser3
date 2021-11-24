@@ -270,9 +270,22 @@ const Arene = new Phaser.Class({
 
     let interieurMaison1 = this.add.image(-135, 40, 'interieur-maison')
     let poteau1 = this.add.image(1210, 0, 'poteau')
+    let tonneaux = this.add.image(-2300, 1700, 'tonneau').setScale(0.22)
+    console.log("WIDth");
+    // console.log(tonneaux.displayWidth);
+    console.log("HEI");
+    // console.log(tonneaux.displayHeight);
+
+    //width 162.58
+    //height 215.6
+
     this.canon1 = this.add.image(0, -460, 'canon').setDepth(4)
 
-    this.rect = this.add.rectangle(0, -460, 333, 125)
+    // this.rect = this.add.rectangle(0, -460, 333, 125)
+    let tonneau = this.add.zone(-2000, 1700, 210, 210).setSize(162.58, 215.6)
+
+    var s = self.matter.add.gameObject(tonneau);
+    s.setIgnoreGravity(true).setStatic(true).setFriction(0)
 
 
     let canonSocle1 = this.add.image(0, -340, 'canon-socle').setDepth(3)
@@ -282,8 +295,6 @@ const Arene = new Phaser.Class({
     let facade1 = this.add.image(-135, 106, 'facade').setDepth(1).setAlpha(0.4)
     let toit1 = this.add.image(-135, -245, 'plafond').setDepth(2)
     let fontaine1 = this.add.image(-4870, -790, 'fontaine').setDepth(2)
-    // console.log(fontaine1.displayWidth); //640
-    // console.log(fontaine1.displayHeight); //613
     // this.fontainezone = this.add.zone(-1370, 137, 210, 210).setSize(640, 613)
 
     // var s = self.matter.add.gameObject(this.fontainezone);
@@ -358,14 +369,6 @@ const Arene = new Phaser.Class({
 
       this.matter.add.mouseSpring();
 
-      this.input.on('pointermove', listener)
-
-      function listener(e, f) {
-        if (e.isDown) {
-          console.log(e);
-        }
-      }
-
       // socleJoueur.setIgnoreGravity(true).setStatic(true).setFriction(0)
       // var socleJoueur2 = self.matter.add.gameObject(socleToitGauche);
       // socleJoueur2.setIgnoreGravity(true).setStatic(true).setFriction(0)
@@ -417,8 +420,6 @@ const Arene = new Phaser.Class({
     this.aKeyPressed = this.input.keyboard.addKey('A');
     this.cKeyPressed = this.input.keyboard.addKey('CTRL');
     this.cursors = this.input.keyboard.createCursorKeys();
-    console.log("CURSOR");
-    console.log(this.cursors);
     this.leftKeyPressed = false;
     this.rightKeyPressed = false;
     this.upKeyPressed = false;
@@ -487,9 +488,6 @@ setVieEquipeA: function(value) {
     this.barreEquipeA.fillStyle(0x0e88bd)
     this.barreEquipeA.fillRoundedRect(1700, -330, width * percent, 20, 5)
   }
-  if (width * percent < 80) {
-    console.log("EQUIPE A PERDU");
-  }
 },
 setVieEquipeB: function(value) {
   const width = 500
@@ -500,9 +498,6 @@ setVieEquipeB: function(value) {
   if (percent > 0) {
     this.barreEquipeB.fillStyle(0x0ea733)
     this.barreEquipeB.fillRoundedRect(-710, -330, width * percent , 20, 5)
-  }
-  if (width * percent < 80) {
-    console.log("EQUIPE B PERDU");
   }
 },
 
