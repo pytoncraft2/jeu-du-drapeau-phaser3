@@ -521,18 +521,8 @@ setVieEquipeB: function(value) {
     if (Phaser.Input.Keyboard.JustDown(this.eKeyPressed)) {
       this.socket.emit('playerInput', {
         interactionTonneau: true,
-        charge: true
       });
     }
-
-
-    if (Phaser.Input.Keyboard.JustUp(this.eKeyPressed)) {
-      this.socket.emit('playerInput', {
-        interactionTonneau: true,
-        charge: false,
-      });
-    }
-
 
 
     /**
