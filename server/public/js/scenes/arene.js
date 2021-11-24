@@ -91,12 +91,15 @@ const Arene = new Phaser.Class({
       this.players = {}
 
       this.players = this.add.group();
-      this.tonneaux = this.physics.add.group({
+      this.tonneaux = this.add.group({
         allowGravity: true,
         dragX: 800
       });
 
-      this.tonneau1 = this.tonneaux.create(-2300, 1700, 'tonneau').setScale(0.22).setBounce(0.5)
+      this.tonneau1 = this.tonneaux.create(-1300, 1700, 'tonneau').setScale(0.22)
+      this.tonneau2 = this.tonneaux.create(-1500, 1700, 'tonneau').setScale(0.22)
+      this.tonneau3 = this.tonneaux.create(-1700, 1700, 'tonneau').setScale(0.22)
+      this.tonneau4 = this.tonneaux.create(-1900, 1700, 'tonneau').setScale(0.22)
 
     this.cameras.main.fadeIn(1000);
     gfx = this.add.graphics();
