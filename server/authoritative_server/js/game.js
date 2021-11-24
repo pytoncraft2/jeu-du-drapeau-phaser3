@@ -119,12 +119,6 @@ let tonneau2 = this.add.zone(-1200, 1700, 210, 210).setSize(162.58, 215.6)
 let tonneau3 = this.add.zone(-1400, 1700, 210, 210).setSize(162.58, 215.6)
 let tonneau4 = this.add.zone(-1600, 1700, 210, 210).setSize(162.58, 215.6)
 
-// -1000, 1700
-// -1200, 1700
-// -1400, 1700
-// -1600, 1700
-
-
 t1 = self.matter.add.gameObject(tonneau1);
 t1.setMass(40).setFriction(2).setFrictionAir(0.1)
 
@@ -141,16 +135,6 @@ t4 = self.matter.add.gameObject(tonneau4);
 t4.setMass(40).setFriction(2).setFrictionAir(0.1)
 
 this.tonneaux.addMultiple([t1, t2, t3, t4])
-
-// console.log(this.tonneaux.getChildren());
-
-//width 162.58
-//height 215.6
-
-
-
-
-
 
 
   this.events = new Phaser.Events.EventEmitter()
@@ -197,12 +181,6 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
   socleJoueur4.setIgnoreGravity(true).setStatic(true).setFriction(0).setCollisionGroup(2).setCollidesWith(CATEGORIE_JOUEUR)
 
 
-  // let tonneau = this.add.zone(-2000, 1700, 210, 210).setSize(162.58, 215.6)
-
-  // this.tonneau = self.matter.add.gameObject(tonneau);
-  // this.tonneau.setMass(40).setFriction(2).setFrictionAir(0.1)
-
-
       var socleFontaineJoueur = self.matter.add.gameObject(baseFontaine).setIgnoreGravity(true).setStatic(true).setFriction(0);
       var plots1 = self.matter.add.gameObject(plotFontaine1).setIgnoreGravity(true).setStatic(true).setFriction(0);
       this.plots2 = self.matter.add.gameObject(plotFontaine2).setIgnoreGravity(true).setStatic(true).setFriction(0);
@@ -219,7 +197,6 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
 
 this.platformeGaucheCollision.addMultiple([soclePlatformeGauche, socleToitGauche]);
 this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit]);
-
 
 
   self.room = ""
@@ -364,7 +341,6 @@ function update() {
           alpha: 0,
           duration: 500
         })
-        // player.setAlpha(0)
         player.ombre.setAlpha(0)
         input.special2 = false;
       }
@@ -536,7 +512,6 @@ function update() {
       if (distCanon < 106 && distCanon < 121) {
         input.canonMaintenu = false;
         this.bulletCanon = this.matter.add.image(this.canon1.x, this.canon1.y + 20, 'bullet').setCircle().setIgnoreGravity(true).setBounce(1.6)
-        // console.log(this.bulletCanon);
         this.bulletCanon.type = "boulet";
         this.charge = this.tweens.add({
           targets: this.bulletCanon,
@@ -583,7 +558,6 @@ function update() {
 
       players[player.arene][player.playerId].x = player.x;
       players[player.arene][player.playerId].y = player.y;
-      // players[player.arene][player.playerId].anims = player.anims.getName();
       players[player.arene][player.playerId].frame = player.anims.getFrameName();
       players[player.arene][player.playerId].flipX = player.flipX;
       players[player.arene][player.playerId].scale = player.scale;
@@ -596,10 +570,6 @@ function update() {
       players[player.arene][player.playerId].rotation = player.rotation;
 
       players[player.arene][player.playerId].socleMouventY = this.plots2.y
-      // players[player.arene][player.playerId].tonneauX = this.tonneau.x
-      // players[player.arene][player.playerId].tonneauY = this.tonneau.y
-      // players[player.arene][player.playerId].tonneauAngle = this.tonneau.angle
-
       if (this.bulletCanon) {
         players[player.arene][player.playerId].bulletCanonY = this.bulletCanon.y
         players[player.arene][player.playerId].bulletCanonX = this.bulletCanon.x

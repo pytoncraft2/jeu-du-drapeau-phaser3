@@ -1,54 +1,8 @@
 import PanelViewer from './elements/panel-viewer.js'
 import Animations from './elements/liste-animations.js'
 import Maison from './elements/objets/maison.js'
-var body;
 
-var cursors
-var health = 100
-var portal
-var bullet
-var groupeBullets
-var charge
-var events
-var yKey
-var zKey
-var rKey
-var rIsDown
-var eKey
-var follow
-var mKey
-var aKey
-var pKey
-var tKey
-var ombre
-var protect
-var pannelRight
-var pannelBottom
-var count
-var ctrlKey
-var cKey
-var spaceBar
-var ennemy
-var ennemy2
-var ennemy3
-var ennemy4
-var girlMap
-var graphics
-// private block1: Phaser.Physics.Arcade.Image;
-var block1
-var block2
-var block3
-var block4
-var imageFakhear
-var barrelGroup
-var info
-var fakehear
-var abonner
-// var  zone
-var barrelzone
-var ennemyzone
 var gfx
-var lastHealth = 100
 
 const Arene = new Phaser.Class({
 
@@ -264,9 +218,6 @@ const Arene = new Phaser.Class({
             player.ombre.setAlpha(players[id].ombreAlpha);
             player.ombre.setScale(players[id].ombreScale);
             self.plots2.y = players[id].socleMouventY
-            // if (players[id].anims) {
-            // player.play(players[id].anims);
-            // }
             if (players[id].frame != "") {
               player.setFrame(players[id].frame);
             }
@@ -277,17 +228,7 @@ const Arene = new Phaser.Class({
               self.bulletCanon.y = players[id].bulletCanonY
               self.bulletCanon.setScale(players[id].bulletCanonScale)
             }
-
             self.canon1.setAngle(players[id].canonAngle)
-            // player.setRotation(players[id].rotation);
-
-            // if (players[id].animation) {
-            // player.play(players[id].animation);
-            // }
-            // player.ombre.setPosition(players[id].ombreX, players[id].ombreY)
-            // if (players[id].animation) {
-            // player.play('' + players[id].anim + '_' + players[id].atlas + '', 5);
-            // }
           }
         });
       });
@@ -296,23 +237,7 @@ const Arene = new Phaser.Class({
 
     let interieurMaison1 = this.add.image(-135, 40, 'interieur-maison')
     let poteau1 = this.add.image(1210, 0, 'poteau')
-    console.log("WIDth");
-    // console.log(tonneaux.displayWidth);
-    console.log("HEI");
-    // console.log(tonneaux.displayHeight);
-
-    //width 162.58
-    //height 215.6
-
     this.canon1 = this.add.image(0, -460, 'canon').setDepth(4)
-
-    // this.rect = this.add.rectangle(0, -460, 333, 125)
-    //TOOOOOOOONNNEAU RECTANGLE
-    // let tonneau = this.add.zone(-2000, 1700, 210, 210).setSize(162.58, 215.6)
-
-    // var s = self.matter.add.gameObject(tonneau);
-    // s.setIgnoreGravity(true).setStatic(true).setFriction(0)
-
 
     let canonSocle1 = this.add.image(0, -340, 'canon-socle').setDepth(3)
     let platforme1 = this.add.image(0, 290, 'platforme').setDepth(-2)
@@ -321,11 +246,6 @@ const Arene = new Phaser.Class({
     let facade1 = this.add.image(-135, 106, 'facade').setDepth(1).setAlpha(0.4)
     let toit1 = this.add.image(-135, -245, 'plafond').setDepth(2)
     let fontaine1 = this.add.image(-4870, -790, 'fontaine').setDepth(2)
-    // this.fontainezone = this.add.zone(-1370, 137, 210, 210).setSize(640, 613)
-
-    // var s = self.matter.add.gameObject(this.fontainezone);
-    // s.setIgnoreGravity(true).setStatic(true).setFriction(0)
-
 
     let maison1 = this.add.group()
     maison1.addMultiple([interieurMaison1, facade1, toit1]); // array of game objects
@@ -378,20 +298,7 @@ const Arene = new Phaser.Class({
     // socleJoueur
     var socleFontaineJoueur = self.matter.add.gameObject(baseFontaine).setIgnoreGravity(true).setStatic(true).setFriction(0);
     this.plots2 = this.add.rectangle(-2500, -190, 210, 210, 0xd4af2b).setSize(300, 40).setOrigin(0.5, 0.5)
-    // var plots1 = self.matter.add.gameObject(plotFontaine1).setIgnoreGravity(true).setStatic(true).setFriction(0);
-    // this.plots2 = self.matter.add.gameObject(plotFontaine2).setIgnoreGravity(true).setStatic(true).setFriction(0);
     var platformeBas = self.matter.add.gameObject(soclePlatformeBas).setIgnoreGravity(true).setStatic(true).setFriction(0);
-
-
-
-    // this.tweens.add({
-    //   targets: this.plots2,
-    //   y: this.plots2.y + 2000,
-    //   yoyo: true,
-    //   repeat: -1,
-    //   duration: 3000,
-    //   ease: 'Sine.easeInOut'
-    // });
 
     this.matter.add.mouseSpring();
 
@@ -677,8 +584,6 @@ const Arene = new Phaser.Class({
         canonMaintenu: false,
         canonRelache: true
       });
-      // this.vies.shiftPosition(0, 0, 1);
-      // this.vies.killAndHide()
     }
 
     if (Phaser.Input.Keyboard.JustDown(this.ctrlKey)) {
@@ -717,8 +622,6 @@ const Arene = new Phaser.Class({
   displayPlayers: function(self, playerInfo, iscurrent) {
     console.log("Ajout joueur function");
     const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, 'dessinatrice1', 'face1').setScale(0.38).setDepth(0.3).setAlpha(0);
-    // self.add.image(playerInfo.x, playerInfo.y, "dessinatrice1_").setScale(0.38).setOrigin(0.5, 0.5)
-
 
     joueur.playerId = playerInfo.playerId;
     joueur.arene = playerInfo.arene;
@@ -736,10 +639,6 @@ const Arene = new Phaser.Class({
     joueur.setMass(30);
     joueur.body.collisionFilter.group = Phaser.Math.Between(1, 10)
     joueur.body.collisionFilter.mask = 0
-
-
-    // joueur.setFrame("attack2")
-
 
     let couleur = playerInfo.equipe == "A" ? 0x0ea733 : 0x0e88bd
     let position = playerInfo.equipe == "A" ? {
@@ -767,8 +666,6 @@ const Arene = new Phaser.Class({
         self.vies.add(self.add.circle(c, -270, 15, 0x008000).setDepth(200).setScrollFactor(0));
         c += 100;
       }
-
-      // self.vies.addMultiple([c1, c2, c3, c4, c5]);   // array of game objects
 
     }
   },
