@@ -2,8 +2,9 @@ import PanelViewer from './elements/panel-viewer.js'
 import Animations from './elements/liste-animations.js'
 import Maison from './elements/objets/maison.js'
 
-var gfx
+var gfx;
 var group;
+var test;
 
 
 const Arene = new Phaser.Class({
@@ -401,7 +402,7 @@ this.input.on('pointermove', function (pointer)
     this.matter.add.mouseSpring();
 
     this.cameras.main.setZoom(0.5);
-    let test = new Phaser.Physics.Arcade.ArcadePhysics(this).closest(this.players.getChildren()[0])
+    test = new Phaser.Physics.Arcade.ArcadePhysics(this)
 
 
   },
@@ -525,14 +526,14 @@ this.input.on('pointermove', function (pointer)
 
     }
     var pointer = this.input.activePointer;
-// var closest = Phaser.Phythis.physics.closest(pointer);
+var closest = test.closest(pointer.x, pointer.y);
 // var furthest = this.physics.furthest(pointer);
 
-// gfx.clear()
-//     .lineStyle(2, 0xff3300)
-//     .lineBetween(closest.x, closest.y, pointer.x, pointer.y)
-//     .lineStyle(2, 0x0099ff)
-//     .lineBetween(furthest.x, furthest.y, pointer.x, pointer.y);
+gfx.clear()
+    .lineStyle(2, 0xff3300)
+    .lineBetween(closest.x, closest.y, pointer.x, pointer.y)
+    // .lineStyle(2, 0x0099ff)
+    // .lineBetween(furthest.x, furthest.y, pointer.x, pointer.y);
 
 
     if (Phaser.Input.Keyboard.JustUp(this.cursors.left)) {
@@ -568,6 +569,8 @@ this.input.on('pointermove', function (pointer)
     }
 
     if (Phaser.Input.Keyboard.JustUp(this.aKeyPressed)) {
+      console.log(test.closest(this.players.getChildren()[0].x))
+
       this.socket.emit('playerInput', {
         attaque: true,
         charge: false,
