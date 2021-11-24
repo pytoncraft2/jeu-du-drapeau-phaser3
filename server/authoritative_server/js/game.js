@@ -335,7 +335,7 @@ function update() {
 
       if (input.interactionTonneau) {
         var distT = Phaser.Math.Distance.BetweenPoints(player, this.tonneau);
-        if (distT < 530 && distT < 540) {
+        if (distT < 300 && distT < 310) {
           if (player.world.localWorld.constraints.length == 0) {
             this.tonneau.y = player.y - player.displayHeight / 2 - 105;
             this.tonneau.x = player.x
@@ -345,6 +345,8 @@ function update() {
           }
           else {
             player.world.localWorld.constraints = []
+            this.tonneau.x = player.flipX ? (player.x - player.displayWidth) : (player.x + player.displayWidth)
+            this.tonneau.y = player.y
             this.tonneau.setIgnoreGravity(false)
           }
         }
