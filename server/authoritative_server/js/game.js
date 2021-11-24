@@ -114,10 +114,16 @@ function create() {
   fontainezone2 = this.add.zone(8235, -1553, 210, 210).setSize(640, 613)
 
 this.tonneaux = this.add.group()
-let tonneau1 = this.add.zone(1300, 1700, 210, 210).setSize(162.58, 215.6)
-let tonneau2 = this.add.zone(-1500, 1700, 210, 210).setSize(162.58, 215.6)
-let tonneau3 = this.add.zone(-1700, 1700, 210, 210).setSize(162.58, 215.6)
-let tonneau4 = this.add.zone(-1900, 1700, 210, 210).setSize(162.58, 215.6)
+let tonneau1 = this.add.zone(-1000, 1700, 210, 210).setSize(162.58, 215.6)
+let tonneau2 = this.add.zone(-1200, 1700, 210, 210).setSize(162.58, 215.6)
+let tonneau3 = this.add.zone(-1400, 1700, 210, 210).setSize(162.58, 215.6)
+let tonneau4 = this.add.zone(-1600, 1700, 210, 210).setSize(162.58, 215.6)
+
+// -1000, 1700
+// -1200, 1700
+// -1400, 1700
+// -1600, 1700
+
 
 t1 = self.matter.add.gameObject(tonneau1);
 t1.setMass(40).setFriction(2).setFrictionAir(0.1)

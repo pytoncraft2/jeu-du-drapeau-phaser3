@@ -102,13 +102,13 @@ const Arene = new Phaser.Class({
       dragX: 800
     });
 
-    this.tonneau1 = this.tonneaux.create(-1300, 1700, 'tonneau').setScale(0.22).setDepth(800)
+    this.tonneau1 = this.tonneaux.create(-1000, 1700, 'tonneau').setScale(0.22).setDepth(800)
     this.tonneau1.id = 1
-    this.tonneau2 = this.tonneaux.create(-1500, 1700, 'tonneau').setScale(0.22).setDepth(800)
+    this.tonneau2 = this.tonneaux.create(-1200, 1700, 'tonneau').setScale(0.22).setDepth(800)
     this.tonneau2.id = 2
-    this.tonneau3 = this.tonneaux.create(-1700, 1700, 'tonneau').setScale(0.22).setDepth(800)
+    this.tonneau3 = this.tonneaux.create(-1400, 1700, 'tonneau').setScale(0.22).setDepth(800)
     this.tonneau3.id = 3
-    this.tonneau4 = this.tonneaux.create(-1900, 1700, 'tonneau').setScale(0.22).setDepth(800)
+    this.tonneau4 = this.tonneaux.create(-1600, 1700, 'tonneau').setScale(0.22).setDepth(800)
     this.tonneau4.id = 4
 
     this.cameras.main.fadeIn(1000);
