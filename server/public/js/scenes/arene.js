@@ -229,7 +229,7 @@ const Arene = new Phaser.Class({
      * @return {void}
      */
 
-    this.socket.on('playerUpdates', function(players) {
+    this.socket.on('playerUpdates', function(players, tonneaux) {
 
       self.tonneaux.getChildren().forEach(function(tonneau) {
         tonneau.setPosition(tonneau.x, tonneau.y)

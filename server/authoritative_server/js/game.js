@@ -112,6 +112,35 @@ function create() {
   fontainezone = this.add.zone(-4870, -790, 210, 210).setSize(640, 613)
   fontainezone2 = this.add.zone(8235, -1553, 210, 210).setSize(640, 613)
 
+  this.tonneaux = this.add.group();
+
+let tonneau1 = this.add.zone(1300, 1700, 210, 210).setSize(162.58, 215.6)
+let tonneau2 = this.add.zone(-1500, 1700, 210, 210).setSize(162.58, 215.6)
+let tonneau3 = this.add.zone(-1700, 1700, 210, 210).setSize(162.58, 215.6)
+let tonneau4 = this.add.zone(-1900, 1700, 210, 210).setSize(162.58, 215.6)
+
+t1 = self.matter.add.gameObject(tonneau1);
+t1.setMass(40).setFriction(2).setFrictionAir(0.1)
+
+
+t2 = self.matter.add.gameObject(tonneau2);
+t2.setMass(40).setFriction(2).setFrictionAir(0.1)
+
+
+t3 = self.matter.add.gameObject(tonneau3);
+t3.setMass(40).setFriction(2).setFrictionAir(0.1)
+
+
+t4 = self.matter.add.gameObject(tonneau4);
+t4.setMass(40).setFriction(2).setFrictionAir(0.1)
+
+this.tonneaux.addMultiple([t1, t2, t3, t4])
+
+
+//width 162.58
+//height 215.6
+
+
 
 
 
