@@ -333,6 +333,23 @@ function update() {
       }
 
 
+      if (input.interactionTonneau) {
+        var distT = Phaser.Math.Distance.BetweenPoints(player, this.tonneau);
+        if (distT < 530 && distT < 540) {
+          if (player.world.localWorld.constraints.length == 0) {
+            this.tonneau.y = player.y - player.displayHeight / 2 - 105;
+            this.tonneau.x = player.x
+            this.tonneau.setFixedRotation().setIgnoreGravity(true)
+            this.matter.add.constraint(this.tonneau ,player);
+            input.interactionTonneau = false
+          }
+          else {
+            player.world.localWorld.constraints = []
+            this.tonneau.setIgnoreGravity(false)
+          }
+        }
+        input.interactionTonneau = false;
+      }
 
       if (player.attacked) {
       player.setAlpha(0.5)
@@ -533,6 +550,7 @@ function update() {
       players[player.arene][player.playerId].socleMouventY = this.plots2.y
       players[player.arene][player.playerId].tonneauX = this.tonneau.x
       players[player.arene][player.playerId].tonneauY = this.tonneau.y
+      players[player.arene][player.playerId].tonneauAngle = this.tonneau.angle
 
       if (this.bulletCanon) {
         players[player.arene][player.playerId].bulletCanonY = this.bulletCanon.y

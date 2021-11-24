@@ -239,6 +239,7 @@ const Arene = new Phaser.Class({
             player.ombre.setScale(players[id].ombreScale);
             self.plots2.y = players[id].socleMouventY
             self.tonneau.setPosition(players[id].tonneauX, players[id].tonneauY)
+            self.tonneau.setAngle(players[id].tonneauAngle)
             // if (players[id].anims) {
             // player.play(players[id].anims);
             // }
@@ -407,6 +408,7 @@ const Arene = new Phaser.Class({
 
 
     this.zKeyPressed = this.input.keyboard.addKey('Z');
+    this.eKeyPressed = this.input.keyboard.addKey('E');
     this.ctrlKey = this.input.keyboard.addKey('CTRL');
     this.zoom1 = this.input.keyboard.addKey('ZERO');
     this.zoom2 = this.input.keyboard.addKey('NINE');
@@ -514,6 +516,14 @@ setVieEquipeB: function(value) {
         tirolienne: true,
       });
     }
+
+
+    if (Phaser.Input.Keyboard.JustDown(this.eKeyPressed)) {
+      this.socket.emit('playerInput', {
+        interactionTonneau: true,
+      });
+    }
+
 
     /**
      * SAUT
