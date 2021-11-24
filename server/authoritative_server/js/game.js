@@ -161,6 +161,12 @@ function create() {
   socleJoueur4.setIgnoreGravity(true).setStatic(true).setFriction(0).setCollisionGroup(2).setCollidesWith(CATEGORIE_JOUEUR)
 
 
+  let tonneau = this.add.zone(-2000, 1700, 210, 210).setSize(162.58, 215.6)
+
+  this.tonneau = self.matter.add.gameObject(tonneau);
+  this.tonneau.setMass(40).setFriction(2).setFrictionAir(0.1)
+
+
       var socleFontaineJoueur = self.matter.add.gameObject(baseFontaine).setIgnoreGravity(true).setStatic(true).setFriction(0);
       var plots1 = self.matter.add.gameObject(plotFontaine1).setIgnoreGravity(true).setStatic(true).setFriction(0);
       this.plots2 = self.matter.add.gameObject(plotFontaine2).setIgnoreGravity(true).setStatic(true).setFriction(0);
@@ -525,6 +531,8 @@ function update() {
       players[player.arene][player.playerId].rotation = player.rotation;
 
       players[player.arene][player.playerId].socleMouventY = this.plots2.y
+      players[player.arene][player.playerId].tonneauX = this.tonneau.x
+      players[player.arene][player.playerId].tonneauY = this.tonneau.y
 
       if (this.bulletCanon) {
         players[player.arene][player.playerId].bulletCanonY = this.bulletCanon.y

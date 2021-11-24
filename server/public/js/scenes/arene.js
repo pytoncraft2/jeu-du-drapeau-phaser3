@@ -238,6 +238,7 @@ const Arene = new Phaser.Class({
             player.ombre.setAlpha(players[id].ombreAlpha);
             player.ombre.setScale(players[id].ombreScale);
             self.plots2.y = players[id].socleMouventY
+            self.tonneau.setPosition(players[id].tonneauX, players[id].tonneauY)
             // if (players[id].anims) {
             // player.play(players[id].anims);
             // }
@@ -270,7 +271,7 @@ const Arene = new Phaser.Class({
 
     let interieurMaison1 = this.add.image(-135, 40, 'interieur-maison')
     let poteau1 = this.add.image(1210, 0, 'poteau')
-    let tonneaux = this.add.image(-2300, 1700, 'tonneau').setScale(0.22)
+    this.tonneau = this.add.image(-2300, 1700, 'tonneau').setScale(0.22)
     console.log("WIDth");
     // console.log(tonneaux.displayWidth);
     console.log("HEI");
@@ -282,10 +283,11 @@ const Arene = new Phaser.Class({
     this.canon1 = this.add.image(0, -460, 'canon').setDepth(4)
 
     // this.rect = this.add.rectangle(0, -460, 333, 125)
-    let tonneau = this.add.zone(-2000, 1700, 210, 210).setSize(162.58, 215.6)
+    //TOOOOOOOONNNEAU RECTANGLE
+    // let tonneau = this.add.zone(-2000, 1700, 210, 210).setSize(162.58, 215.6)
 
-    var s = self.matter.add.gameObject(tonneau);
-    s.setIgnoreGravity(true).setStatic(true).setFriction(0)
+    // var s = self.matter.add.gameObject(tonneau);
+    // s.setIgnoreGravity(true).setStatic(true).setFriction(0)
 
 
     let canonSocle1 = this.add.image(0, -340, 'canon-socle').setDepth(3)
