@@ -346,26 +346,6 @@ function update() {
           else {
             player.world.localWorld.constraints = []
             this.tonneau.setIgnoreGravity(false)
-
-
-        if (input.charge) {
-          this.tween = this.tweens.add({
-            targets: player.ombre,
-            from: 0,
-            to: 1,
-            scale: 2,
-            duration: 2000
-          })
-          input.charge = false;
-        } else {
-          let puissance = this.tween.totalProgress;
-          if (this.tween.isPlaying()) {
-          this.tween.stop()
-          }
-          this.tonneau.setAngularVelocity(puissance)
-        }
-
-
           }
         }
         input.interactionTonneau = false;
