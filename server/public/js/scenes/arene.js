@@ -91,19 +91,19 @@ const Arene = new Phaser.Class({
       this.players = {}
 
       this.players = this.add.group();
-      // this.tonneaux = this.add.group({
-      //   allowGravity: true,
-      //   dragX: 800
-      // });
-      //
-      let tonneau1 = this.matter.add.image(-1300, 1700, 'tonneau').setScale(0.22).setDepth(800)
-      let tonneau2 = this.matter.add.image(-1500, 1700, 'tonneau').setScale(0.22).setDepth(800)
-      let tonneau3 = this.matter.add.image(-1700, 1700, 'tonneau').setScale(0.22).setDepth(800)
-      let tonneau4 = this.matter.add.image(-1900, 1700, 'tonneau').setScale(0.22).setDepth(800)
+      this.tonneaux = this.add.group({
+        allowGravity: true,
+        dragX: 800
+      });
 
-      this.tonneaux = this.add.group()
-      this.tonneaux.addMultiple([tonneau1, tonneau2, tonneau3, tonneau4]);   // array of game objects
-      console.log(this.tonneaux);
+      this.tonneau1 = this.tonneaux.create(-1300, 1700, 'tonneau').setScale(0.22).setDepth(800)
+      this.tonneau1.id = 1
+      this.tonneau2 = this.tonneaux.create(-1500, 1700, 'tonneau').setScale(0.22).setDepth(800)
+      this.tonneau2.id = 2
+      this.tonneau3 = this.tonneaux.create(-1700, 1700, 'tonneau').setScale(0.22).setDepth(800)
+      this.tonneau3.id = 3
+      this.tonneau4 = this.tonneaux.create(-1900, 1700, 'tonneau').setScale(0.22).setDepth(800)
+      this.tonneau4.id = 4
 
     this.cameras.main.fadeIn(1000);
     gfx = this.add.graphics();
@@ -237,9 +237,15 @@ const Arene = new Phaser.Class({
 
     Object.keys(tonneaux).forEach((id) => {
       self.tonneaux.getChildren().forEach((tonneau) => {
-        // if (tonneaux[id].id === tonneau.body.id) {
-        // tonneau.setPosition(tonneaux[id].x, tonneaux[id].y)
-        // }
+        if (tonneaux[id].id === tonneau.id) {
+        tonneau.setPosition(tonneaux[id].x, tonneaux[id].y)
+        // console.log("oui");
+        }
+        // console.log(tonneaux[id]);
+        // console.log("____DEBUT");
+        // console.log(tonneau.id);
+        // console.log("____FIN");
+        // console.log(tonneaux[id].id);
       });
     })
 

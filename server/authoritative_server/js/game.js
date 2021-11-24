@@ -326,7 +326,8 @@ function update() {
       barils[tonneau.body.id] = {
         x: tonneau.x,
         y: tonneau.y,
-        angle: tonneau.angle
+        angle: tonneau.angle,
+        id: tonneau.body.id
       }
     });
 
