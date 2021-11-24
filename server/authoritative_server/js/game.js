@@ -1,6 +1,7 @@
 const players = {};
 players['Naruto'] = {};
 players['Pikachu'] = {};
+barils = {};
 
 const config = {
   type: Phaser.HEADLESS,
@@ -319,6 +320,13 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
 }
 
 function update() {
+
+    this.tonneaux.getChildren().forEach((tonneau) => {
+      barils.tonneauX = tonneau.x
+      barils.tonneauY = tonneau.y
+      barils.tonneauAngle = tonneau.angle
+    });
+
 
     this.players["Naruto"].getChildren().forEach((player) => {
       const input = players[player.arene][player.playerId].input;
