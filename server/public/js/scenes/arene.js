@@ -283,7 +283,6 @@ const Arene = new Phaser.Class({
 
     let interieurMaison1 = this.add.image(-135, 40, 'interieur-maison')
     let poteau1 = this.add.image(1210, 0, 'poteau')
-    this.tonneau = this.add.image(-2300, 1700, 'tonneau').setScale(0.22)
     console.log("WIDth");
     // console.log(tonneaux.displayWidth);
     console.log("HEI");
