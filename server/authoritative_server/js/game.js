@@ -358,19 +358,13 @@ function update() {
 
 
       if (input.interactionTonneau) {
-
-        // console.log(this.tonneaux.getChildren().forEach((item, i) => {
-        //
-        // });
-
-        console.log("MAPING");
-        const map1 = this.tonneaux.getChildren().map(t => {
+        const recupereLePlusProche = this.tonneaux.getChildren().map(t => {
           if (Phaser.Math.Distance.BetweenPoints(player, t) < 300 && Phaser.Math.Distance.BetweenPoints(player, t) < 310) {
             return t
           }
         } );
 
-        var tonneau = map1.filter( Boolean );
+        var tonneau = recupereLePlusProche.filter( Boolean );
         if (tonneau[0]) {
           if (player.world.localWorld.constraints.length == 0) {
             tonneau[0].y = player.y - player.displayHeight / 2 - 105;
@@ -384,13 +378,13 @@ function update() {
 
             player.world.localWorld.constraints = []
             x = player.flipX ? (player.x - player.displayWidth - 10) : (player.x + player.displayWidth + 10)
-            y = player.y
-            
+            y = player.y - 40
+
             this.tween = this.tweens.add({
               targets: tonneau[0],
               x: x,
               y: y,
-              duration: 800,
+              duration: 500,
               onComplete: () => tonneau[0].setIgnoreGravity(false).setCollidesWith(-1)
             })
 

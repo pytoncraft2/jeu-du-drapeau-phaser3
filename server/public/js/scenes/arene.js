@@ -51,10 +51,7 @@ const Arene = new Phaser.Class({
     this.players = {}
 
     this.players = this.add.group();
-    this.tonneaux = this.add.group({
-      allowGravity: true,
-      dragX: 800
-    });
+    this.tonneaux = this.add.group();
 
     this.tonneau1 = this.tonneaux.create(-1000, 1700, 'tonneau').setScale(0.22).setDepth(800)
     this.tonneau1.id = 1
