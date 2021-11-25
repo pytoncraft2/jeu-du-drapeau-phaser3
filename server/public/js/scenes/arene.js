@@ -196,6 +196,7 @@ const Arene = new Phaser.Class({
         self.tonneaux.getChildren().forEach((tonneau) => {
           if (tonneaux[id].id === tonneau.id) {
             tonneau.setPosition(tonneaux[id].x, tonneaux[id].y)
+            tonneau.setAlpha(tonneaux[id].alpha)
           }
         });
       })

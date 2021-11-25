@@ -311,7 +311,8 @@ function update() {
         x: tonneau.x,
         y: tonneau.y,
         angle: tonneau.angle,
-        id: tonneau.body.id
+        id: tonneau.body.id,
+        alpha: tonneau.alpha
       }
     });
 
@@ -333,10 +334,9 @@ function update() {
       }
 
       if (input.special2) {
-        var invisible = true;
         this.tweens.addCounter({
           duration: 5000,
-          onComplete: () => (player.active ? (player.setAlpha(1), player.ombre.setAlpha(1)) : null, invisible = false)
+          onComplete: () => (player.active ? (player.setAlpha(1), player.ombre.setAlpha(1)) : null)
         })
         this.tweens.add({
           targets: player,
@@ -358,10 +358,6 @@ function update() {
 
 
       if (input.interactionTonneau) {
-        console.log("AVANT LES constraint 1");
-        console.log(player.world.localWorld.constraints);
-
-        // const tonneauEntrainDePorter;
         const recupereLePlusProche = this.tonneaux.getChildren().map(t => {
           if (Phaser.Math.Distance.BetweenPoints(player, t) < 300 && Phaser.Math.Distance.BetweenPoints(player, t) < 310) {
             return t
@@ -370,21 +366,33 @@ function update() {
 
         var tonneau = recupereLePlusProche.filter( Boolean );
         if (tonneau[0]) {
-          // if (player.world.localWorld.constraints.bodyA.id == tonneau[0].body.id) {
+          tonneau[0].setAlpha(0.8)
+          barils[tonneau[0].body.id].alpha = 0.8
           if (player.world.localWorld.constraints.length == 0) {
-            tonneau[0].y = player.y - player.displayHeight / 2 - 105;
-            tonneau[0].x = player.x
-            tonneau[0].setFixedRotation()
-            this.matter.add.constraint(tonneau[0] ,player);
-            console.log("constraint 1");
-            console.log(player.world.localWorld.constraints);
+            tonneau[0].body.collisionFilter.mask = 0
+            tonneau[0].setFixedRotation().setIgnoreGravity(true)
+
+
+
+            // tonneau[0].y = player.y - player.displayHeight / 2 - 105;
+            // tonneau[0].x = player.x
+
+            this.tweens.add({
+              targets: tonneau[0],
+              x: player.x,
+              y: player.y - player.displayHeight / 2 - 105,
+              onComplete: () => (tonneau[0].setCollidesWith(-1).setIgnoreGravity(false), this.matter.add.constraint(tonneau[0] ,player)),
+              duration: 500
+            })
+
+            // ;
             input.interactionTonneau = false
           }
           else if (player.world.localWorld.constraints[0].bodyA.id == tonneau[0].body.id) {
-            console.log("constraint 2");
-            console.log(player.world.localWorld.constraints);
-            tonneau[0].body.collisionFilter.mask = 0
+            tonneau[0].setAlpha(1)
+            barils[tonneau[0].body.id].alpha = 1
 
+            tonneau[0].body.collisionFilter.mask = 0
             player.world.localWorld.constraints = []
             x = player.flipX ? (player.x - player.displayWidth - 50) : (player.x + player.displayWidth + 50)
             y = player.y - 85
@@ -395,17 +403,7 @@ function update() {
               onComplete: () => tonneau[0].setCollidesWith(-1)
             });
 
-            // this.tween = this.tweens.add({
-            //   targets: tonneau[0],
-            //   x: x,
-            //   y: tonneau[0].y - 100,
-            //   duration: 500,
-            //   onComplete: () => tonneau[0].setCollidesWith(-1)
-            // })
-
-
           }
-        // }
         }
         input.interactionTonneau = false;
       }
