@@ -359,6 +359,24 @@ function update() {
 
       if (input.interactionTonneau) {
 
+        // console.log(this.tonneaux.getChildren().forEach((item, i) => {
+        //
+        // });
+
+        console.log("MAPING");
+        const map1 = this.tonneaux.getChildren().map(t => {
+          if (Phaser.Math.Distance.BetweenPoints(player, t) < 300 && Phaser.Math.Distance.BetweenPoints(player, t) < 310) {
+            return t.body.id
+          } else {
+            return
+          }
+        } );
+        console.log("RESULTAT MAPING");
+        console.log(map1.filter( Number ));
+
+        console.log("GETMATCHIN");
+        console.log(this.tonneaux.getMatching('body.id', 1));
+
         var tonneau = this.tonneaux.getChildren()[0];
         var distT = Phaser.Math.Distance.BetweenPoints(player, tonneau);
         if (distT < 300 && distT < 310) {
@@ -370,10 +388,22 @@ function update() {
             input.interactionTonneau = false
           }
           else {
+            tonneau.body.collisionFilter.mask = 0
+
             player.world.localWorld.constraints = []
-            tonneau.x = player.flipX ? (player.x - player.displayWidth) : (player.x + player.displayWidth)
-            tonneau.y = player.y
-            tonneau.setIgnoreGravity(false)
+            x = player.flipX ? (player.x - player.displayWidth - 10) : (player.x + player.displayWidth + 10)
+            y = player.y
+
+
+            this.tween = this.tweens.add({
+              targets: tonneau,
+              x: x,
+              y: y,
+              duration: 800,
+              onComplete: () => tonneau.setIgnoreGravity(false).setCollidesWith(-1)
+            })
+
+
           }
         }
         input.interactionTonneau = false;
