@@ -254,12 +254,13 @@ const Arene = new Phaser.Class({
 
 Phaser.Geom.Mesh.GenerateGridVerts({
     mesh,
-    widthSegments: 6
+    widthSegments: 40
 });
 
 mesh.hideCCW = false;
 
-mesh.panZ(7);
+mesh.panZ(1);
+mesh.panX(1);
 
 const rotateRate = 1;
 const panRate = 1;
