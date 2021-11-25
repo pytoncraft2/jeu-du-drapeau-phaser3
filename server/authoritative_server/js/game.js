@@ -367,42 +367,32 @@ function update() {
         const map1 = this.tonneaux.getChildren().map(t => {
           if (Phaser.Math.Distance.BetweenPoints(player, t) < 300 && Phaser.Math.Distance.BetweenPoints(player, t) < 310) {
             return t
-          } else {
-            return
           }
         } );
 
         var tonneau = map1.filter( Boolean );
-        console.log("MON TONNEAU");
-        console.log(tonneau[0]);
-        if (!tonneau.length) {
+        if (tonneau[0]) {
           if (player.world.localWorld.constraints.length == 0) {
-            console.log("OUI");
-            console.log(tonneau);
-
-            // tonneau[0].y = player.y - player.displayHeight / 2 - 105;
-            // tonneau[0].x = player.x
-            // tonneau[0].setFixedRotation().setIgnoreGravity(true)
-            // this.matter.add.constraint(tonneau[0] ,player);
+            tonneau[0].y = player.y - player.displayHeight / 2 - 105;
+            tonneau[0].x = player.x
+            tonneau[0].setFixedRotation().setIgnoreGravity(true)
+            this.matter.add.constraint(tonneau[0] ,player);
             input.interactionTonneau = false
           }
           else {
-            // tonneau[0].body.collisionFilter.mask = 0
+            tonneau[0].body.collisionFilter.mask = 0
 
             player.world.localWorld.constraints = []
-            console.log("NON");
-            console.log(tonneau);
-            // x = player.flipX ? (player.x - player.displayWidth - 10) : (player.x + player.displayWidth + 10)
-            // y = player.y
-            //
-            //
-            // this.tween = this.tweens.add({
-            //   targets: tonneau[0],
-            //   x: x,
-            //   y: y,
-            //   duration: 800,
-            //   onComplete: () => tonneau[0].setIgnoreGravity(false).setCollidesWith(-1)
-            // })
+            x = player.flipX ? (player.x - player.displayWidth - 10) : (player.x + player.displayWidth + 10)
+            y = player.y
+            
+            this.tween = this.tweens.add({
+              targets: tonneau[0],
+              x: x,
+              y: y,
+              duration: 800,
+              onComplete: () => tonneau[0].setIgnoreGravity(false).setCollidesWith(-1)
+            })
 
 
           }
