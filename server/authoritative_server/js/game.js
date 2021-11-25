@@ -377,13 +377,13 @@ function update() {
             tonneau[0].body.collisionFilter.mask = 0
 
             player.world.localWorld.constraints = []
-            x = player.flipX ? (player.x - player.displayWidth - 10) : (player.x + player.displayWidth + 10)
-            y = player.y - 40
+            x = player.flipX ? (player.x - player.displayWidth - 50) : (player.x + player.displayWidth + 50)
+            y = player.y - 85
 
             this.tween = this.tweens.add({
               targets: tonneau[0],
               x: x,
-              y: y,
+              y: tonneau[0].y - 100,
               duration: 500,
               onComplete: () => tonneau[0].setIgnoreGravity(false).setCollidesWith(-1)
             })
