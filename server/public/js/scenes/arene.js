@@ -250,41 +250,6 @@ const Arene = new Phaser.Class({
     let maison1 = this.add.group()
     maison1.addMultiple([interieurMaison1, facade1, toit1]); // array of game objects
 
-    const mesh = this.add.mesh(0, -300, 'interieur-maison');
-
-Phaser.Geom.Mesh.GenerateGridVerts({
-    mesh,
-    widthSegments: 40
-});
-
-mesh.hideCCW = false;
-
-mesh.panZ(1);
-mesh.panX(1);
-
-const rotateRate = 1;
-const panRate = 1;
-const zoomRate = 4;
-this.input.on('pointermove', pointer => {
-
-     if (!pointer.isDown)
-     {
-         return;
-     }
-
-     if (!pointer.event.shiftKey)
-     {
-         mesh.modelRotation.y += pointer.velocity.x * (rotateRate / 800);
-         mesh.modelRotation.x += pointer.velocity.y * (rotateRate / 600);
-     }
-     else
-     {
-         mesh.panX(pointer.velocity.x * (panRate / 800));
-         mesh.panY(pointer.velocity.y * (panRate / 600));
-     }
-
- });
-
     let interieurMaison2 = this.add.image(7000, -1650, 'interieur-maison')
     let poteau2 = this.add.image(5675, -1676, 'poteau')
     let platforme2 = this.add.image(7000, -1400, 'platforme').setDepth(-2)

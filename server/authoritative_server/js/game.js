@@ -358,20 +358,22 @@ function update() {
 
 
       if (input.interactionTonneau) {
-        var distT = Phaser.Math.Distance.BetweenPoints(player, this.tonneau);
+
+        var tonneau = this.tonneaux.getChildren()[0];
+        var distT = Phaser.Math.Distance.BetweenPoints(player, tonneau);
         if (distT < 300 && distT < 310) {
           if (player.world.localWorld.constraints.length == 0) {
-            this.tonneau.y = player.y - player.displayHeight / 2 - 105;
-            this.tonneau.x = player.x
-            this.tonneau.setFixedRotation().setIgnoreGravity(true)
-            this.matter.add.constraint(this.tonneau ,player);
+            tonneau.y = player.y - player.displayHeight / 2 - 105;
+            tonneau.x = player.x
+            tonneau.setFixedRotation().setIgnoreGravity(true)
+            this.matter.add.constraint(tonneau ,player);
             input.interactionTonneau = false
           }
           else {
             player.world.localWorld.constraints = []
-            this.tonneau.x = player.flipX ? (player.x - player.displayWidth) : (player.x + player.displayWidth)
-            this.tonneau.y = player.y
-            this.tonneau.setIgnoreGravity(false)
+            tonneau.x = player.flipX ? (player.x - player.displayWidth) : (player.x + player.displayWidth)
+            tonneau.y = player.y
+            tonneau.setIgnoreGravity(false)
           }
         }
         input.interactionTonneau = false;
