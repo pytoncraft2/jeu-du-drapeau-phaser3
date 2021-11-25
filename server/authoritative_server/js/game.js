@@ -116,10 +116,10 @@ function create() {
   fontainezone2 = this.add.zone(8235, -1553, 210, 210).setSize(640, 613)
 
 this.tonneaux = this.add.group()
-let tonneau1 = this.add.zone(-1000, 1700, 210, 210).setSize(162.58, 215.6)
-let tonneau2 = this.add.zone(-1200, 1700, 210, 210).setSize(162.58, 215.6)
-let tonneau3 = this.add.zone(-1400, 1700, 210, 210).setSize(162.58, 215.6)
-let tonneau4 = this.add.zone(-1600, 1700, 210, 210).setSize(162.58, 215.6)
+let tonneau1 = this.add.zone(-1000, 1700, 210, 210).setSize(155, 215.6)
+let tonneau2 = this.add.zone(-1200, 1700, 210, 210).setSize(155, 215.6)
+let tonneau3 = this.add.zone(-1400, 1700, 210, 210).setSize(155, 215.6)
+let tonneau4 = this.add.zone(-1600, 1700, 210, 210).setSize(155, 215.6)
 
 t1 = self.matter.add.gameObject(tonneau1);
 t1.setMass(40).setFriction(2).setFrictionAir(0.1)
@@ -369,7 +369,7 @@ function update() {
           if (player.world.localWorld.constraints.length == 0) {
             tonneau[0].y = player.y - player.displayHeight / 2 - 105;
             tonneau[0].x = player.x
-            tonneau[0].setFixedRotation().setIgnoreGravity(true)
+            tonneau[0].setFixedRotation()
             this.matter.add.constraint(tonneau[0] ,player);
             input.interactionTonneau = false
           }
@@ -385,7 +385,7 @@ function update() {
               x: x,
               y: tonneau[0].y - 100,
               duration: 500,
-              onComplete: () => tonneau[0].setIgnoreGravity(false).setCollidesWith(-1)
+              onComplete: () => tonneau[0].setCollidesWith(-1)
             })
 
 
