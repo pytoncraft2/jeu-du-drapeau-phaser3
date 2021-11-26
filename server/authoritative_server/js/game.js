@@ -516,6 +516,7 @@ function update() {
           input.charge = false;
         } else {
           let puissance = this.tween.totalProgress;
+          player.clearTint()
           if (this.tween.isPlaying()) {
           this.tween.stop()
           }
