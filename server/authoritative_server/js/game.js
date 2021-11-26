@@ -370,20 +370,10 @@ function update() {
         var tonneau = [player.world.localWorld.constraints[0].bodyA]
       }
         if (tonneau[0]) {
-          console.log("CRASSH AVANT");
-          console.log(tonneau[0]);
-          // tonneau[0].setAlpha(0.8)
-          console.log("APRES");
-          // barils[tonneau[0].body.id].alpha = 0.8
           if (player.world.localWorld.constraints.length == 0) {
             tonneau[0].body.collisionFilter.mask = 0
             tonneau[0].setFixedRotation().setIgnoreGravity(true)
             barils[tonneau[0].body.id].alpha = 0.7
-
-
-
-            // tonneau[0].y = player.y - player.displayHeight / 2 - 105;
-            // tonneau[0].x = player.x
 
             this.tweens.add({
               targets: tonneau[0],
@@ -392,27 +382,12 @@ function update() {
               onComplete: () => (tonneau[0].setCollidesWith(-1).setIgnoreGravity(false), this.matter.add.constraint(tonneau[0] ,player)),
               duration: 500
             })
-
-            // ;
             input.interactionTonneau = false
           }
           else if (player.world.localWorld.constraints[0].bodyA.id == tonneau[0].id) {
-            // tonneau[0].setAlpha(1)
-            barils[tonneau[0].id].alpha = 1
-
-            console.log("ARE U UNDEFINED ?");
-            console.log(tonneau[0]);
-            // tonneau[0].body.collisionFilter.mask = 0
             player.world.localWorld.constraints = []
             x = player.flipX ? (player.x - player.displayWidth - 50) : (player.x + player.displayWidth + 50)
             y = player.y - 85
-
-            // tonneau[0].setVelocityX(player.flipX ? -30 : 30)
-            // this.tweens.addCounter({
-            //   duration: 500,
-            //   onComplete: () => tonneau[0].setCollidesWith(-1)
-            // });
-
           }
         }
         input.interactionTonneau = false;
@@ -669,7 +644,7 @@ function finDeVie(id) {
   let joueur = this.players["Naruto"].getMatching("playerId", id)[0]
   joueur.vie = 5;
   let x = joueur.equipe == "A" ? -379 : 7000
-  let y = joueur.equipe == "A" ? 137 : -1553
+  let y = joueur.equipe == "A" ? 100 : -1553
   joueur.setCollisionGroup(6).setCollidesWith(4)
 
 
