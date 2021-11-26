@@ -248,6 +248,12 @@ const Arene = new Phaser.Class({
     this.fontaine1Derriere = this.add.image(-4870, -790, 'fontaineDerriere').setDepth(0)
 
     let drapeauBleu = this.add.image(-4662.428561331542, -1070.2723001427164, 'drapeauBleu').setDepth(1)
+
+
+    this.matDrapeau = self.add.zone(this.fontaine1.x, this.fontaine1.y - 200, 10, drapeauBleu.displayHeight).setOrigin(0.5, 0.5);
+    var socleJoueur = self.matter.add.gameObject(this.matDrapeau).setAngle(70);
+    socleJoueur.setIgnoreGravity(true).setStatic(true).setFriction(0)
+
     this.input.on('pointerdown', function (pointer) {
 
     console.log('down');
