@@ -430,8 +430,11 @@ function update() {
           }
         }
         if (input.ctrl) {
-          player.angle += 20
-          input.ctrl = false;
+          this.tween = this.tweens.add({
+            targets: player,
+            angle: 0,
+            duration: 500
+          })
         }
       } else if (input.left) {
         if (input.walk) {
@@ -445,7 +448,11 @@ function update() {
           }
         }
         if (input.ctrl) {
-          player.angle -= 20
+          this.tween = this.tweens.add({
+            targets: player,
+            angle: 0,
+            duration: 500
+          })
           input.ctrl = false;
         }
       }
