@@ -356,7 +356,6 @@ function update() {
         input.special3 = false;
       }
 
-
       if (input.interactionTonneau) {
         if (player.world.localWorld.constraints.length == 0) {
         const recupereLePlusProche = this.tonneaux.getChildren().map(t => {
@@ -385,6 +384,11 @@ function update() {
             input.interactionTonneau = false
           }
           else if (player.world.localWorld.constraints[0].bodyA.id == tonneau[0].id) {
+            // if (input.lancer) {
+              // console.log("LANCER OUI");
+              // input.lancer = false;
+            // }
+
             player.world.localWorld.constraints = []
             x = player.flipX ? (player.x - player.displayWidth - 50) : (player.x + player.displayWidth + 50)
             y = player.y - 85
