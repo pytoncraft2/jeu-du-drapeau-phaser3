@@ -500,7 +500,7 @@ function update() {
                     events.emit('changement-vie-equipe', "A", puissance + player.puissanceBonus)
                   } else if (tonneau[0]) {
                     // events.emit('lancer-tonneau', player.flipX, puissance + player.puissanceBonus, tonneau[0].id)
-                    tonneau[0].setVelocity((player.flipX ? -10 * (puissance * 2)  : 10 * (puissance * 2)), (puissance * 2) -40)
+                    tonneau[0].setVelocity((player.flipX ? -10 * (puissance * 2)  : 10 * (puissance * 2)), - (puissance * 100) )
                   }
                   count = false;
                 }
