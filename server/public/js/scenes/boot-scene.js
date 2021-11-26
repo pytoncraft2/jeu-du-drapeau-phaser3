@@ -109,6 +109,10 @@ const BootScene = new Phaser.Class({
     this.load.image('facade', 'assets/fond/facade-maison.png');
     this.load.image('plafond', 'assets/fond/plafond-maison.png');
     this.load.image('fontaine', 'assets/fond/fontaine.png');
+    this.load.image('fontaineDerriere', 'assets/fond/fontaineDerriere.png');
+
+
+
     this.load.image('tobogan', 'assets/fond/tobogan.png');
     this.load.image('poteau', 'assets/fond/poteau.png');
     this.load.image('canon-socle', 'assets/fond/canon-socle.png');
