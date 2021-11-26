@@ -142,6 +142,7 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
   this.events = new Phaser.Events.EventEmitter()
   this.events.on('changement-vie-equipe', changementVieEquipe, this)
   this.events.on('changement-vie', changementVie, this)
+  this.events.on('lancer-tonneau', lancerTonneau, this)
   this.events.on('fin-de-vie', finDeVie, this)
 
   //tobogan mini socles
@@ -302,18 +303,18 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
     }
 	},this)
 
-  this.matter.world.on("collisionactive", (event) => {
-
-
-    console.log("_______________PREMIER PARAM");
-    // console.log(event.pairs[0].bodyB.gameObject)
-    // console.log("2eme ____________ PARAM");
-    // console.log(event.pairs[0].bodyA.gameObject)
-    console.log(event.pairs[0].bodyA.gameObject);
-    // console.log(param2);
-
-     // skaterTouchingGround = true;
-  });
+  // this.matter.world.on("collisionactive", (event) => {
+  //
+  //
+  //   console.log("_______________PREMIER PARAM");
+  //   // console.log(event.pairs[0].bodyB.gameObject)
+  //   // console.log("2eme ____________ PARAM");
+  //   // console.log(event.pairs[0].bodyA.gameObject)
+  //   console.log(event.pairs[0].bodyA.gameObject);
+  //   // console.log(param2);
+  //
+  //    // skaterTouchingGround = true;
+  // });
 
 
 }
@@ -373,6 +374,7 @@ function update() {
 
       if (input.interactionTonneau) {
         if (player.world.localWorld.constraints.length == 0) {
+        // TODO: EVITER REPETITION
         const recupereLePlusProche = this.tonneaux.getChildren().map(t => {
           if (Phaser.Math.Distance.BetweenPoints(player, t) < 300 && Phaser.Math.Distance.BetweenPoints(player, t) < 310) {
             return t
@@ -470,7 +472,14 @@ function update() {
           if (this.tween.isPlaying()) {
           this.tween.stop()
           }
+          const recupereLePlusProche = this.tonneaux.getChildren().map(t => {
+            if (Phaser.Math.Distance.BetweenPoints(player, t) < 300 && Phaser.Math.Distance.BetweenPoints(player, t) < 310) {
+              return t
+            }
+          } );
+          var tonneau = recupereLePlusProche.filter( Boolean );
           player.play('attack', true)
+
           count = true;
           this.tween = this.tweens.add({
             targets: player.ombre,
@@ -489,6 +498,8 @@ function update() {
                     events.emit('changement-vie-equipe', "B", puissance + player.puissanceBonus)
                   } else if (distance2 < 530 && distance2 < 540) {
                     events.emit('changement-vie-equipe', "A", puissance + player.puissanceBonus)
+                  } else if (tonneau[0]) {
+                    events.emit('lancer-tonneau', player.flipX, puissance + player.puissanceBonus)
                   }
                   count = false;
                 }
@@ -673,6 +684,10 @@ function finDeVie(id) {
    onComplete: () => joueur.setAlpha(1).setCollisionGroup(CATEGORIE_JOUEUR).setCollidesWith(-1).setRotation(0),
     ease: 'Sine.easeInOut'
   });
+}
+
+function lancerTonneau(direction, joueur, puissance) {
+console.log("LANCER TONNEAU");  
 }
 
 
