@@ -499,7 +499,8 @@ function update() {
                   } else if (distance2 < 530 && distance2 < 540) {
                     events.emit('changement-vie-equipe', "A", puissance + player.puissanceBonus)
                   } else if (tonneau[0]) {
-                    events.emit('lancer-tonneau', player.flipX, puissance + player.puissanceBonus)
+                    // events.emit('lancer-tonneau', player.flipX, puissance + player.puissanceBonus, tonneau[0].id)
+                    tonneau[0].setVelocity((player.flipX ? -10 + puissance / 2 : 10 + puissance / 2), 30)
                   }
                   count = false;
                 }
@@ -686,8 +687,8 @@ function finDeVie(id) {
   });
 }
 
-function lancerTonneau(direction, joueur, puissance) {
-console.log("LANCER TONNEAU");  
+function lancerTonneau(direction, puissance, tonneauId) {
+console.log("LANCER TONNEAU");
 }
 
 
