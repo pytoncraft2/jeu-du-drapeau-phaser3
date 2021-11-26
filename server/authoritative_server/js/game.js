@@ -670,7 +670,7 @@ function finDeVie(id) {
   let joueur = this.players["Naruto"].getMatching("playerId", id)[0]
   joueur.vie = 5;
   let x = joueur.equipe == "A" ? -379 : 7000
-  let y = joueur.equipe == "A" ? 100 : -1553
+  let y = joueur.equipe == "A" ? 100 : -1600
   joueur.setCollisionGroup(6).setCollidesWith(4)
 
 
