@@ -465,13 +465,51 @@ function update() {
         var count;
         if (input.charge) {
           count = false;
-          this.tween = this.tweens.add({
-            targets: player.ombre,
-            from: 0,
-            to: 1,
-            scale: 2,
-            duration: 2000
-          })
+
+
+
+          // this.tween = this.tweens.add({
+          //   targets: player,
+          //   from: 0,
+          //   to: 1,
+          //   props: {
+          //     alpha: {value: 0.1, duration: 500},
+          //     alpha: { value: 0.4, delay: 500, duration: 500, ease: 'Power2' },
+          //     alpha: { value: 0.8, delay: 1000, duration: 500, ease: 'Power2'},
+          //   },
+          //   // scale: 2,
+          //   duration: 2000
+          // })
+
+          this.tween = this.tweens.timeline({
+
+               tweens: [{
+                   targets: player,
+                   alpha: 0.8,
+                   ease: 'Power1',
+                   duration: 1000
+               },
+               {
+                   targets: player,
+                   y: 500,
+                   ease: 'Power1',
+                   duration: 1000
+               },
+               {
+                   targets: player,
+                   alpha: 0.5,
+                   ease: 'Power1',
+                   duration: 1000
+               },
+               {
+                   targets: player,
+                   alpha: 0.2,
+                   ease: 'Power1',
+                   duration: 1000
+               }]
+
+           });
+
           player.play('idle_attack', true)
           input.charge = false;
         } else {
