@@ -488,30 +488,49 @@ function update() {
                    targets: player,
                    scale: 0.35,
                    ease: 'Power1',
-                   duration: 300
+                   duration: 250
                },
                {
                    targets: player,
                    ease: 'Power1',
                    scale: 0.38,
-                   duration: 300
-               },
-               {
-                   targets: player,
-                   ease: 'Power1',
-                   duration: 300
+                   duration: 250
                },
                {
                    targets: player,
                    scale: 0.35,
                    ease: 'Power1',
-                   duration: 300,
+                   duration: 250,
                },
                {
                    targets: player,
-                   scale: 0.38,
                    ease: 'Power1',
-                   duration: 300,
+                   scale: 0.38,
+                   duration: 250
+               },
+               {
+                   targets: player,
+                   scale: 0.34,
+                   ease: 'Power1',
+                   duration: 250,
+               },
+               {
+                   targets: player,
+                   scale: 0.39,
+                   ease: 'Power1',
+                   duration: 250,
+               },
+               {
+                   targets: player,
+                   scale: 0.34,
+                   ease: 'Power1',
+                   duration: 250,
+               },
+               {
+                   targets: player,
+                   scale: 0.39,
+                   ease: 'Power1',
+                   duration: 250,
                }],
                onComplete: () => player.setTint(0xff0000)
 
