@@ -487,26 +487,26 @@ function update() {
                    targets: player,
                    alpha: 0.8,
                    ease: 'Power1',
-                   duration: 1000
+                   duration: 300
                },
                {
                    targets: player,
-                   y: 500,
                    ease: 'Power1',
-                   duration: 1000
+                   duration: 300
                },
                {
                    targets: player,
-                   alpha: 0.5,
+                   alpha: 0.6,
                    ease: 'Power1',
-                   duration: 1000
+                   duration: 300
                },
                {
                    targets: player,
-                   alpha: 0.2,
+                   alpha: 0.8,
                    ease: 'Power1',
-                   duration: 1000
-               }]
+                   duration: 300,
+               }],
+               yoyo: true
 
            });
 
