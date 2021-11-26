@@ -302,6 +302,20 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
     }
 	},this)
 
+  this.matter.world.on("collisionactive", (event) => {
+
+
+    console.log("_______________PREMIER PARAM");
+    // console.log(event.pairs[0].bodyB.gameObject)
+    // console.log("2eme ____________ PARAM");
+    // console.log(event.pairs[0].bodyA.gameObject)
+    console.log(event.pairs[0].bodyA.gameObject);
+    // console.log(param2);
+
+     // skaterTouchingGround = true;
+  });
+
+
 }
 
 function update() {
