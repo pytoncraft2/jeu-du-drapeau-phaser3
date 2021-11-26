@@ -358,6 +358,7 @@ function update() {
 
 
       if (input.interactionTonneau) {
+        if (player.world.localWorld.constraints.length == 0) {
         const recupereLePlusProche = this.tonneaux.getChildren().map(t => {
           if (Phaser.Math.Distance.BetweenPoints(player, t) < 300 && Phaser.Math.Distance.BetweenPoints(player, t) < 310) {
             return t
@@ -365,9 +366,15 @@ function update() {
         } );
 
         var tonneau = recupereLePlusProche.filter( Boolean );
+      } else if (player.world.localWorld.constraints[0]){
+        var tonneau = [player.world.localWorld.constraints[0].bodyA]
+      }
         if (tonneau[0]) {
-          tonneau[0].setAlpha(0.8)
-          barils[tonneau[0].body.id].alpha = 0.8
+          console.log("CRASSH AVANT");
+          console.log(tonneau[0]);
+          // tonneau[0].setAlpha(0.8)
+          console.log("APRES");
+          // barils[tonneau[0].body.id].alpha = 0.8
           if (player.world.localWorld.constraints.length == 0) {
             tonneau[0].body.collisionFilter.mask = 0
             tonneau[0].setFixedRotation().setIgnoreGravity(true)
@@ -388,20 +395,22 @@ function update() {
             // ;
             input.interactionTonneau = false
           }
-          else if (player.world.localWorld.constraints[0].bodyA.id == tonneau[0].body.id) {
-            tonneau[0].setAlpha(1)
-            barils[tonneau[0].body.id].alpha = 1
+          else if (player.world.localWorld.constraints[0].bodyA.id == tonneau[0].id) {
+            // tonneau[0].setAlpha(1)
+            barils[tonneau[0].id].alpha = 1
 
-            tonneau[0].body.collisionFilter.mask = 0
+            console.log("ARE U UNDEFINED ?");
+            console.log(tonneau[0]);
+            // tonneau[0].body.collisionFilter.mask = 0
             player.world.localWorld.constraints = []
             x = player.flipX ? (player.x - player.displayWidth - 50) : (player.x + player.displayWidth + 50)
             y = player.y - 85
 
-            tonneau[0].setVelocityX(player.flipX ? -30 : 30)
-            this.tweens.addCounter({
-              duration: 500,
-              onComplete: () => tonneau[0].setCollidesWith(-1)
-            });
+            // tonneau[0].setVelocityX(player.flipX ? -30 : 30)
+            // this.tweens.addCounter({
+            //   duration: 500,
+            //   onComplete: () => tonneau[0].setCollidesWith(-1)
+            // });
 
           }
         }
