@@ -269,7 +269,7 @@ console.log(drapeauVert.y);
     let fontaine2 = this.matter.add.image(8235, -1553, 'fontaine').setDepth(2).setCollisionGroup(2).setCollidesWith(0)
     let fontaine2Derriere = this.add.image(8235, -1553, 'fontaineDerriere').setDepth(0)
 
-    let drapeauVert = this.matter.add.image(8443.85357152924,-1883.7104390337054, 'drapeauVert').setDepth(1)
+    let drapeauVert = this.add.image(8443.85357152924,-1883.7104390337054, 'drapeauVert').setDepth(1)
 
     let maison2 = this.add.group()
     maison2.addMultiple([interieurMaison2, facade2, toit2]); // array of game objects
