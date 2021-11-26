@@ -486,20 +486,26 @@ function update() {
 
                tweens: [{
                    targets: player,
-                   scale: 0.36,
+                   scale: 0.35,
                    ease: 'Power1',
                    duration: 300
                },
                {
                    targets: player,
                    ease: 'Power1',
-                   scale: 0.37,
+                   scale: 0.38,
                    duration: 300
                },
                {
                    targets: player,
                    ease: 'Power1',
                    duration: 300
+               },
+               {
+                   targets: player,
+                   scale: 0.35,
+                   ease: 'Power1',
+                   duration: 300,
                },
                {
                    targets: player,
@@ -507,7 +513,6 @@ function update() {
                    ease: 'Power1',
                    duration: 300,
                }],
-               yoyo: true,
                onComplete: () => player.setTint(0xff0000)
 
            });
