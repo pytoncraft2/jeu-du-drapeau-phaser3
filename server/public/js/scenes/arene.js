@@ -460,12 +460,12 @@ const Arene = new Phaser.Class({
       });
     }
 
-    if (Phaser.Input.Keyboard.JustUp(this.eKeyPressed)) {
-      this.socket.emit('playerInput', {
-        interactionTonneau: true,
-        lancer: true
-      });
-    }
+    // if (Phaser.Input.Keyboard.JustUp(this.eKeyPressed)) {
+    //   this.socket.emit('playerInput', {
+    //     interactionTonneau: true,
+    //     lancer: true
+    //   });
+    // }
 
 
     /**
