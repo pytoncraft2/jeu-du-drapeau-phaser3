@@ -366,7 +366,7 @@ function update() {
         } );
 
         var tonneau = recupereLePlusProche.filter( Boolean );
-      } else if (player.world.localWorld.constraints[0]){
+      } else if (player.world.localWorld.constraints[0]) {
         var tonneau = [player.world.localWorld.constraints[0].bodyA]
       }
         if (tonneau[0]) {
@@ -402,7 +402,6 @@ function update() {
        * DROITE-GAUCHE
        */
 
-       console.log(player.body.speed);
       if (input.right) {
         if (input.walk) {
           player.thrust(0.1)
