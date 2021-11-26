@@ -378,6 +378,7 @@ function update() {
           if (player.world.localWorld.constraints.length == 0) {
             tonneau[0].body.collisionFilter.mask = 0
             tonneau[0].setFixedRotation().setIgnoreGravity(true)
+            barils[tonneau[0].body.id].alpha = 0.7
 
 
 
