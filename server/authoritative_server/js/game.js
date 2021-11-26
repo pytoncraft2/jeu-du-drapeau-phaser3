@@ -402,6 +402,7 @@ function update() {
        * DROITE-GAUCHE
        */
 
+       console.log(player.body.speed);
       if (input.right) {
         if (input.walk) {
           player.thrust(0.1)
@@ -409,7 +410,7 @@ function update() {
           player.setFlipX(false)
         } else {
           player.thrust(0)
-          if (player.body.speed < 1.5) {
+          if (player.body.speed < 2) {
             player.play("idle_walk", true)
           }
         }
@@ -424,7 +425,7 @@ function update() {
           player.setFlipX(true)
         } else {
           player.thrust(0)
-          if (player.body.speed < 1.5) {
+          if (player.body.speed < 2) {
           player.play("idle_walk", true)
           }
         }
