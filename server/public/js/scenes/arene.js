@@ -245,6 +245,17 @@ const Arene = new Phaser.Class({
     let toit1 = this.add.image(-135, -245, 'plafond').setDepth(2)
     let fontaine1 = this.add.image(-4870, -790, 'fontaine').setDepth(2)
 
+    let drapeauBleu = this.add.image(-4662.428561331542, -1070.2723001427164, 'drapeauBleu').setDepth(3)
+    this.input.on('pointerdown', function (pointer) {
+
+    console.log('down');
+
+    console.log(pointer.x, pointer.y);
+    console.log("IMG");
+    console.log(drapeauBleu.x);
+    console.log(drapeauBleu.y);
+
+}, this);
     let maison1 = this.add.group()
     maison1.addMultiple([interieurMaison1, facade1, toit1]); // array of game objects
 
@@ -254,6 +265,8 @@ const Arene = new Phaser.Class({
     let facade2 = this.add.image(7000, -1584, 'facade').setDepth(1).setAlpha(0.4)
     let toit2 = this.add.image(7000, -1935, 'plafond').setDepth(2)
     let fontaine2 = this.matter.add.image(8235, -1553, 'fontaine').setDepth(2).setCollisionGroup(2).setCollidesWith(0)
+
+    let drapeauVert = this.add.image(fontaine2.x + fontaine2.displayWidth - 350, fontaine2.y - 300 , 'drapeauVert').setDepth(3)
 
     let maison2 = this.add.group()
     maison2.addMultiple([interieurMaison2, facade2, toit2]); // array of game objects

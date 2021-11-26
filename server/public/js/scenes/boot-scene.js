@@ -95,6 +95,9 @@ const BootScene = new Phaser.Class({
     this.load.image('bulletVerte', 'assets0/bulletVerte.png');
     this.load.image('bulletBleu', 'assets0/bulletBleu.png');
 
+    this.load.image('drapeauBleu', 'assets0/drapeauBleu.png');
+    this.load.image('drapeauVert', 'assets0/drapeauVert.png');
+
 
     this.load.image('fullscreen', 'assets0/fullscreen.png');
     // this.load.image('bgMenu', 'assets/fond/bgMenu.png');
