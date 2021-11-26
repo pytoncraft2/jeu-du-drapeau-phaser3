@@ -481,12 +481,19 @@ function update() {
           //   duration: 2000
           // })
 
+
           this.tween = this.tweens.timeline({
 
                tweens: [{
                    targets: player,
-                   alpha: 0.8,
+                   scale: 0.36,
                    ease: 'Power1',
+                   duration: 300
+               },
+               {
+                   targets: player,
+                   ease: 'Power1',
+                   scale: 0.37,
                    duration: 300
                },
                {
@@ -496,17 +503,12 @@ function update() {
                },
                {
                    targets: player,
-                   alpha: 0.6,
-                   ease: 'Power1',
-                   duration: 300
-               },
-               {
-                   targets: player,
-                   alpha: 0.8,
+                   scale: 0.38,
                    ease: 'Power1',
                    duration: 300,
                }],
-               yoyo: true
+               yoyo: true,
+               onComplete: () => player.setTint(0xff0000)
 
            });
 
@@ -650,6 +652,7 @@ function update() {
       players[player.arene][player.playerId].frame = player.anims.getFrameName();
       players[player.arene][player.playerId].flipX = player.flipX;
       players[player.arene][player.playerId].scale = player.scale;
+      players[player.arene][player.playerId].tint = player.tintBottomLeft;
       players[player.arene][player.playerId].alpha = player.alpha;
       players[player.arene][player.playerId].ombreX = player.ombre.x;
       players[player.arene][player.playerId].ombreScale = player.ombre.scale;
