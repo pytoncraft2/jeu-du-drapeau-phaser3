@@ -216,6 +216,7 @@ const Arene = new Phaser.Class({
             player.ombre.x = players[id].ombreX;
             player.ombre.setAlpha(players[id].ombreAlpha);
             player.ombre.setScale(players[id].ombreScale);
+            self.matDrapeauBleu.setPosition(players[id].x, players[id].y)
             self.plots2.y = players[id].socleMouventY
             if (players[id].frame != "") {
               player.setFrame(players[id].frame);
@@ -247,21 +248,16 @@ const Arene = new Phaser.Class({
     this.fontaine1 = this.add.image(-4870, -790, 'fontaine').setDepth(2)
     this.fontaine1Derriere = this.add.image(-4870, -790, 'fontaineDerriere').setDepth(0)
 
-    let drapeauBleu = this.add.image(-4662.428561331542, -1070.2723001427164, 'drapeauBleu').setDepth(1)
-
-
-    this.matDrapeau = self.add.zone(this.fontaine1.x, this.fontaine1.y - 200, 10, drapeauBleu.displayHeight).setOrigin(0.5, 0.5);
-    var socleJoueur = self.matter.add.gameObject(this.matDrapeau).setAngle(70);
-    socleJoueur.setIgnoreGravity(true).setStatic(true).setFriction(0)
-
+    this.drapeauBleu = this.add.image(-4662.428561331542, -1070.2723001427164, 'drapeauBleu').setDepth(1)
+    this.matDrapeauBleu = this.add.image(-4662.428561331542, -1070.2723001427164, 'matDrapeauBleu').setDepth(1).setOrigin(0.5, 1)
     this.input.on('pointerdown', function (pointer) {
 
     console.log('down');
 
     console.log(pointer.x, pointer.y);
     console.log("IMG");
-    console.log(drapeauVert.x);
-console.log(drapeauVert.y);
+    // console.log(drapeauVert.x);
+// console.log(drapeauVert.y);
 
 
 }, this);
@@ -276,7 +272,7 @@ console.log(drapeauVert.y);
     this.fontaine2 = this.add.image(8235, -1553, 'fontaine').setDepth(2)
     this.fontaine2Derriere = this.add.image(8235, -1553, 'fontaineDerriere').setDepth(0)
 
-    let drapeauVert = this.add.image(8443.85357152924,-1883.7104390337054, 'drapeauVert').setDepth(1)
+    this.drapeauVert = this.add.image(8443.85357152924,-1883.7104390337054, 'drapeauVert').setDepth(1)
 
     let maison2 = this.add.group()
     maison2.addMultiple([interieurMaison2, facade2, toit2]); // array of game objects
