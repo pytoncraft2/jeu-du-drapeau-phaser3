@@ -249,7 +249,7 @@ const Arene = new Phaser.Class({
     this.fontaine1Derriere = this.add.image(-4870, -790, 'fontaineDerriere').setDepth(0)
 
     this.drapeauBleu = this.add.image(-4662.428561331542, -1070.2723001427164, 'drapeauBleu').setDepth(1)
-    this.matDrapeauBleu = this.matter.add.image(-4848.428561331542, -1043.2723001427164, 'matDrapeauBleu').setDepth(1)
+    this.matDrapeauBleu = this.add.image(-4848.428561331542, -1043.2723001427164, 'matDrapeauBleu').setDepth(1).setOrigin(0.5, 1)
     // this.matDrapeauBleu = this.add.zone(-4848.428561331542, -1043.2723001427164, 32, 640)
     // var tx = this.matter.add.gameObject(this.m);
 

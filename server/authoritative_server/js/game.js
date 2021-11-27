@@ -119,6 +119,7 @@ function create() {
 
   this.matDrapeauBleu = this.add.zone(-4848.428561331542, -1043.2723001427164, 32, 640)
   var matBleu = this.matter.add.gameObject(this.matDrapeauBleu);
+  matBleu.setFixedRotation().setIgnoreGravity(true).setCollidesWith(0).setCollisionGroup(32)
 
 
   // matDrapeauBleu = this.matter.add.image(-4848.428561331542, -1043.2723001427164, 'matDrapeauBleu').setDepth(1)
@@ -399,7 +400,7 @@ function update() {
         var distanceDrapeauBleu = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone.x, y: fontainezone.y});
         // var distance2 = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone2.x, y: fontainezone2.y});
         if (distanceDrapeauBleu < 530 && distanceDrapeauBleu < 540) {
-          this.matter.add.constraint(this.matDrapeauBleu ,player, 0, 0.2)
+          this.matter.add.constraint(this.matDrapeauBleu ,player, 0)
         }
 
 
