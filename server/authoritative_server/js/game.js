@@ -32,6 +32,7 @@ var fontainezone2;
 var CATEGORIE_JOUEUR = 0b0001
 var CATEGORIE_ENNEMIE = 0b0010
 var CATEGORIE_PLATFORME = 1
+var matDrapeauBleu;
 
 function preload() {
   this.load.atlas('dessinatrice1', 'assets/personnages/dessinatrice1/dessinatrice1.png', 'assets/personnages/dessinatrice1/dessinatrice1_atlas.json');
@@ -114,6 +115,14 @@ function create() {
   this.canon1 = this.add.rectangle(0, -460, 333, 125)
   fontainezone = this.add.zone(-4870, -790, 210, 210).setSize(640, 613)
   fontainezone2 = this.add.zone(8235, -1553, 210, 210).setSize(640, 613)
+
+
+  this.matDrapeauBleu = this.add.zone(-4848.428561331542, -1043.2723001427164, 32, 640)
+  var matBleu = this.matter.add.gameObject(this.matDrapeauBleu);
+
+
+  // matDrapeauBleu = this.matter.add.image(-4848.428561331542, -1043.2723001427164, 'matDrapeauBleu').setDepth(1)
+
 
 this.tonneaux = this.add.group()
 let tonneau1 = this.add.zone(-1000, 1700, 210, 210).setSize(155, 215.6)
@@ -385,13 +394,13 @@ function update() {
 
         //RECUPERE LE DRAPEAU LE PLUS PROCHE
 
-        /*
+        // this.matDrapeauBleu.setPosition(player.x, player.y)
+
         var distanceDrapeauBleu = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone.x, y: fontainezone.y});
         // var distance2 = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone2.x, y: fontainezone2.y});
         if (distanceDrapeauBleu < 530 && distanceDrapeauBleu < 540) {
-          this.matter.add.constraint(this.matDrapeauBleu ,player)
+          this.matter.add.constraint(this.matDrapeauBleu ,player, 0, 0.2)
         }
-        */
 
 
         var tonneau = recupereLePlusProche.filter( Boolean );
@@ -684,6 +693,10 @@ function update() {
       players[player.arene][player.playerId].rotation = player.rotation;
 
       players[player.arene][player.playerId].socleMouventY = this.plots2.y
+
+        players[player.arene][player.playerId].drapeauBleuX = this.matDrapeauBleu.x
+        players[player.arene][player.playerId].drapeauBleuY = this.matDrapeauBleu.y
+
       if (this.bulletCanon) {
         players[player.arene][player.playerId].bulletCanonY = this.bulletCanon.y
         players[player.arene][player.playerId].bulletCanonX = this.bulletCanon.x

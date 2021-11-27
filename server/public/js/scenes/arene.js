@@ -216,7 +216,7 @@ const Arene = new Phaser.Class({
             player.ombre.x = players[id].ombreX;
             player.ombre.setAlpha(players[id].ombreAlpha);
             player.ombre.setScale(players[id].ombreScale);
-            // self.matDrapeauBleu.setPosition(players[id].x, players[id].y)
+            self.matDrapeauBleu.setPosition(players[id].drapeauBleuX, players[id].drapeauBleuY)
             self.plots2.y = players[id].socleMouventY
             if (players[id].frame != "") {
               player.setFrame(players[id].frame);
@@ -250,14 +250,18 @@ const Arene = new Phaser.Class({
 
     this.drapeauBleu = this.add.image(-4662.428561331542, -1070.2723001427164, 'drapeauBleu').setDepth(1)
     this.matDrapeauBleu = this.matter.add.image(-4848.428561331542, -1043.2723001427164, 'matDrapeauBleu').setDepth(1)
+    // this.matDrapeauBleu = this.add.zone(-4848.428561331542, -1043.2723001427164, 32, 640)
+    // var tx = this.matter.add.gameObject(this.m);
+
+
     this.input.on('pointerdown', function (pointer) {
 
     console.log('down');
 
     console.log(pointer.x, pointer.y);
     console.log("IMG");
-    console.log(this.matDrapeauBleu.x);
-console.log(this.matDrapeauBleu.y);
+    // console.log(this.matDrapeauBleu.x);
+// console.log(this.matDrapeauBleu.y);
 
 
 }, this);
