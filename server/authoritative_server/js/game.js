@@ -374,12 +374,23 @@ function update() {
 
       if (input.interactionTonneau) {
         if (player.world.localWorld.constraints.length == 0) {
-        // TODO: EVITER REPETITION
+        // TODO: EVITER REPETITION (recupereLePlusProche)
+
+        //RECUPERE LE TONNEAU LE PLUS PROCHE
         const recupereLePlusProche = this.tonneaux.getChildren().map(t => {
           if (Phaser.Math.Distance.BetweenPoints(player, t) < 300 && Phaser.Math.Distance.BetweenPoints(player, t) < 310) {
             return t
           }
         } );
+
+        //RECUPERE LE DRAPEAU LE PLUS PROCHE
+
+        var distanceDrapeauBleu = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone.x, y: fontainezone.y});
+        // var distance2 = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone2.x, y: fontainezone2.y});
+        if (distanceDrapeauBleu < 530 && distanceDrapeauBleu < 540) {
+          this.matter.add.constraint(this.matDrapeauBleu ,player)
+        }
+
 
         var tonneau = recupereLePlusProche.filter( Boolean );
       } else if (player.world.localWorld.constraints[0]) {
@@ -465,22 +476,6 @@ function update() {
         var count;
         if (input.charge) {
           count = false;
-
-
-
-          // this.tween = this.tweens.add({
-          //   targets: player,
-          //   from: 0,
-          //   to: 1,
-          //   props: {
-          //     alpha: {value: 0.1, duration: 500},
-          //     alpha: { value: 0.4, delay: 500, duration: 500, ease: 'Power2' },
-          //     alpha: { value: 0.8, delay: 1000, duration: 500, ease: 'Power2'},
-          //   },
-          //   // scale: 2,
-          //   duration: 2000
-          // })
-
 
           this.tween = this.tweens.timeline({
 
