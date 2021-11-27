@@ -385,11 +385,13 @@ function update() {
 
         //RECUPERE LE DRAPEAU LE PLUS PROCHE
 
+        /*
         var distanceDrapeauBleu = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone.x, y: fontainezone.y});
         // var distance2 = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone2.x, y: fontainezone2.y});
         if (distanceDrapeauBleu < 530 && distanceDrapeauBleu < 540) {
           this.matter.add.constraint(this.matDrapeauBleu ,player)
         }
+        */
 
 
         var tonneau = recupereLePlusProche.filter( Boolean );
