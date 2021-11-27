@@ -397,7 +397,7 @@ function update() {
 
         // this.matDrapeauBleu.setPosition(player.x, player.y)
 
-        var distanceDrapeauBleu = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone.x, y: fontainezone.y});
+        var distanceDrapeauBleu = Phaser.Math.Distance.BetweenPoints(player, {x: this.matDrapeauBleu.x, y: this.matDrapeauBleu.y});
         // var distance2 = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone2.x, y: fontainezone2.y});
         if (distanceDrapeauBleu < 530 && distanceDrapeauBleu < 540) {
           this.matter.add.constraint(this.matDrapeauBleu ,player, 0)
