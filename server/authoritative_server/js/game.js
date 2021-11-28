@@ -430,31 +430,6 @@ function update() {
         //SI FONTAINE DESACTIVÉ
 
 
-        if (!fontainezone2.active) {
-          var distance = Phaser.Math.Distance.BetweenPoints(this.drapeaux.getChildren()[0], {x: fontainezone.x, y: fontainezone.y});
-
-          if (distance < 530 && distance < 540) {
-            this.events.emit('fin-de-partie', "A")
-          }
-
-          //ATTRAPER DRAPEAU BLEU
-          var distanceDrapeauBleu = Phaser.Math.Distance.BetweenPoints(player, {x: this.drapeaux.getChildren()[0].x, y: this.drapeaux.getChildren()[0].y});
-          if (distanceDrapeauBleu < 130 && distanceDrapeauBleu < 140) {
-            this.matter.add.constraint(this.drapeaux.getChildren()[0], player, 0)
-          }
-        } else if (!fontainezone.active) {
-          var distance2 = Phaser.Math.Distance.BetweenPoints(this.drapeaux.getChildren()[1], {x: fontainezone2.x, y: fontainezone2.y});
-          if (distance2 < 530 && distance2 < 540) {
-            this.events.emit('fin-de-partie', "B")
-          }
-
-          //ATTRAPER DRAPEAU VERT
-          var distanceDrapeauVert = Phaser.Math.Distance.BetweenPoints(player, {x: this.drapeaux.getChildren()[1].x, y: this.drapeaux.getChildren()[1].y});
-          if (distanceDrapeauVert < 130 && distanceDrapeauVert < 140) {
-            this.matter.add.constraint(this.drapeaux.getChildren()[1], player, 0)
-          }
-        }
-
 
         var tonneau = recupereLePlusProche.filter( Boolean );
       } else if (player.world.localWorld.constraints[0]) {
@@ -481,6 +456,43 @@ function update() {
             y = player.y - 85
           }
         }
+
+
+        //SI LE DRAPEAU SE SITUE A LA MEME POSITION QUE LA FONTAINE
+        if (!fontainezone2.active) {
+          var distance = Phaser.Math.Distance.BetweenPoints(this.drapeaux.getChildren()[0], {x: fontainezone.x, y: fontainezone.y});
+
+          if (distance < 530 && distance < 540) {
+            this.events.emit('fin-de-partie', "A")
+          }
+
+          //ATTRAPER DRAPEAU BLEU
+          var distanceDrapeauBleu = Phaser.Math.Distance.BetweenPoints(player, {x: this.drapeaux.getChildren()[0].x, y: this.drapeaux.getChildren()[0].y});
+          if (distanceDrapeauBleu < 130 && distanceDrapeauBleu < 140) {
+            if (player.world.localWorld.constraints.length == 0) {
+              this.matter.add.constraint(this.drapeaux.getChildren()[0], player, 0)
+            } else {
+              player.world.localWorld.constraints = []
+            }
+          }
+        } else if (!fontainezone.active) {
+          var distance2 = Phaser.Math.Distance.BetweenPoints(this.drapeaux.getChildren()[1], {x: fontainezone2.x, y: fontainezone2.y});
+          if (distance2 < 530 && distance2 < 540) {
+            this.events.emit('fin-de-partie', "B")
+          }
+
+          //ATTRAPER DRAPEAU VERT
+          var distanceDrapeauVert = Phaser.Math.Distance.BetweenPoints(player, {x: this.drapeaux.getChildren()[1].x, y: this.drapeaux.getChildren()[1].y});
+          if (distanceDrapeauVert < 130 && distanceDrapeauVert < 140) {
+            if (player.world.localWorld.constraints.length == 0) {
+            this.matter.add.constraint(this.drapeaux.getChildren()[1], player, 0)
+          } else {
+            player.world.localWorld.constraints = []
+          }
+        }
+      }
+
+
         input.interactionTonneau = false;
       }
 
@@ -769,16 +781,14 @@ function update() {
 function changementVieEquipe(equipe, puissance) {
   this.vieEquipe[equipe] -= puissance * 10;
   if (this.vieEquipe[equipe] <= 0) {
-  io.to("Naruto").emit("drapeau_debloque", equipe);
-  if (equipe == "A") {
+  if (equipe == "A" && fontainezone2.active) {
   fontainezone2.setActive(false);
-} else if (equipe == "B"){
+  io.to("Naruto").emit("drapeau_debloque", equipe);
+} else if (equipe == "B" && fontainezone.active){
   fontainezone.setActive(false);
+  io.to("Naruto").emit("drapeau_debloque", equipe);
 }
 
-  // this.players["Naruto"].remove(true);
-  // this.vieEquipe["A"] = 100;
-  // this.vieEquipe["B"] = 100;
   }
 
   io.to("Naruto").emit("changement_vie_equipe", equipe, this.vieEquipe[equipe]);
