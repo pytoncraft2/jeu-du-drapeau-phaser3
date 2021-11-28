@@ -150,16 +150,46 @@ const Arene = new Phaser.Class({
       self.socket.disconnect()
 
 
-    if (equipe == "A") {
+    if (equipe == "B") {
       this.cameras.main.pan(self.fontaine2.x, self.fontaine2.y, 2500);
       this.cameras.main.on('camerapancomplete', () => {
         self.cameras.main.startFollow(self.fontaine2);
+
+        // TODO: OPTIMIZER pour eviter de repeter
+      if (moi == equipe) {
+        self.scene.stop()
+        self.scene.start('areneEquipes', {
+          equipe: true
+        })
+
+      } else {
+        self.scene.stop()
+        self.scene.start('areneEquipes', {
+          equipe: false
+        })
+      }
+
       });
 
     } else {
       this.cameras.main.pan(self.fontaine1.x, self.fontaine1.y, 2500);
       this.cameras.main.on('camerapancomplete', () => {
         self.cameras.main.startFollow(self.fontaine1);
+
+
+      if (moi == equipe) {
+        self.scene.stop()
+        self.scene.start('areneEquipes', {
+          equipe: true
+        })
+
+      } else {
+        self.scene.stop()
+        self.scene.start('areneEquipes', {
+          equipe: false
+        })
+      }
+
       });
 
     }
@@ -167,18 +197,7 @@ const Arene = new Phaser.Class({
 
 
 
-      // if (moi == equipe) {
-      //   self.scene.stop()
-      //   self.scene.start('areneEquipes', {
-      //     equipe: true
-      //   })
-      //
-      // } else {
-      //   self.scene.stop()
-      //   self.scene.start('areneEquipes', {
-      //     equipe: false
-      //   })
-      // }
+
     });
 
 
