@@ -152,9 +152,20 @@ const Arene = new Phaser.Class({
 
     if (equipe == "A") {
       this.cameras.main.pan(self.fontaine2.x, self.fontaine2.y, 2500);
+      this.cameras.main.on('camerapancomplete', () => {
+        self.cameras.main.startFollow(self.fontaine2);
+      });
+
     } else {
       this.cameras.main.pan(self.fontaine1.x, self.fontaine1.y, 2500);
+      this.cameras.main.on('camerapancomplete', () => {
+        self.cameras.main.startFollow(self.fontaine1);
+      });
+
     }
+    console.log("FIN DE PARTIE");
+
+
 
       // if (moi == equipe) {
       //   self.scene.stop()

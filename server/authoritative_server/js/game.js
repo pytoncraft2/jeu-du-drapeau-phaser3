@@ -428,7 +428,7 @@ function update() {
           var distance = Phaser.Math.Distance.BetweenPoints(this.drapeaux.getChildren()[0], {x: fontainezone.x, y: fontainezone.y});
 
           if (distance < 530 && distance < 540) {
-            events.emit('fin-de-partie', "B")
+            this.events.emit('fin-de-partie', "B")
           }
 
           //ATTRAPER DRAPEAU BLEU
@@ -439,7 +439,7 @@ function update() {
         } else if (!fontainezone.active) {
           var distance2 = Phaser.Math.Distance.BetweenPoints(this.drapeaux.getChildren()[1], {x: fontainezone2.x, y: fontainezone2.y});
           if (distance2 < 530 && distance2 < 540) {
-            events.emit('fin-de-partie', "A")
+            this.events.emit('fin-de-partie', "A")
           }
 
           //ATTRAPER DRAPEAU VERT
@@ -814,6 +814,14 @@ function finDeVie(id) {
    onComplete: () => joueur.setAlpha(1).setCollisionGroup(CATEGORIE_JOUEUR).setCollidesWith(-1).setRotation(0),
     ease: 'Sine.easeInOut'
   });
+}
+
+
+function finDePartie(equipe) {
+  io.to("Naruto").emit("fin_de_partie", equipe);
+  this.players["Naruto"].remove(true);
+  this.vieEquipe["A"] = 100;
+  this.vieEquipe["B"] = 100;
 }
 
 function lancerTonneau(direction, puissance, tonneauId) {
