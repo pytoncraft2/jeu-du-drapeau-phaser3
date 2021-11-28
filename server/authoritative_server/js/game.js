@@ -764,7 +764,11 @@ function changementVieEquipe(equipe, puissance) {
   this.vieEquipe[equipe] -= puissance * 10;
   if (this.vieEquipe[equipe] <= 0) {
   io.to("Naruto").emit("drapeau_debloque", equipe);
+  if (equipe == "A") {
+  fontainezone2.setActive(false);
+} else if (equipe == "B"){
   fontainezone.setActive(false);
+}
 
   // this.players["Naruto"].remove(true);
   // this.vieEquipe["A"] = 100;
