@@ -420,16 +420,18 @@ function update() {
         } );
 
         //RECUPERE LE DRAPEAU LE PLUS PROCHE
+        //SI FONTAINE DESACTIVÉ
 
-        // this.matDrapeauBleu.setPosition(player.x, player.y)
-
-        var distanceDrapeauBleu = Phaser.Math.Distance.BetweenPoints(player, {x: this.drapeaux.getChildren()[0].x, y: this.drapeaux.getChildren()[0].y});
-        var distanceDrapeauVert = Phaser.Math.Distance.BetweenPoints(player, {x: this.drapeaux.getChildren()[1].x, y: this.drapeaux.getChildren()[1].y});
-        // var distance2 = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone2.x, y: fontainezone2.y});
-        if (distanceDrapeauBleu < 130 && distanceDrapeauBleu < 140) {
-          this.matter.add.constraint(this.drapeaux.getChildren()[0], player, 0)
-        } else if (distanceDrapeauVert < 130 && distanceDrapeauVert < 140) {
-          this.matter.add.constraint(this.drapeaux.getChildren()[1], player, 0)
+        if (!fontainezone2.active) {
+          var distanceDrapeauBleu = Phaser.Math.Distance.BetweenPoints(player, {x: this.drapeaux.getChildren()[0].x, y: this.drapeaux.getChildren()[0].y});
+          if (distanceDrapeauBleu < 130 && distanceDrapeauBleu < 140) {
+            this.matter.add.constraint(this.drapeaux.getChildren()[0], player, 0)
+          }
+        } else if (!fontainezone.active) {
+          var distanceDrapeauVert = Phaser.Math.Distance.BetweenPoints(player, {x: this.drapeaux.getChildren()[1].x, y: this.drapeaux.getChildren()[1].y});
+          if (distanceDrapeauVert < 130 && distanceDrapeauVert < 140) {
+            this.matter.add.constraint(this.drapeaux.getChildren()[1], player, 0)
+          }
         }
 
 
@@ -746,10 +748,12 @@ function update() {
 function changementVieEquipe(equipe, puissance) {
   this.vieEquipe[equipe] -= puissance * 10;
   if (this.vieEquipe[equipe] <= 0) {
-  io.to("Naruto").emit("fin_de_partie", equipe);
-  this.players["Naruto"].remove(true);
-  this.vieEquipe["A"] = 100;
-  this.vieEquipe["B"] = 100;
+  io.to("Naruto").emit("drapeau_debloque", equipe);
+  fontainezone.setActive(false);
+
+  // this.players["Naruto"].remove(true);
+  // this.vieEquipe["A"] = 100;
+  // this.vieEquipe["B"] = 100;
   }
 
   io.to("Naruto").emit("changement_vie_equipe", equipe, this.vieEquipe[equipe]);

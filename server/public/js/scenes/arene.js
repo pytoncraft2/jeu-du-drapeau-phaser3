@@ -124,6 +124,26 @@ const Arene = new Phaser.Class({
       }
     })
 
+    this.socket.on("drapeau_debloque", (equipe) => {
+
+      // this.cameras.main.on('camerapancomplete', camera);
+      var moi = self.players.getMatching('playerId', self.socket.id)[0];
+      if (equipe == "A") {
+      this.cameras.main.pan(self.fontaine2.x, self.fontaine2.y, 2500);
+    } else {
+      this.cameras.main.pan(self.fontaine1.x, self.fontaine1.y, 2500);
+    }
+
+      // function camera() {
+      //   var moi = self.players.getMatching('playerId', self.socket.id)[0];
+      //   self.cameras.main.pan(moi.x, moi.y, 3500);
+      //   // self.cameras.main.on('camerapancomplete', () => {
+      //   //   self.cameras.main.startFollow(moi);
+      //   // });
+      // }
+    });
+
+
     this.socket.on("fin_de_partie", (equipe) => {
 
       let moi = self.players.getMatching('playerId', self.socket.id)[0].equipe
@@ -141,6 +161,9 @@ const Arene = new Phaser.Class({
         })
       }
     });
+
+
+
 
 
     //EQUIPE BLEU
