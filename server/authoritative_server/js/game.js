@@ -259,6 +259,8 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
     } else {
       mask = 0b0010
     }
+
+    constraints[socket.id] = {};
       players[socket.room][socket.id] = {
         atlas: socket.atlas,
         arene: socket.room,
@@ -412,12 +414,18 @@ function update() {
 
       if (input.interactionTonneau) {
         //SI LE DRAPEAU SE SITUE A LA MEME POSITION QUE LA FONTAINE
+        console.log("DEBUT-----");
+        console.log(Object.keys(constraints[player.playerId]).length);
         if (player.equipe == "A") {
           constraints[player.playerId] = this.matter.add.constraint(this.drapeaux.getChildren()[0], player, 0)
           console.log("--------------------------------");
-          console.log(constraints);
+          console.log("FIN-----1");
+          console.log(constraints.length);
         } else {
           constraints[player.playerId] = this.matter.add.constraint(this.drapeaux.getChildren()[1], player, 0)
+          console.log("---------length");
+          console.log(constraints.length);
+        console.log("FIN-----2");
         }
 
         input.interactionTonneau = false;
