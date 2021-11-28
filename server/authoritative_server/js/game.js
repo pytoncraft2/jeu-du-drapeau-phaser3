@@ -3,6 +3,7 @@ players['Naruto'] = {};
 players['Pikachu'] = {};
 barils = {};
 drapeaux = {};
+constraints = {};
 
 const config = {
   type: Phaser.HEADLESS,
@@ -412,9 +413,11 @@ function update() {
       if (input.interactionTonneau) {
         //SI LE DRAPEAU SE SITUE A LA MEME POSITION QUE LA FONTAINE
         if (player.equipe == "A") {
-          this.matter.add.constraint(this.drapeaux.getChildren()[0], player, 0)
+          constraints[player.playerId] = this.matter.add.constraint(this.drapeaux.getChildren()[0], player, 0)
+          console.log("--------------------------------");
+          console.log(constraints);
         } else {
-          this.matter.add.constraint(this.drapeaux.getChildren()[1], player, 0)
+          constraints[player.playerId] = this.matter.add.constraint(this.drapeaux.getChildren()[1], player, 0)
         }
 
         input.interactionTonneau = false;
@@ -586,7 +589,9 @@ function update() {
       if (input.saut) {
         player.setVelocityY(-50)
         input.saut = false
-        console.log(this.matter.world.getAllConstraints()[0]);
+        // this.matter.world.removeConstraint(this.matter.world.getAllConstraints()[0]);
+
+        // console.log(this.matter.world.getAllConstraints()[0]);
       }
 
 
