@@ -139,9 +139,13 @@ function create() {
 
 this.tonneaux = this.add.group()
 let tonneau1 = this.add.zone(-1000, 1700, 210, 210).setSize(155, 215.6)
+tonneau1.id = 1;
 let tonneau2 = this.add.zone(-1200, 1700, 210, 210).setSize(155, 215.6)
+tonneau2.id = 2;
 let tonneau3 = this.add.zone(-1400, 1700, 210, 210).setSize(155, 215.6)
+tonneau3.id = 3;
 let tonneau4 = this.add.zone(-1600, 1700, 210, 210).setSize(155, 215.6)
+tonneau4.id = 4;
 
 t1 = self.matter.add.gameObject(tonneau1);
 t1.setMass(40).setFriction(2).setFrictionAir(0.1)
@@ -354,11 +358,11 @@ function update() {
 
 
     this.tonneaux.getChildren().forEach((tonneau) => {
-      barils[tonneau.body.id] = {
+      barils[tonneau.id] = {
         x: tonneau.x,
         y: tonneau.y,
         angle: tonneau.angle,
-        id: tonneau.body.id,
+        id: tonneau.id,
         alpha: tonneau.alpha
       }
     });
@@ -437,7 +441,7 @@ function update() {
           if (player.world.localWorld.constraints.length == 0) {
             tonneau[0].body.collisionFilter.mask = 0
             tonneau[0].setFixedRotation().setIgnoreGravity(true)
-            barils[tonneau[0].body.id].alpha = 0.7
+            barils[tonneau[0].id].alpha = 0.7
 
             this.tweens.add({
               targets: tonneau[0],
