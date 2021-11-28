@@ -120,7 +120,7 @@ function create() {
 
     this.drapeaux = this.add.group()
 
-  let matDrapeauBleu = this.add.zone(-4848.428561331542, -1043.2723001427164, 32, 640)
+  let matDrapeauBleu = this.add.zone(-4868.428561331542, -775.2723001427164, 32, 640)
   let matDrapeauVert = this.add.zone(8443.85357152924, -1883.7104390337054, 32, 640)
 
   var matBleu = this.matter.add.gameObject(matDrapeauBleu);

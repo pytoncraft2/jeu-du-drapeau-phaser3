@@ -258,7 +258,7 @@ const Arene = new Phaser.Class({
     this.fontaine1Derriere = this.add.image(-4870, -790, 'fontaineDerriere').setDepth(0)
 
     this.drapeaux = this.add.group()
-  let matDrapeauBleu = this.add.image(-4662.428561331542, -1070.2723001427164, 'drapeauBleu').setDepth(1).setOrigin(0, 1)
+  let matDrapeauBleu = this.add.image(-4868.428561331542, -775.2723001427164, 'drapeauBleu').setDepth(1).setOrigin(0, 1)
   matDrapeauBleu.id = 1;
   let matDrapeauVert = this.add.image(8443.85357152924,-1883.7104390337054, 'drapeauVert').setDepth(1).setOrigin(0, 1)
   matDrapeauVert.id = 2;
