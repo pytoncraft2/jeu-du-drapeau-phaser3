@@ -350,6 +350,12 @@ function update() {
 
 
     this.drapeaux.getChildren().forEach((drapeau) => {
+      console.log("_____");
+      console.log("XXXXXXX");
+      console.log(drapeau.x);
+      console.log("YYYYYY");
+      console.log(drapeau.y);
+      console.log("_____");
       drapeaux[drapeau.id] = {
         x: drapeau.x,
         y: drapeau.y,
@@ -826,6 +832,10 @@ function finDePartie(equipe) {
   this.players["Naruto"].remove(true);
   this.vieEquipe["A"] = 100;
   this.vieEquipe["B"] = 100;
+  fontainezone2.setActive(true);
+  fontainezone.setActive(true);
+  this.drapeaux.getChildren()[0].setPosition(8242.130999766403, -1566.8232688524165)
+  this.drapeaux.getChildren()[1].setPosition(-4868.428561331542, -775.2723001427164)
 }
 
 function lancerTonneau(direction, puissance, tonneauId) {
