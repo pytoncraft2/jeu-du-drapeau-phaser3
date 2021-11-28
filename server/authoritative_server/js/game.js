@@ -170,6 +170,7 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
   this.events.on('changement-vie', changementVie, this)
   this.events.on('lancer-tonneau', lancerTonneau, this)
   this.events.on('fin-de-vie', finDeVie, this)
+  this.events.on('fin-de-partie', finDePartie, this)
 
   //tobogan mini socles
   let microPlatforme = self.add.zone(1916, 235, 210, 210).setSize(200, 40);
@@ -422,12 +423,26 @@ function update() {
         //RECUPERE LE DRAPEAU LE PLUS PROCHE
         //SI FONTAINE DESACTIVÉ
 
+
         if (!fontainezone2.active) {
+          var distance = Phaser.Math.Distance.BetweenPoints(this.drapeaux.getChildren()[0], {x: fontainezone.x, y: fontainezone.y});
+
+          if (distance < 530 && distance < 540) {
+            events.emit('fin-de-partie', "B")
+          }
+
+          //ATTRAPER DRAPEAU BLEU
           var distanceDrapeauBleu = Phaser.Math.Distance.BetweenPoints(player, {x: this.drapeaux.getChildren()[0].x, y: this.drapeaux.getChildren()[0].y});
           if (distanceDrapeauBleu < 130 && distanceDrapeauBleu < 140) {
             this.matter.add.constraint(this.drapeaux.getChildren()[0], player, 0)
           }
         } else if (!fontainezone.active) {
+          var distance2 = Phaser.Math.Distance.BetweenPoints(this.drapeaux.getChildren()[1], {x: fontainezone2.x, y: fontainezone2.y});
+          if (distance2 < 530 && distance2 < 540) {
+            events.emit('fin-de-partie', "A")
+          }
+
+          //ATTRAPER DRAPEAU VERT
           var distanceDrapeauVert = Phaser.Math.Distance.BetweenPoints(player, {x: this.drapeaux.getChildren()[1].x, y: this.drapeaux.getChildren()[1].y});
           if (distanceDrapeauVert < 130 && distanceDrapeauVert < 140) {
             this.matter.add.constraint(this.drapeaux.getChildren()[1], player, 0)

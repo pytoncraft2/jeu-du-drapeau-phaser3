@@ -148,18 +148,26 @@ const Arene = new Phaser.Class({
 
       let moi = self.players.getMatching('playerId', self.socket.id)[0].equipe
       self.socket.disconnect()
-      if (moi == equipe) {
-        self.scene.stop()
-        self.scene.start('areneEquipes', {
-          equipe: true
-        })
 
-      } else {
-        self.scene.stop()
-        self.scene.start('areneEquipes', {
-          equipe: false
-        })
-      }
+
+    if (equipe == "A") {
+      this.cameras.main.pan(self.fontaine2.x, self.fontaine2.y, 2500);
+    } else {
+      this.cameras.main.pan(self.fontaine1.x, self.fontaine1.y, 2500);
+    }
+
+      // if (moi == equipe) {
+      //   self.scene.stop()
+      //   self.scene.start('areneEquipes', {
+      //     equipe: true
+      //   })
+      //
+      // } else {
+      //   self.scene.stop()
+      //   self.scene.start('areneEquipes', {
+      //     equipe: false
+      //   })
+      // }
     });
 
 
