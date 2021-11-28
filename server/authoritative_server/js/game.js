@@ -118,8 +118,13 @@ function create() {
 
 
   this.matDrapeauBleu = this.add.zone(-4848.428561331542, -1043.2723001427164, 32, 640)
+  this.matDrapeauVert = this.add.zone(8443.85357152924, -1883.7104390337054, 32, 640)
   var matBleu = this.matter.add.gameObject(this.matDrapeauBleu);
   matBleu.setFixedRotation().setIgnoreGravity(true).setCollidesWith(0).setCollisionGroup(32)
+
+
+  var matVert = this.matter.add.gameObject(this.matDrapeauVert);
+  matVert.setFixedRotation().setIgnoreGravity(true).setCollidesWith(0).setCollisionGroup(32)
 
 
   // matDrapeauBleu = this.matter.add.image(-4848.428561331542, -1043.2723001427164, 'matDrapeauBleu').setDepth(1)
@@ -398,9 +403,12 @@ function update() {
         // this.matDrapeauBleu.setPosition(player.x, player.y)
 
         var distanceDrapeauBleu = Phaser.Math.Distance.BetweenPoints(player, {x: this.matDrapeauBleu.x, y: this.matDrapeauBleu.y});
+        var distanceDrapeauVert = Phaser.Math.Distance.BetweenPoints(player, {x: this.matDrapeauVert.x, y: this.matDrapeauVert.y});
         // var distance2 = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone2.x, y: fontainezone2.y});
-        if (distanceDrapeauBleu < 530 && distanceDrapeauBleu < 540) {
+        if (distanceDrapeauBleu < 130 && distanceDrapeauBleu < 140) {
           this.matter.add.constraint(this.matDrapeauBleu ,player, 0)
+        } else if (distanceDrapeauVert < 130 && distanceDrapeauVert < 140) {
+          this.matter.add.constraint(this.matDrapeauVert ,player, 0)
         }
 
 
@@ -697,6 +705,10 @@ function update() {
 
         players[player.arene][player.playerId].drapeauBleuX = this.matDrapeauBleu.x
         players[player.arene][player.playerId].drapeauBleuY = this.matDrapeauBleu.y
+
+        players[player.arene][player.playerId].drapeauVertX = this.matDrapeauVert.x
+        players[player.arene][player.playerId].drapeauVertY = this.matDrapeauVert.y
+
 
       if (this.bulletCanon) {
         players[player.arene][player.playerId].bulletCanonY = this.bulletCanon.y

@@ -217,6 +217,7 @@ const Arene = new Phaser.Class({
             player.ombre.setAlpha(players[id].ombreAlpha);
             player.ombre.setScale(players[id].ombreScale);
             self.matDrapeauBleu.setPosition(players[id].drapeauBleuX, players[id].drapeauBleuY)
+            self.matDrapeauVert.setPosition(players[id].drapeauVertX, players[id].drapeauVertY)
             self.plots2.y = players[id].socleMouventY
             if (players[id].frame != "") {
               player.setFrame(players[id].frame);
@@ -249,6 +250,7 @@ const Arene = new Phaser.Class({
     this.fontaine1Derriere = this.add.image(-4870, -790, 'fontaineDerriere').setDepth(0)
 
     this.matDrapeauBleu = this.add.image(-4662.428561331542, -1070.2723001427164, 'drapeauBleu').setDepth(1).setOrigin(0, 1)
+    this.matDrapeauVert = this.add.image(8443.85357152924,-1883.7104390337054, 'drapeauVert').setDepth(1).setOrigin(0, 1)
     // this.drapeauBleu = this.add.image(-4662.428561331542, -1070.2723001427164, 'drapeauBleu').setDepth(1)
     // this.matDrapeauBleu = this.add.image(-4848.428561331542, -1043.2723001427164, 'matDrapeauBleu').setDepth(1).setOrigin(0.5, 1)
     // this.matDrapeauBleu = this.add.zone(-4848.428561331542, -1043.2723001427164, 32, 640)
