@@ -2,6 +2,7 @@ const players = {};
 players['Naruto'] = {};
 players['Pikachu'] = {};
 barils = {};
+drapeaux = {};
 
 const config = {
   type: Phaser.HEADLESS,
@@ -117,15 +118,21 @@ function create() {
   fontainezone2 = this.add.zone(8235, -1553, 210, 210).setSize(640, 613)
 
 
-  this.matDrapeauBleu = this.add.zone(-4848.428561331542, -1043.2723001427164, 32, 640)
-  this.matDrapeauVert = this.add.zone(8443.85357152924, -1883.7104390337054, 32, 640)
-  var matBleu = this.matter.add.gameObject(this.matDrapeauBleu);
+    this.drapeaux = this.add.group()
+
+  let matDrapeauBleu = this.add.zone(-4848.428561331542, -1043.2723001427164, 32, 640)
+  let matDrapeauVert = this.add.zone(8443.85357152924, -1883.7104390337054, 32, 640)
+
+  var matBleu = this.matter.add.gameObject(matDrapeauBleu);
   matBleu.setFixedRotation().setIgnoreGravity(true).setCollidesWith(0).setCollisionGroup(32)
+  matBleu.id = 1;
 
 
-  var matVert = this.matter.add.gameObject(this.matDrapeauVert);
+  var matVert = this.matter.add.gameObject(matDrapeauVert);
   matVert.setFixedRotation().setIgnoreGravity(true).setCollidesWith(0).setCollisionGroup(32)
+  matVert.id = 2;
 
+  this.drapeaux.addMultiple([matVert, matBleu]);
 
   // matDrapeauBleu = this.matter.add.image(-4848.428561331542, -1043.2723001427164, 'matDrapeauBleu').setDepth(1)
 
@@ -336,6 +343,16 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
 
 function update() {
 
+
+    this.drapeaux.getChildren().forEach((drapeau) => {
+      drapeaux[drapeau.id] = {
+        x: drapeau.x,
+        y: drapeau.y,
+        id: drapeau.id
+      }
+    });
+
+
     this.tonneaux.getChildren().forEach((tonneau) => {
       barils[tonneau.body.id] = {
         x: tonneau.x,
@@ -402,13 +419,13 @@ function update() {
 
         // this.matDrapeauBleu.setPosition(player.x, player.y)
 
-        var distanceDrapeauBleu = Phaser.Math.Distance.BetweenPoints(player, {x: this.matDrapeauBleu.x, y: this.matDrapeauBleu.y});
-        var distanceDrapeauVert = Phaser.Math.Distance.BetweenPoints(player, {x: this.matDrapeauVert.x, y: this.matDrapeauVert.y});
+        var distanceDrapeauBleu = Phaser.Math.Distance.BetweenPoints(player, {x: this.drapeaux.getChildren()[0].x, y: this.drapeaux.getChildren()[0].y});
+        var distanceDrapeauVert = Phaser.Math.Distance.BetweenPoints(player, {x: this.drapeaux.getChildren()[1].x, y: this.drapeaux.getChildren()[1].y});
         // var distance2 = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone2.x, y: fontainezone2.y});
         if (distanceDrapeauBleu < 130 && distanceDrapeauBleu < 140) {
-          this.matter.add.constraint(this.matDrapeauBleu ,player, 0)
+          this.matter.add.constraint(this.drapeaux.getChildren()[0], player, 0)
         } else if (distanceDrapeauVert < 130 && distanceDrapeauVert < 140) {
-          this.matter.add.constraint(this.matDrapeauVert ,player, 0)
+          this.matter.add.constraint(this.drapeaux.getChildren()[1], player, 0)
         }
 
 
@@ -703,13 +720,6 @@ function update() {
 
       players[player.arene][player.playerId].socleMouventY = this.plots2.y
 
-        players[player.arene][player.playerId].drapeauBleuX = this.matDrapeauBleu.x
-        players[player.arene][player.playerId].drapeauBleuY = this.matDrapeauBleu.y
-
-        players[player.arene][player.playerId].drapeauVertX = this.matDrapeauVert.x
-        players[player.arene][player.playerId].drapeauVertY = this.matDrapeauVert.y
-
-
       if (this.bulletCanon) {
         players[player.arene][player.playerId].bulletCanonY = this.bulletCanon.y
         players[player.arene][player.playerId].bulletCanonX = this.bulletCanon.x
@@ -718,7 +728,7 @@ function update() {
       }
 
     });
-    io.to("Naruto").emit("playerUpdates", players["Naruto"], barils);
+    io.to("Naruto").emit("playerUpdates", players["Naruto"], barils, drapeaux);
 
 }
 
