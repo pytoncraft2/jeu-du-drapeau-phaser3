@@ -417,17 +417,23 @@ function update() {
         console.log("DEBUT-----");
         console.log(Object.keys(constraints[player.playerId]).length);
         if (player.equipe == "A") {
-          constraints[player.playerId] = this.matter.add.constraint(this.drapeaux.getChildren()[0], player, 0)
-          console.log("--------------------------------");
-          console.log("FIN-----1");
-          console.log(constraints.length);
-        } else {
-          constraints[player.playerId] = this.matter.add.constraint(this.drapeaux.getChildren()[1], player, 0)
-          console.log("---------length");
-          console.log(constraints.length);
-        console.log("FIN-----2");
-        }
 
+          if (Object.keys(constraints[player.playerId]).length == 0) {
+            constraints[player.playerId] = this.matter.add.constraint(this.drapeaux.getChildren()[0], player, 0)
+          } else {
+            this.matter.world.removeConstraint(constraints[player.playerId]);
+            constraints[player.playerId] = {}
+          }
+        } else {
+
+          if (Object.keys(constraints[player.playerId]).length == 0) {
+          constraints[player.playerId] = this.matter.add.constraint(this.drapeaux.getChildren()[1], player, 0)
+          } else {
+            this.matter.world.removeConstraint(constraints[player.playerId]);
+            constraints[player.playerId] = {}
+          }
+
+        }
         input.interactionTonneau = false;
       }
 
