@@ -516,16 +516,10 @@ function update() {
       if (input.interactionTonneau) {
 
         //si le joueur ne tient pas de tonneau:
-        // liste les tonneaux pour trouver le plus proche
+        // attrape le tonneau le plus proche
         if (Object.keys(constraints[player.playerId]['tonneau']).length == 0) {
-          const recupereLePlusProche = this.tonneaux.getChildren().map(t => {
-            if (Phaser.Math.Distance.BetweenPoints(player, t) < 300 && Phaser.Math.Distance.BetweenPoints(player, t) < 310) {
-              return t
-            }
-          }
-        );
-        var tonneau = recupereLePlusProche.filter( Boolean );
-      }
+          var tonneau = recupereLeTonneauLePlusProche(player, this.tonneaux.getChildren())
+        }
       // !tonneau.length : false => un tonneau est atteignable
       // !tonneau.length : true => aucun tonneau est atteignable
       console.log("RESULTAT TONNEAU");
@@ -881,6 +875,18 @@ function update() {
     io.to("Naruto").emit("playerUpdates", players["Naruto"], barils, drapeaux);
 
 }
+
+
+function recupereLeTonneauLePlusProche(player, tonneaux) {
+  const recupereLePlusProche = tonneaux.map(t => {
+    if (Phaser.Math.Distance.BetweenPoints(player, t) < 300 && Phaser.Math.Distance.BetweenPoints(player, t) < 310) {
+      return t
+    }
+  });
+  return recupereLePlusProche.filter( Boolean );
+}
+
+
 
 /**
  * DIMINUTION VIE EQUIPE SELON LA PUISSANCE DE L'ATTAQUE DU JOUEUR
