@@ -531,6 +531,11 @@ function update() {
       // //   var tonneau = [player.world.localWorld.constraints[0].bodyA]
       // }
 
+      console.log("ONE----");
+      console.log(tonneau);
+
+      console.log("ID--");
+      console.log(constraints[player.playerId]['tonneau'].id);
       if (tonneau) {
       if (tonneau[0]) {
         if (Object.keys(constraints[player.playerId]['tonneau']).length == 0) {
@@ -538,19 +543,19 @@ function update() {
           tonneau[0].setFixedRotation().setIgnoreGravity(true)
           barils[tonneau[0].id].alpha = 0.7
 
-          // this.tweens.add({
-          //   targets: tonneau[0],
-          //   x: player.x,
-          //   y: player.y - player.displayHeight / 2 - 105,
-          //   onComplete: () => {
-          //     tonneau[0].setCollidesWith(-1).setIgnoreGravity(false); constraints[player.playerId]['tonneau'] = this.matter.add.constraint(tonneau[0], player)
-          //   },
-          //   duration: 500
-          // })
+          this.tweens.add({
+            targets: tonneau[0],
+            x: player.x,
+            y: player.y - player.displayHeight / 2 - 105,
+            onComplete: () => {
+              tonneau[0].setCollidesWith(-1).setIgnoreGravity(false); constraints[player.playerId]['tonneau'] = this.matter.add.constraint(tonneau[0], player)
+            },
+            duration: 500
+          })
 
-          tonneau[0].setPosition(player.x, player.y - player.displayHeight / 2 - 105)
-              tonneau[0].setCollidesWith(-1).setIgnoreGravity(false);
-              constraints[player.playerId]['tonneau'] = this.matter.add.constraint(tonneau[0], player)
+          // tonneau[0].setPosition(player.x, player.y - player.displayHeight / 2 - 105)
+              // tonneau[0].setCollidesWith(-1).setIgnoreGravity(false);
+              // constraints[player.playerId]['tonneau'] = this.matter.add.constraint(tonneau[0], player)
 
           input.interactionTonneau = false
         }
@@ -562,7 +567,6 @@ function update() {
         // }
       }
     }
-
 
       //SI LE DRAPEAU SE SITUE A LA MEME POSITION QUE LA FONTAINE
       // if (!fontainezone2.active) {
