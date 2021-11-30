@@ -763,15 +763,20 @@ function update() {
         // console.log(this.matter.world.getAllConstraints()[0]);
       }
 
+      /**
+       * TIROLIENNE
+       * QUAND LE JOUEUR EST PROCHE DE LA TIROLIENNE
+       * LE JOUEUR SUIT LA BALLE DE LA TIROLIENNE
+       * SINON IL S'EN DETACHE
+       *
+       * @param  { Object } constraints attache des joueurs
+       * @param { Object } constraints['bullet'] attache de la balle correspondant au joueur
+       */
 
       //TIROLIENNE
       if (input.tirolienne) {
         var dist = Phaser.Math.Distance.BetweenPoints(player, this.bullet);
-          console.log("CONSTRAINT OUTSIDE TIROLIENNE");
-          console.log(!Object.entries(constraints[player.playerId]['bullet']).length === 0);
         if (dist < 530 && dist < 540) {
-          console.log("CONSTRAINT INSIDE TIROLIENNE");
-          console.log(constraints[player.playerId]['bullet']);
         if (Object.entries(constraints[player.playerId]['bullet']).length === 0) {
           constraints[player.playerId]['bullet'] = this.matter.add.constraint(this.bullet, player)
 
