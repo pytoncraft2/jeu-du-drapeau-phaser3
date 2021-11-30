@@ -243,8 +243,6 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
   io.on('connection', function(socket) {
     console.log("ONE CONNEXION");
     socket.on("nouveau_joueur", (room, equipe, atlas) => {
-      console.log("EQUIPE");
-      console.log(equipe);
       equipe == "A"
 
       let x = equipe == "A" ? -379 : 7000
@@ -315,37 +313,6 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
     });
 
   })
-
-
-  this.matter.world.on('collisionstart', function (event) {
-    if (event.pairs[0].bodyA.gameObject.type == "boulet" && event.pairs[0].bodyB.gameObject.equipe) {
-      if (event.pairs[0].bodyB.gameObject.vie > 0) {
-        this.events.emit('changement-vie', event.pairs[0].bodyB.gameObject.playerId)
-      } else {
-        this.events.emit('fin-de-vie', event.pairs[0].bodyB.gameObject.playerId)
-      }
-    } else if (event.pairs[0].bodyB.gameObject.type == "boulet" && event.pairs[0].bodyA.gameObject.equipe) {
-      if (event.pairs[0].bodyA.gameObject.vie > 0) {
-        this.events.emit('changement-vie', event.pairs[0].bodyA.gameObject.playerId)
-      } else {
-        this.events.emit('fin-de-vie', event.pairs[0].bodyA.gameObject.playerId)
-      }
-    }
-	},this)
-
-  // this.matter.world.on("collisionactive", (event) => {
-  //
-  //
-  //   console.log("_______________PREMIER PARAM");
-  //   // console.log(event.pairs[0].bodyB.gameObject)
-  //   // console.log("2eme ____________ PARAM");
-  //   // console.log(event.pairs[0].bodyA.gameObject)
-  //   console.log(event.pairs[0].bodyA.gameObject);
-  //   // console.log(param2);
-  //
-  //    // skaterTouchingGround = true;
-  // });
-
 
 }
 
@@ -827,8 +794,6 @@ function update() {
     if (input.canonMaintenu) {
       var distCanon = Phaser.Math.Distance.BetweenPoints(player, this.canon1);
 
-      console.log("DISTANCE CANON");
-      console.log(distCanon);
       if (distCanon < 106 && distCanon < 121) {
         input.canonMaintenu = false;
         this.bulletCanon = this.matter.add.image(this.canon1.x, this.canon1.y + 20, 'bullet').setCircle().setIgnoreGravity(true).setBounce(1.6)
