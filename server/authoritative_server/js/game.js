@@ -531,19 +531,27 @@ function update() {
       // //   var tonneau = [player.world.localWorld.constraints[0].bodyA]
       // }
 
+      if (tonneau) {
       if (tonneau[0]) {
         if (Object.keys(constraints[player.playerId]['tonneau']).length == 0) {
           tonneau[0].body.collisionFilter.mask = 0
           tonneau[0].setFixedRotation().setIgnoreGravity(true)
           barils[tonneau[0].id].alpha = 0.7
 
-          this.tweens.add({
-            targets: tonneau[0],
-            x: player.x,
-            y: player.y - player.displayHeight / 2 - 105,
-            onComplete: () => (tonneau[0].setCollidesWith(-1).setIgnoreGravity(false), this.matter.add.constraint(tonneau[0] ,player)),
-            duration: 500
-          })
+          // this.tweens.add({
+          //   targets: tonneau[0],
+          //   x: player.x,
+          //   y: player.y - player.displayHeight / 2 - 105,
+          //   onComplete: () => {
+          //     tonneau[0].setCollidesWith(-1).setIgnoreGravity(false); constraints[player.playerId]['tonneau'] = this.matter.add.constraint(tonneau[0], player)
+          //   },
+          //   duration: 500
+          // })
+
+          tonneau[0].setPosition(player.x, player.y - player.displayHeight / 2 - 105)
+              tonneau[0].setCollidesWith(-1).setIgnoreGravity(false);
+              constraints[player.playerId]['tonneau'] = this.matter.add.constraint(tonneau[0], player)
+
           input.interactionTonneau = false
         }
         // else if (player.world.localWorld.constraints[0].bodyA.id == tonneau[0].id) {
@@ -553,6 +561,7 @@ function update() {
         //   // y = player.y - 85
         // }
       }
+    }
 
 
       //SI LE DRAPEAU SE SITUE A LA MEME POSITION QUE LA FONTAINE
