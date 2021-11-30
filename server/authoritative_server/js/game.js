@@ -512,6 +512,9 @@ function update() {
 
 
 
+      // !tonneau.length : false => un tonneau est atteignable
+      // !tonneau.length : true => aucun tonneau est atteignable
+
       // #2
       if (input.interactionTonneau) {
 
@@ -520,37 +523,36 @@ function update() {
         if (Object.keys(constraints[player.playerId]['tonneau']).length == 0) {
           var tonneau = recupereLeTonneauLePlusProche(player, this.tonneaux.getChildren())
         }
-      // !tonneau.length : false => un tonneau est atteignable
-      // !tonneau.length : true => aucun tonneau est atteignable
-      console.log("RESULTAT TONNEAU");
-      console.log(!tonneau.length);
+        // console.log(tonneau[0]);
 
-      // else if (player.world.localWorld.constraints[0]) {
-      //   var tonneau = [player.world.localWorld.constraints[0].bodyA]
+        //si le joueur tient un tonneau
+        // relache le tonneau qu'il est entrain de tenir
+      // else (player.world.localWorld.constraints[0]) {
+      // //   var tonneau = [player.world.localWorld.constraints[0].bodyA]
       // }
 
-      // if (tonneau[0]) {
-      //   if (Object.keys(constraints[player.playerId]['tonneau']).length == 0) {
-      //     tonneau[0].body.collisionFilter.mask = 0
-      //     tonneau[0].setFixedRotation().setIgnoreGravity(true)
-      //     barils[tonneau[0].id].alpha = 0.7
-      //
-      //     this.tweens.add({
-      //       targets: tonneau[0],
-      //       x: player.x,
-      //       y: player.y - player.displayHeight / 2 - 105,
-      //       onComplete: () => (tonneau[0].setCollidesWith(-1).setIgnoreGravity(false), this.matter.add.constraint(tonneau[0] ,player)),
-      //       duration: 500
-      //     })
-      //     input.interactionTonneau = false
-      //   }
-      //   else if (player.world.localWorld.constraints[0].bodyA.id == tonneau[0].id) {
-      //     this.matter.world.removeConstraint(constraints[player.playerId]);
-      //     constraints[player.playerId] = {}
-      //     x = player.flipX ? (player.x - player.displayWidth - 50) : (player.x + player.displayWidth + 50)
-      //     y = player.y - 85
-      //   }
-      // }
+      if (tonneau[0]) {
+        if (Object.keys(constraints[player.playerId]['tonneau']).length == 0) {
+          tonneau[0].body.collisionFilter.mask = 0
+          tonneau[0].setFixedRotation().setIgnoreGravity(true)
+          barils[tonneau[0].id].alpha = 0.7
+
+          this.tweens.add({
+            targets: tonneau[0],
+            x: player.x,
+            y: player.y - player.displayHeight / 2 - 105,
+            onComplete: () => (tonneau[0].setCollidesWith(-1).setIgnoreGravity(false), this.matter.add.constraint(tonneau[0] ,player)),
+            duration: 500
+          })
+          input.interactionTonneau = false
+        }
+        // else if (player.world.localWorld.constraints[0].bodyA.id == tonneau[0].id) {
+        //   this.matter.world.removeConstraint(constraints[player.playerId]['tonneau']);
+        //   constraints[player.playerId]['tonneau'] = {}
+        //   // x = player.flipX ? (player.x - player.displayWidth - 50) : (player.x + player.displayWidth + 50)
+        //   // y = player.y - 85
+        // }
+      }
 
 
       //SI LE DRAPEAU SE SITUE A LA MEME POSITION QUE LA FONTAINE
