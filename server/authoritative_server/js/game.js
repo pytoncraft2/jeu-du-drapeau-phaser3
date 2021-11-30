@@ -260,6 +260,7 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
 
     constraints[socket.id] = {};
     constraints[socket.id]['bullet'] = {}
+    constraints[socket.id]['tonneau'] = {}
       players[socket.room][socket.id] = {
         atlas: socket.atlas,
         arene: socket.room,
@@ -512,84 +513,86 @@ function update() {
 
 
       // #2
-      // if (input.interactionTonneau) {
-      //   if (Object.keys(constraints[player.playerId]).length == 0) {
-      //     // TODO: EVITER REPETITION (recupereLePlusProche)
+      if (input.interactionTonneau) {
+
+        //si le joueur ne tient pas de tonneau:
+        // liste les tonneaux pour trouver le plus proche
+        if (Object.keys(constraints[player.playerId]['tonneau']).length == 0) {
+          const recupereLePlusProche = this.tonneaux.getChildren().map(t => {
+            if (Phaser.Math.Distance.BetweenPoints(player, t) < 300 && Phaser.Math.Distance.BetweenPoints(player, t) < 310) {
+              return t
+            }
+          }
+        );
+        var tonneau = recupereLePlusProche.filter( Boolean );
+      }
+      // !tonneau.length : false => un tonneau est atteignable
+      // !tonneau.length : true => aucun tonneau est atteignable
+      console.log("RESULTAT TONNEAU");
+      console.log(!tonneau.length);
+
+      // else if (player.world.localWorld.constraints[0]) {
+      //   var tonneau = [player.world.localWorld.constraints[0].bodyA]
+      // }
+
+      // if (tonneau[0]) {
+      //   if (Object.keys(constraints[player.playerId]['tonneau']).length == 0) {
+      //     tonneau[0].body.collisionFilter.mask = 0
+      //     tonneau[0].setFixedRotation().setIgnoreGravity(true)
+      //     barils[tonneau[0].id].alpha = 0.7
       //
-      //     //RECUPERE LE TONNEAU LE PLUS PROCHE
-      //     const recupereLePlusProche = this.tonneaux.getChildren().map(t => {
-      //       if (Phaser.Math.Distance.BetweenPoints(player, t) < 300 && Phaser.Math.Distance.BetweenPoints(player, t) < 310) {
-      //         return t
-      //       }
-      //     } );
-      //
-      //     //RECUPERE LE DRAPEAU LE PLUS PROCHE
-      //     //SI FONTAINE DESACTIVÉ
-      //
-      //
-      //
-      //     var tonneau = recupereLePlusProche.filter( Boolean );
-      //   } else if (player.world.localWorld.constraints[0]) {
-      //     var tonneau = [player.world.localWorld.constraints[0].bodyA]
+      //     this.tweens.add({
+      //       targets: tonneau[0],
+      //       x: player.x,
+      //       y: player.y - player.displayHeight / 2 - 105,
+      //       onComplete: () => (tonneau[0].setCollidesWith(-1).setIgnoreGravity(false), this.matter.add.constraint(tonneau[0] ,player)),
+      //       duration: 500
+      //     })
+      //     input.interactionTonneau = false
       //   }
-      //   if (tonneau[0]) {
-      //     if (Object.keys(constraints[player.playerId]).length == 0) {
-      //       tonneau[0].body.collisionFilter.mask = 0
-      //       tonneau[0].setFixedRotation().setIgnoreGravity(true)
-      //       barils[tonneau[0].id].alpha = 0.7
+      //   else if (player.world.localWorld.constraints[0].bodyA.id == tonneau[0].id) {
+      //     this.matter.world.removeConstraint(constraints[player.playerId]);
+      //     constraints[player.playerId] = {}
+      //     x = player.flipX ? (player.x - player.displayWidth - 50) : (player.x + player.displayWidth + 50)
+      //     y = player.y - 85
+      //   }
+      // }
+
+
+      //SI LE DRAPEAU SE SITUE A LA MEME POSITION QUE LA FONTAINE
+      // if (!fontainezone2.active) {
+      //   var distance = Phaser.Math.Distance.BetweenPoints(this.drapeaux.getChildren()[0], {x: fontainezone.x, y: fontainezone.y});
       //
-      //       this.tweens.add({
-      //         targets: tonneau[0],
-      //         x: player.x,
-      //         y: player.y - player.displayHeight / 2 - 105,
-      //         onComplete: () => (tonneau[0].setCollidesWith(-1).setIgnoreGravity(false), this.matter.add.constraint(tonneau[0] ,player)),
-      //         duration: 500
-      //       })
-      //       input.interactionTonneau = false
-      //     }
-      //     else if (player.world.localWorld.constraints[0].bodyA.id == tonneau[0].id) {
+      //   if (distance < 530 && distance < 540) {
+      //     this.events.emit('fin-de-partie', "A")
+      //   }
+      //
+      //   //ATTRAPER DRAPEAU BLEU
+      //   var distanceDrapeauBleu = Phaser.Math.Distance.BetweenPoints(player, {x: this.drapeaux.getChildren()[0].x, y: this.drapeaux.getChildren()[0].y});
+      //   if (distanceDrapeauBleu < 130 && distanceDrapeauBleu < 140) {
+      //     this.matter.add.constraint(this.drapeaux.getChildren()[0], player, 0)
+      //   }
+      // } else if (!fontainezone.active) {
+      //   var distance2 = Phaser.Math.Distance.BetweenPoints(this.drapeaux.getChildren()[1], {x: fontainezone2.x, y: fontainezone2.y});
+      //   if (distance2 < 530 && distance2 < 540) {
+      //     this.events.emit('fin-de-partie', "B")
+      //   }
+      //
+      //   //ATTRAPER DRAPEAU VERT
+      //   var distanceDrapeauVert = Phaser.Math.Distance.BetweenPoints(player, {x: this.drapeaux.getChildren()[1].x, y: this.drapeaux.getChildren()[1].y});
+      //   if (distanceDrapeauVert < 130 && distanceDrapeauVert < 140) {
+      //     if (player.world.localWorld.constraints.length == 0) {
+      //       this.matter.add.constraint(this.drapeaux.getChildren()[1], player, 0)
+      //     } else {
       //       this.matter.world.removeConstraint(constraints[player.playerId]);
       //       constraints[player.playerId] = {}
-      //       x = player.flipX ? (player.x - player.displayWidth - 50) : (player.x + player.displayWidth + 50)
-      //       y = player.y - 85
       //     }
       //   }
-      //
-      //
-      //   //SI LE DRAPEAU SE SITUE A LA MEME POSITION QUE LA FONTAINE
-      //   if (!fontainezone2.active) {
-      //     var distance = Phaser.Math.Distance.BetweenPoints(this.drapeaux.getChildren()[0], {x: fontainezone.x, y: fontainezone.y});
-      //
-      //     if (distance < 530 && distance < 540) {
-      //       this.events.emit('fin-de-partie', "A")
-      //     }
-      //
-      //     //ATTRAPER DRAPEAU BLEU
-      //     var distanceDrapeauBleu = Phaser.Math.Distance.BetweenPoints(player, {x: this.drapeaux.getChildren()[0].x, y: this.drapeaux.getChildren()[0].y});
-      //     if (distanceDrapeauBleu < 130 && distanceDrapeauBleu < 140) {
-      //       this.matter.add.constraint(this.drapeaux.getChildren()[0], player, 0)
-      //     }
-      //   } else if (!fontainezone.active) {
-      //     var distance2 = Phaser.Math.Distance.BetweenPoints(this.drapeaux.getChildren()[1], {x: fontainezone2.x, y: fontainezone2.y});
-      //     if (distance2 < 530 && distance2 < 540) {
-      //       this.events.emit('fin-de-partie', "B")
-      //     }
-      //
-      //     //ATTRAPER DRAPEAU VERT
-      //     var distanceDrapeauVert = Phaser.Math.Distance.BetweenPoints(player, {x: this.drapeaux.getChildren()[1].x, y: this.drapeaux.getChildren()[1].y});
-      //     if (distanceDrapeauVert < 130 && distanceDrapeauVert < 140) {
-      //       if (player.world.localWorld.constraints.length == 0) {
-      //         this.matter.add.constraint(this.drapeaux.getChildren()[1], player, 0)
-      //       } else {
-      //         this.matter.world.removeConstraint(constraints[player.playerId]);
-      //         constraints[player.playerId] = {}
-      //       }
-      //     }
-      //   }
-      //
-      //
-      //   input.interactionTonneau = false;
       // }
+
+
+      input.interactionTonneau = false;
+    }
 
 
       if (player.attacked) {
@@ -777,28 +780,28 @@ function update() {
       if (input.tirolienne) {
         var dist = Phaser.Math.Distance.BetweenPoints(player, this.bullet);
         if (dist < 530 && dist < 540) {
-        if (Object.entries(constraints[player.playerId]['bullet']).length === 0) {
-          constraints[player.playerId]['bullet'] = this.matter.add.constraint(this.bullet, player)
+          if (Object.entries(constraints[player.playerId]['bullet']).length === 0) {
+            constraints[player.playerId]['bullet'] = this.matter.add.constraint(this.bullet, player)
 
-        var tween = this.tweens.add({
-          targets: this.bullet,
-          x: 5675,
-          y: -2376,
-          onComplete: () => (this.matter.world.removeConstraint(constraints[player.playerId]['bullet']), constraints[player.playerId]['bullet'] = {}),  // set context? how?
-          yoyo: true,
-          // onYoyo: function () { addEvent('onYoyo') },
-          duration: 3500,
-        });
-        input.tirolienne = false
+            var tween = this.tweens.add({
+              targets: this.bullet,
+              x: 5675,
+              y: -2376,
+              onComplete: () => (this.matter.world.removeConstraint(constraints[player.playerId]['bullet']), constraints[player.playerId]['bullet'] = {}),  // set context? how?
+              yoyo: true,
+              // onYoyo: function () { addEvent('onYoyo') },
+              duration: 3500,
+            });
+            input.tirolienne = false
 
+          }
+          else {
+            this.matter.world.removeConstraint(constraints[player.playerId]['bullet']);
+            constraints[player.playerId]['bullet'] = {}
+          }
+        }
+        input.tirolienne = false;
       }
-      else {
-        this.matter.world.removeConstraint(constraints[player.playerId]['bullet']);
-        constraints[player.playerId]['bullet'] = {}
-      }
-    }
-      input.tirolienne = false;
-    }
 
     //CANON FEU
     if (input.canonMaintenu) {
