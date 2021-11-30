@@ -259,6 +259,7 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
     }
 
     constraints[socket.id] = {};
+    constraints[socket.id]['bullet'] = {}
       players[socket.room][socket.id] = {
         atlas: socket.atlas,
         arene: socket.room,
@@ -766,8 +767,12 @@ function update() {
       //TIROLIENNE
       if (input.tirolienne) {
         var dist = Phaser.Math.Distance.BetweenPoints(player, this.bullet);
+          console.log("CONSTRAINT OUTSIDE TIROLIENNE");
+          console.log(!Object.entries(constraints[player.playerId]['bullet']).length === 0);
         if (dist < 530 && dist < 540) {
-        if (player.world.localWorld.constraints.length == 0) {
+          console.log("CONSTRAINT INSIDE TIROLIENNE");
+          console.log(constraints[player.playerId]['bullet']);
+        if (Object.entries(constraints[player.playerId]['bullet']).length === 0) {
           constraints[player.playerId]['bullet'] = this.matter.add.constraint(this.bullet, player)
 
         var tween = this.tweens.add({
