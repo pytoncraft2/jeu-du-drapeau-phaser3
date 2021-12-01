@@ -593,20 +593,23 @@ function update() {
       if (!fontainezone2.active) {
         var distance = Phaser.Math.Distance.BetweenPoints(this.drapeaux.getChildren()[0], {x: fontainezone.x, y: fontainezone.y});
 
-        if (distance < 530 && distance < 540) {
-          this.events.emit('fin-de-partie', "A")
-        }
 
         //ATTRAPER DRAPEAU BLEU
         var distanceDrapeauBleu = Phaser.Math.Distance.BetweenPoints(player, {x: this.drapeaux.getChildren()[0].x, y: this.drapeaux.getChildren()[0].y});
         if (distanceDrapeauBleu < 130 && distanceDrapeauBleu < 140) {
-          this.matter.add.constraint(this.drapeaux.getChildren()[0], player, 0)
+          if (Object.keys(constraints[player.playerId]['drapeau']).length == 0) {
+            constraints[player.playerId]['drapeau'] = this.matter.add.constraint(this.drapeaux.getChildren()[0], player, 0)
+          } else {
+            this.matter.world.removeConstraint(constraints[player.playerId]['drapeau']);
+            constraints[player.playerId]['drapeau'] = {}
+            if (distance < 530 && distance < 540) {
+              // this.events.emit('fin-de-partie', "A")
+              console.log("FIN DE PARTIE A");
+            }
+          }
         }
       } else if (!fontainezone.active) {
         var distance2 = Phaser.Math.Distance.BetweenPoints(this.drapeaux.getChildren()[1], {x: fontainezone2.x, y: fontainezone2.y});
-        if (distance2 < 530 && distance2 < 540) {
-          this.events.emit('fin-de-partie', "B")
-        }
 
         //ATTRAPER DRAPEAU VERT
         var distanceDrapeauVert = Phaser.Math.Distance.BetweenPoints(player, {x: this.drapeaux.getChildren()[1].x, y: this.drapeaux.getChildren()[1].y});
@@ -617,6 +620,10 @@ function update() {
           } else {
             this.matter.world.removeConstraint(constraints[player.playerId]['drapeau']);
             constraints[player.playerId]['drapeau'] = {}
+            if (distance2 < 530 && distance2 < 540) {
+              // this.events.emit('fin-de-partie', "B")
+              console.log("FIN DE PARTIE B");
+            }
           }
         }
       }
