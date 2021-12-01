@@ -642,6 +642,14 @@ function update() {
       if (input.saut) {
         player.setVelocityY(-50)
         input.saut = false
+
+        console.log("POSITION drapeau");
+        console.log(this.drapeaux.getChildren()[0].x);
+        console.log(this.drapeaux.getChildren()[0].y);
+        console.log("22222222222222");
+        console.log(this.drapeaux.getChildren()[1].x);
+        console.log(this.drapeaux.getChildren()[1].y);
+
         // this.matter.world.removeConstraint(this.matter.world.getAllConstraints()[0]);
 
         // console.log(this.matter.world.getAllConstraints()[0]);
@@ -846,8 +854,11 @@ function finDePartie(equipe) {
   this.vieEquipe["B"] = 100;
   fontainezone2.setActive(true);
   fontainezone.setActive(true);
-  this.drapeaux.getChildren()[0].setPosition(8242.130999766403, -1566.8232688524165)
-  this.drapeaux.getChildren()[1].setPosition(-4868.428561331542, -775.2723001427164)
+
+  this.drapeaux.getChildren()[0].x = 8242.130999766403;
+  this.drapeaux.getChildren()[0].y = -1566.8232688524165;
+  this.drapeaux.getChildren()[1].x = -4868.428561331542;
+  this.drapeaux.getChildren()[1].y = -775.2723001427164;
 }
 
 function lancerTonneau(direction, puissance, tonneauId) {
