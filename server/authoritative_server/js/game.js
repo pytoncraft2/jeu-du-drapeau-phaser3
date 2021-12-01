@@ -125,14 +125,17 @@ function create() {
   let matDrapeauVert = this.add.zone(8242.130999766403, -1566.8232688524165, 32, 640)
 
   var matBleu = this.matter.add.gameObject(matDrapeauBleu);
-  matBleu.setFixedRotation().setIgnoreGravity(true).setCollidesWith(0).setCollisionGroup(32)
+  matBleu.setFixedRotation().setIgnoreGravity(true)
+  matBleu.body.collisionFilter.mask = 42
+
   matBleu.id = 1;
 
 
   var matVert = this.matter.add.gameObject(matDrapeauVert);
-  matVert.setFixedRotation().setIgnoreGravity(true).setCollidesWith(0).setCollisionGroup(32)
+  matVert.setFixedRotation().setIgnoreGravity(true)
   matVert.id = 2;
 
+  matVert.body.collisionFilter.mask = 44
   this.drapeaux.addMultiple([matVert, matBleu]);
 
   // matDrapeauBleu = this.matter.add.image(-4848.428561331542, -1043.2723001427164, 'matDrapeauBleu').setDepth(1)
@@ -642,14 +645,9 @@ function update() {
       if (input.saut) {
         player.setVelocityY(-50)
         input.saut = false
-
-        console.log("POSITION drapeau");
-        console.log(this.drapeaux.getChildren()[0].x);
-        console.log(this.drapeaux.getChildren()[0].y);
-        console.log("22222222222222");
-        console.log(this.drapeaux.getChildren()[1].x);
-        console.log(this.drapeaux.getChildren()[1].y);
-
+        console.log("XXXXXXXXXXXXXXXXXX");
+        console.log(this.drapeaux.getChildren()[0].body.position.x);
+        console.log(this.drapeaux.getChildren()[0].body.position.y);
         // this.matter.world.removeConstraint(this.matter.world.getAllConstraints()[0]);
 
         // console.log(this.matter.world.getAllConstraints()[0]);
@@ -850,15 +848,20 @@ function finDeVie(id) {
 function finDePartie(equipe) {
   io.to("Naruto").emit("fin_de_partie", equipe);
   this.players["Naruto"].remove(true);
+  // this.drapeaux.remove(true)
   this.vieEquipe["A"] = 100;
   this.vieEquipe["B"] = 100;
   fontainezone2.setActive(true);
   fontainezone.setActive(true);
 
-  this.drapeaux.getChildren()[0].x = 8242.130999766403;
-  this.drapeaux.getChildren()[0].y = -1566.8232688524165;
-  this.drapeaux.getChildren()[1].x = -4868.428561331542;
-  this.drapeaux.getChildren()[1].y = -775.2723001427164;
+
+  // this.drapeaux.getChildren()[0].body.position.x = 8242.130999766403;
+  // this.drapeaux.getChildren()[0].body.position.y = -1566.8232688524165
+
+  this.scene.pause();
+  this.drapeaux.getChildren()[0].setPosition(8242.130999766403, -1566.8232688524165)
+  this.drapeaux.getChildren()[1].setPosition(-4868.428561331542, -775.2723001427164)
+  this.scene.resume();
 }
 
 function lancerTonneau(direction, puissance, tonneauId) {

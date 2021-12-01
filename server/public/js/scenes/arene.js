@@ -147,6 +147,8 @@ const Arene = new Phaser.Class({
     this.socket.on("fin_de_partie", (equipe) => {
 
       let moi = self.players.getMatching('playerId', self.socket.id)[0].equipe
+      self.players.remove(true);
+
       self.socket.disconnect()
 
 
