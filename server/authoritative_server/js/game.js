@@ -585,8 +585,11 @@ function update() {
 
 
       /**
-       * GESTION DRAPEAU
-       * @param  {[type]} fontainezone2 [description]
+       * -----GESTION DRAPEAU
+       * APPLIQUE L'ATTACHE AU DRAPEAU SI :
+       * FONTAINE ENNEMIE DÉTRUITE et DRAPEAU ACCESSIBLE
+       *
+       * @param  {[type]} fontainezone2 emplacement de la zone de la fontaine
        * @return {[type]}               [description]
        */
       //SI LE DRAPEAU SE SITUE A LA MEME POSITION QUE LA FONTAINE
@@ -599,14 +602,11 @@ function update() {
         if (distanceDrapeauBleu < 130 && distanceDrapeauBleu < 140) {
           if (Object.keys(constraints[player.playerId]['drapeau']).length == 0) {
             constraints[player.playerId]['drapeau'] = this.matter.add.constraint(this.drapeaux.getChildren()[0], player, 0)
-            console.log("AJOUT CONTRAINTE D BLEU");
           } else {
             this.matter.world.removeConstraint(constraints[player.playerId]['drapeau']);
             constraints[player.playerId]['drapeau'] = {}
-            console.log("ENLEVE CONTRAINTE D BLEU");
             if (distance < 530 && distance < 540) {
-              // this.events.emit('fin-de-partie', "A")
-              console.log("FIN DE PARTIE A");
+              this.events.emit('fin-de-partie', "A")
             }
           }
         }
@@ -614,24 +614,16 @@ function update() {
 
       if (!fontainezone.active) {
         var distance2 = Phaser.Math.Distance.BetweenPoints(this.drapeaux.getChildren()[1], {x: fontainezone2.x, y: fontainezone2.y});
-
-        console.log('DRAPEAU VERT----------');
-        console.log(Object.keys(constraints[player.playerId]['drapeau']).length == 0);
         //ATTRAPER DRAPEAU VERT
         var distanceDrapeauVert = Phaser.Math.Distance.BetweenPoints(player, {x: this.drapeaux.getChildren()[1].x, y: this.drapeaux.getChildren()[1].y});
         if (distanceDrapeauVert < 130 && distanceDrapeauVert < 140) {
           if (Object.keys(constraints[player.playerId]['drapeau']).length == 0) {
-
-            console.log("AJOUT CONTRAINTE D VERT");
             constraints[player.playerId]['drapeau'] = this.matter.add.constraint(this.drapeaux.getChildren()[1], player, 0)
-            // this.matter.add.constraint(this.drapeaux.getChildren()[1], player, 0)
           } else {
-            console.log("ENLEVE CONTRAINTE D VERT");
             this.matter.world.removeConstraint(constraints[player.playerId]['drapeau']);
             constraints[player.playerId]['drapeau'] = {}
             if (distance2 < 530 && distance2 < 540) {
-              // this.events.emit('fin-de-partie', "B")
-              console.log("FIN DE PARTIE B");
+              this.events.emit('fin-de-partie', "B")
             }
           }
         }
