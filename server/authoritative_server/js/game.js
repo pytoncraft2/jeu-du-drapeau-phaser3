@@ -261,6 +261,7 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
     constraints[socket.id] = {};
     constraints[socket.id]['bullet'] = {}
     constraints[socket.id]['tonneau'] = {}
+    constraints[socket.id]['drapeau'] = {}
       players[socket.room][socket.id] = {
         atlas: socket.atlas,
         arene: socket.room,
@@ -582,36 +583,43 @@ function update() {
       console.log("ID--");
       console.log(constraints[player.playerId]['tonneau'].id);
 
+
+      /**
+       * GESTION DRAPEAU
+       * @param  {[type]} fontainezone2 [description]
+       * @return {[type]}               [description]
+       */
       //SI LE DRAPEAU SE SITUE A LA MEME POSITION QUE LA FONTAINE
-      // if (!fontainezone2.active) {
-      //   var distance = Phaser.Math.Distance.BetweenPoints(this.drapeaux.getChildren()[0], {x: fontainezone.x, y: fontainezone.y});
-      //
-      //   if (distance < 530 && distance < 540) {
-      //     this.events.emit('fin-de-partie', "A")
-      //   }
-      //
-      //   //ATTRAPER DRAPEAU BLEU
-      //   var distanceDrapeauBleu = Phaser.Math.Distance.BetweenPoints(player, {x: this.drapeaux.getChildren()[0].x, y: this.drapeaux.getChildren()[0].y});
-      //   if (distanceDrapeauBleu < 130 && distanceDrapeauBleu < 140) {
-      //     this.matter.add.constraint(this.drapeaux.getChildren()[0], player, 0)
-      //   }
-      // } else if (!fontainezone.active) {
-      //   var distance2 = Phaser.Math.Distance.BetweenPoints(this.drapeaux.getChildren()[1], {x: fontainezone2.x, y: fontainezone2.y});
-      //   if (distance2 < 530 && distance2 < 540) {
-      //     this.events.emit('fin-de-partie', "B")
-      //   }
-      //
-      //   //ATTRAPER DRAPEAU VERT
-      //   var distanceDrapeauVert = Phaser.Math.Distance.BetweenPoints(player, {x: this.drapeaux.getChildren()[1].x, y: this.drapeaux.getChildren()[1].y});
-      //   if (distanceDrapeauVert < 130 && distanceDrapeauVert < 140) {
-      //     if (player.world.localWorld.constraints.length == 0) {
-      //       this.matter.add.constraint(this.drapeaux.getChildren()[1], player, 0)
-      //     } else {
-      //       this.matter.world.removeConstraint(constraints[player.playerId]);
-      //       constraints[player.playerId] = {}
-      //     }
-      //   }
-      // }
+      if (!fontainezone2.active) {
+        var distance = Phaser.Math.Distance.BetweenPoints(this.drapeaux.getChildren()[0], {x: fontainezone.x, y: fontainezone.y});
+
+        if (distance < 530 && distance < 540) {
+          this.events.emit('fin-de-partie', "A")
+        }
+
+        //ATTRAPER DRAPEAU BLEU
+        var distanceDrapeauBleu = Phaser.Math.Distance.BetweenPoints(player, {x: this.drapeaux.getChildren()[0].x, y: this.drapeaux.getChildren()[0].y});
+        if (distanceDrapeauBleu < 130 && distanceDrapeauBleu < 140) {
+          this.matter.add.constraint(this.drapeaux.getChildren()[0], player, 0)
+        }
+      } else if (!fontainezone.active) {
+        var distance2 = Phaser.Math.Distance.BetweenPoints(this.drapeaux.getChildren()[1], {x: fontainezone2.x, y: fontainezone2.y});
+        if (distance2 < 530 && distance2 < 540) {
+          this.events.emit('fin-de-partie', "B")
+        }
+
+        //ATTRAPER DRAPEAU VERT
+        var distanceDrapeauVert = Phaser.Math.Distance.BetweenPoints(player, {x: this.drapeaux.getChildren()[1].x, y: this.drapeaux.getChildren()[1].y});
+        if (distanceDrapeauVert < 130 && distanceDrapeauVert < 140) {
+          if (Object.keys(constraints[player.playerId]['drapeau']).length == 0) {
+            constraints[player.playerId]['drapeau'] = this.matter.add.constraint(this.drapeaux.getChildren()[1], player, 0)
+            // this.matter.add.constraint(this.drapeaux.getChildren()[1], player, 0)
+          } else {
+            this.matter.world.removeConstraint(constraints[player.playerId]['drapeau']);
+            constraints[player.playerId]['drapeau'] = {}
+          }
+        }
+      }
 
 
       input.interactionTonneau = false;
