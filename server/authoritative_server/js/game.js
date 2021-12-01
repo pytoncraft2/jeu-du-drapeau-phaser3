@@ -518,12 +518,16 @@ function update() {
       // #2
       if (input.interactionTonneau) {
 
-        //si le joueur ne tient pas de tonneau:
-        // attrape le tonneau le plus proche
+
+        /**
+         * GESTION TONNEAU
+         * @param  {constraints[player.playerId]} Object le tonneau auquel le joueur est attaché
+         * si le joueur ne tient pas de tonneau: attrape le tonneau le plus proche
+         * sinon détache le tonneau du joueur
+         */
+
         if (Object.keys(constraints[player.playerId]['tonneau']).length == 0) {
           var tonneau = recupereLeTonneauLePlusProche(player, this.tonneaux.getChildren())
-
-
           if (tonneau) {
             if (tonneau[0]) {
               if (Object.keys(constraints[player.playerId]['tonneau']).length == 0) {
