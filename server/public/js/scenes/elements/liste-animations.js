@@ -54,6 +54,14 @@ function Animations(anims) {
     repeat: -1
   })
 
+  anims.create({
+  key: "saut",
+  frames: anims.generateFrameNames('saut', { prefix: 'jumpface', start: 0, end: 5 }),
+  frameRate: 6,
+  repeat: -1
+})
+
+
 
 
 
