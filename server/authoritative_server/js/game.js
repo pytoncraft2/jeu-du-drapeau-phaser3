@@ -447,9 +447,11 @@ function update() {
         if (distanceDrapeauBleu < 130 && distanceDrapeauBleu < 140) {
           if (Object.keys(constraints[player.playerId]['drapeau']).length == 0) {
             constraints[player.playerId]['drapeau'] = this.matter.add.constraint(this.drapeaux.getChildren()[0], player, 0)
+            console.log("DRAPEAU ATTRAPER");
           } else {
             this.matter.world.removeConstraint(constraints[player.playerId]['drapeau']);
             constraints[player.playerId]['drapeau'] = {}
+            console.log("DRAPEAU LACHER");
             if (distance < 530 && distance < 540) {
               this.events.emit('fin-de-partie', "A")
             }
@@ -648,6 +650,9 @@ function update() {
         console.log("XXXXXXXXXXXXXXXXXX");
         console.log(this.drapeaux.getChildren()[0].body.position.x);
         console.log(this.drapeaux.getChildren()[0].body.position.y);
+        this.drapeaux.getChildren()[0].body.position.x -= 0.5
+        console.log("_________");
+        console.log(this.drapeaux.getChildren()[0].body.position.x);
         // this.matter.world.removeConstraint(this.matter.world.getAllConstraints()[0]);
 
         // console.log(this.matter.world.getAllConstraints()[0]);
@@ -846,22 +851,25 @@ function finDeVie(id) {
 
 
 function finDePartie(equipe) {
-  io.to("Naruto").emit("fin_de_partie", equipe);
+  // io.to("Naruto").emit("fin_de_partie", equipe);
   this.players["Naruto"].remove(true);
-  // this.drapeaux.remove(true)
+  this.drapeaux.remove(true)
+  drapeaux = {}
   this.vieEquipe["A"] = 100;
   this.vieEquipe["B"] = 100;
   fontainezone2.setActive(true);
   fontainezone.setActive(true);
 
+  // this.scene.restart();
 
+  // this.drapeaux.getChildren()[1].body.position.x = 8242
   // this.drapeaux.getChildren()[0].body.position.x = 8242.130999766403;
   // this.drapeaux.getChildren()[0].body.position.y = -1566.8232688524165
 
-  this.scene.pause();
-  this.drapeaux.getChildren()[0].setPosition(8242.130999766403, -1566.8232688524165)
-  this.drapeaux.getChildren()[1].setPosition(-4868.428561331542, -775.2723001427164)
-  this.scene.resume();
+  // this.scene.pause();
+  this.drapeaux.getChildren()[0].setPosition(8242.130999766403, -1566.8232688524165).setSize(32, 640)
+  this.drapeaux.getChildren()[1].setPosition(-4868.428561331542, -775.2723001427164).setSize(32, 640)
+  // this.scene.resume();
 }
 
 function lancerTonneau(direction, puissance, tonneauId) {

@@ -27,6 +27,24 @@ const Arene = new Phaser.Class({
     this.lastHealthEquipeA = 100;
     this.lastHealthEquipeB = 100;
 
+    //drapeau bleu
+    let abc = this.add.zone(-4868.428561331542, -775.2723001427164, 32, 640)
+    var z = this.matter.add.gameObject(abc);
+z.setFixedRotation().setIgnoreGravity(true)
+z.body.collisionFilter.mask = 42
+
+//drapeau VERT
+
+let mma = this.add.zone(8242.130999766403, -1566.8232688524165, 32, 640)
+
+var def = this.matter.add.gameObject(mma);
+def.setFixedRotation().setIgnoreGravity(true)
+def.id = 2;
+
+def.body.collisionFilter.mask = 44
+
+
+
 
     this.lastHealthEquipe = {
       "A": 100,
@@ -255,7 +273,7 @@ const Arene = new Phaser.Class({
 
     this.socket.on('playerUpdates', function(players, tonneaux, drapeaux) {
 
-
+/*
       Object.keys(drapeaux).forEach((id) => {
         self.drapeaux.getChildren().forEach((drapeau) => {
           if (drapeaux[id].id === drapeau.id) {
@@ -263,6 +281,7 @@ const Arene = new Phaser.Class({
           }
         });
       })
+      */
 
 
       Object.keys(tonneaux).forEach((id) => {
