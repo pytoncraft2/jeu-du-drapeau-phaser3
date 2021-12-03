@@ -843,8 +843,8 @@ function finDeVie(id) {
 
 
 function finDePartie(equipe) {
-  // io.to("Naruto").emit("fin_de_partie", equipe);
   this.matter.world.localWorld.constraints = []
+  io.to("Naruto").emit("fin_de_partie", equipe);
   this.players["Naruto"].remove(true);
   this.drapeaux.remove(true)
   drapeaux = {}
