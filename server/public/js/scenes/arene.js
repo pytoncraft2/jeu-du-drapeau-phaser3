@@ -27,6 +27,8 @@ const Arene = new Phaser.Class({
     this.lastHealthEquipeA = 100;
     this.lastHealthEquipeB = 100;
 
+    this.drapeauDebloque = false;
+
     //drapeau bleu
     let abc = this.add.zone(-4868.428561331542, -775.2723001427164, 32, 640)
     var z = this.matter.add.gameObject(abc);
@@ -145,6 +147,7 @@ def.body.collisionFilter.mask = 44
     this.socket.on("drapeau_debloque", (equipe) => {
 
       // this.cameras.main.on('camerapancomplete', camera);
+      self.drapeauDebloque = true;
       var moi = self.players.getMatching('playerId', self.socket.id)[0];
       if (equipe == "A") {
       this.cameras.main.pan(self.fontaine2.x, self.fontaine2.y, 2500);
@@ -273,7 +276,7 @@ def.body.collisionFilter.mask = 44
 
     this.socket.on('playerUpdates', function(players, tonneaux, drapeaux) {
 
-/*
+if (self.drapeauDebloque) {
       Object.keys(drapeaux).forEach((id) => {
         self.drapeaux.getChildren().forEach((drapeau) => {
           if (drapeaux[id].id === drapeau.id) {
@@ -281,7 +284,7 @@ def.body.collisionFilter.mask = 44
           }
         });
       })
-      */
+}
 
 
       Object.keys(tonneaux).forEach((id) => {
