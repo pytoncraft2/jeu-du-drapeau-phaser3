@@ -42,6 +42,7 @@ function preload() {
 
 
 function create() {
+  console.log(this.matter.world.localWorld.constraints);
   // this.matter.world.disableGravity();
 
   this.tween = null;
@@ -647,15 +648,6 @@ function update() {
       if (input.saut) {
         player.setVelocityY(-50)
         input.saut = false
-        console.log("XXXXXXXXXXXXXXXXXX");
-        console.log(this.drapeaux.getChildren()[0].body.position.x);
-        console.log(this.drapeaux.getChildren()[0].body.position.y);
-        this.drapeaux.getChildren()[0].body.position.x -= 0.5
-        console.log("_________");
-        console.log(this.drapeaux.getChildren()[0].body.position.x);
-        // this.matter.world.removeConstraint(this.matter.world.getAllConstraints()[0]);
-
-        // console.log(this.matter.world.getAllConstraints()[0]);
       }
 
       /**
@@ -852,6 +844,7 @@ function finDeVie(id) {
 
 function finDePartie(equipe) {
   // io.to("Naruto").emit("fin_de_partie", equipe);
+  this.matter.world.localWorld.constraints = []
   this.players["Naruto"].remove(true);
   this.drapeaux.remove(true)
   drapeaux = {}
@@ -867,8 +860,8 @@ function finDePartie(equipe) {
   // this.drapeaux.getChildren()[0].body.position.y = -1566.8232688524165
 
   // this.scene.pause();
-  this.drapeaux.getChildren()[0].setPosition(8242.130999766403, -1566.8232688524165).setSize(32, 640)
-  this.drapeaux.getChildren()[1].setPosition(-4868.428561331542, -775.2723001427164).setSize(32, 640)
+  this.drapeaux.getChildren()[0].setPosition(8242.130999766403, -1566.8232688524165).setSize(32, 640).setIgnoreGravity(true).setVelocity(0, 0)
+  this.drapeaux.getChildren()[1].setPosition(-4868.428561331542, -775.2723001427164).setSize(32, 640).setIgnoreGravity(true).setVelocity(0, 0)
   // this.scene.resume();
 }
 
