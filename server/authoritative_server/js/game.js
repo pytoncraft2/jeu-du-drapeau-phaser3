@@ -75,7 +75,7 @@ function create() {
       });
       this.anims.create({
         key: "walk",
-        frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'marche', start: 0, end: 8 }),
+        frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'marche', start: 1, end: 7 }),
         frameRate: 5,
         repeat: -1
       });
@@ -88,9 +88,16 @@ function create() {
 
       this.anims.create({
         key: "idle_walk",
-        frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'marche', start: 5, end: 5 }),
+        frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'marche', start: 0, end: 0 }),
         frameRate: 1,
         repeat: -1
+      });
+
+      this.anims.create({
+        key: "idle_attack",
+        frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'positiona', start: 0, end: 0 }),
+        frameRate: 1,
+        repeat: 0
       });
 
       this.anims.create({
@@ -640,7 +647,7 @@ function update() {
 
       if (input.saut) {
         player.setVelocityY(-50)
-        player.play('saut')
+        player.play('jump')
         input.saut = false
       }
 
