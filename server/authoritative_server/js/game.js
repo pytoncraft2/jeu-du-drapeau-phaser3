@@ -536,53 +536,53 @@ function update() {
 
                tweens: [{
                    targets: player,
-                   scale: 0.35,
+                   alpha: 0.35,
                    ease: 'Power1',
                    duration: 250
                },
                {
                    targets: player,
                    ease: 'Power1',
-                   scale: 0.38,
+                   alpha: 0.38,
                    duration: 250
                },
                {
                    targets: player,
-                   scale: 0.35,
+                   alpha: 0.35,
                    ease: 'Power1',
                    duration: 250,
                },
                {
                    targets: player,
                    ease: 'Power1',
-                   scale: 0.38,
+                   alpha: 0.38,
                    duration: 250
                },
                {
                    targets: player,
-                   scale: 0.34,
+                   alpha: 0.34,
                    ease: 'Power1',
                    duration: 250,
                },
                {
                    targets: player,
-                   scale: 0.39,
+                   alpha: 0.39,
                    ease: 'Power1',
                    duration: 250,
                },
                {
                    targets: player,
-                   scale: 0.34,
+                   alpha: 0.34,
                    ease: 'Power1',
                    duration: 250,
                },
                {
                    targets: player,
-                   scale: 0.39,
+                   alpha: 0.39,
                    ease: 'Power1',
                    duration: 250,
                }],
-               onComplete: () => player.setTint(0xff0000)
+               onComplete: () => player.setTint(0xff0000).setAlpha(1)
 
            });
 
