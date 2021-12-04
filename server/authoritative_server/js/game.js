@@ -640,6 +640,7 @@ function update() {
 
       if (input.saut) {
         player.setVelocityY(-50)
+        player.play('saut')
         input.saut = false
       }
 
