@@ -55,58 +55,51 @@ function create() {
 
       this.anims.create({
         key: 'attack',
-        frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'attack', start: 1, end: 5 }),
+        frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'positiona', start: 0, end: 5 }),
         frameRate: 6,
         yoyo: true,
         repeat: 0
       });
       this.anims.create({
         key: "goback",
-        frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'dos', start: 1, end: 7 }),
+        frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'dos', start: 0, end: 6 }),
         frameRate: 7,
         repeat: 0
       });
 
       this.anims.create({
         key: "front",
-        frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'face', start: 1, end: 5 }),
+        frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'face', start: 0, end: 5 }),
         frameRate: 6,
         repeat: 0
       });
       this.anims.create({
         key: "walk",
-        frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'walk', start: 1, end: 5 }),
+        frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'marche', start: 0, end: 8 }),
         frameRate: 5,
         repeat: -1
       });
       this.anims.create({
         key: "jump",
-        frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'jump', start: 0, end: 5 }),
+        frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'jump', start: 0, end: 7 }),
         frameRate: 7,
         repeat: 0
       });
 
       this.anims.create({
         key: "idle_walk",
-        frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'walk', start: 5, end: 5 }),
+        frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'marche', start: 5, end: 5 }),
         frameRate: 1,
         repeat: -1
       });
 
       this.anims.create({
-        key: "idle_attack",
-        frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'run', start: 1, end: 1 }),
-        frameRate: 1,
-        delay: 1,
-        repeat: 0
-      });
-
-      this.anims.create({
-        key: "run",
-        frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'run', start: 1, end: 4 }),
+        key: "saut",
+        frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'jumpface', start: 0, end: 5 }),
         frameRate: 6,
         repeat: -1
       })
+
 
   const self = this;
   this.players = {}
