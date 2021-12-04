@@ -22,6 +22,9 @@ const Arene = new Phaser.Class({
   },
 
   create: function() {
+
+    const te = this.matter.add.sprite(0, 0, 'dessinatrice1', 'face2');
+
     this.vieEquipeA = 100
     this.vieEquipeB = 100
     this.lastHealthEquipeA = 100;
@@ -749,7 +752,7 @@ def.body.collisionFilter.mask = 44
 
   displayPlayers: function(self, playerInfo, iscurrent) {
     console.log("Ajout joueur function");
-    const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, 'dessinatrice1', 'face1').setScale(0.38).setDepth(0.3).setAlpha(0);
+    const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, 'dessinatrice1', 'face1').setAlpha(0.2);
 
     // const saut = self.add.sprite(playerInfo.x, playerInfo.y, 'saut', 'jumpface1').setDepth(300).setScale(0.5)
     // saut.play('saut')
