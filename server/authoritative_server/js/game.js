@@ -106,6 +106,14 @@ function create() {
         repeat: 0
       })
 
+      this.anims.create({
+        key: "sautPreparation",
+        frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'jumpface', start: 5, end: 5 }),
+        frameRate: 1,
+        repeat: 0
+      })
+
+
 
   const self = this;
   this.players = {}
@@ -655,8 +663,19 @@ function update() {
        */
 
       if (input.saut) {
-        player.setVelocity(player.flipX ? -player.body.speed * 3: player.body.speed * 3, -50)
-        player.play('jump')
+        if (input.chargeSaut) {
+          if (player.body.speed < 2) {
+            player.play('sautPreparation')
+          }
+          input.chargeSaut = false;
+        } else {
+          if (player.body.speed < 2) {
+            player.play('saut')
+          } else {
+            player.play('jump')
+          }
+          player.setVelocityY(-50)
+        }
         input.saut = false
       }
 

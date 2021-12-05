@@ -597,16 +597,17 @@ def.body.collisionFilter.mask = 44
 
     if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
       this.socket.emit('playerInput', {
-        saut: true
+        saut: true,
+        chargeSaut: true
       });
     }
 
-    // if (Phaser.Input.Keyboard.JustUp(this.cursors.space)) {
-    //   this.socket.emit('playerInput', {
-    //     saut: true,
-    //     haut: false
-    //   });
-    // }
+    if (Phaser.Input.Keyboard.JustUp(this.cursors.space)) {
+      this.socket.emit('playerInput', {
+        saut: true,
+        chargeSaut: false
+      });
+    }
 
 
     /**
