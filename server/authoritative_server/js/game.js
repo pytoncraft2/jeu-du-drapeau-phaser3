@@ -82,7 +82,7 @@ function create() {
       this.anims.create({
         key: "jump",
         frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'jump', start: 0, end: 7 }),
-        frameRate: 7,
+        frameRate: 12,
         repeat: 0
       });
 
@@ -550,7 +550,7 @@ function update() {
                {
                    targets: player,
                    ease: 'Power1',
-                   alpha: 0.38,
+                   alpha: 0.58,
                    duration: 250
                },
                {
@@ -562,30 +562,30 @@ function update() {
                {
                    targets: player,
                    ease: 'Power1',
-                   alpha: 0.38,
+                   alpha: 0.58,
                    duration: 250
                },
                {
                    targets: player,
-                   alpha: 0.34,
+                   alpha: 0.30,
                    ease: 'Power1',
                    duration: 250,
                },
                {
                    targets: player,
-                   alpha: 0.39,
+                   alpha: 0.80,
                    ease: 'Power1',
                    duration: 250,
                },
                {
                    targets: player,
-                   alpha: 0.34,
+                   alpha: 0.54,
                    ease: 'Power1',
                    duration: 250,
                },
                {
                    targets: player,
-                   alpha: 0.39,
+                   alpha: 0.80,
                    ease: 'Power1',
                    duration: 250,
                }],
