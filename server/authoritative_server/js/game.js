@@ -673,7 +673,7 @@ function update() {
           this.tweenSaut = this.tweens.addCounter({
             from: 0,
             to: 100,
-            duration: 1000,
+            duration: 800,
           })
 
           input.chargeSaut = false;
