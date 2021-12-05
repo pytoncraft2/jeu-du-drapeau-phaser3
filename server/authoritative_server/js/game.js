@@ -513,7 +513,7 @@ function update() {
         }
         if (input.saut) {
           player.setVelocityY(-30)
-          player.play('saut')
+          player.play('jump')
         }
       } else if (input.left) {
         if (input.walk) {
@@ -536,7 +536,7 @@ function update() {
         }
         if (input.saut) {
           player.setVelocityY(-30)
-          player.play('saut')
+          player.play('jump')
         }
       }
 
