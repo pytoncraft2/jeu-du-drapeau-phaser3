@@ -353,7 +353,7 @@ function update() {
       if (input.special) {
         this.tweens.addCounter({
           duration: 10000,
-          onComplete: () => (player.active ? player.setScale(0.38) : null, player.puissanceBonus = 0)
+          onComplete: () => (player.active ? player.setScale(0.48557645184385934) : null, player.puissanceBonus = 0)
         })
 
         player.setScale(0.8)
@@ -752,6 +752,8 @@ function update() {
       players[player.arene][player.playerId].bulletX = this.bullet.x;
       players[player.arene][player.playerId].bulletY = this.bullet.y;
       players[player.arene][player.playerId].rotation = player.rotation;
+
+      console.log(player.scale);
 
       players[player.arene][player.playerId].socleMouventY = this.plots2.y
 
