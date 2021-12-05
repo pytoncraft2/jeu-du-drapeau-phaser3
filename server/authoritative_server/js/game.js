@@ -533,19 +533,36 @@ function update() {
       }
 
 
-      if (input.up) {
-        player.play('goback')
-        input.up = false;
-      } else if (input.down) {
-      if (input.saut) {
-        player.setVelocityY(-50)
-        // player.play('saut')
-        player.play('jump')
-        input.saut = false
-      }
 
-        // player.play('front')
-        input.down = false;
+
+      // if (input.up) {
+      //   player.play('goback')
+      // if (input.saut) {
+      //   player.setVelocityY(-50)
+      // }
+      //   input.up = false;
+      // } else if (input.down) {
+      // if (input.saut) {
+      //   player.setVelocityY(-50)
+      //   // player.play('saut')
+      //   player.play('saut')
+      //   input.saut = false
+      // }
+      //
+      //   // player.play('front')
+      //   input.down = false;
+      // }
+
+
+      if (input.saut) {
+        if (input.right || input.left) {
+          player.play('saut')
+        } else {
+          player.play('jump')
+        }
+        console.log(input.right);
+        player.setVelocityY(-50)
+        input.saut = false;
       }
 
       /**
@@ -766,8 +783,6 @@ function update() {
       players[player.arene][player.playerId].bulletX = this.bullet.x;
       players[player.arene][player.playerId].bulletY = this.bullet.y;
       players[player.arene][player.playerId].rotation = player.rotation;
-
-      console.log(player.scale);
 
       players[player.arene][player.playerId].socleMouventY = this.plots2.y
 
