@@ -511,10 +511,6 @@ function update() {
             duration: 500
           })
         }
-        if (input.saut) {
-          player.setVelocityY(-30)
-          player.play('jump')
-        }
       } else if (input.left) {
         if (input.walk) {
           player.thrustBack(0.1)
@@ -534,44 +530,14 @@ function update() {
           })
           input.ctrl = false;
         }
-        if (input.saut) {
-          player.setVelocityY(-30)
-          player.play('jump')
-        }
+      } else if (input.up) {
+        player.play('goback')
+        input.up = false;
+      } else if (input.down) {
+        player.play('front')
+        input.down = false;
       }
 
-
-
-
-      // if (input.up) {
-      //   player.play('goback')
-      // if (input.saut) {
-      //   player.setVelocityY(-50)
-      // }
-      //   input.up = false;
-      // } else if (input.down) {
-      // if (input.saut) {
-      //   player.setVelocityY(-50)
-      //   // player.play('saut')
-      //   player.play('saut')
-      //   input.saut = false
-      // }
-      //
-      //   // player.play('front')
-      //   input.down = false;
-      // }
-
-
-      // if (input.saut) {
-      //   if (input.right || input.left) {
-      //     player.play('saut')
-      //   } else {
-      //     player.play('jump')
-      //   }
-      //   console.log(input.right);
-      //   player.setVelocityY(-50)
-      //   input.saut = false;
-      // }
 
       /**
        * ANIMATION ATTAQUE + ombre
@@ -688,7 +654,11 @@ function update() {
        * SAUT
        */
 
-
+      if (input.saut) {
+        player.setVelocity(player.flipX ? -player.body.speed * 3: player.body.speed * 3, -50)
+        player.play('jump')
+        input.saut = false
+      }
 
       /**
        * TIROLIENNE
