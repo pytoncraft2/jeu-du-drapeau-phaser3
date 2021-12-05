@@ -46,6 +46,7 @@ function create() {
   // this.matter.world.disableGravity();
 
   this.tween = null;
+  this.tweenSaut = null;
   this.graph = this.add.graphics();
 
   this.vieEquipe = {
@@ -663,18 +664,30 @@ function update() {
        */
 
       if (input.saut) {
+        var puissance
         if (input.chargeSaut) {
           if (player.body.speed < 2) {
             player.play('sautPreparation')
           }
+
+          this.tweenSaut = this.tweens.addCounter({
+            from: 0,
+            to: 100,
+            duration: 2000,
+          })
+
           input.chargeSaut = false;
         } else {
+            puissance = this.tweenSaut.getValue()
+          if (this.tweenSaut.isPlaying()) {
+            this.tweenSaut.stop()
+          }
           if (player.body.speed < 2) {
             player.play('saut')
           } else {
             player.play('jump')
           }
-          player.setVelocityY(-50)
+          player.setVelocityY(-puissance)
         }
         input.saut = false
       }
