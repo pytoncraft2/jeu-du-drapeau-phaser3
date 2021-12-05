@@ -57,7 +57,6 @@ function create() {
         key: 'attack',
         frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'positiona', start: 0, end: 5 }),
         frameRate: 6,
-        yoyo: true,
         repeat: 0
       });
       this.anims.create({
@@ -81,7 +80,7 @@ function create() {
       });
       this.anims.create({
         key: "jump",
-        frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'jump', start: 0, end: 7 }),
+        frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'jump', start: 0, end: 6 }),
         frameRate: 12,
         repeat: 0
       });
@@ -600,6 +599,7 @@ function update() {
           player.clearTint()
           if (this.tween.isPlaying()) {
           this.tween.stop()
+          player.setAlpha(1)
           }
           const recupereLePlusProche = this.tonneaux.getChildren().map(t => {
             if (Phaser.Math.Distance.BetweenPoints(player, t) < 300 && Phaser.Math.Distance.BetweenPoints(player, t) < 310) {
@@ -619,7 +619,7 @@ function update() {
             onUpdateParams: [ this.events ],
             onUpdate: function functionName(tween, targets, events) {
               if (player.active) {
-              if (player.anims.getFrameName() == "attack4") {
+              if (player.anims.getFrameName() == "positiona3") {
                 if (count) {
                   var distance = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone.x, y: fontainezone.y});
                   var distance2 = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone2.x, y: fontainezone2.y});
@@ -884,7 +884,7 @@ function handlePlayerInput(self, playerId, arene, input) {
 }
 
 function addPlayer(self, playerInfo) {
-  const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, playerInfo.atlas, 'face1').setDisplaySize(127, 368.22).setAlpha(0);
+  const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, playerInfo.atlas, 'face0').setDisplaySize(127, 368.22).setAlpha(0);
   joueur.playerId = playerInfo.playerId;
   joueur.arene = playerInfo.arene;
   joueur.equipe = playerInfo.equipe;
