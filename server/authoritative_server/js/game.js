@@ -102,8 +102,8 @@ function create() {
       this.anims.create({
         key: "saut",
         frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'jumpface', start: 0, end: 5 }),
-        frameRate: 6,
-        repeat: -1
+        frameRate: 7,
+        repeat: 0
       })
 
 
@@ -530,6 +530,12 @@ function update() {
           })
           input.ctrl = false;
         }
+      } else if (input.up) {
+        player.play('goback')
+        input.up = false;
+      } else if (input.down) {
+        player.play('front')
+        input.down = false;
       }
 
 
@@ -650,7 +656,13 @@ function update() {
 
       if (input.saut) {
         player.setVelocityY(-50)
+        if (input.left || input.right) {
+        player.play('saut')
+        input.left = false;
+        input.right = false;
+        } else {
         player.play('jump')
+        }
         input.saut = false
       }
 

@@ -598,6 +598,7 @@ def.body.collisionFilter.mask = 44
     if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
       this.socket.emit('playerInput', {
         saut: true,
+        left: true
         // haut: true
       });
     }
@@ -611,7 +612,7 @@ def.body.collisionFilter.mask = 44
 
 
     /**
-     * DIRECTION DROITE GAUCHE
+     * GAUCHE
      */
 
     if (Phaser.Input.Keyboard.JustDown(this.cursors.left)) {
@@ -631,6 +632,9 @@ def.body.collisionFilter.mask = 44
       });
     }
 
+    /**
+     * DROITE
+     */
     if (Phaser.Input.Keyboard.JustDown(this.cursors.right)) {
       this.socket.emit('playerInput', {
         right: true,
@@ -646,6 +650,23 @@ def.body.collisionFilter.mask = 44
         ctrl: this.ctrlKey.isDown
       });
     }
+
+
+    /**
+     * MARCHE VERS LE FOND ET L'AVANT
+     */
+    if (Phaser.Input.Keyboard.JustDown(this.cursors.up)) {
+      this.socket.emit('playerInput', {
+        up: true,
+      });
+    }
+
+    if (Phaser.Input.Keyboard.JustDown(this.cursors.down)) {
+      this.socket.emit('playerInput', {
+        down: true,
+      });
+    }
+
 
 
     if (Phaser.Input.Keyboard.JustDown(this.aKeyPressed)) {
