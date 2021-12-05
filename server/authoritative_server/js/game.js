@@ -350,6 +350,7 @@ function update() {
 
       player.ombre.x = player.x
 
+      //GROSSISEMENT
       if (input.special) {
         this.tweens.addCounter({
           duration: 10000,
@@ -361,6 +362,7 @@ function update() {
         input.special = false;
       }
 
+      //FANTOME
       if (input.special2) {
         this.tweens.addCounter({
           duration: 5000,
@@ -375,6 +377,7 @@ function update() {
         input.special2 = false;
       }
 
+      //TOUPIE
       if (input.special3) {
         this.tweens.addCounter({
           duration: 2000,
