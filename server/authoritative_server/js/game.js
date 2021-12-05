@@ -511,6 +511,10 @@ function update() {
             duration: 500
           })
         }
+        if (input.saut) {
+          player.setVelocityY(-30)
+          player.play('saut')
+        }
       } else if (input.left) {
         if (input.walk) {
           player.thrustBack(0.1)
@@ -529,6 +533,10 @@ function update() {
             duration: 500
           })
           input.ctrl = false;
+        }
+        if (input.saut) {
+          player.setVelocityY(-30)
+          player.play('saut')
         }
       }
 
@@ -554,16 +562,16 @@ function update() {
       // }
 
 
-      if (input.saut) {
-        if (input.right || input.left) {
-          player.play('saut')
-        } else {
-          player.play('jump')
-        }
-        console.log(input.right);
-        player.setVelocityY(-50)
-        input.saut = false;
-      }
+      // if (input.saut) {
+      //   if (input.right || input.left) {
+      //     player.play('saut')
+      //   } else {
+      //     player.play('jump')
+      //   }
+      //   console.log(input.right);
+      //   player.setVelocityY(-50)
+      //   input.saut = false;
+      // }
 
       /**
        * ANIMATION ATTAQUE + ombre
