@@ -673,7 +673,7 @@ function update() {
           this.tweenSaut = this.tweens.addCounter({
             from: 0,
             to: 100,
-            duration: 2000,
+            duration: 1000,
           })
 
           input.chargeSaut = false;
@@ -687,7 +687,7 @@ function update() {
           } else {
             player.play('jump')
           }
-          player.setVelocityY(-puissance)
+          player.setVelocity( player.body.speed > 2 ? (player.flipX ? -puissance: puissance) : 0, -puissance)
         }
         input.saut = false
       }
