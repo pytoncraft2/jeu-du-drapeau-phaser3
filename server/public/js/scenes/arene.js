@@ -595,13 +595,13 @@ def.body.collisionFilter.mask = 44
      * SAUT
      */
 
-    if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
-      this.socket.emit('playerInput', {
-        saut: true,
-        left: true
-        // haut: true
-      });
-    }
+    // if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
+    //   this.socket.emit('playerInput', {
+    //     saut: true,
+    //     left: true
+    //     // haut: true
+    //   });
+    // }
 
     // if (Phaser.Input.Keyboard.JustUp(this.cursors.space)) {
     //   this.socket.emit('playerInput', {
@@ -664,6 +664,7 @@ def.body.collisionFilter.mask = 44
     if (Phaser.Input.Keyboard.JustDown(this.cursors.down)) {
       this.socket.emit('playerInput', {
         down: true,
+        saut: this.cursors.space.isDown
       });
     }
 

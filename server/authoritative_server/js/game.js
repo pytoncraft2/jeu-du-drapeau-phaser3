@@ -530,14 +530,23 @@ function update() {
           })
           input.ctrl = false;
         }
-      } else if (input.up) {
+      }
+
+
+      if (input.up) {
         player.play('goback')
         input.up = false;
       } else if (input.down) {
-        player.play('front')
-        input.down = false;
+      if (input.saut) {
+        player.setVelocityY(-50)
+        // player.play('saut')
+        player.play('jump')
+        input.saut = false
       }
 
+        // player.play('front')
+        input.down = false;
+      }
 
       /**
        * ANIMATION ATTAQUE + ombre
@@ -654,17 +663,7 @@ function update() {
        * SAUT
        */
 
-      if (input.saut) {
-        player.setVelocityY(-50)
-        if (input.left || input.right) {
-        player.play('saut')
-        input.left = false;
-        input.right = false;
-        } else {
-        player.play('jump')
-        }
-        input.saut = false
-      }
+
 
       /**
        * TIROLIENNE
