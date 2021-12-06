@@ -90,10 +90,10 @@ const BootScene = new Phaser.Class({
 
     //------------------ATLAS
     //DESSINATRICE
-    // this.load.atlas('dessinatrice1', 'assets/personnages/dessinatrice1/dessinatrice1.png', 'assets/personnages/dessinatrice1/dessinatrice1_atlas.json');
+    this.load.atlas('dessinatrice1', 'assets/personnages/dessinatrice1/dessinatrice1.png', 'assets/personnages/dessinatrice1/dessinatrice1_atlas.json');
 
     //NARUTO
-    this.load.atlas('dessinatrice1', 'assets/personnages/naruto/naruto.png', 'assets/personnages/naruto/naruto_atlas.json');
+    this.load.atlas('naruto', 'assets/personnages/naruto/naruto.png', 'assets/personnages/naruto/naruto_atlas.json');
 
     this.load.image('tonneau', 'assets0/barrel.png')
     // this.load.image('profilPanel', 'assets0/liveProfilPanel.png');
