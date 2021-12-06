@@ -22,7 +22,7 @@
    },
 
    create: function() {
-     var liste = ['dessinatrice1_', 'naruto_', 'ninja_'];
+     var liste = ['dessinatrice1_', 'naruto_', 'ninja_', 'ninja2_'];
      const self = this;
      var x = 600;
      var y = 400;

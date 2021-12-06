@@ -1,0 +1,593 @@
+{
+    "frames": [
+        {
+            "filename": "marche7",
+            "frame": {
+                "w": 376,
+                "h": 520,
+                "x": 0,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "dos0",
+            "frame": {
+                "w": 361,
+                "h": 497,
+                "x": 376,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "marche6",
+            "frame": {
+                "w": 376,
+                "h": 520,
+                "x": 737,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "marche5",
+            "frame": {
+                "w": 376,
+                "h": 520,
+                "x": 1113,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "marche4",
+            "frame": {
+                "w": 376,
+                "h": 520,
+                "x": 1489,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "marche3",
+            "frame": {
+                "w": 376,
+                "h": 520,
+                "x": 1865,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "marche2",
+            "frame": {
+                "w": 376,
+                "h": 520,
+                "x": 2241,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "marche1",
+            "frame": {
+                "w": 376,
+                "h": 520,
+                "x": 0,
+                "y": 520
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "marche0",
+            "frame": {
+                "w": 376,
+                "h": 520,
+                "x": 376,
+                "y": 520
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "jumpface5",
+            "frame": {
+                "w": 399,
+                "h": 543,
+                "x": 752,
+                "y": 520
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "jumpface4",
+            "frame": {
+                "w": 399,
+                "h": 543,
+                "x": 1151,
+                "y": 520
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "jumpface3",
+            "frame": {
+                "w": 399,
+                "h": 543,
+                "x": 1550,
+                "y": 520
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "jumpface2",
+            "frame": {
+                "w": 399,
+                "h": 543,
+                "x": 1949,
+                "y": 520
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "jumpface1",
+            "frame": {
+                "w": 399,
+                "h": 543,
+                "x": 2348,
+                "y": 520
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "jumpface0",
+            "frame": {
+                "w": 399,
+                "h": 543,
+                "x": 0,
+                "y": 1063
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "positionm4",
+            "frame": {
+                "w": 425,
+                "h": 497,
+                "x": 399,
+                "y": 1063
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "positionm3",
+            "frame": {
+                "w": 425,
+                "h": 497,
+                "x": 824,
+                "y": 1063
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "positionm2",
+            "frame": {
+                "w": 425,
+                "h": 497,
+                "x": 1249,
+                "y": 1063
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "positionm1",
+            "frame": {
+                "w": 425,
+                "h": 497,
+                "x": 1674,
+                "y": 1063
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "positionm0",
+            "frame": {
+                "w": 425,
+                "h": 497,
+                "x": 2099,
+                "y": 1063
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "positiona5",
+            "frame": {
+                "w": 524,
+                "h": 565,
+                "x": 2524,
+                "y": 1063
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "positiona4",
+            "frame": {
+                "w": 524,
+                "h": 565,
+                "x": 0,
+                "y": 1628
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "positiona3",
+            "frame": {
+                "w": 524,
+                "h": 565,
+                "x": 524,
+                "y": 1628
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "positiona2",
+            "frame": {
+                "w": 524,
+                "h": 565,
+                "x": 1048,
+                "y": 1628
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "positiona1",
+            "frame": {
+                "w": 524,
+                "h": 565,
+                "x": 1572,
+                "y": 1628
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "positiona0",
+            "frame": {
+                "w": 524,
+                "h": 565,
+                "x": 2096,
+                "y": 1628
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "face5",
+            "frame": {
+                "w": 397,
+                "h": 401,
+                "x": 2620,
+                "y": 1628
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "face4",
+            "frame": {
+                "w": 397,
+                "h": 401,
+                "x": 3017,
+                "y": 1628
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "face3",
+            "frame": {
+                "w": 397,
+                "h": 401,
+                "x": 0,
+                "y": 2193
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "face2",
+            "frame": {
+                "w": 397,
+                "h": 401,
+                "x": 397,
+                "y": 2193
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "face1",
+            "frame": {
+                "w": 397,
+                "h": 401,
+                "x": 794,
+                "y": 2193
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "face0",
+            "frame": {
+                "w": 397,
+                "h": 401,
+                "x": 1191,
+                "y": 2193
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "jump6",
+            "frame": {
+                "w": 505,
+                "h": 474,
+                "x": 1588,
+                "y": 2193
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "jump5",
+            "frame": {
+                "w": 505,
+                "h": 474,
+                "x": 2093,
+                "y": 2193
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "jump4",
+            "frame": {
+                "w": 505,
+                "h": 474,
+                "x": 2598,
+                "y": 2193
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "jump3",
+            "frame": {
+                "w": 505,
+                "h": 474,
+                "x": 0,
+                "y": 2667
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "jump2",
+            "frame": {
+                "w": 505,
+                "h": 474,
+                "x": 505,
+                "y": 2667
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "jump1",
+            "frame": {
+                "w": 505,
+                "h": 474,
+                "x": 1010,
+                "y": 2667
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "jump0",
+            "frame": {
+                "w": 505,
+                "h": 474,
+                "x": 1515,
+                "y": 2667
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "dos6",
+            "frame": {
+                "w": 361,
+                "h": 497,
+                "x": 2020,
+                "y": 2667
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "dos5",
+            "frame": {
+                "w": 361,
+                "h": 497,
+                "x": 2381,
+                "y": 2667
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "dos4",
+            "frame": {
+                "w": 361,
+                "h": 497,
+                "x": 2742,
+                "y": 2667
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "dos3",
+            "frame": {
+                "w": 361,
+                "h": 497,
+                "x": 0,
+                "y": 3164
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "dos2",
+            "frame": {
+                "w": 361,
+                "h": 497,
+                "x": 361,
+                "y": 3164
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "dos1",
+            "frame": {
+                "w": 361,
+                "h": 497,
+                "x": 722,
+                "y": 3164
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        }
+    ],
+    "meta": {
+        "description": "Atlas generado con Atlas Packer Gamma V2",
+        "web": "https://gammafp.github.io/atlas-packer-phaser/"
+    }
+}
