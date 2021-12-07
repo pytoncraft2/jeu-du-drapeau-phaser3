@@ -25,11 +25,11 @@
      var liste = ['dessinatrice1_', 'naruto_', 'ninja_', 'ninja2_', 'aventuriere2_'];
      const self = this;
      var x = 350;
-     var y = 400;
+     var y = 600;
      var up = 0;
      liste.forEach((item, i) => {
        this.player = 'player' + i.toString();
-       this.player = self.add.image(x + up, y, item).setScale(0.38).setOrigin(0.5, 0.5);
+       this.player = self.add.image(x + up, y, item).setScale(0.48).setOrigin(0.5, 1);
        up += 200;
 
        this.player.setInteractive().on('pointerdown', function() {
