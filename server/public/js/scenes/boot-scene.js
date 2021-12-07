@@ -72,7 +72,7 @@ const BootScene = new Phaser.Class({
   },
 
   loadAssets: function() {
-    var liste = ['dessinatrice1_', 'naruto_', 'ninja_', 'ninja2_'];
+    var liste = ['dessinatrice1_', 'naruto_', 'ninja_', 'ninja2_', 'aventuriere2_'];
     // var liste2 = ['dessinatrice1', 'naruto'];
     liste.forEach((item) => {
       this.load.image(item, 'assets/selection/' + item + '.png');
@@ -100,6 +100,9 @@ const BootScene = new Phaser.Class({
 
     //FILLE NINJA
     this.load.atlas('ninja2', 'assets/personnages/ninja2/ninja2.png', 'assets/personnages/ninja2/ninja2_atlas.json');
+
+    //AVENTURIERE 2
+    this.load.atlas('aventuriere2', 'assets/personnages/aventuriere2/aventuriere2.png', 'assets/personnages/aventuriere2/aventuriere2_atlas.json');
 
     this.load.image('tonneau', 'assets0/barrel.png')
     // this.load.image('profilPanel', 'assets0/liveProfilPanel.png');
