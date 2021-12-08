@@ -32,22 +32,37 @@ function agrandissement(scene, player) {
 
 const capacites = {}
 capacites['dessinatrice1'], capacites['naruto'], capacites['ninja'], capacites['ninja2'], capacites['chevalier'], capacites['aventuriere2'] = {}
+
+capacites['dessinatrice1'] = {
+  toucheT(scene, player) {
+    invisible(scene, player)
+  }
+}
+capacites['naruto'] = {
+  toucheT(scene, player) {
+    agrandissement(scene, player)
+  }
+}
 capacites['chevalier'] = {
   toucheT(scene, player) {
     agrandissement(scene, player)
   }
 }
-capacites['dessinatrice1'] = {
+capacites['ninja'] = {
   toucheT(scene, player) {
     invisible(scene, player)
-  },
-  nestedObj: {
-    myNestedMethod(params) {
-      // ...do something here
-    }
   }
 };
-
+capacites['ninja2'] = {
+  toucheT(scene, player) {
+    invisible(scene, player)
+  }
+};
+capacites['aventuriere2'] = {
+  toucheT(scene, player) {
+    invisible(scene, player)
+  }
+};
 
 /**
  * OBJETS AVEC LES POUVOIRS
@@ -413,14 +428,15 @@ function update() {
 
       player.ombre.x = player.x
 
-      //GROSSISEMENT
+      // GROSSISEMENT
       if (input.special) {
+        capacites[player.atlas].toucheT(this, player)
         input.special = false;
       }
 
       //FANTOME
       if (input.special2) {
-        capacites[player.atlas].toucheT(this, player)
+        // capacites[player.atlas].toucheT(this, player)
         input.special2 = false;
       }
 
