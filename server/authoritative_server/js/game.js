@@ -29,6 +29,14 @@ capacites['dessinatrice1'] = {
     }
   }
 };
+capacites['global'] = {
+  porter() {
+
+  },
+  attaquerTonneau() {
+
+  }
+}
 
 
 /**
