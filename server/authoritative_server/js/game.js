@@ -30,9 +30,27 @@ function agrandissement(scene, player) {
 }
 
 
-const config = {};
-config['dessinatrice1'] = {
-  vie: "2",
+const parametres = {};
+
+parametres['dessinatrice1'] = {
+  etatInitial: {
+    vie: "5",
+    displayWidth: "104",
+    displayHeight: "302",
+    scale: "0.5"
+  },
+  toucheT: (scene, player) => {
+    invisible(scene, player)
+  }
+}
+
+parametres['ninja'] = {
+  etatInitial: {
+    vie: "5",
+    displayWidth: "149",
+    displayHeight: "140",
+    scale: "0.5"
+  },
   toucheT: (scene, player) => {
     invisible(scene, player)
   }
@@ -356,24 +374,6 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
     constraints[socket.id]['tonneau'] = {}
     constraints[socket.id]['drapeau'] = {}
 
-    {
-      vie: .
-    }
-
-    var param = {
-      vie: 20
-    };
-
-    // Creating second object
-    var obj2 = {
-      marks: 50
-    };
-
-    var param = {
-    ...obj1,
-    ...obj2
-};
-
 
       players[socket.room][socket.id] = {
         atlas: socket.atlas,
@@ -463,7 +463,7 @@ function update() {
       // GROSSISEMENT
       if (input.special) {
         // capacites[player.atlas].toucheT(this, player)
-        config[player.atlas].toucheT(this, player);
+        parametres[player.atlas].toucheT(this, player);
         input.special = false;
       }
 
