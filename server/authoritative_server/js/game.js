@@ -37,7 +37,7 @@ parametres['dessinatrice1'] = {
     vie: 2,
     displayWidth: 104,
     displayHeight: 302,
-    scale: 0.38
+    scaleJoueur: 0.38
   },
   toucheT: (scene, player) => {
     invisible(scene, player)
@@ -49,7 +49,7 @@ parametres['ninja'] = {
     vie: 5,
     displayWidth: 149,
     displayHeight: 140,
-    scale: 0.5
+    scaleJoueur: 0.5
   },
   toucheT: (scene, player) => {
     invisible(scene, player)
@@ -62,7 +62,7 @@ parametres['ninja2'] = {
     vie: 5,
     displayWidth: 158.8,
     displayHeight: 160.4,
-    scale: 0.5
+    scaleJoueur: 0.5
   },
   toucheT: (scene, player) => {
     invisible(scene, player)
@@ -74,7 +74,7 @@ parametres['aventuriere2'] = {
     vie: 5,
     displayWidth: 38.40,
     displayHeight: 51.2,
-    scale: 0.5
+    scaleJoueur: 0.5
   },
   toucheT: (scene, player) => {
     invisible(scene, player)
@@ -86,7 +86,7 @@ parametres['chevalier'] = {
     vie: 5,
     displayWidth: 117.60,
     displayHeight: 141.6,
-    scale: 0.5
+    scaleJoueur: 0.5
   },
   toucheT: (scene, player) => {
     invisible(scene, player)
@@ -98,7 +98,7 @@ parametres['naruto'] = {
     vie: 5,
     displayWidth: 102,
     displayHeight: 300,
-    scale: 0.5
+    scaleJoueur: 0.5
   },
   toucheT: (scene, player) => {
     invisible(scene, player)
@@ -1078,6 +1078,7 @@ function addPlayer(self, playerInfo) {
   self.tweens.add({
   targets: joueur,
   alpha: 1,
+  delay: 700,
   duration:2000,
   // onComplete: () => (joueur.setScale(0.4), joueur.setCollidesWith(0), joueur.setCollisionGroup(-1)),
   ease: 'Sine.easeInOut'
