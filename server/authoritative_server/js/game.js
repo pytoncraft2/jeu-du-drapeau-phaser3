@@ -34,10 +34,10 @@ const parametres = {};
 
 parametres['dessinatrice1'] = {
   etatInitial: {
-    vie: "5",
-    displayWidth: "104",
-    displayHeight: "302",
-    scale: "0.5"
+    vie: 2,
+    displayWidth: 104,
+    displayHeight: 302,
+    scale: 0.38
   },
   toucheT: (scene, player) => {
     invisible(scene, player)
@@ -46,10 +46,10 @@ parametres['dessinatrice1'] = {
 
 parametres['ninja'] = {
   etatInitial: {
-    vie: "5",
-    displayWidth: "149",
-    displayHeight: "140",
-    scale: "0.5"
+    vie: 5,
+    displayWidth: 149,
+    displayHeight: 140,
+    scale: 0.5
   },
   toucheT: (scene, player) => {
     invisible(scene, player)
@@ -376,6 +376,7 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
 
 
       players[socket.room][socket.id] = {
+        ...parametres[socket.atlas]['etatInitial'],
         atlas: socket.atlas,
         arene: socket.room,
         equipe: socket.equipe,
@@ -389,7 +390,6 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
         vie: 5,
         depth: 30,
         anim: 'profil',
-        scale: 0.38,
         size: 200,
         vieEquipe: self.vieEquipe,
         x: x,
@@ -1012,7 +1012,7 @@ function handlePlayerInput(self, playerId, arene, input) {
 }
 
 function addPlayer(self, playerInfo) {
-  const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, 'dessinatrice1', 'face0').setDisplaySize(104, 302).setAlpha(0);
+  const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, 'dessinatrice1', 'face0').setDisplaySize(playerInfo.displayWidth, playerInfo.displayHeight).setAlpha(0);
   joueur.playerId = playerInfo.playerId;
   joueur.arene = playerInfo.arene;
   joueur.equipe = playerInfo.equipe;
