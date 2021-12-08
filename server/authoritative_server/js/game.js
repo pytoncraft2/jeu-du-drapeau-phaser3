@@ -83,7 +83,7 @@ parametres['aventuriere2'] = {
 
 parametres['chevalier'] = {
   etatInitial: {
-    vie: 5,
+    vie: 20,
     displayWidth: 117.60,
     displayHeight: 141.6,
     scaleJoueur: 0.5
@@ -431,11 +431,11 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
         mask: mask,
         wall: false,
         attaque: false,
+        scaleJoueur: 1,
         puissanceBonus: 0,
         alpha: 1,
         attacked: false,
         degat: 0,
-        vie: 5,
         depth: 30,
         anim: 'profil',
         size: 200,
@@ -1070,6 +1070,7 @@ function addPlayer(self, playerInfo) {
   joueur.degat = playerInfo.degat;
   joueur.attacked = playerInfo.attacked;
   joueur.puissanceBonus = playerInfo.puissanceBonus;
+  joueur.scaleJoueur = playerInfo.scaleJoueur;
   joueur.setFrictionAir(0.05);
   joueur.setMass(30);
   self.players[playerInfo.arene].add(joueur);
