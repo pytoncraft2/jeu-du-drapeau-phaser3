@@ -29,6 +29,14 @@ function agrandissement(scene, player) {
   player.puissanceBonus = 3;
 }
 
+
+var config['dessinatrice1'] = {
+    vie: "12",
+    toucheT : function(test) { return something; }
+}
+
+argument1.mymethod(parameter);
+
 const parametres = {}
 parametres['capacites'] = {}
 capacites['dessinatrice1'], capacites['naruto'], capacites['ninja'], capacites['ninja2'], capacites['chevalier'], capacites['aventuriere2'] = {}
