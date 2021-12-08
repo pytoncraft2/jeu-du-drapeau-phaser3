@@ -4,6 +4,38 @@ players['Pikachu'] = {};
 barils = {};
 drapeaux = {};
 constraints = {};
+const pouvoirs = {
+  invisible(tween, player) {
+       tween.addCounter({
+         duration: 5000,
+         onComplete: () => (player.active ? (player.setAlpha(1), player.ombre.setAlpha(1)) : null)
+       })
+       tween.add({
+         targets: player,
+         alpha: 0,
+         duration: 500
+       })
+       player.ombre.setAlpha(0)
+    // ...do something here
+  },
+  agrandissement(params) {
+    // ...do something here
+  },
+  nestedObj: {
+    myNestedMethod(params) {
+      // ...do something here
+    }
+  }
+};
+
+
+/**
+ * OBJETS AVEC LES POUVOIRS
+ * @type {Object}
+ */
+
+
+
 
 const config = {
   type: Phaser.HEADLESS,
@@ -42,6 +74,8 @@ function preload() {
 
 
 function create() {
+
+
   console.log(this.matter.world.localWorld.constraints);
   // this.matter.world.disableGravity();
 
@@ -373,16 +407,7 @@ function update() {
 
       //FANTOME
       if (input.special2) {
-        this.tweens.addCounter({
-          duration: 5000,
-          onComplete: () => (player.active ? (player.setAlpha(1), player.ombre.setAlpha(1)) : null)
-        })
-        this.tweens.add({
-          targets: player,
-          alpha: 0,
-          duration: 500
-        })
-        player.ombre.setAlpha(0)
+        pouvoirs.invisible(this.tweens, player)
         input.special2 = false;
       }
 
@@ -925,7 +950,7 @@ function handlePlayerInput(self, playerId, arene, input) {
 }
 
 function addPlayer(self, playerInfo) {
-  const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, 'dessinatrice1', 'face0').setDisplaySize(127, 368.22).setAlpha(0);
+  const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, 'dessinatrice1', 'face0').setDisplaySize(104, 302).setAlpha(0);
   joueur.playerId = playerInfo.playerId;
   joueur.arene = playerInfo.arene;
   joueur.equipe = playerInfo.equipe;
