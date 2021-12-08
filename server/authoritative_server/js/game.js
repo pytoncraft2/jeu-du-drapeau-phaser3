@@ -30,13 +30,16 @@ function agrandissement(scene, player) {
 }
 
 
-var config['dessinatrice1'] = {
-    vie: "12",
-    toucheT : function(test) { return something; }
+const config = {};
+config['dessinatrice1'] = {
+  vie: "2",
+  toucheT: (scene, player) => {
+    invisible(scene, player)
+  }
 }
 
-argument1.mymethod(parameter);
 
+/*
 const parametres = {}
 parametres['capacites'] = {}
 capacites['dessinatrice1'], capacites['naruto'], capacites['ninja'], capacites['ninja2'], capacites['chevalier'], capacites['aventuriere2'] = {}
@@ -71,6 +74,7 @@ capacites['aventuriere2'] = {
     invisible(scene, player)
   }
 };
+*/
 
 /**
  * OBJETS AVEC LES POUVOIRS
@@ -458,7 +462,8 @@ function update() {
 
       // GROSSISEMENT
       if (input.special) {
-        capacites[player.atlas].toucheT(this, player)
+        // capacites[player.atlas].toucheT(this, player)
+        config[player.atlas].toucheT(this, player);
         input.special = false;
       }
 
