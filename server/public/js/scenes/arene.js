@@ -783,6 +783,7 @@ def.body.collisionFilter.mask = 44
 
   displayPlayers: function(self, playerInfo, iscurrent) {
     console.log("Ajout joueur function");
+    console.log(playerInfo);
     const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, playerInfo.atlas, 'face0').setAlpha(0).setScale(0.4).setDepth(0.1);
     // alert(joueur.displayWidth)
     // alert(joueur.displayHeight)

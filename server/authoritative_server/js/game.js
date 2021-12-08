@@ -37,7 +37,7 @@ parametres['dessinatrice1'] = {
     vie: 2,
     displayWidth: 104,
     displayHeight: 302,
-    scaleJoueur: 0.38
+    scaleJoueur: 0.48
   },
   toucheT: (scene, player) => {
     invisible(scene, player)
@@ -74,7 +74,7 @@ parametres['aventuriere2'] = {
     vie: 5,
     displayWidth: 38.40,
     displayHeight: 51.2,
-    scaleJoueur: 0.5
+    scaleJoueur: 0.39
   },
   toucheT: (scene, player) => {
     invisible(scene, player)
@@ -431,7 +431,6 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
         mask: mask,
         wall: false,
         attaque: false,
-        scaleJoueur: 1,
         puissanceBonus: 0,
         alpha: 1,
         attacked: false,
@@ -1070,7 +1069,9 @@ function addPlayer(self, playerInfo) {
   joueur.degat = playerInfo.degat;
   joueur.attacked = playerInfo.attacked;
   joueur.puissanceBonus = playerInfo.puissanceBonus;
-  joueur.scaleJoueur = playerInfo.scaleJoueur;
+  console.log("SSSSSSSSSSSCCCALLLE");
+  console.log(joueur.scale);
+  joueur.setScale(parametres[joueur.atlas].etatInitial.scaleJoueur);
   joueur.setFrictionAir(0.05);
   joueur.setMass(30);
   self.players[playerInfo.arene].add(joueur);
