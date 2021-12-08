@@ -29,8 +29,8 @@ function agrandissement(scene, player) {
   player.puissanceBonus = 3;
 }
 
-
-const capacites = {}
+const parametres = {}
+parametres['capacites'] = {}
 capacites['dessinatrice1'], capacites['naruto'], capacites['ninja'], capacites['ninja2'], capacites['chevalier'], capacites['aventuriere2'] = {}
 
 capacites['dessinatrice1'] = {
@@ -343,6 +343,26 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
     constraints[socket.id]['bullet'] = {}
     constraints[socket.id]['tonneau'] = {}
     constraints[socket.id]['drapeau'] = {}
+
+    {
+      vie: .
+    }
+
+    var param = {
+      vie: 20
+    };
+
+    // Creating second object
+    var obj2 = {
+      marks: 50
+    };
+
+    var param = {
+    ...obj1,
+    ...obj2
+};
+
+
       players[socket.room][socket.id] = {
         atlas: socket.atlas,
         arene: socket.room,
