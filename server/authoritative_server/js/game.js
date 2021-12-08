@@ -417,7 +417,7 @@ function update() {
 
       //FANTOME
       if (input.special2) {
-        capacites['dessinatrice1'].invisible(this.tweens, player)
+        capacites[player.atlas].invisible(this.tweens, player)
         input.special2 = false;
       }
 
