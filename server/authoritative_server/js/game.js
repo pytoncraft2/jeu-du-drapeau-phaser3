@@ -1,32 +1,40 @@
+import Capacites from './Capacites';
+
 const players = {};
 players['Naruto'] = {};
 players['Pikachu'] = {};
 barils = {};
 drapeaux = {};
 constraints = {};
-const pouvoirs = {
-  invisible(tween, player) {
-       tween.addCounter({
-         duration: 5000,
-         onComplete: () => (player.active ? (player.setAlpha(1), player.ombre.setAlpha(1)) : null)
-       })
-       tween.add({
-         targets: player,
-         alpha: 0,
-         duration: 500
-       })
-       player.ombre.setAlpha(0)
-    // ...do something here
-  },
-  agrandissement(params) {
-    // ...do something here
-  },
-  nestedObj: {
-    myNestedMethod(params) {
-      // ...do something here
-    }
-  }
-};
+// const pouvoirs = {}
+// pouvoirs['naruto']
+// pouvoirs['ninja']
+// pouvoirs['ninja2']
+// pouvoirs['chevalier']
+// pouvoirs['aventuriere2']
+// const pouvoirs = {
+//   invisible(tween, player) {
+//        tween.addCounter({
+//          duration: 5000,
+//          onComplete: () => (player.active ? (player.setAlpha(1), player.ombre.setAlpha(1)) : null)
+//        })
+//        tween.add({
+//          targets: player,
+//          alpha: 0,
+//          duration: 500
+//        })
+//        player.ombre.setAlpha(0)
+//     // ...do something here
+//   },
+//   agrandissement(params) {
+//     // ...do something here
+//   },
+//   nestedObj: {
+//     myNestedMethod(params) {
+//       // ...do something here
+//     }
+//   }
+// };
 
 
 /**
@@ -407,7 +415,7 @@ function update() {
 
       //FANTOME
       if (input.special2) {
-        pouvoirs.invisible(this.tweens, player)
+        Capacites.invisible(this.tweens, player)
         input.special2 = false;
       }
 
