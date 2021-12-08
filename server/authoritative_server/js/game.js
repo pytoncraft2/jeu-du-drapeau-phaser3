@@ -4,21 +4,40 @@ players['Pikachu'] = {};
 barils = {};
 drapeaux = {};
 constraints = {};
+
+
+function invisible(scene, player) {
+  scene.tweens.addCounter({
+    duration: 5000,
+    onComplete: () => (player.active ? (player.setAlpha(1), player.ombre.setAlpha(1)) : null)
+  })
+  scene.tweens.add({
+    targets: player,
+    alpha: 0,
+    duration: 500
+  })
+  player.ombre.setAlpha(0)
+}
+
+
 const capacites = {}
+capacites['global'] = {
+  porter() {
+
+  },
+  attaquerTonneau() {
+
+  }
+}
 capacites['dessinatrice1'], capacites['naruto'], capacites['ninja'], capacites['ninja2'], capacites['chevalier'], capacites['aventuriere2'] = {}
+capacites['chevalier'] = {
+  toucheT(scene, player) {
+    invisible(scene, player)
+  }
+}
 capacites['dessinatrice1'] = {
-  invisible(tween, player) {
-       tween.addCounter({
-         duration: 5000,
-         onComplete: () => (player.active ? (player.setAlpha(1), player.ombre.setAlpha(1)) : null)
-       })
-       tween.add({
-         targets: player,
-         alpha: 0,
-         duration: 500
-       })
-       player.ombre.setAlpha(0)
-    // ...do something here
+  toucheT(scene, player) {
+    invisible(scene, player)
   },
   agrandissement(params) {
     // ...do something here
@@ -29,14 +48,6 @@ capacites['dessinatrice1'] = {
     }
   }
 };
-capacites['global'] = {
-  porter() {
-
-  },
-  attaquerTonneau() {
-
-  }
-}
 
 
 /**
@@ -417,7 +428,7 @@ function update() {
 
       //FANTOME
       if (input.special2) {
-        capacites[player.atlas].invisible(this.tweens, player)
+        capacites[player.atlas].toucheT(this, player)
         input.special2 = false;
       }
 
