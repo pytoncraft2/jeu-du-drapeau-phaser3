@@ -57,6 +57,54 @@ parametres['ninja'] = {
 }
 
 
+parametres['ninja2'] = {
+  etatInitial: {
+    vie: 5,
+    displayWidth: 158.8,
+    displayHeight: 160.4,
+    scale: 0.5
+  },
+  toucheT: (scene, player) => {
+    invisible(scene, player)
+  }
+}
+
+parametres['aventuriere2'] = {
+  etatInitial: {
+    vie: 5,
+    displayWidth: 38.40,
+    displayHeight: 51.2,
+    scale: 0.5
+  },
+  toucheT: (scene, player) => {
+    invisible(scene, player)
+  }
+}
+
+parametres['chevalier'] = {
+  etatInitial: {
+    vie: 5,
+    displayWidth: 117.60,
+    displayHeight: 141.6,
+    scale: 0.5
+  },
+  toucheT: (scene, player) => {
+    invisible(scene, player)
+  }
+}
+
+parametres['naruto'] = {
+  etatInitial: {
+    vie: 5,
+    displayWidth: 102,
+    displayHeight: 300,
+    scale: 0.5
+  },
+  toucheT: (scene, player) => {
+    invisible(scene, player)
+  }
+}
+
 /*
 const parametres = {}
 parametres['capacites'] = {}
