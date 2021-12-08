@@ -19,28 +19,27 @@ function invisible(scene, player) {
   player.ombre.setAlpha(0)
 }
 
+function agrandissement(scene, player) {
+  scene.tweens.addCounter({
+    duration: 10000,
+    onComplete: () => (player.active ? player.setScale(0.48557645184385934) : null, player.puissanceBonus = 0)
+  })
+
+  player.setScale(0.8)
+  player.puissanceBonus = 3;
+}
+
 
 const capacites = {}
-capacites['global'] = {
-  porter() {
-
-  },
-  attaquerTonneau() {
-
-  }
-}
 capacites['dessinatrice1'], capacites['naruto'], capacites['ninja'], capacites['ninja2'], capacites['chevalier'], capacites['aventuriere2'] = {}
 capacites['chevalier'] = {
   toucheT(scene, player) {
-    invisible(scene, player)
+    agrandissement(scene, player)
   }
 }
 capacites['dessinatrice1'] = {
   toucheT(scene, player) {
     invisible(scene, player)
-  },
-  agrandissement(params) {
-    // ...do something here
   },
   nestedObj: {
     myNestedMethod(params) {
@@ -416,13 +415,6 @@ function update() {
 
       //GROSSISEMENT
       if (input.special) {
-        this.tweens.addCounter({
-          duration: 10000,
-          onComplete: () => (player.active ? player.setScale(0.48557645184385934) : null, player.puissanceBonus = 0)
-        })
-
-        player.setScale(0.8)
-        player.puissanceBonus = 3;
         input.special = false;
       }
 
