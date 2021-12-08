@@ -11,6 +11,8 @@ const MainMenu = new Phaser.Class({
 
     create: function ()
     {
+      var liste = ['dessinatrice1_', 'naruto_', 'ninja_', 'ninja2_', 'aventuriere2_', 'chevalier_'];
+
         var sceneB = this.scene.get('sceneB');
 
         const self = this;
@@ -21,7 +23,7 @@ const MainMenu = new Phaser.Class({
         this.fullscreen = this.add.image(40,40, 'fullscreen')
 
         this.goSelectionM.setInteractive().on('pointerdown', function() {
-          self.scene.start('selectionJoueur');
+          self.scene.start('selectionJoueur',{liste: liste});
         });
 
         this.fullscreen.setInteractive().on('pointerdown', function() {
