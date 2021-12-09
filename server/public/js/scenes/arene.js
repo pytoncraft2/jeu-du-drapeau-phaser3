@@ -127,14 +127,16 @@ def.body.collisionFilter.mask = 44
 
 
     this.socket.on("tout_les_clones", (arene) => {
-      // Object.keys(arene[self.arene]).forEach(function(id) {
-      //   if (arene[self.arene][id].playerId === self.socket.id) {
-      //     self.displayPlayers(self, arene[self.arene][id], true);
-      //   } else {
-      //     self.displayPlayers(self, arene[self.arene][id], false);
-      //   }
-      // });
-      console.log(arene);
+      console.log("TOUT LES CLONES");
+      Object.keys(arene[self.arene]).forEach(function(id) {
+        console.log(id);
+        if (arene[self.arene][id].playerId === self.socket.id) {
+          self.displayClone(self, arene[self.arene][id]);
+        } else {
+          self.displayClone(self, arene[self.arene][id]);
+        }
+      });
+      // console.log(arene);
     });
 
 
@@ -298,7 +300,7 @@ def.body.collisionFilter.mask = 44
     this.socket.on('playerUpdates', function(players, tonneaux, drapeaux, clones) {
 
       Object.keys(clones).forEach((id) => {
-        console.log(id);
+        // console.log(id);
         // self.drapeaux.getChildren().forEach((drapeau) => {
         //   if (drapeaux[id].id === drapeau.id) {
         //     drapeau.setPosition(drapeaux[id].x, drapeaux[id].y)
