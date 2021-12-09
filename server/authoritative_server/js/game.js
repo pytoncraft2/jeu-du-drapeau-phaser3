@@ -33,12 +33,12 @@ function agrandissement(scene, player) {
 
 function multiclonage(scene, player) {
   console.log("BEFORE-------");
-  // console.log(scene.physics.closest({x: player.x, y: player.y}));
+  console.log(scene.physics.closest({x: player.x, y: player.y}));
   console.log(scene.physics.closest(player));
   const test = scene.physics.add.sprite(player.x + 300, player.y, 'dessinatrice1', 'face0');
   console.log("AFTER-------");
   console.log(scene.physics.closest({x: player.x, y: player.y}));
-  // console.log(scene.physics.closest(player));
+  console.log(scene.physics.closest(player));
 }
 
 /**
