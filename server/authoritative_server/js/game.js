@@ -29,6 +29,16 @@ function agrandissement(scene, player) {
   player.puissanceBonus = 3;
 }
 
+function multiclonage(scene, player) {
+  // const joueur = scene.matter.add.sprite(player.x, player.y, 'dessinatrice1', 'face0').setDisplaySize(player.displayWidth, player.displayHeight).setAlpha(1);
+  // joueur.playerId = player.playerId;
+  // scene.players["Naruto"].add(joueur);
+  addPlayer(scene, players["Naruto"][player.playerId]);
+  // socket.broadcast.to(room).emit("nouveau_joueur", players[socket.room][socket.id]);
+  // io.to("Naruto").emit("tout_les_joueurs", players);
+  io.to("Naruto").emit("nouveau_joueur", players['Naruto'][player.playerId]);
+}
+
 /**
  * CONFIGURATION DE BASE POUR RECOMMENCER LA PARTIE
  * @type {Objects}
@@ -111,7 +121,7 @@ parametres['naruto'] = {
     attaqueFrame: "positiona3"
   },
   toucheT: (scene, player) => {
-    invisible(scene, player)
+    multiclonage(scene, player)
   }
 }
 
@@ -1028,7 +1038,7 @@ function handlePlayerInput(self, playerId, arene, input) {
 }
 
 function addPlayer(self, playerInfo) {
-  const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, 'dessinatrice1', 'face0').setDisplaySize(playerInfo.displayWidth, playerInfo.displayHeight).setAlpha(0);
+  const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, 'dessinatrice1', 'face0').setDisplaySize(playerInfo.displayWidth, playerInfo.displayHeight).setAlpha(1);
   joueur.playerId = playerInfo.playerId;
   joueur.arene = playerInfo.arene;
   joueur.equipe = playerInfo.equipe;
