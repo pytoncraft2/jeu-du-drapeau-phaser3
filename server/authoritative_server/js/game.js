@@ -31,8 +31,8 @@ function agrandissement(scene, player) {
   player.puissanceBonus = 3;
 }
 
-function toupie(tween, player) {
-  this.tweens.addCounter({
+function toupie(tweens, player) {
+  tweens.addCounter({
     duration: 2000,
     onComplete: () => (player.active ? (player.setRotation(0)) : null)
   })
@@ -213,7 +213,7 @@ parametres['ninja'] = {
     attaqueFrame: "positiona1"
   },
   toucheT: (scene, player) => {
-    invisible(scene, player)
+    toupie(scene.tweens, player)
   },
   toucheA: (charge, scene, player) => {
   },
