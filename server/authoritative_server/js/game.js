@@ -194,11 +194,14 @@ parametres['dessinatrice1'] = {
     masse: 30,
     attaqueFrame: "positiona3"
   },
-  toucheT: (scene, player) => {
-    invisible(scene, player)
-  },
   toucheA: (charge, scene, player) => {
     attaque(charge, scene, player)
+  },
+  toucheR: (scene, player) => {
+    invisible(scene, player)
+  },
+  toucheT: (scene, player) => {
+    agrandissement(scene, player)
   },
   toucheEspace: (charge, scene, player) => {
     saut(charge, scene, player)
@@ -213,15 +216,18 @@ parametres['ninja'] = {
     masse: 10,
     attaqueFrame: "positiona1"
   },
-  toucheT: (scene, player) => {
-    toupie(scene.tweens, player)
-  },
   toucheA: (charge, scene, player) => {
     attaque(charge, scene, player)
   },
+  toucheR: (scene, player) => {
+    toupie(scene.tweens, player)
+  },
+  toucheT: (scene, player) => {
+    agrandissement(scene, player)
+  },
   toucheEspace: (charge, scene, player) => {
     saut(charge, scene, player)
-  }
+  },
 }
 
 
@@ -233,11 +239,14 @@ parametres['ninja2'] = {
     masse: 15,
     attaqueFrame: "positiona1"
   },
-  toucheT: (scene, player) => {
-    invisible(scene, player)
-  },
   toucheA: (charge, scene, player) => {
     attaque(charge, scene, player)
+  },
+  toucheR: (scene, player) => {
+    invisible(scene, player)
+  },
+  toucheT: (scene, player) => {
+    agrandissement(scene, player)
   },
   toucheEspace: (charge, scene, player) => {
     saut(charge, scene, player)
@@ -252,11 +261,14 @@ parametres['aventuriere2'] = {
     masse: 20,
     attaqueFrame: "positiona3"
   },
-  toucheT: (scene, player) => {
-    invisible(scene, player)
-  },
   toucheA: (charge, scene, player) => {
     attaque(charge, scene, player)
+  },
+  toucheR: (scene, player) => {
+    invisible(scene, player)
+  },
+  toucheT: (scene, player) => {
+    agrandissement(scene, player)
   },
   toucheEspace: (charge, scene, player) => {
     saut(charge, scene, player)
@@ -271,11 +283,14 @@ parametres['chevalier'] = {
     masse: 35,
     attaqueFrame: "positiona3"
   },
-  toucheT: (scene, player) => {
-    invisible(scene, player)
-  },
   toucheA: (charge, scene, player) => {
     attaque(charge, scene, player)
+  },
+  toucheR: (scene, player) => {
+    invisible(scene, player)
+  },
+  toucheT: (scene, player) => {
+    agrandissement(scene, player)
   },
   toucheEspace: (charge, scene, player) => {
     saut(charge, scene, player)
@@ -290,11 +305,14 @@ parametres['naruto'] = {
     masse: 25,
     attaqueFrame: "positiona3"
   },
-  toucheT: (scene, player) => {
-    multiclonage(scene, player)
-  },
   toucheA: (charge, scene, player) => {
     attaque(charge, scene, player)
+  },
+  toucheR: (scene, player) => {
+    multiclonage(scene, player)
+  },
+  toucheT: (scene, player) => {
+    agrandissement(scene, player)
   },
   toucheEspace: (charge, scene, player) => {
     saut(charge, scene, player)
@@ -655,16 +673,15 @@ function update() {
 
       player.ombre.x = player.x
 
-      // GROSSISEMENT
+      // R
       if (input.special) {
-        // capacites[player.atlas].toucheT(this, player)
-        parametres[player.atlas].toucheT(this, player);
+        parametres[player.atlas].toucheR(this, player);
         input.special = false;
       }
 
-      //FANTOME
+      // T
       if (input.special2) {
-        // capacites[player.atlas].toucheT(this, player)
+        parametres[player.atlas].toucheT(this, player)
         input.special2 = false;
       }
 
