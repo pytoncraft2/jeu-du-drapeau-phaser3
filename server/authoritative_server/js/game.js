@@ -79,57 +79,57 @@ function attaque(charge, scene, player) {
 
     scene.tween = scene.tweens.timeline({
 
-         tweens: [{
-             targets: player,
-             alpha: 0.35,
-             ease: 'Power1',
-             duration: 250
-         },
-         {
-             targets: player,
-             ease: 'Power1',
-             alpha: 0.58,
-             duration: 250
-         },
-         {
-             targets: player,
-             alpha: 0.35,
-             ease: 'Power1',
-             duration: 250,
-         },
-         {
-             targets: player,
-             ease: 'Power1',
-             alpha: 0.58,
-             duration: 250
-         },
-         {
-             targets: player,
-             alpha: 0.30,
-             ease: 'Power1',
-             duration: 250,
-         },
-         {
-             targets: player,
-             alpha: 0.80,
-             ease: 'Power1',
-             duration: 250,
-         },
-         {
-             targets: player,
-             alpha: 0.54,
-             ease: 'Power1',
-             duration: 250,
-         },
-         {
-             targets: player,
-             alpha: 0.80,
-             ease: 'Power1',
-             duration: 250,
-         }],
-         onComplete: () => player.setTint(0xff0000).setAlpha(1)
+      tweens: [{
+        targets: player,
+        alpha: 0.35,
+        ease: 'Power1',
+        duration: 250
+      },
+      {
+        targets: player,
+        ease: 'Power1',
+        alpha: 0.58,
+        duration: 250
+      },
+      {
+        targets: player,
+        alpha: 0.35,
+        ease: 'Power1',
+        duration: 250,
+      },
+      {
+        targets: player,
+        ease: 'Power1',
+        alpha: 0.58,
+        duration: 250
+      },
+      {
+        targets: player,
+        alpha: 0.30,
+        ease: 'Power1',
+        duration: 250,
+      },
+      {
+        targets: player,
+        alpha: 0.80,
+        ease: 'Power1',
+        duration: 250,
+      },
+      {
+        targets: player,
+        alpha: 0.54,
+        ease: 'Power1',
+        duration: 250,
+      },
+      {
+        targets: player,
+        alpha: 0.80,
+        ease: 'Power1',
+        duration: 250,
+      }],
+      onComplete: () => player.setTint(0xff0000).setAlpha(1)
 
-     });
+    });
 
     player.play('idle_attack', true)
     charge = false;
@@ -137,8 +137,8 @@ function attaque(charge, scene, player) {
     let puissance = scene.tween.totalProgress;
     player.clearTint()
     if (scene.tween.isPlaying()) {
-    scene.tween.stop()
-    player.setAlpha(1)
+      scene.tween.stop()
+      player.setAlpha(1)
     }
     const recupereLePlusProche = scene.tonneaux.getChildren().map(t => {
       if (Phaser.Math.Distance.BetweenPoints(player, t) < 300 && Phaser.Math.Distance.BetweenPoints(player, t) < 310) {
@@ -158,22 +158,22 @@ function attaque(charge, scene, player) {
       onUpdateParams: [ scene.events ],
       onUpdate: function functionName(tween, targets, events) {
         if (player.active) {
-        if (player.anims.getFrameName() == player.attaqueFrame) {
-          if (count) {
-            var distance = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone.x, y: fontainezone.y});
-            var distance2 = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone2.x, y: fontainezone2.y});
-            if (distance < 530 && distance < 540) {
-              events.emit('changement-vie-equipe', "B", puissance + player.puissanceBonus)
-            } else if (distance2 < 530 && distance2 < 540) {
-              events.emit('changement-vie-equipe', "A", puissance + player.puissanceBonus)
-            } else if (tonneau[0]) {
-              // events.emit('lancer-tonneau', player.flipX, puissance + player.puissanceBonus, tonneau[0].id)
-              tonneau[0].setVelocity((player.flipX ? -10 * (puissance * 5)  : 10 * (puissance * 5)), - (puissance * 100) )
+          if (player.anims.getFrameName() == player.attaqueFrame) {
+            if (count) {
+              var distance = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone.x, y: fontainezone.y});
+              var distance2 = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone2.x, y: fontainezone2.y});
+              if (distance < 530 && distance < 540) {
+                events.emit('changement-vie-equipe', "B", puissance + player.puissanceBonus)
+              } else if (distance2 < 530 && distance2 < 540) {
+                events.emit('changement-vie-equipe', "A", puissance + player.puissanceBonus)
+              } else if (tonneau[0]) {
+                // events.emit('lancer-tonneau', player.flipX, puissance + player.puissanceBonus, tonneau[0].id)
+                tonneau[0].setVelocity((player.flipX ? -10 * (puissance * 5)  : 10 * (puissance * 5)), - (puissance * 100) )
+              }
+              count = false;
             }
-            count = false;
           }
         }
-      }
       }
     })
   }
@@ -198,6 +198,7 @@ parametres['dessinatrice1'] = {
     invisible(scene, player)
   },
   toucheA: (charge, scene, player) => {
+    attaque(charge, scene, player)
   },
   toucheEspace: (charge, scene, player) => {
     saut(charge, scene, player)
@@ -216,6 +217,7 @@ parametres['ninja'] = {
     toupie(scene.tweens, player)
   },
   toucheA: (charge, scene, player) => {
+    attaque(charge, scene, player)
   },
   toucheEspace: (charge, scene, player) => {
     saut(charge, scene, player)
@@ -235,6 +237,7 @@ parametres['ninja2'] = {
     invisible(scene, player)
   },
   toucheA: (charge, scene, player) => {
+    attaque(charge, scene, player)
   },
   toucheEspace: (charge, scene, player) => {
     saut(charge, scene, player)
@@ -253,6 +256,7 @@ parametres['aventuriere2'] = {
     invisible(scene, player)
   },
   toucheA: (charge, scene, player) => {
+    attaque(charge, scene, player)
   },
   toucheEspace: (charge, scene, player) => {
     saut(charge, scene, player)
@@ -271,6 +275,7 @@ parametres['chevalier'] = {
     invisible(scene, player)
   },
   toucheA: (charge, scene, player) => {
+    attaque(charge, scene, player)
   },
   toucheEspace: (charge, scene, player) => {
     saut(charge, scene, player)
@@ -289,6 +294,7 @@ parametres['naruto'] = {
     multiclonage(scene, player)
   },
   toucheA: (charge, scene, player) => {
+    attaque(charge, scene, player)
   },
   toucheEspace: (charge, scene, player) => {
     saut(charge, scene, player)
