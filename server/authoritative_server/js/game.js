@@ -1,5 +1,7 @@
 const players = {};
+const clones = {};
 players['Naruto'] = {};
+clones['Naruto'] = {};
 players['Pikachu'] = {};
 barils = {};
 drapeaux = {};
@@ -30,11 +32,8 @@ function agrandissement(scene, player) {
 }
 
 function multiclonage(scene, player) {
-  // const joueur = scene.matter.add.sprite(player.x, player.y, 'dessinatrice1', 'face0').setDisplaySize(player.displayWidth, player.displayHeight).setAlpha(1);
-  // joueur.playerId = player.playerId;
-  // scene.players["Naruto"].add(joueur);
 
-  players["Naruto"][player.playerId] = {
+  clones["Naruto"][player.playerId] = {
     ...parametres[player.atlas]['etatInitial'],
     atlas: player.atlas,
     arene: "Naruto",
@@ -50,7 +49,7 @@ function multiclonage(scene, player) {
     anim: 'profil',
     size: 200,
     vieEquipe: scene.vieEquipe,
-    x: player.x + 300,
+    x: player.x + 900,
     y: player.y,
     playerId: player.playerId,
     input: {
@@ -63,30 +62,9 @@ function multiclonage(scene, player) {
     },
   };
 
-
-  const joueur = scene.matter.add.sprite(player.x +300, player.y, 'dessinatrice1', 'face0').setDisplaySize(player.displayWidth, player.displayHeight).setAlpha(1);
-  joueur.playerId = player.playerId;
-  joueur.arene = player.arene;
-  joueur.equipe = player.equipe;
-  joueur.atlas = player.atlas;
-  joueur.vie = player.vie;
-  joueur.vieEquipe = player.vieEquipe;
-  joueur.degat = player.degat;
-  joueur.attacked = player.attacked;
-  joueur.masse = player.masse;
-  joueur.puissanceBonus = player.puissanceBonus;
-  joueur.attaqueFrame = player.attaqueFrame
-  joueur.setFrictionAir(0.05);
-  joueur.setMass(joueur.masse);
-  scene.players[player.arene].add(joueur);
-  // joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -55, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
-  joueur.ombre = scene.add.ellipse(-79, 327 - 30, 100, 20, 0x0009).setAlpha(0.5);
-
-
-  // addPlayer(scene, players["Naruto"][player.playerId]);
-  // socket.broadcast.to(room).emit("nouveau_joueur", players[socket.room][socket.id]);
-  // io.to("Naruto").emit("tout_les_joueurs", players);
-  io.to("Naruto").emit("nouveau_joueur", players['Naruto'][player.playerId]);
+  console.log(clones["Naruto"][player.playerId]);
+  addClone(scene, clones["Naruto"][player.playerId]);
+  io.to("Naruto").emit("nouveau_joueur", clones['Naruto'][player.playerId]);
 }
 
 /**
@@ -294,8 +272,10 @@ function create() {
 
   const self = this;
   this.players = {}
+  this.clones = {}
   this.players['Naruto'] = this.add.group();
   this.players['Pikachu'] = this.add.group();
+  this.clones['Naruto'] = this.add.group();
   this.platformeGaucheCollision = this.add.group();
   this.platformeDroiteCollision = this.add.group();
   this.groupeBullets = this.add.group();
@@ -1103,6 +1083,41 @@ function addPlayer(self, playerInfo) {
   joueur.setFrictionAir(0.05);
   joueur.setMass(joueur.masse);
   self.players[playerInfo.arene].add(joueur);
+  // joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -55, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
+  joueur.ombre = self.add.ellipse(-79, 327 - 30, 100, 20, 0x0009).setAlpha(0.5);
+  self.tweens.add({
+  targets: joueur,
+  alpha: 1,
+  delay: 700,
+  duration:2000,
+  // onComplete: () => (joueur.setScale(0.4), joueur.setCollidesWith(0), joueur.setCollisionGroup(-1)),
+  ease: 'Sine.easeInOut'
+});
+
+  // var socleJoueur = self.matter.add.gameObject(joueur.socle);
+  // socleJoueur.setIgnoreGravity(true).setStatic(true)
+}
+
+
+function addClone(self, playerInfo) {
+  const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, 'dessinatrice1', 'face0').setDisplaySize(playerInfo.displayWidth, playerInfo.displayHeight).setAlpha(1);
+  joueur.playerId = playerInfo.playerId;
+  joueur.arene = playerInfo.arene;
+  joueur.equipe = playerInfo.equipe;
+  joueur.atlas = playerInfo.atlas;
+  joueur.vie = playerInfo.vie;
+  joueur.vieEquipe = playerInfo.vieEquipe;
+  joueur.degat = playerInfo.degat;
+  joueur.attacked = playerInfo.attacked;
+  joueur.masse = playerInfo.masse;
+  joueur.puissanceBonus = playerInfo.puissanceBonus;
+  joueur.attaqueFrame = playerInfo.attaqueFrame
+  joueur.setFrictionAir(0.05);
+  joueur.setMass(joueur.masse);
+  joueur.body.collisionFilter.group = Phaser.Math.Between(1, 10)
+  joueur.body.collisionFilter.mask = 0
+
+  self.clones[playerInfo.arene].add(joueur);
   // joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -55, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
   joueur.ombre = self.add.ellipse(-79, 327 - 30, 100, 20, 0x0009).setAlpha(0.5);
   self.tweens.add({
