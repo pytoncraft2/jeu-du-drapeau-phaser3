@@ -33,38 +33,6 @@ function agrandissement(scene, player) {
 
 function multiclonage(scene, player) {
 
-  clones["Naruto"][player.playerId] = {
-    ...parametres[player.atlas]['etatInitial'],
-    atlas: player.atlas,
-    arene: "Naruto",
-    equipe: player.equipe,
-    // mask: mask,
-    wall: false,
-    attaque: false,
-    puissanceBonus: 0,
-    alpha: 1,
-    attacked: false,
-    degat: 0,
-    depth: 30,
-    anim: 'profil',
-    size: 200,
-    vieEquipe: scene.vieEquipe,
-    x: player.x + 900,
-    y: player.y,
-    playerId: player.playerId,
-    input: {
-      left: false,
-      right: false,
-      up: false,
-      down: false,
-      a: false,
-      z: false
-    },
-  };
-
-  console.log(clones["Naruto"][player.playerId]);
-  addClone(scene, clones["Naruto"][player.playerId]);
-  io.to("Naruto").emit("nouveau_clone", clones['Naruto'][player.playerId]);
 }
 
 /**
@@ -463,10 +431,8 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
 
       addPlayer(self, players[socket.room][socket.id]);
       socket.emit("tout_les_joueurs", players);
-      socket.emit("tout_les_clones", clones);
 
       socket.broadcast.to(room).emit("nouveau_joueur", players[socket.room][socket.id]);
-      socket.broadcast.to(room).emit("nouveau_clone", clones[socket.room][socket.id]);
 
       socket.on('disconnect', function() {
         console.log('user disconnected');
@@ -510,12 +476,6 @@ function update() {
         id: tonneau.id,
         alpha: tonneau.alpha
       }
-    });
-
-    this.clones["Naruto"].getChildren().forEach((clone) => {
-      clones.x += 0.001;
-      clones[clone.arene][clone.playerId].x = clone.x;
-      clones[clone.arene][clone.playerId].y = clone.y;
     });
 
     this.players["Naruto"].getChildren().forEach((player) => {
@@ -954,7 +914,7 @@ function update() {
       }
 
     });
-    io.to("Naruto").emit("playerUpdates", players["Naruto"], barils, drapeaux, clones['Naruto']);
+    io.to("Naruto").emit("playerUpdates", players["Naruto"], barils, drapeaux);
 
 }
 
@@ -1090,41 +1050,6 @@ function addPlayer(self, playerInfo) {
   joueur.setFrictionAir(0.05);
   joueur.setMass(joueur.masse);
   self.players[playerInfo.arene].add(joueur);
-  // joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -55, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
-  joueur.ombre = self.add.ellipse(-79, 327 - 30, 100, 20, 0x0009).setAlpha(0.5);
-  self.tweens.add({
-  targets: joueur,
-  alpha: 1,
-  delay: 700,
-  duration:2000,
-  // onComplete: () => (joueur.setScale(0.4), joueur.setCollidesWith(0), joueur.setCollisionGroup(-1)),
-  ease: 'Sine.easeInOut'
-});
-
-  // var socleJoueur = self.matter.add.gameObject(joueur.socle);
-  // socleJoueur.setIgnoreGravity(true).setStatic(true)
-}
-
-
-function addClone(self, playerInfo) {
-  const joueur = self.matter.add.sprite(playerInfo.x + 400, playerInfo.y, 'dessinatrice1', 'face0').setDisplaySize(playerInfo.displayWidth, playerInfo.displayHeight).setAlpha(1);
-  joueur.playerId = playerInfo.playerId;
-  joueur.arene = playerInfo.arene;
-  joueur.equipe = playerInfo.equipe;
-  joueur.atlas = playerInfo.atlas;
-  joueur.vie = playerInfo.vie;
-  joueur.vieEquipe = playerInfo.vieEquipe;
-  joueur.degat = playerInfo.degat;
-  joueur.attacked = playerInfo.attacked;
-  joueur.masse = playerInfo.masse;
-  joueur.puissanceBonus = playerInfo.puissanceBonus;
-  joueur.attaqueFrame = playerInfo.attaqueFrame
-  joueur.setFrictionAir(0.05);
-  joueur.setMass(joueur.masse);
-  joueur.body.collisionFilter.group = Phaser.Math.Between(1, 10)
-  joueur.body.collisionFilter.mask = 0
-
-  self.clones[playerInfo.arene].add(joueur);
   // joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -55, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
   joueur.ombre = self.add.ellipse(-79, 327 - 30, 100, 20, 0x0009).setAlpha(0.5);
   self.tweens.add({
