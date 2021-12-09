@@ -29,6 +29,10 @@ function agrandissement(scene, player) {
   player.puissanceBonus = 3;
 }
 
+/**
+ * CONFIGURATION DE BASE POUR RECOMMENCER LA PARTIE
+ * @type {Objects}
+ */
 
 const parametres = {};
 
@@ -37,7 +41,8 @@ parametres['dessinatrice1'] = {
     vie: 5,
     displayWidth: 104,
     displayHeight: 302,
-    masse: 30
+    masse: 30,
+    attaqueFrame: "positiona3"
   },
   toucheT: (scene, player) => {
     invisible(scene, player)
@@ -49,7 +54,8 @@ parametres['ninja'] = {
     vie: 3,
     displayWidth: 149,
     displayHeight: 140,
-    masse: 10
+    masse: 10,
+    attaqueFrame: "positiona1"
   },
   toucheT: (scene, player) => {
     invisible(scene, player)
@@ -62,7 +68,8 @@ parametres['ninja2'] = {
     vie: 5,
     displayWidth: 158.8,
     displayHeight: 160.4,
-    masse: 15
+    masse: 15,
+    attaqueFrame: "positiona1"
   },
   toucheT: (scene, player) => {
     invisible(scene, player)
@@ -74,7 +81,8 @@ parametres['aventuriere2'] = {
     vie: 5,
     displayWidth: 38.40,
     displayHeight: 51.2,
-    masse: 20
+    masse: 20,
+    attaqueFrame: "positiona3"
   },
   toucheT: (scene, player) => {
     invisible(scene, player)
@@ -86,7 +94,8 @@ parametres['chevalier'] = {
     vie: 20,
     displayWidth: 117.60,
     displayHeight: 141.6,
-    masse: 35
+    masse: 35,
+    attaqueFrame: "positiona3"
   },
   toucheT: (scene, player) => {
     invisible(scene, player)
@@ -98,54 +107,14 @@ parametres['naruto'] = {
     vie: 5,
     displayWidth: 102,
     displayHeight: 300,
-    masse: 25
+    masse: 25,
+    attaqueFrame: "positiona3"
   },
   toucheT: (scene, player) => {
     invisible(scene, player)
   }
 }
 
-/*
-const parametres = {}
-parametres['capacites'] = {}
-capacites['dessinatrice1'], capacites['naruto'], capacites['ninja'], capacites['ninja2'], capacites['chevalier'], capacites['aventuriere2'] = {}
-
-capacites['dessinatrice1'] = {
-  toucheT(scene, player) {
-    invisible(scene, player)
-  }
-}
-capacites['naruto'] = {
-  toucheT(scene, player) {
-    agrandissement(scene, player)
-  }
-}
-capacites['chevalier'] = {
-  toucheT(scene, player) {
-    agrandissement(scene, player)
-  }
-}
-capacites['ninja'] = {
-  toucheT(scene, player) {
-    invisible(scene, player)
-  }
-};
-capacites['ninja2'] = {
-  toucheT(scene, player) {
-    invisible(scene, player)
-  }
-};
-capacites['aventuriere2'] = {
-  toucheT(scene, player) {
-    invisible(scene, player)
-  }
-};
-*/
-
-/**
- * OBJETS AVEC LES POUVOIRS
- * @type {Object}
- */
 
 
 
@@ -771,7 +740,7 @@ function update() {
             onUpdateParams: [ this.events ],
             onUpdate: function functionName(tween, targets, events) {
               if (player.active) {
-              if (player.anims.getFrameName() == "positiona3") {
+              if (player.anims.getFrameName() == player.attaqueFrame) {
                 if (count) {
                   var distance = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone.x, y: fontainezone.y});
                   var distance2 = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone2.x, y: fontainezone2.y});
@@ -1070,6 +1039,7 @@ function addPlayer(self, playerInfo) {
   joueur.attacked = playerInfo.attacked;
   joueur.masse = playerInfo.masse;
   joueur.puissanceBonus = playerInfo.puissanceBonus;
+  joueur.attaqueFrame = playerInfo.attaqueFrame
   joueur.setFrictionAir(0.05);
   joueur.setMass(joueur.masse);
   self.players[playerInfo.arene].add(joueur);
