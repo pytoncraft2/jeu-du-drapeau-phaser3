@@ -130,11 +130,11 @@ def.body.collisionFilter.mask = 44
       console.log("TOUT LES CLONES");
       Object.keys(arene[self.arene]).forEach(function(id) {
         console.log(id);
-        if (arene[self.arene][id].playerId === self.socket.id) {
+        // if (arene[self.arene][id].playerId === self.socket.id) {
           self.displayClone(self, arene[self.arene][id]);
-        } else {
-          self.displayClone(self, arene[self.arene][id]);
-        }
+        // } else {
+          // self.displayClone(self, arene[self.arene][id]);
+        // }
       });
       // console.log(arene);
     });
