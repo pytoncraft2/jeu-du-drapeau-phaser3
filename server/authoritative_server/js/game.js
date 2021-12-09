@@ -668,11 +668,6 @@ function update() {
         input.special2 = false;
       }
 
-      //TOUPIE
-      if (input.special3) {
-        input.special3 = false;
-      }
-
       // !tonneau.length : false => un tonneau est atteignable
       // !tonneau.length : true => aucun tonneau est atteignable
 
