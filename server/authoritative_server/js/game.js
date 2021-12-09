@@ -31,14 +31,152 @@ function agrandissement(scene, player) {
   player.puissanceBonus = 3;
 }
 
+function toupie(tween, player) {
+  this.tweens.addCounter({
+    duration: 2000,
+    onComplete: () => (player.active ? (player.setRotation(0)) : null)
+  })
+  player.setAngularVelocity(1)
+}
+
+function saut(chargeSaut, scene, player) {
+  var puissance
+  if (chargeSaut) {
+    if (player.body.speed < 2) {
+      player.play('sautPreparation')
+    }
+
+    scene.tweenSaut = scene.tweens.addCounter({
+      from: 0,
+      to: 100,
+      duration: 800,
+    })
+
+    chargeSaut = false;
+  } else {
+      puissance = scene.tweenSaut.getValue()
+    if (scene.tweenSaut.isPlaying()) {
+      scene.tweenSaut.stop()
+    }
+    if (player.body.speed < 2) {
+      player.play('saut')
+    } else {
+      player.play('jump')
+    }
+    player.setVelocity( player.body.speed > 2 ? (player.flipX ? -puissance: puissance) : 0, -puissance)
+  }
+}
+
 function multiclonage(scene, player) {
-  console.log("BEFORE-------");
-  console.log(scene.physics.closest({x: player.x, y: player.y}));
-  console.log(scene.physics.closest(player));
-  const test = scene.physics.add.sprite(player.x + 300, player.y, 'dessinatrice1', 'face0');
-  console.log("AFTER-------");
-  console.log(scene.physics.closest({x: player.x, y: player.y}));
-  console.log(scene.physics.closest(player));
+
+}
+
+
+function attaque(charge, scene, player) {
+  var count;
+  if (charge) {
+    count = false;
+
+    scene.tween = scene.tweens.timeline({
+
+         tweens: [{
+             targets: player,
+             alpha: 0.35,
+             ease: 'Power1',
+             duration: 250
+         },
+         {
+             targets: player,
+             ease: 'Power1',
+             alpha: 0.58,
+             duration: 250
+         },
+         {
+             targets: player,
+             alpha: 0.35,
+             ease: 'Power1',
+             duration: 250,
+         },
+         {
+             targets: player,
+             ease: 'Power1',
+             alpha: 0.58,
+             duration: 250
+         },
+         {
+             targets: player,
+             alpha: 0.30,
+             ease: 'Power1',
+             duration: 250,
+         },
+         {
+             targets: player,
+             alpha: 0.80,
+             ease: 'Power1',
+             duration: 250,
+         },
+         {
+             targets: player,
+             alpha: 0.54,
+             ease: 'Power1',
+             duration: 250,
+         },
+         {
+             targets: player,
+             alpha: 0.80,
+             ease: 'Power1',
+             duration: 250,
+         }],
+         onComplete: () => player.setTint(0xff0000).setAlpha(1)
+
+     });
+
+    player.play('idle_attack', true)
+    charge = false;
+  } else {
+    let puissance = scene.tween.totalProgress;
+    player.clearTint()
+    if (scene.tween.isPlaying()) {
+    scene.tween.stop()
+    player.setAlpha(1)
+    }
+    const recupereLePlusProche = scene.tonneaux.getChildren().map(t => {
+      if (Phaser.Math.Distance.BetweenPoints(player, t) < 300 && Phaser.Math.Distance.BetweenPoints(player, t) < 310) {
+        return t
+      }
+    } );
+    var tonneau = recupereLePlusProche.filter( Boolean );
+    player.play('attack', true)
+
+    count = true;
+    scene.tween = scene.tweens.add({
+      targets: player.ombre,
+      from: 0,
+      to: 1,
+      scale: 1,
+      duration: 500,
+      onUpdateParams: [ scene.events ],
+      onUpdate: function functionName(tween, targets, events) {
+        if (player.active) {
+        if (player.anims.getFrameName() == player.attaqueFrame) {
+          if (count) {
+            var distance = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone.x, y: fontainezone.y});
+            var distance2 = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone2.x, y: fontainezone2.y});
+            if (distance < 530 && distance < 540) {
+              events.emit('changement-vie-equipe', "B", puissance + player.puissanceBonus)
+            } else if (distance2 < 530 && distance2 < 540) {
+              events.emit('changement-vie-equipe', "A", puissance + player.puissanceBonus)
+            } else if (tonneau[0]) {
+              // events.emit('lancer-tonneau', player.flipX, puissance + player.puissanceBonus, tonneau[0].id)
+              tonneau[0].setVelocity((player.flipX ? -10 * (puissance * 5)  : 10 * (puissance * 5)), - (puissance * 100) )
+            }
+            count = false;
+          }
+        }
+      }
+      }
+    })
+  }
 }
 
 /**
@@ -58,6 +196,11 @@ parametres['dessinatrice1'] = {
   },
   toucheT: (scene, player) => {
     invisible(scene, player)
+  },
+  toucheA: (charge, scene, player) => {
+  },
+  toucheEspace: (charge, scene, player) => {
+    saut(charge, scene, player)
   }
 }
 
@@ -71,6 +214,11 @@ parametres['ninja'] = {
   },
   toucheT: (scene, player) => {
     invisible(scene, player)
+  },
+  toucheA: (charge, scene, player) => {
+  },
+  toucheEspace: (charge, scene, player) => {
+    saut(charge, scene, player)
   }
 }
 
@@ -85,6 +233,11 @@ parametres['ninja2'] = {
   },
   toucheT: (scene, player) => {
     invisible(scene, player)
+  },
+  toucheA: (charge, scene, player) => {
+  },
+  toucheEspace: (charge, scene, player) => {
+    saut(charge, scene, player)
   }
 }
 
@@ -98,6 +251,11 @@ parametres['aventuriere2'] = {
   },
   toucheT: (scene, player) => {
     invisible(scene, player)
+  },
+  toucheA: (charge, scene, player) => {
+  },
+  toucheEspace: (charge, scene, player) => {
+    saut(charge, scene, player)
   }
 }
 
@@ -111,6 +269,11 @@ parametres['chevalier'] = {
   },
   toucheT: (scene, player) => {
     invisible(scene, player)
+  },
+  toucheA: (charge, scene, player) => {
+  },
+  toucheEspace: (charge, scene, player) => {
+    saut(charge, scene, player)
   }
 }
 
@@ -124,12 +287,13 @@ parametres['naruto'] = {
   },
   toucheT: (scene, player) => {
     multiclonage(scene, player)
+  },
+  toucheA: (charge, scene, player) => {
+  },
+  toucheEspace: (charge, scene, player) => {
+    saut(charge, scene, player)
   }
 }
-
-
-
-
 
 const config = {
   type: Phaser.HEADLESS,
@@ -500,11 +664,6 @@ function update() {
 
       //TOUPIE
       if (input.special3) {
-        this.tweens.addCounter({
-          duration: 2000,
-          onComplete: () => (player.active ? (player.setRotation(0)) : null)
-        })
-        player.setAngularVelocity(1)
         input.special3 = false;
       }
 
@@ -664,110 +823,7 @@ function update() {
        * ANIMATION ATTAQUE + ombre
        */
       if (input.attaque) {
-        var count;
-        if (input.charge) {
-          count = false;
-
-          this.tween = this.tweens.timeline({
-
-               tweens: [{
-                   targets: player,
-                   alpha: 0.35,
-                   ease: 'Power1',
-                   duration: 250
-               },
-               {
-                   targets: player,
-                   ease: 'Power1',
-                   alpha: 0.58,
-                   duration: 250
-               },
-               {
-                   targets: player,
-                   alpha: 0.35,
-                   ease: 'Power1',
-                   duration: 250,
-               },
-               {
-                   targets: player,
-                   ease: 'Power1',
-                   alpha: 0.58,
-                   duration: 250
-               },
-               {
-                   targets: player,
-                   alpha: 0.30,
-                   ease: 'Power1',
-                   duration: 250,
-               },
-               {
-                   targets: player,
-                   alpha: 0.80,
-                   ease: 'Power1',
-                   duration: 250,
-               },
-               {
-                   targets: player,
-                   alpha: 0.54,
-                   ease: 'Power1',
-                   duration: 250,
-               },
-               {
-                   targets: player,
-                   alpha: 0.80,
-                   ease: 'Power1',
-                   duration: 250,
-               }],
-               onComplete: () => player.setTint(0xff0000).setAlpha(1)
-
-           });
-
-          player.play('idle_attack', true)
-          input.charge = false;
-        } else {
-          let puissance = this.tween.totalProgress;
-          player.clearTint()
-          if (this.tween.isPlaying()) {
-          this.tween.stop()
-          player.setAlpha(1)
-          }
-          const recupereLePlusProche = this.tonneaux.getChildren().map(t => {
-            if (Phaser.Math.Distance.BetweenPoints(player, t) < 300 && Phaser.Math.Distance.BetweenPoints(player, t) < 310) {
-              return t
-            }
-          } );
-          var tonneau = recupereLePlusProche.filter( Boolean );
-          player.play('attack', true)
-
-          count = true;
-          this.tween = this.tweens.add({
-            targets: player.ombre,
-            from: 0,
-            to: 1,
-            scale: 1,
-            duration: 500,
-            onUpdateParams: [ this.events ],
-            onUpdate: function functionName(tween, targets, events) {
-              if (player.active) {
-              if (player.anims.getFrameName() == player.attaqueFrame) {
-                if (count) {
-                  var distance = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone.x, y: fontainezone.y});
-                  var distance2 = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone2.x, y: fontainezone2.y});
-                  if (distance < 530 && distance < 540) {
-                    events.emit('changement-vie-equipe', "B", puissance + player.puissanceBonus)
-                  } else if (distance2 < 530 && distance2 < 540) {
-                    events.emit('changement-vie-equipe', "A", puissance + player.puissanceBonus)
-                  } else if (tonneau[0]) {
-                    // events.emit('lancer-tonneau', player.flipX, puissance + player.puissanceBonus, tonneau[0].id)
-                    tonneau[0].setVelocity((player.flipX ? -10 * (puissance * 5)  : 10 * (puissance * 5)), - (puissance * 100) )
-                  }
-                  count = false;
-                }
-              }
-            }
-            }
-          })
-        }
+        parametres[player.atlas].toucheA(input.charge, this, player)
         input.attaque = false;
       }
 
@@ -776,31 +832,7 @@ function update() {
        */
 
       if (input.saut) {
-        var puissance
-        if (input.chargeSaut) {
-          if (player.body.speed < 2) {
-            player.play('sautPreparation')
-          }
-
-          this.tweenSaut = this.tweens.addCounter({
-            from: 0,
-            to: 100,
-            duration: 800,
-          })
-
-          input.chargeSaut = false;
-        } else {
-            puissance = this.tweenSaut.getValue()
-          if (this.tweenSaut.isPlaying()) {
-            this.tweenSaut.stop()
-          }
-          if (player.body.speed < 2) {
-            player.play('saut')
-          } else {
-            player.play('jump')
-          }
-          player.setVelocity( player.body.speed > 2 ? (player.flipX ? -puissance: puissance) : 0, -puissance)
-        }
+        parametres[player.atlas].toucheEspace(input.chargeSaut, this, player)
         input.saut = false
       }
 
