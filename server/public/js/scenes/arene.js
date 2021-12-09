@@ -306,6 +306,13 @@ def.body.collisionFilter.mask = 44
         //     drapeau.setPosition(drapeaux[id].x, drapeaux[id].y)
         //   }
         // });
+
+        self.clones.getChildren().forEach(function(player) {
+          if (clones[id].playerId === player.playerId) {
+            // console.log(player[id]);
+            player.x = clones[id].x
+          }
+        });
       })
 
       Object.keys(drapeaux).forEach((id) => {

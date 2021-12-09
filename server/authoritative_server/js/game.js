@@ -466,6 +466,7 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
       socket.emit("tout_les_clones", clones);
 
       socket.broadcast.to(room).emit("nouveau_joueur", players[socket.room][socket.id]);
+      socket.broadcast.to(room).emit("nouveau_clone", clones[socket.room][socket.id]);
 
       socket.on('disconnect', function() {
         console.log('user disconnected');
