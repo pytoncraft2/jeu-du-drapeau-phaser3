@@ -179,6 +179,93 @@ function attaque(charge, scene, player) {
   }
 }
 
+function interactionTonneau(player, scene) {
+  /**
+  * GESTION TONNEAU
+  * @param  {constraints[player.playerId]} Object le tonneau auquel le joueur est attaché
+  * si le joueur ne tient pas de tonneau: attrape le tonneau le plus proche
+  * sinon détache le tonneau du joueur
+  *   !tonneau.length : false => un tonneau est atteignable
+  *   !tonneau.length : true => aucun tonneau est atteignable
+  */
+
+  if (Object.keys(constraints[player.playerId]['tonneau']).length == 0) {
+    var tonneau = recupereLeTonneauLePlusProche(player, scene.tonneaux.getChildren())
+    if (tonneau) {
+      if (tonneau[0]) {
+        if (Object.keys(constraints[player.playerId]['tonneau']).length == 0) {
+          tonneau[0].body.collisionFilter.mask = 0
+          tonneau[0].setFixedRotation().setIgnoreGravity(true)
+          barils[tonneau[0].id].alpha = 0.7
+
+          scene.tweens.add({
+            targets: tonneau[0],
+            x: player.x,
+            y: player.y - player.displayHeight / 2 - 105,
+            onComplete: () => {
+              tonneau[0].setCollidesWith(-1).setIgnoreGravity(false); constraints[player.playerId]['tonneau'] = scene.matter.add.constraint(tonneau[0], player)
+            },
+            duration: 500
+          })
+        }
+      }
+    }
+
+  }
+
+  //si le joueur tient un tonneau
+  // enleve la constrainte
+  else {
+    scene.matter.world.removeConstraint(constraints[player.playerId]['tonneau']);
+    constraints[player.playerId]['tonneau'] = {}
+  }
+  /**
+  * -----GESTION DRAPEAU
+  * APPLIQUE L'ATTACHE AU DRAPEAU SI :
+  * FONTAINE ENNEMIE DÉTRUITE et DRAPEAU ACCESSIBLE
+  *
+  * @param  {[type]} fontainezone2 emplacement de la zone de la fontaine
+  * @return {[type]}               [description]
+  */
+  //SI LE DRAPEAU SE SITUE A LA MEME POSITION QUE LA FONTAINE
+  if (!fontainezone2.active) {
+    var distance = Phaser.Math.Distance.BetweenPoints(scene.drapeaux.getChildren()[0], {x: fontainezone.x, y: fontainezone.y});
+
+
+    //ATTRAPER DRAPEAU BLEU
+    var distanceDrapeauBleu = Phaser.Math.Distance.BetweenPoints(player, {x: scene.drapeaux.getChildren()[0].x, y: scene.drapeaux.getChildren()[0].y});
+    if (distanceDrapeauBleu < 130 && distanceDrapeauBleu < 140) {
+      if (Object.keys(constraints[player.playerId]['drapeau']).length == 0) {
+        constraints[player.playerId]['drapeau'] = scene.matter.add.constraint(scene.drapeaux.getChildren()[0], player, 0)
+        console.log("DRAPEAU ATTRAPER");
+      } else {
+        scene.matter.world.removeConstraint(constraints[player.playerId]['drapeau']);
+        constraints[player.playerId]['drapeau'] = {}
+        console.log("DRAPEAU LACHER");
+        if (distance < 530 && distance < 540) {
+          scene.events.emit('fin-de-partie', "A")
+        }
+      }
+    }
+  }
+
+  if (!fontainezone.active) {
+    var distance2 = Phaser.Math.Distance.BetweenPoints(scene.drapeaux.getChildren()[1], {x: fontainezone2.x, y: fontainezone2.y});
+    //ATTRAPER DRAPEAU VERT
+    var distanceDrapeauVert = Phaser.Math.Distance.BetweenPoints(player, {x: scene.drapeaux.getChildren()[1].x, y: scene.drapeaux.getChildren()[1].y});
+    if (distanceDrapeauVert < 130 && distanceDrapeauVert < 140) {
+      if (Object.keys(constraints[player.playerId]['drapeau']).length == 0) {
+        constraints[player.playerId]['drapeau'] = scene.matter.add.constraint(scene.drapeaux.getChildren()[1], player, 0)
+      } else {
+        scene.matter.world.removeConstraint(constraints[player.playerId]['drapeau']);
+        constraints[player.playerId]['drapeau'] = {}
+        if (distance2 < 530 && distance2 < 540) {
+          scene.events.emit('fin-de-partie', "B")
+        }
+      }
+    }
+  }
+}
 /**
  * CONFIGURATION DE BASE POUR RECOMMENCER LA PARTIE
  * @type {Objects}
@@ -196,6 +283,9 @@ parametres['dessinatrice1'] = {
   },
   toucheA: (charge, scene, player) => {
     attaque(charge, scene, player)
+  },
+  toucheE: (scene, player) => {
+    interactionTonneau(scene, player)
   },
   toucheR: (scene, player) => {
     invisible(scene, player)
@@ -219,6 +309,9 @@ parametres['ninja'] = {
   toucheA: (charge, scene, player) => {
     attaque(charge, scene, player)
   },
+  toucheE: (scene, player) => {
+    interactionTonneau(scene, player)
+  },
   toucheR: (scene, player) => {
     toupie(scene.tweens, player)
   },
@@ -241,6 +334,9 @@ parametres['ninja2'] = {
   },
   toucheA: (charge, scene, player) => {
     attaque(charge, scene, player)
+  },
+  toucheE: (scene, player) => {
+    interactionTonneau(scene, player)
   },
   toucheR: (scene, player) => {
     invisible(scene, player)
@@ -267,6 +363,9 @@ parametres['aventuriere2'] = {
   toucheR: (scene, player) => {
     invisible(scene, player)
   },
+  toucheE: (scene, player) => {
+    interactionTonneau(scene, player)
+  },
   toucheT: (scene, player) => {
     agrandissement(scene, player)
   },
@@ -285,6 +384,9 @@ parametres['chevalier'] = {
   },
   toucheA: (charge, scene, player) => {
     attaque(charge, scene, player)
+  },
+  toucheE: (scene, player) => {
+    interactionTonneau(scene, player)
   },
   toucheR: (scene, player) => {
     invisible(scene, player)
@@ -307,6 +409,9 @@ parametres['naruto'] = {
   },
   toucheA: (charge, scene, player) => {
     attaque(charge, scene, player)
+  },
+  toucheE: (scene, player) => {
+    interactionTonneau(scene, player)
   },
   toucheR: (scene, player) => {
     multiclonage(scene, player)
@@ -673,6 +778,19 @@ function update() {
 
       player.ombre.x = player.x
 
+      // A
+      if (input.attaque) {
+        parametres[player.atlas].toucheA(input.charge, this, player)
+        input.attaque = false;
+      }
+
+      // E
+      if (input.interactionTonneau) {
+        parametres[player.atlas].toucheE(player, this)
+        input.interactionTonneau = false;
+      }
+
+
       // R
       if (input.special) {
         parametres[player.atlas].toucheR(this, player);
@@ -685,101 +803,13 @@ function update() {
         input.special2 = false;
       }
 
-      // !tonneau.length : false => un tonneau est atteignable
-      // !tonneau.length : true => aucun tonneau est atteignable
-
-      // #2
-      if (input.interactionTonneau) {
-
-
-        /**
-         * GESTION TONNEAU
-         * @param  {constraints[player.playerId]} Object le tonneau auquel le joueur est attaché
-         * si le joueur ne tient pas de tonneau: attrape le tonneau le plus proche
-         * sinon détache le tonneau du joueur
-         */
-
-        if (Object.keys(constraints[player.playerId]['tonneau']).length == 0) {
-          var tonneau = recupereLeTonneauLePlusProche(player, this.tonneaux.getChildren())
-          if (tonneau) {
-            if (tonneau[0]) {
-              if (Object.keys(constraints[player.playerId]['tonneau']).length == 0) {
-                tonneau[0].body.collisionFilter.mask = 0
-                tonneau[0].setFixedRotation().setIgnoreGravity(true)
-                barils[tonneau[0].id].alpha = 0.7
-
-                this.tweens.add({
-                  targets: tonneau[0],
-                  x: player.x,
-                  y: player.y - player.displayHeight / 2 - 105,
-                  onComplete: () => {
-                    tonneau[0].setCollidesWith(-1).setIgnoreGravity(false); constraints[player.playerId]['tonneau'] = this.matter.add.constraint(tonneau[0], player)
-                  },
-                  duration: 500
-                })
-                input.interactionTonneau = false
-              }
-            }
-          }
-
-        }
-
-        //si le joueur tient un tonneau
-        // enleve la constrainte
-        else {
-          this.matter.world.removeConstraint(constraints[player.playerId]['tonneau']);
-          constraints[player.playerId]['tonneau'] = {}
-        }
-      /**
-       * -----GESTION DRAPEAU
-       * APPLIQUE L'ATTACHE AU DRAPEAU SI :
-       * FONTAINE ENNEMIE DÉTRUITE et DRAPEAU ACCESSIBLE
-       *
-       * @param  {[type]} fontainezone2 emplacement de la zone de la fontaine
-       * @return {[type]}               [description]
-       */
-      //SI LE DRAPEAU SE SITUE A LA MEME POSITION QUE LA FONTAINE
-      if (!fontainezone2.active) {
-        var distance = Phaser.Math.Distance.BetweenPoints(this.drapeaux.getChildren()[0], {x: fontainezone.x, y: fontainezone.y});
-
-
-        //ATTRAPER DRAPEAU BLEU
-        var distanceDrapeauBleu = Phaser.Math.Distance.BetweenPoints(player, {x: this.drapeaux.getChildren()[0].x, y: this.drapeaux.getChildren()[0].y});
-        if (distanceDrapeauBleu < 130 && distanceDrapeauBleu < 140) {
-          if (Object.keys(constraints[player.playerId]['drapeau']).length == 0) {
-            constraints[player.playerId]['drapeau'] = this.matter.add.constraint(this.drapeaux.getChildren()[0], player, 0)
-            console.log("DRAPEAU ATTRAPER");
-          } else {
-            this.matter.world.removeConstraint(constraints[player.playerId]['drapeau']);
-            constraints[player.playerId]['drapeau'] = {}
-            console.log("DRAPEAU LACHER");
-            if (distance < 530 && distance < 540) {
-              this.events.emit('fin-de-partie', "A")
-            }
-          }
-        }
-      }
-
-      if (!fontainezone.active) {
-        var distance2 = Phaser.Math.Distance.BetweenPoints(this.drapeaux.getChildren()[1], {x: fontainezone2.x, y: fontainezone2.y});
-        //ATTRAPER DRAPEAU VERT
-        var distanceDrapeauVert = Phaser.Math.Distance.BetweenPoints(player, {x: this.drapeaux.getChildren()[1].x, y: this.drapeaux.getChildren()[1].y});
-        if (distanceDrapeauVert < 130 && distanceDrapeauVert < 140) {
-          if (Object.keys(constraints[player.playerId]['drapeau']).length == 0) {
-            constraints[player.playerId]['drapeau'] = this.matter.add.constraint(this.drapeaux.getChildren()[1], player, 0)
-          } else {
-            this.matter.world.removeConstraint(constraints[player.playerId]['drapeau']);
-            constraints[player.playerId]['drapeau'] = {}
-            if (distance2 < 530 && distance2 < 540) {
-              this.events.emit('fin-de-partie', "B")
-            }
-          }
-        }
+      // ESPACE
+      if (input.saut) {
+        parametres[player.atlas].toucheEspace(input.chargeSaut, this, player)
+        input.saut = false
       }
 
 
-      input.interactionTonneau = false;
-    }
 
 
       if (player.attacked) {
@@ -837,22 +867,8 @@ function update() {
       }
 
 
-      /**
-       * ANIMATION ATTAQUE + ombre
-       */
-      if (input.attaque) {
-        parametres[player.atlas].toucheA(input.charge, this, player)
-        input.attaque = false;
-      }
 
-      /**
-       * SAUT
-       */
 
-      if (input.saut) {
-        parametres[player.atlas].toucheEspace(input.chargeSaut, this, player)
-        input.saut = false
-      }
 
       /**
        * TIROLIENNE
