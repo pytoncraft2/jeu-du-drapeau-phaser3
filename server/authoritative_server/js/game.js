@@ -64,7 +64,7 @@ function multiclonage(scene, player) {
 
   console.log(clones["Naruto"][player.playerId]);
   addClone(scene, clones["Naruto"][player.playerId]);
-  io.to("Naruto").emit("nouveau_joueur", clones['Naruto'][player.playerId]);
+  // io.to("Naruto").emit("nouveau_joueur", clones['Naruto'][player.playerId]);
 }
 
 /**
@@ -510,6 +510,11 @@ function update() {
       }
     });
 
+    this.clones["Naruto"].getChildren().forEach((clone) => {
+      clones.x += 0.001;
+      clones[clone.arene][clone.playerId].x = clone.x;
+      clones[clone.arene][clone.playerId].y = clone.y;
+    });
 
     this.players["Naruto"].getChildren().forEach((player) => {
       const input = players[player.arene][player.playerId].input;
@@ -1100,7 +1105,7 @@ function addPlayer(self, playerInfo) {
 
 
 function addClone(self, playerInfo) {
-  const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, 'dessinatrice1', 'face0').setDisplaySize(playerInfo.displayWidth, playerInfo.displayHeight).setAlpha(1);
+  const joueur = self.matter.add.sprite(playerInfo.x + 400, playerInfo.y, 'dessinatrice1', 'face0').setDisplaySize(playerInfo.displayWidth, playerInfo.displayHeight).setAlpha(1);
   joueur.playerId = playerInfo.playerId;
   joueur.arene = playerInfo.arene;
   joueur.equipe = playerInfo.equipe;
