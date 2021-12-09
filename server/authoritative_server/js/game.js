@@ -33,7 +33,57 @@ function multiclonage(scene, player) {
   // const joueur = scene.matter.add.sprite(player.x, player.y, 'dessinatrice1', 'face0').setDisplaySize(player.displayWidth, player.displayHeight).setAlpha(1);
   // joueur.playerId = player.playerId;
   // scene.players["Naruto"].add(joueur);
-  addPlayer(scene, players["Naruto"][player.playerId]);
+
+  players["Naruto"][player.playerId] = {
+    ...parametres[player.atlas]['etatInitial'],
+    atlas: player.atlas,
+    arene: "Naruto",
+    equipe: player.equipe,
+    // mask: mask,
+    wall: false,
+    attaque: false,
+    puissanceBonus: 0,
+    alpha: 1,
+    attacked: false,
+    degat: 0,
+    depth: 30,
+    anim: 'profil',
+    size: 200,
+    vieEquipe: scene.vieEquipe,
+    x: player.x + 300,
+    y: player.y,
+    playerId: player.playerId,
+    input: {
+      left: false,
+      right: false,
+      up: false,
+      down: false,
+      a: false,
+      z: false
+    },
+  };
+
+
+  const joueur = scene.matter.add.sprite(player.x +300, player.y, 'dessinatrice1', 'face0').setDisplaySize(player.displayWidth, player.displayHeight).setAlpha(1);
+  joueur.playerId = player.playerId;
+  joueur.arene = player.arene;
+  joueur.equipe = player.equipe;
+  joueur.atlas = player.atlas;
+  joueur.vie = player.vie;
+  joueur.vieEquipe = player.vieEquipe;
+  joueur.degat = player.degat;
+  joueur.attacked = player.attacked;
+  joueur.masse = player.masse;
+  joueur.puissanceBonus = player.puissanceBonus;
+  joueur.attaqueFrame = player.attaqueFrame
+  joueur.setFrictionAir(0.05);
+  joueur.setMass(joueur.masse);
+  scene.players[player.arene].add(joueur);
+  // joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -55, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
+  joueur.ombre = scene.add.ellipse(-79, 327 - 30, 100, 20, 0x0009).setAlpha(0.5);
+
+
+  // addPlayer(scene, players["Naruto"][player.playerId]);
   // socket.broadcast.to(room).emit("nouveau_joueur", players[socket.room][socket.id]);
   // io.to("Naruto").emit("tout_les_joueurs", players);
   io.to("Naruto").emit("nouveau_joueur", players['Naruto'][player.playerId]);
