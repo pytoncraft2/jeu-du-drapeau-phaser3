@@ -92,8 +92,8 @@ parametres['aventuriere2'] = {
 parametres['chevalier'] = {
   etatInitial: {
     vie: 20,
-    displayWidth: 317.60,
-    displayHeight: 341.6,
+    displayWidth: 217.60,
+    displayHeight: 241.6,
     masse: 35,
     attaqueFrame: "positiona3"
   },
