@@ -68,8 +68,10 @@ def.body.collisionFilter.mask = 44
     this.setVieEquipeB(100)
     // this.events.on('changement-vie-equipe', this.gestionChangementVieEquipe, this)
     this.players = {}
+    this.clones = {}
 
     this.players = this.add.group();
+    this.clones = this.add.group();
     this.tonneaux = this.add.group();
 
     this.tonneau1 = this.tonneaux.create(-1000, 1700, 'tonneau').setScale(0.22).setDepth(800)
@@ -104,6 +106,15 @@ def.body.collisionFilter.mask = 44
       self.displayPlayers(self, data, false);
     });
 
+    this.socket.on("nouveau_clone", (playerInfo) => {
+      // console.log(data);
+      console.log("NOUVEAU CLONE DATA !!!");
+      self.displayClone(self, playerInfo);
+      // const joueur = self.matter.add.sprite(playerInfo.x + 500, playerInfo.y, playerInfo.atlas, 'face3').setAlpha(1).setScale(0.4).setDepth(0.1);
+
+    });
+
+
     this.socket.on("tout_les_joueurs", (arene) => {
       Object.keys(arene[self.arene]).forEach(function(id) {
         if (arene[self.arene][id].playerId === self.socket.id) {
@@ -112,6 +123,18 @@ def.body.collisionFilter.mask = 44
           self.displayPlayers(self, arene[self.arene][id], false);
         }
       });
+    });
+
+
+    this.socket.on("tout_les_clones", (arene) => {
+      // Object.keys(arene[self.arene]).forEach(function(id) {
+      //   if (arene[self.arene][id].playerId === self.socket.id) {
+      //     self.displayPlayers(self, arene[self.arene][id], true);
+      //   } else {
+      //     self.displayPlayers(self, arene[self.arene][id], false);
+      //   }
+      // });
+      console.log(arene);
     });
 
 
@@ -272,7 +295,16 @@ def.body.collisionFilter.mask = 44
      * @return {void}
      */
 
-    this.socket.on('playerUpdates', function(players, tonneaux, drapeaux) {
+    this.socket.on('playerUpdates', function(players, tonneaux, drapeaux, clones) {
+
+      Object.keys(clones).forEach((id) => {
+        console.log(id);
+        // self.drapeaux.getChildren().forEach((drapeau) => {
+        //   if (drapeaux[id].id === drapeau.id) {
+        //     drapeau.setPosition(drapeaux[id].x, drapeaux[id].y)
+        //   }
+        // });
+      })
 
       Object.keys(drapeaux).forEach((id) => {
         self.drapeaux.getChildren().forEach((drapeau) => {
@@ -843,6 +875,40 @@ def.body.collisionFilter.mask = 44
 
     }
   },
+  displayClone: function(self, playerInfo) {
+    const joueur = self.matter.add.sprite(playerInfo.x + 500, playerInfo.y, playerInfo.atlas, 'face3').setAlpha(1).setScale(0.4).setDepth(0.1);
+    joueur.playerId = playerInfo.playerId;
+    joueur.arene = playerInfo.arene;
+    joueur.atlas = playerInfo.atlas;
+    joueur.equipe = playerInfo.equipe;
+    joueur.vieEquipe = playerInfo.vieEquipe;
+    joueur.vie = playerInfo.vie;
+
+    self.setVieEquipeA(playerInfo.vieEquipe["A"])
+    self.setVieEquipeB(playerInfo.vieEquipe["B"])
+
+    // joueur.socle = self.add.zone(playerInfo.x +700, playerInfo.y + 190, 210, 210).setSize(150, 40);
+    // joueur.setFixedRotation()
+    joueur.setFrictionAir(0.05);
+    joueur.setMass(30);
+    joueur.body.collisionFilter.group = Phaser.Math.Between(1, 10)
+    joueur.body.collisionFilter.mask = 0
+
+
+    let couleur = playerInfo.equipe == "A" ? 0x0ea733 : 0x0e88bd
+    let position = playerInfo.equipe == "A" ? {
+      x: -79,
+      y: 327
+    } : {
+      x: 7300,
+      y: -1363
+    }
+
+    joueur.ombre = self.add.ellipse(position.x, position.y - 30, 100, 20, couleur).setAlpha(0.8).setDepth(-1);
+    self.clones.add(joueur);
+
+  },
+
   apparitionPortail: function(x, y) {
     const portail = this.add.image(x, y, 'portal').setDepth(0).setScale(0).setAngle(0);
 

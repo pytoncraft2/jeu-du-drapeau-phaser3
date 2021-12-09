@@ -64,7 +64,7 @@ function multiclonage(scene, player) {
 
   console.log(clones["Naruto"][player.playerId]);
   addClone(scene, clones["Naruto"][player.playerId]);
-  // io.to("Naruto").emit("nouveau_joueur", clones['Naruto'][player.playerId]);
+  io.to("Naruto").emit("nouveau_clone", clones['Naruto'][player.playerId]);
 }
 
 /**
@@ -463,6 +463,7 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
 
       addPlayer(self, players[socket.room][socket.id]);
       socket.emit("tout_les_joueurs", players);
+      socket.emit("tout_les_clones", clones);
 
       socket.broadcast.to(room).emit("nouveau_joueur", players[socket.room][socket.id]);
 
@@ -952,7 +953,7 @@ function update() {
       }
 
     });
-    io.to("Naruto").emit("playerUpdates", players["Naruto"], barils, drapeaux);
+    io.to("Naruto").emit("playerUpdates", players["Naruto"], barils, drapeaux, clones['Naruto']);
 
 }
 
