@@ -34,10 +34,10 @@ const parametres = {};
 
 parametres['dessinatrice1'] = {
   etatInitial: {
-    vie: 2,
+    vie: 5,
     displayWidth: 104,
     displayHeight: 302,
-    scaleJoueur: 0.48
+    masse: 30
   },
   toucheT: (scene, player) => {
     invisible(scene, player)
@@ -46,10 +46,10 @@ parametres['dessinatrice1'] = {
 
 parametres['ninja'] = {
   etatInitial: {
-    vie: 5,
+    vie: 3,
     displayWidth: 149,
     displayHeight: 140,
-    scaleJoueur: 0.5
+    masse: 10
   },
   toucheT: (scene, player) => {
     invisible(scene, player)
@@ -62,7 +62,7 @@ parametres['ninja2'] = {
     vie: 5,
     displayWidth: 158.8,
     displayHeight: 160.4,
-    scaleJoueur: 0.5
+    masse: 15
   },
   toucheT: (scene, player) => {
     invisible(scene, player)
@@ -74,7 +74,7 @@ parametres['aventuriere2'] = {
     vie: 5,
     displayWidth: 38.40,
     displayHeight: 51.2,
-    scaleJoueur: 0.39
+    masse: 20
   },
   toucheT: (scene, player) => {
     invisible(scene, player)
@@ -86,7 +86,7 @@ parametres['chevalier'] = {
     vie: 20,
     displayWidth: 117.60,
     displayHeight: 141.6,
-    scaleJoueur: 0.5
+    masse: 35
   },
   toucheT: (scene, player) => {
     invisible(scene, player)
@@ -98,7 +98,7 @@ parametres['naruto'] = {
     vie: 5,
     displayWidth: 102,
     displayHeight: 300,
-    scaleJoueur: 0.5
+    masse: 25
   },
   toucheT: (scene, player) => {
     invisible(scene, player)
@@ -1068,12 +1068,10 @@ function addPlayer(self, playerInfo) {
   joueur.vieEquipe = playerInfo.vieEquipe;
   joueur.degat = playerInfo.degat;
   joueur.attacked = playerInfo.attacked;
+  joueur.masse = playerInfo.masse;
   joueur.puissanceBonus = playerInfo.puissanceBonus;
-  console.log("SSSSSSSSSSSCCCALLLE");
-  console.log(joueur.scale);
-  joueur.setScale(parametres[joueur.atlas].etatInitial.scaleJoueur);
   joueur.setFrictionAir(0.05);
-  joueur.setMass(30);
+  joueur.setMass(joueur.masse);
   self.players[playerInfo.arene].add(joueur);
   // joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -55, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
   joueur.ombre = self.add.ellipse(-79, 327 - 30, 100, 20, 0x0009).setAlpha(0.5);
