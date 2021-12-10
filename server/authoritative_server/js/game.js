@@ -1136,6 +1136,41 @@ function addPlayer(self, playerInfo) {
   joueur.attaqueFrame = playerInfo.attaqueFrame
   joueur.setFrictionAir(0.05);
   joueur.setMass(joueur.masse);
+  this.mainBody = this.Matter.Bodies.rectangle(x, y, w, h, {
+  density: 0.001,
+  friction: 0.1,
+  frictionStatic: 0.1,
+  label: 'dude',
+  chamfer: { radius: 10 }
+})
+this.sensors = {
+  bottom: this.Matter.Bodies.rectangle(x, y + h / 2 + 2 / 2, w * 0.35, 4, {
+    isSensor: true
+  }),
+  left: this.Matter.Bodies.rectangle(x - w / 2 - 4 / 2, y + 0, 4, h * 0.9, {
+    isSensor: true
+  }),
+  right: this.Matter.Bodies.rectangle(x + w / 2 + 4 / 2, y + 0, 4, h * 0.9, {
+    isSensor: true
+  })
+}
+this.addBodies([this.mainBody, this.sensors.bottom, this.sensors.left, this.sensors.right])
+
+this.setSensorLabel()
+
+this.Matter.Body.setInertia(this.body, Infinity) // setFixedRotation
+
+
+  var compoundBody = Phaser.Physics.Matter.Matter.Body.create({
+    parts: [ rect, circleA, circleB, circleC, circleD ],
+    inertia: Infinity
+});
+  this.body = this.Matter.Body.create({
+  parts: bodies.map(body => body)
+})
+this.body.prevVelocity = { x: 0, y: 0 }
+self.scene.matter.world.add(this.body)
+
   self.players[playerInfo.arene].add(joueur);
   // joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -55, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
   joueur.ombre = self.add.ellipse(-79, 327 - 30, 100, 20, 0x0009).setAlpha(0.5);
