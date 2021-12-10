@@ -825,11 +825,6 @@ function update() {
         input.attaque = false;
       }
 
-      // E
-      if (input.interactionTonneau) {
-        parametres[player.atlas].toucheE(player, this)
-        input.interactionTonneau = false;
-      }
 
       // Z
       if (input.tirolienne) {
@@ -837,6 +832,11 @@ function update() {
         input.tirolienne = false;
       }
 
+      // E
+      if (input.interactionTonneau) {
+        parametres[player.atlas].toucheE(player, this)
+        input.interactionTonneau = false;
+      }
 
       // R
       if (input.special) {
@@ -855,9 +855,6 @@ function update() {
         parametres[player.atlas].toucheEspace(input.chargeSaut, this, player)
         input.saut = false
       }
-
-
-
 
       if (player.attacked) {
       player.setAlpha(0.5)
