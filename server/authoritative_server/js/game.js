@@ -1177,6 +1177,20 @@ function addPlayer(self, playerInfo) {
   self.players[playerInfo.arene].add(joueur);
   // joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -55, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
   joueur.ombre = self.add.ellipse(-79, 327 - 30, 100, 20, 0x0009).setAlpha(0.5);
+  joueur.box = self.add.rectangle(playerInfo.displayWidth * 0.75, playerInfo.displayHeight * 0.5, 64, 128, 0xffffff)
+this.physics.add.existing(this.box, true)
+  this.swordHitbox = this.add.rectangle(0, 0, 32, 64, 0xffffff, 0) as unknown as Phaser.Types.Physics.Arcade.ImageWithDynamicBody
+
+this.physics.add.existing(this.swordHitbox)
+this.swordHitbox.body.enable = false
+this.physics.world.remove(this.swordHitbox.body)
+console.log(this.swordHitbox.body)
+
+self.matter.add.collider(player, joueur.box)
+
+// TODO: add physics overlap with dummy box; show box damaged on overlap
+// this.boxStateMachine.setState('damage')
+self.matter.add.overlap(joueur.swordHitbox, this.box, this.handleCollide, undefined, this)
   self.tweens.add({
   targets: joueur,
   alpha: 1,
