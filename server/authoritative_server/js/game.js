@@ -183,32 +183,37 @@ function testAttaque(charge, scene, player) {
   player.play('attack', true)
 
   const startHit = (anim, frame) => {
-    if (frame.index < 5)
+    if (frame.textureFrame == player.attaqueFrame)
     {
       return
     }
-
+    //
     player.off(Phaser.Animations.Events.ANIMATION_UPDATE, startHit)
-
-    this.swordHitbox.x = player.flipX
-    ? player.x - player.displayWidth * 0.25
-    : player.x + player.displayWidth * 0.25
-
-    this.swordHitbox.y = player.y + player.height * 0.2
-
-    this.swordHitbox.body.enable = true
-    this.physics.world.add(this.swordHitbox.body)
+    //
+    // this.swordHitbox.x = player.flipX
+    // ? player.x - player.displayWidth * 0.25
+    // : player.x + player.displayWidth * 0.25
+    //
+    // this.swordHitbox.y = player.y + player.height * 0.2
+    //
+    // this.swordHitbox.body.enable = true
+    // this.physics.world.add(this.swordHitbox.body)
+    console.log("___DEBUT");
+    console.log("START HIT");
+    // console.log(frame.AnimationFrame.textureFrame);
+    console.log(frame.textureFrame);
+    console.log("____FIN");
   }
 
   player.on(Phaser.Animations.Events.ANIMATION_UPDATE, startHit)
 
   player.once(Phaser.Animations.Events.ANIMATION_COMPLETE_KEY + 'attack', () => {
-    this.knightStateMachine.setState('idle')
-    console.log("OK");
+    // this.knightStateMachine.setState('idle')
+    // console.log("OK");
     player.setAlpha(0.1)
     // TODO: hide and remove the sword swing hitbox
-    this.swordHitbox.body.enable = false
-    this.physics.world.remove(this.swordHitbox.body)
+    // this.swordHitbox.body.enable = false
+    // this.physics.world.remove(this.swordHitbox.body)
   })
 }
 
