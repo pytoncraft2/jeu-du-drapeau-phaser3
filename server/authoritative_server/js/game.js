@@ -495,6 +495,7 @@ var CATEGORIE_JOUEUR = 0b0001
 var CATEGORIE_ENNEMIE = 0b0010
 var CATEGORIE_PLATFORME = 1
 var matDrapeauBleu;
+var Bodies;
 
 function preload() {
   this.load.atlas('dessinatrice1', 'assets/personnages/dessinatrice1/dessinatrice1.png', 'assets/personnages/dessinatrice1/dessinatrice1_atlas.json');
@@ -503,23 +504,10 @@ function preload() {
 
 function create() {
 
-  var Bodies = Phaser.Physics.Matter.Matter.Bodies;
+  Bodies = Phaser.Physics.Matter.Matter.Bodies;
+  //
 
-  var rect = Bodies.rectangle(0, 0, 98, 98);
-  var circleA = Bodies.circle(-70, 0, 24, { isSensor: true, label: 'left' });
-  var circleB = Bodies.circle(70, 0, 24, { isSensor: true, label: 'right' });
-  var circleC = Bodies.circle(0, -70, 24, { isSensor: true, label: 'top' });
-  var circleD = Bodies.circle(0, 70, 24, { isSensor: true, label: 'bottom' });
 
-  var compoundBody = Phaser.Physics.Matter.Matter.Body.create({
-      parts: [ rect, circleA, circleB, circleC, circleD ],
-      inertia: Infinity
-  });
-
-  player = this.matter.add.image(0, 0, 'canon');
-
-  player.setExistingBody(compoundBody);
-  player.setPosition(100, 300);
 
   var testA = this.matter.add.image(400, 150, 'poteau').setStatic(true);
   var testB = this.matter.add.image(600, 450, 'poteau').setStatic(true);
@@ -560,31 +548,24 @@ function create() {
 
               if (playerBody.label === 'left')
               {
-                  color = 0.4;
+                  color = 0.1;
               }
               else if (playerBody.label === 'right')
               {
-                  color = 0.2;
+                  color = 0.5;
               }
               else if (playerBody.label === 'top')
               {
-                  color = 0.8;
+                  color = 0.2;
               }
               else if (playerBody.label === 'bottom')
               {
-                  color = 0.1;
+                  color = 0.7;
               }
 
-              console.log("OK");
-              console.log(color);
-              // console.log(blockSprite.setAlpha());
-              // if (blockSprite) {
+              if (blockSprite) {
               blockSprite.setAlpha(color);
-              // image.setTint(0xff00ff);
-              // image.setTint(0xff0000);
-// image.setTint(0x00ff00);
-// image.setTint(0x0000ff);
-              // }
+              }
           }
       }
 
@@ -1224,6 +1205,23 @@ function addPlayer(self, playerInfo) {
   joueur.attaqueFrame = playerInfo.attaqueFrame
   joueur.setFrictionAir(0.05);
   joueur.setMass(joueur.masse);
+  var rect = Bodies.rectangle(0, 0, 98, 98);
+var circleA = Bodies.circle(-70, 0, 24, { isSensor: true, label: 'left' });
+var circleB = Bodies.circle(70, 0, 24, { isSensor: true, label: 'right' });
+var circleC = Bodies.circle(0, -70, 24, { isSensor: true, label: 'top' });
+var circleD = Bodies.circle(0, 70, 24, { isSensor: true, label: 'bottom' });
+
+var compoundBody = Phaser.Physics.Matter.Matter.Body.create({
+    parts: [ rect, circleA, circleB, circleC, circleD ],
+    inertia: Infinity
+});
+
+// player = this.matter.add.image(0, 0, 'canon');
+
+joueur.setExistingBody(compoundBody);
+// joueur.setPosition(100, 300);
+
+
   self.players[playerInfo.arene].add(joueur);
   // joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -55, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
   joueur.ombre = self.add.ellipse(-79, 327 - 30, 100, 20, 0x0009).setAlpha(0.5);
