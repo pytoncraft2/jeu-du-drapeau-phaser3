@@ -503,6 +503,94 @@ function preload() {
 
 function create() {
 
+  var Bodies = Phaser.Physics.Matter.Matter.Bodies;
+
+  var rect = Bodies.rectangle(0, 0, 98, 98);
+  var circleA = Bodies.circle(-70, 0, 24, { isSensor: true, label: 'left' });
+  var circleB = Bodies.circle(70, 0, 24, { isSensor: true, label: 'right' });
+  var circleC = Bodies.circle(0, -70, 24, { isSensor: true, label: 'top' });
+  var circleD = Bodies.circle(0, 70, 24, { isSensor: true, label: 'bottom' });
+
+  var compoundBody = Phaser.Physics.Matter.Matter.Body.create({
+      parts: [ rect, circleA, circleB, circleC, circleD ],
+      inertia: Infinity
+  });
+
+  player = this.matter.add.image(0, 0, 'canon');
+
+  player.setExistingBody(compoundBody);
+  player.setPosition(100, 300);
+
+  var testA = this.matter.add.image(400, 150, 'poteau').setStatic(true);
+  var testB = this.matter.add.image(600, 450, 'poteau').setStatic(true);
+  var testC = this.matter.add.image(200, 550, 'poteau').setStatic(true);
+
+  this.matter.world.on('collisionstart', function (event) {
+
+      //  Loop through all of the collision pairs
+      var pairs = event.pairs;
+
+      for (var i = 0; i < pairs.length; i++)
+      {
+          var bodyA = pairs[i].bodyA;
+          var bodyB = pairs[i].bodyB;
+
+          //  We only want sensor collisions
+          if (pairs[i].isSensor)
+          {
+              var blockBody;
+              var playerBody;
+
+              if (bodyA.isSensor)
+              {
+                  blockBody = bodyB;
+                  playerBody = bodyA;
+              }
+              else if (bodyB.isSensor)
+              {
+                  blockBody = bodyA;
+                  playerBody = bodyB;
+              }
+
+              //  You can get to the Sprite via `gameObject` property
+              var playerSprite = playerBody.gameObject;
+              var blockSprite = blockBody.gameObject;
+
+              var color;
+
+              if (playerBody.label === 'left')
+              {
+                  color = 0.4;
+              }
+              else if (playerBody.label === 'right')
+              {
+                  color = 0.2;
+              }
+              else if (playerBody.label === 'top')
+              {
+                  color = 0.8;
+              }
+              else if (playerBody.label === 'bottom')
+              {
+                  color = 0.1;
+              }
+
+              console.log("OK");
+              console.log(color);
+              // console.log(blockSprite.setAlpha());
+              // if (blockSprite) {
+              blockSprite.setAlpha(color);
+              // image.setTint(0xff00ff);
+              // image.setTint(0xff0000);
+// image.setTint(0x00ff00);
+// image.setTint(0x0000ff);
+              // }
+          }
+      }
+
+  });
+
+
   this.tween = null;
   this.tweenSaut = null;
   this.graph = this.add.graphics();
