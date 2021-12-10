@@ -266,6 +266,29 @@ function interactionTonneau(player, scene) {
     }
   }
 }
+
+function interactionTirolienne(player, scene) {
+  var dist = Phaser.Math.Distance.BetweenPoints(player, scene.bullet);
+  if (dist < 530 && dist < 540) {
+    if (Object.entries(constraints[player.playerId]['bullet']).length === 0) {
+      constraints[player.playerId]['bullet'] = scene.matter.add.constraint(scene.bullet, player)
+
+      var tween = scene.tweens.add({
+        targets: scene.bullet,
+        x: 5675,
+        y: -2376,
+        onComplete: () => (scene.matter.world.removeConstraint(constraints[player.playerId]['bullet']), constraints[player.playerId]['bullet'] = {}),  // set context? how?
+        yoyo: true,
+        // onYoyo: function () { addEvent('onYoyo') },
+        duration: 3500,
+      });
+    }
+    else {
+      scene.matter.world.removeConstraint(constraints[player.playerId]['bullet']);
+      constraints[player.playerId]['bullet'] = {}
+    }
+  }
+}
 /**
  * CONFIGURATION DE BASE POUR RECOMMENCER LA PARTIE
  * @type {Objects}
@@ -283,6 +306,9 @@ parametres['dessinatrice1'] = {
   },
   toucheA: (charge, scene, player) => {
     attaque(charge, scene, player)
+  },
+  toucheZ: (scene, player) => {
+    interactionTirolienne(scene, player)
   },
   toucheE: (scene, player) => {
     interactionTonneau(scene, player)
@@ -308,6 +334,9 @@ parametres['ninja'] = {
   },
   toucheA: (charge, scene, player) => {
     attaque(charge, scene, player)
+  },
+  toucheZ: (scene, player) => {
+    interactionTirolienne(scene, player)
   },
   toucheE: (scene, player) => {
     interactionTonneau(scene, player)
@@ -335,6 +364,9 @@ parametres['ninja2'] = {
   toucheA: (charge, scene, player) => {
     attaque(charge, scene, player)
   },
+  toucheZ: (scene, player) => {
+    interactionTirolienne(scene, player)
+  },
   toucheE: (scene, player) => {
     interactionTonneau(scene, player)
   },
@@ -359,6 +391,9 @@ parametres['aventuriere2'] = {
   },
   toucheA: (charge, scene, player) => {
     attaque(charge, scene, player)
+  },
+  toucheZ: (scene, player) => {
+    interactionTirolienne(scene, player)
   },
   toucheR: (scene, player) => {
     invisible(scene, player)
@@ -385,6 +420,9 @@ parametres['chevalier'] = {
   toucheA: (charge, scene, player) => {
     attaque(charge, scene, player)
   },
+  toucheZ: (scene, player) => {
+    interactionTirolienne(scene, player)
+  },
   toucheE: (scene, player) => {
     interactionTonneau(scene, player)
   },
@@ -409,6 +447,9 @@ parametres['naruto'] = {
   },
   toucheA: (charge, scene, player) => {
     attaque(charge, scene, player)
+  },
+  toucheZ: (scene, player) => {
+    interactionTirolienne(scene, player)
   },
   toucheE: (scene, player) => {
     interactionTonneau(scene, player)
@@ -790,6 +831,12 @@ function update() {
         input.interactionTonneau = false;
       }
 
+      // Z
+      if (input.tirolienne) {
+        parametres[player.atlas].toucheZ(player, this)
+        input.tirolienne = false;
+      }
+
 
       // R
       if (input.special) {
@@ -880,32 +927,7 @@ function update() {
        * @param { Object } constraints['bullet'] attache de la balle correspondant au joueur
        */
 
-      //TIROLIENNE
-      if (input.tirolienne) {
-        var dist = Phaser.Math.Distance.BetweenPoints(player, this.bullet);
-        if (dist < 530 && dist < 540) {
-          if (Object.entries(constraints[player.playerId]['bullet']).length === 0) {
-            constraints[player.playerId]['bullet'] = this.matter.add.constraint(this.bullet, player)
 
-            var tween = this.tweens.add({
-              targets: this.bullet,
-              x: 5675,
-              y: -2376,
-              onComplete: () => (this.matter.world.removeConstraint(constraints[player.playerId]['bullet']), constraints[player.playerId]['bullet'] = {}),  // set context? how?
-              yoyo: true,
-              // onYoyo: function () { addEvent('onYoyo') },
-              duration: 3500,
-            });
-            input.tirolienne = false
-
-          }
-          else {
-            this.matter.world.removeConstraint(constraints[player.playerId]['bullet']);
-            constraints[player.playerId]['bullet'] = {}
-          }
-        }
-        input.tirolienne = false;
-      }
 
     //CANON FEU
     if (input.canonMaintenu) {
