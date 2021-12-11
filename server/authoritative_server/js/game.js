@@ -181,55 +181,236 @@ function attaque(charge, scene, player) {
 }
 
 function testAttaque(charge, scene, player) {
-  player.play('attack')
+  // player.play('attack')
 
-  const startHit = (anim, frame) => {
-    if (frame.textureFrame == player.attaqueFrame)
-    {
-      return
+  // const startHit = (anim, frame) => {
+//     console.log(frame.index);
+//     if (frame.textureFrame == player.attaqueFrame)
+//     {
+//       return
+//     }
+//     //
+//     player.off(Phaser.Animations.Events.ANIMATION_UPDATE, startHit)
+//     //
+//     // this.swordHitbox.x = player.flipX
+//     // ? player.x - player.displayWidth * 0.25
+//     // : player.x + player.displayWidth * 0.25
+//     //
+//     // this.swordHitbox.y = player.y + player.height * 0.2
+//     //
+//     // this.swordHitbox.body.enable = true
+//     // this.physics.world.add(this.swordHitbox.body)
+//     // console.log("___DEBUT");
+//     // console.log("START HIT");
+//     // console.log(frame.AnimationFrame.textureFrame);
+//     // console.log(frame.textureFrame);
+//     // console.log("____FIN");
+//   }
+//
+//   player.on(Phaser.Animations.Events.ANIMATION_UPDATE, startHit)
+//
+//   player.once(Phaser.Animations.Events.ANIMATION_COMPLETE_KEY + 'attack', () => {
+//     // this.knightStateMachine.setState('idle')
+//     // console.log("ANIMATION SPECIAL ATTAQUE");
+//     // player.setAlpha(0.1)
+//     // TODO: hide and remove the sword swing hitbox
+//     // this.swordHitbox.body.enable = false
+//     // this.physics.world.remove(this.swordHitbox.body)
+//   })
+//   var za = scene.matter.add.gameObject(player.zoneAttaque);
+//   // za.body.collisionFilter.mask = 0
+//   za.setCollisionCategory(null);
+//
+//   // za.body.collisionFilter.group = Phaser.Math.Between(1, 10)
+// // za.body.collisionFilter.mask = 0
+//
+//   za.setIgnoreGravity(true).setStatic(true)
+//
+//   player.flipX ?
+//   (player.zoneAttaque.x = player.getLeftCenter().x - 70, player.zoneAttaque.y = player.getLeftCenter().y)
+//   : (player.zoneAttaque.x = player.getRightCenter().x + 70, player.zoneAttaque.y = player.getRightCenter().y)
+//
+//   scene.matter.overlap(scene.players['Naruto'].getChildren(), za, handleCollide, undefined, scene)
+//
+
+
+
+
+
+  var count;
+  if (charge) {
+    count = false;
+
+    scene.tween = scene.tweens.timeline({
+      tweens: [{
+        targets: player,
+        alpha: 0.35,
+        ease: 'Power1',
+        duration: 200
+      },
+      {
+        targets: player,
+        ease: 'Power1',
+        alpha: 0.58,
+        duration: 200
+      },
+      {
+        targets: player,
+        ease: 'Power1',
+        alpha: 0.34,
+        duration: 200
+      },
+      {
+        targets: player,
+        ease: 'Power1',
+        alpha: 0.58,
+        duration: 200
+      },
+      {
+        targets: player,
+        alpha: 0.35,
+        ease: 'Power1',
+        duration: 200,
+      },
+      {
+        targets: player,
+        ease: 'Power1',
+        alpha: 0.58,
+        duration: 200
+      },
+      {
+        targets: player,
+        alpha: 0.30,
+        ease: 'Power1',
+        duration: 200,
+      },
+      {
+        targets: player,
+        alpha: 0.80,
+        ease: 'Power1',
+        duration: 200,
+      },
+      {
+        targets: player,
+        alpha: 0.54,
+        ease: 'Power1',
+        duration: 200,
+      },
+      {
+        targets: player,
+        alpha: 0.80,
+        ease: 'Power1',
+        duration: 200,
+      }],
+      onComplete: () => player.setTint(0xff0000).setAlpha(1)
+
+    });
+
+    player.play('idle_attack', true)
+    charge = false;
+  } else {
+    let puissance = scene.tween.totalProgress;
+    player.clearTint()
+    if (scene.tween.isPlaying()) {
+      scene.tween.stop()
+      player.setAlpha(1)
     }
-    //
-    player.off(Phaser.Animations.Events.ANIMATION_UPDATE, startHit)
-    //
-    // this.swordHitbox.x = player.flipX
-    // ? player.x - player.displayWidth * 0.25
-    // : player.x + player.displayWidth * 0.25
-    //
-    // this.swordHitbox.y = player.y + player.height * 0.2
-    //
-    // this.swordHitbox.body.enable = true
-    // this.physics.world.add(this.swordHitbox.body)
-    // console.log("___DEBUT");
-    // console.log("START HIT");
-    // console.log(frame.AnimationFrame.textureFrame);
-    // console.log(frame.textureFrame);
-    // console.log("____FIN");
+    // const recupereLePlusProche = scene.tonneaux.getChildren().map(t => {
+    //   if (Phaser.Math.Distance.BetweenPoints(player, t) < 300 && Phaser.Math.Distance.BetweenPoints(player, t) < 310) {
+    //     return t
+    //   }
+    // } );
+    // var tonneau = recupereLePlusProche.filter( Boolean );
+    player.play('attack', true)
+
+    count = true;
+    count = false;
+
+    const startHit = (anim, frame) => {
+        // console.log(frame.index);
+        if (frame.textureFrame == player.attaqueFrame)
+        {
+          return
+        }
+        //
+        player.off(Phaser.Animations.Events.ANIMATION_UPDATE, startHit)
+        //
+        // this.swordHitbox.x = player.flipX
+        // ? player.x - player.displayWidth * 0.25
+        // : player.x + player.displayWidth * 0.25
+        //
+        // this.swordHitbox.y = player.y + player.height * 0.2
+        //
+        // this.swordHitbox.body.enable = true
+        // this.physics.world.add(this.swordHitbox.body)
+        console.log("___DEBUT");
+        // console.log("START HIT");
+        // console.log(frame.AnimationFrame.textureFrame);
+        console.log(frame.textureFrame);
+        console.log("____FIN");
+
+
+
+
+
+
+      }
+
+        player.on(Phaser.Animations.Events.ANIMATION_UPDATE, startHit)
+
+        player.once(Phaser.Animations.Events.ANIMATION_COMPLETE_KEY + 'attack', () => {
+          // this.knightStateMachine.setState('idle')
+          // console.log("ANIMATION SPECIAL ATTAQUE");
+          // player.setAlpha(0.1)
+          // TODO: hide and remove the sword swing hitbox
+          // this.swordHitbox.body.enable = false
+          // this.physics.world.remove(this.swordHitbox.body)
+          console.log("FIN ATTACK ANIM");
+        })
+
+
+    // scene.tween = scene.tweens.add({
+    //   targets: player.ombre,
+    //   from: 0,
+    //   to: 1,
+    //   scale: 1,
+    //   duration: 500,
+    //   onUpdateParams: [ evenement ],
+    //   onUpdate: function functionName(tween, targets, events) {
+    //     if (player.active) {
+    //       if (player.anims.getFrameName() == player.attaqueFrame) {
+    //         if (count) {
+    //           var distance = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone.x, y: fontainezone.y});
+    //           var distance2 = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone2.x, y: fontainezone2.y});
+    //           if (distance < 530 && distance < 540) {
+    //             events.emit('changement-vie-equipe', "B", puissance + player.puissanceBonus)
+    //           } else if (distance2 < 530 && distance2 < 540) {
+    //             events.emit('changement-vie-equipe', "A", puissance + player.puissanceBonus)
+    //           } else if (tonneau[0]) {
+    //             // events.emit('lancer-tonneau', player.flipX, puissance + player.puissanceBonus, tonneau[0].id)
+    //             tonneau[0].setVelocity((player.flipX ? -10 * (puissance * 5)  : 10 * (puissance * 5)), - (puissance * 100) )
+    //           }
+    //           count = false;
+    //         }
+    //       }
+    //     }
+    //   }
+    // })
   }
 
-  player.on(Phaser.Animations.Events.ANIMATION_UPDATE, startHit)
 
-  player.once(Phaser.Animations.Events.ANIMATION_COMPLETE_KEY + 'attack', () => {
-    // this.knightStateMachine.setState('idle')
-    // console.log("ANIMATION SPECIAL ATTAQUE");
-    // player.setAlpha(0.1)
-    // TODO: hide and remove the sword swing hitbox
-    // this.swordHitbox.body.enable = false
-    // this.physics.world.remove(this.swordHitbox.body)
-  })
-  var za = scene.matter.add.gameObject(player.zoneAttaque);
-  // za.body.collisionFilter.mask = 0
-  za.setCollisionCategory(null);
 
-  // za.body.collisionFilter.group = Phaser.Math.Between(1, 10)
-// za.body.collisionFilter.mask = 0
 
-  za.setIgnoreGravity(true).setStatic(true)
 
-  player.flipX ?
-  (player.zoneAttaque.x = player.getLeftCenter().x - 70, player.zoneAttaque.y = player.getLeftCenter().y)
-  : (player.zoneAttaque.x = player.getRightCenter().x + 70, player.zoneAttaque.y = player.getRightCenter().y)
 
-  scene.matter.overlap(scene.players['Naruto'].getChildren(), za, handleCollide, undefined, scene)
+
+
+
+
+
+
+
+
 }
 
 function interactionTonneau(player, scene) {
