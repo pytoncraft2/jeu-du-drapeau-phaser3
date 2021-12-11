@@ -263,15 +263,11 @@ function testAttaque(charge, scene, player) {
         {
           return
         }
-        var zoneAttaque = scene.matter.add.gameObject(player.zoneAttaque);
-        zoneAttaque.setCollisionCategory(null);
-        zoneAttaque.setIgnoreGravity(true).setStatic(true)
-
         player.off(Phaser.Animations.Events.ANIMATION_UPDATE, startHit)
         player.flipX ?
         (player.zoneAttaque.x = player.getLeftCenter().x - 70, player.zoneAttaque.y = player.getLeftCenter().y)
         : (player.zoneAttaque.x = player.getRightCenter().x + 70, player.zoneAttaque.y = player.getRightCenter().y)
-        scene.matter.overlap([...scene.players['Naruto'].getChildren(), ...scene.tonneaux.getChildren()], zoneAttaque, handleCollide, undefined, scene)
+        scene.matter.overlap([...scene.players['Naruto'].getChildren(), ...scene.tonneaux.getChildren()], player.zoneAttaque, handleCollide, undefined, scene)
       }
 
         player.on(Phaser.Animations.Events.ANIMATION_UPDATE, startHit)
@@ -1313,6 +1309,10 @@ function addPlayer(self, playerInfo) {
   joueur.zoneAttaque = self.add.rectangle(0, 0 ,joueur.displayWidth, joueur.displayHeight, 0x0e88bd, 0.5).setDepth(400);
   joueur.zoneAttaque.x = joueur.getRightCenter().x
   joueur.zoneAttaque.y = joueur.getRightCenter().y
+
+  var zoneAttaque = self.matter.add.gameObject(joueur.zoneAttaque);
+  zoneAttaque.setCollisionCategory(null);
+  zoneAttaque.setIgnoreGravity(true).setStatic(true)
 
   self.players[playerInfo.arene].add(joueur);
 
