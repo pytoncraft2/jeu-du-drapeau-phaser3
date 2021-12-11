@@ -350,6 +350,20 @@ function testAttaque(charge, scene, player) {
         console.log("____FIN");
 
 
+        var za = scene.matter.add.gameObject(player.zoneAttaque);
+        // za.body.collisionFilter.mask = 0
+        za.setCollisionCategory(null);
+
+        // za.body.collisionFilter.group = Phaser.Math.Between(1, 10)
+      // za.body.collisionFilter.mask = 0
+
+        za.setIgnoreGravity(true).setStatic(true)
+
+        player.flipX ?
+        (player.zoneAttaque.x = player.getLeftCenter().x - 70, player.zoneAttaque.y = player.getLeftCenter().y)
+        : (player.zoneAttaque.x = player.getRightCenter().x + 70, player.zoneAttaque.y = player.getRightCenter().y)
+
+        scene.matter.overlap(scene.players['Naruto'].getChildren(), za, handleCollide, undefined, scene)
 
 
 
