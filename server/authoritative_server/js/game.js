@@ -1198,7 +1198,7 @@ function handlePlayerInput(self, playerId, arene, input) {
 
 function check(scene, player) {
   // console.log(scene.testgroup);
-  let proche = scene.physics.closest(scene.rect, [...scene.testgroup.getChildren()]);
+  let proche = scene.physics.closest({x: player.x, y: player.y}, [...scene.testgroup.getChildren()]);
   proche.setAngularVelocity(20)
   // if( Phaser.Geom.Rectangle.ContainsPoint(scene.rect, {x: player.x ,y: player.y})) {
   //   console.log("OOOOOOOOOOOOOOOOOOOUUIII");
