@@ -198,11 +198,11 @@ function testAttaque(charge, scene, player) {
     //
     // this.swordHitbox.body.enable = true
     // this.physics.world.add(this.swordHitbox.body)
-    console.log("___DEBUT");
-    console.log("START HIT");
+    // console.log("___DEBUT");
+    // console.log("START HIT");
     // console.log(frame.AnimationFrame.textureFrame);
-    console.log(frame.textureFrame);
-    console.log("____FIN");
+    // console.log(frame.textureFrame);
+    // console.log("____FIN");
   }
 
   player.on(Phaser.Animations.Events.ANIMATION_UPDATE, startHit)
@@ -386,7 +386,8 @@ parametres['ninja'] = {
     agrandissement(scene, player)
   },
   toucheEspace: (charge, scene, player) => {
-    saut(charge, scene, player)
+    // saut(charge, scene, player)
+    check(scene, player)
   },
 }
 
@@ -1159,6 +1160,14 @@ function handlePlayerInput(self, playerId, arene, input) {
   });
 }
 
+function check(scene, player) {
+  if( Phaser.Geom.Rectangle.ContainsPoint(scene.rect, {x: player.x ,y: player.y})) {
+    console.log("OOOOOOOOOOOOOOOOOOOUUIII");
+  } else {
+    console.log("NOP");
+  }
+}
+
 function addPlayer(self, playerInfo) {
   const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, 'dessinatrice1', 'face0').setDisplaySize(playerInfo.displayWidth, playerInfo.displayHeight).setAlpha(1);
   joueur.playerId = playerInfo.playerId;
@@ -1175,8 +1184,13 @@ function addPlayer(self, playerInfo) {
   joueur.setFrictionAir(0.05);
   joueur.setMass(joueur.masse);
   self.players[playerInfo.arene].add(joueur);
-  var rect = new Phaser.GameObjects.Rectangle(self, playerInfo.x,playerInfo.y, 350, 340);
-  self.add.existing(rect);
+  self.rect = new Phaser.GameObjects.Rectangle(self, playerInfo.x,playerInfo.y, 350, 340);
+  self.add.existing(self.rect);
+
+  // if(!Phaser.Geom.Rectangle.ContainsRect(rectangles, rect))
+// {
+//     graphics.strokeRectShape(rectangles[i]);
+// }
   // joueur.socle = self.add.zone(playerInfo.x + 400, playerInfo.y, 210, 210).setSize(350, 340).setOrigin(0.5, 0.5);
   // joueur.socle.setFriction(0.05);
 // joueur.socle.setFrictionAir(0.0005);
