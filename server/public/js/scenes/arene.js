@@ -571,6 +571,8 @@ def.body.collisionFilter.mask = 44
   },
 
   update: function() {
+
+
     /**
      * TIROLIENNE CONTROLE
      */
@@ -687,6 +689,12 @@ def.body.collisionFilter.mask = 44
 
 
     if (Phaser.Input.Keyboard.JustDown(this.aKeyPressed)) {
+      this.players.getChildren()[0].flipX ?
+      (this.players.getChildren()[0].zoneAttaque.x = this.players.getChildren()[0].getLeftCenter().x, this.players.getChildren()[0].zoneAttaque.y = this.players.getChildren()[0].getLeftCenter().y)
+      : (this.players.getChildren()[0].zoneAttaque.x = this.players.getChildren()[0].getRightCenter().x, this.players.getChildren()[0].zoneAttaque.y = this.players.getChildren()[0].getRightCenter().y)
+      // joueur.zoneAttaque.x = joueur.getRightCenter().x
+      // joueur.zoneAttaque.y = joueur.getRightCenter().y
+
       this.socket.emit('playerInput', {
         attaque: true,
         charge: true,
@@ -823,14 +831,14 @@ def.body.collisionFilter.mask = 44
     // console.log(joueur.displayWidth);
     // console.log(joueur.getBottomLeft())
     console.log(joueur.getBottomCenter())
-    let zoneAttaque = self.add.rectangle(0, 0 ,joueur.displayWidth, joueur.displayHeight, 0x0e88bd, 0.5).setDepth(400);
-    zoneAttaque.x = joueur.getRightCenter().x
-    zoneAttaque.y = joueur.getRightCenter().y
+    joueur.zoneAttaque = self.add.rectangle(0, 0 ,joueur.displayWidth, joueur.displayHeight, 0x0e88bd, 0.5).setDepth(400);
+    joueur.zoneAttaque.x = joueur.getRightCenter().x
+    joueur.zoneAttaque.y = joueur.getRightCenter().y
     // zoneAttaque.width -= joueur.getRightCenter().y
 
 
     // joueur.socle2 = self.add.zone(playerInfo.x, playerInfo.y + 190, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
-    var za = self.matter.add.gameObject(zoneAttaque);
+    var za = self.matter.add.gameObject(joueur.zoneAttaque);
     self.matter.overlap(joueur, za, this.handleCollide, undefined, this)
 
 
