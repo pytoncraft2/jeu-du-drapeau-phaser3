@@ -861,11 +861,15 @@ function update() {
       }
     });
 
-    // this.testgroup.getChildren().forEach((tonneau) => {
-    //
-    // });
+    this.testgroup.getChildren().forEach((tonneau) => {
+      console.log(tonneau.id);
+    });
 
     this.tonneaux.getChildren().forEach((tonneau) => {
+
+      this.testgroup.getMatching('id', tonneau.id)[0].x = tonneau.x
+      this.testgroup.getMatching('id', tonneau.id)[0].y = tonneau.y
+
       barils[tonneau.id] = {
         x: tonneau.x,
         y: tonneau.y,
@@ -1184,7 +1188,7 @@ function handlePlayerInput(self, playerId, arene, input) {
 
 function check(scene, player) {
   // console.log(scene.testgroup);
-  console.log(scene.physics.closest(scene.rect, [...scene.testgroup.getChildren()]));
+  // console.log(scene.physics.closest(scene.rect, [...scene.testgroup.getChildren()]));
   if( Phaser.Geom.Rectangle.ContainsPoint(scene.rect, {x: player.x ,y: player.y})) {
     console.log("OOOOOOOOOOOOOOOOOOOUUIII");
   } else {
