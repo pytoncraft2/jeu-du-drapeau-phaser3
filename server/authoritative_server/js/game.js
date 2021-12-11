@@ -349,21 +349,11 @@ function testAttaque(charge, scene, player) {
         console.log(frame.textureFrame);
         console.log("____FIN");
 
-
-        var za = scene.matter.add.gameObject(player.zoneAttaque);
-        // za.body.collisionFilter.mask = 0
-        za.setCollisionCategory(null);
-
-        // za.body.collisionFilter.group = Phaser.Math.Between(1, 10)
-      // za.body.collisionFilter.mask = 0
-
-        za.setIgnoreGravity(true).setStatic(true)
-
         player.flipX ?
         (player.zoneAttaque.x = player.getLeftCenter().x - 70, player.zoneAttaque.y = player.getLeftCenter().y)
         : (player.zoneAttaque.x = player.getRightCenter().x + 70, player.zoneAttaque.y = player.getRightCenter().y)
 
-        scene.matter.overlap(scene.players['Naruto'].getChildren(), za, handleCollide, undefined, scene)
+        scene.matter.overlap(scene.players['Naruto'].getChildren(), player.zoneAttaque, handleCollide, undefined, scene)
 
 
 
@@ -1409,6 +1399,10 @@ function addPlayer(self, playerInfo) {
   joueur.zoneAttaque = self.add.rectangle(0, 0 ,joueur.displayWidth, joueur.displayHeight, 0x0e88bd, 0.5).setDepth(400);
   joueur.zoneAttaque.x = joueur.getRightCenter().x
   joueur.zoneAttaque.y = joueur.getRightCenter().y
+
+  var zoneAttaque = self.matter.add.gameObject(joueur.zoneAttaque);
+  zoneAttaque.setCollisionCategory(null);
+  zoneAttaque.setIgnoreGravity(true).setStatic(true)
 
   self.players[playerInfo.arene].add(joueur);
 
