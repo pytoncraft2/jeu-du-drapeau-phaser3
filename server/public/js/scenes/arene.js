@@ -690,8 +690,8 @@ def.body.collisionFilter.mask = 44
 
     if (Phaser.Input.Keyboard.JustDown(this.aKeyPressed)) {
       this.players.getChildren()[0].flipX ?
-      (this.players.getChildren()[0].zoneAttaque.x = this.players.getChildren()[0].getLeftCenter().x, this.players.getChildren()[0].zoneAttaque.y = this.players.getChildren()[0].getLeftCenter().y)
-      : (this.players.getChildren()[0].zoneAttaque.x = this.players.getChildren()[0].getRightCenter().x, this.players.getChildren()[0].zoneAttaque.y = this.players.getChildren()[0].getRightCenter().y)
+      (this.players.getChildren()[0].zoneAttaque.x = this.players.getChildren()[0].getLeftCenter().x - 70, this.players.getChildren()[0].zoneAttaque.y = this.players.getChildren()[0].getLeftCenter().y)
+      : (this.players.getChildren()[0].zoneAttaque.x = this.players.getChildren()[0].getRightCenter().x + 70, this.players.getChildren()[0].zoneAttaque.y = this.players.getChildren()[0].getRightCenter().y)
       // joueur.zoneAttaque.x = joueur.getRightCenter().x
       // joueur.zoneAttaque.y = joueur.getRightCenter().y
 

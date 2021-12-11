@@ -220,8 +220,8 @@ function testAttaque(charge, scene, player) {
   za.setIgnoreGravity(true).setStatic(true)
 
   player.flipX ?
-  (player.zoneAttaque.x = player.getLeftCenter().x, player.zoneAttaque.y = player.getLeftCenter().y)
-  : (player.zoneAttaque.x = player.getRightCenter().x, player.zoneAttaque.y = player.getRightCenter().y)
+  (player.zoneAttaque.x = player.getLeftCenter().x + 300, player.zoneAttaque.y = player.getLeftCenter().y)
+  : (player.zoneAttaque.x = player.getRightCenter().x + 300, player.zoneAttaque.y = player.getRightCenter().y)
 
   scene.matter.overlap(player, za, handleCollide, undefined, scene)
 }
@@ -1241,7 +1241,7 @@ function addPlayer(self, playerInfo) {
   // socleJoueur.setIgnoreGravity(true).setStatic(true)
 }
 
-function handleCollide(objet1, objet2) {
+function handleCollide(objet1, objet2, objet3, objet4) {
   // console.log("HANDDLE COOOLLIIIDE");
   // console.log("OOOOOOOOOOOBBBJJETT 1");
   // console.log(objet1);
@@ -1255,6 +1255,7 @@ function handleCollide(objet1, objet2) {
   // console.log(objet1.scale);
   // console.log("________");
   // console.log(objet2.scale);
+  console.log(objet4);
 
 if (objet1.playerId) {
   console.log("OBJ 1 ID");
