@@ -852,11 +852,6 @@ function update() {
         alpha: tonneau.alpha
       }
     });
-if (this.rect) {
-  console.log("ouisitiitit-----------------------------------");
-this.rect.x = this.players["Naruto"].getChildren()[0].x
-this.rect.y = this.players["Naruto"].getChildren()[0].y
-}
 
     this.players["Naruto"].getChildren().forEach((player) => {
       const input = players[player.arene][player.playerId].input;
@@ -1189,8 +1184,6 @@ function addPlayer(self, playerInfo) {
   joueur.setFrictionAir(0.05);
   joueur.setMass(joueur.masse);
   self.players[playerInfo.arene].add(joueur);
-  self.rect = new Phaser.GameObjects.Rectangle(self, playerInfo.x,playerInfo.y, 350, 340);
-  self.add.existing(self.rect);
 
   // if(!Phaser.Geom.Rectangle.ContainsRect(rectangles, rect))
 // {
@@ -1212,13 +1205,7 @@ function addPlayer(self, playerInfo) {
 // this.physics.add.existing(this.swordHitbox)
 // this.swordHitbox.body.enable = false
 // this.physics.world.remove(this.swordHitbox.body)
-// console.log(this.swordHitbox.body)
-//
-// self.matter.add.collider(player, joueur.box)
-//
-// TODO: add physics overlap with dummy box; show box damaged on overlap
-// this.boxStateMachine.setState('damage')
-// self.matter.overlap(joueur, v, handleCollide, undefined, this)
+
   self.tweens.add({
   targets: joueur,
   alpha: 1,

@@ -814,9 +814,23 @@ def.body.collisionFilter.mask = 44
     }
 
     joueur.ombre = self.add.ellipse(position.x, position.y - 30, 100, 20, couleur).setAlpha(0.8).setDepth(-1);
+    let zoneAttaque = self.add.rectangle(playerInfo.x, playerInfo.y ,210, 210).setSize(200, 40).setDepth(400);
+
 
     // joueur.socle2 = self.add.zone(playerInfo.x, playerInfo.y + 190, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
-    // var socleJoueur = self.matter.add.gameObject(joueur.socle);
+    var za = self.matter.add.gameObject(zoneAttaque);
+
+
+
+    /**
+     * [equipe description]
+     * @type {[type]}
+     */
+
+
+     // self.rect = new Phaser.GameObjects.Rectangle(self, playerInfo.x,playerInfo.y, 350, 340);
+// self.add.existing(self.rect);
+
     // socleJoueur.setIgnoreGravity(true).setStatic(true).setFriction(0)
 
     self.players.add(joueur);
