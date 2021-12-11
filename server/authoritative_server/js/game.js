@@ -441,6 +441,11 @@ function gestionVie(vie, id) {
     evenement.emit('changement-vie', id)
   }
 }
+
+function gestionTonneaux(tonneau) {
+  // tonneau.setVelocity((player.flipX ? -10 * (puissance * 5)  : 10 * (puissance * 5)), - (puissance * 100) )
+  tonneau.setVelocityY(-100)
+}
 /**
  * CONFIGURATION DE BASE POUR RECOMMENCER LA PARTIE
  * @type {Objects}
@@ -749,6 +754,7 @@ function create() {
 
 
     this.drapeaux = this.add.group()
+    this.drapeaux.name = "drapeaux";
 
   let matDrapeauBleu = this.add.zone(-4868.428561331542, -775.2723001427164, 32, 640)
   let matDrapeauVert = this.add.zone(8242.130999766403, -1566.8232688524165, 32, 640)
@@ -771,6 +777,7 @@ function create() {
 
 
 this.tonneaux = this.add.group()
+this.tonneaux.name = "tonneaux";
 let tonneau1 = this.add.zone(-1000, 1700, 210, 210).setSize(155, 215.6)
 tonneau1.id = 1;
 let tonneau2 = this.add.zone(-1200, 1700, 210, 210).setSize(155, 215.6)
@@ -783,18 +790,22 @@ tonneau4.id = 4;
 
 t1 = self.matter.add.gameObject(tonneau1);
 t1.setMass(40).setFriction(2).setFrictionAir(0.1)
+t1.name = "tonneau"
 
 
 t2 = self.matter.add.gameObject(tonneau2);
 t2.setMass(40).setFriction(2).setFrictionAir(0.1)
+t2.name = "tonneau"
 
 
 t3 = self.matter.add.gameObject(tonneau3);
 t3.setMass(40).setFriction(2).setFrictionAir(0.1)
+t3.name = "tonneau"
 
 
 t4 = self.matter.add.gameObject(tonneau4);
 t4.setMass(40).setFriction(2).setFrictionAir(0.1)
+t4.name = "tonneau"
 
 this.tonneaux.addMultiple([t1, t2, t3, t4])
 
@@ -1330,6 +1341,10 @@ function addPlayer(self, playerInfo) {
 function handleCollide(objet1, objet2, info) {
   if (objet1.gameObject.playerId) {
     gestionVie(objet1.gameObject.vie, objet1.gameObject.playerId)
+  }
+
+  if (objet1.gameObject.name == "tonneau") {
+    gestionTonneaux(objet1.gameObject)
   }
 }
 
