@@ -1242,7 +1242,84 @@ function addPlayer(self, playerInfo) {
 }
 
 function handleCollide(objet1, objet2) {
-  console.log("HANDDLE COOOLLIIIDE");
+  // console.log("HANDDLE COOOLLIIIDE");
+  // console.log("OOOOOOOOOOOBBBJJETT 1");
+  // console.log(objet1);
+  // console.log("OOOOOOOOOOOBBBJJETT 2");
+
+  //RECTANGLE
+  // console.log(objet2);
+
+  //JOUEUR
+  console.log(objet1.gameObject.playerId);
+  // console.log(objet1.scale);
+  // console.log("________");
+  // console.log(objet2.scale);
+
+if (objet1.playerId) {
+  console.log("OBJ 1 ID");
+  console.log(objet1.playerId);
+
+} else if (objet2.playerId) {
+  console.log("OBJ 2 ID");
+  console.log(objet2.playerId);
+
+}
+      //  Loop through all of the collision pairs
+      // var pairs = event.pairs;
+      //
+      // for (var i = 0; i < pairs.length; i++)
+      // {
+      //     var bodyA = pairs[i].bodyA;
+      //     var bodyB = pairs[i].bodyB;
+      //
+      //     //  We only want sensor collisions
+      //     if (pairs[i].isSensor)
+      //     {
+      //         var blockBody;
+      //         var playerBody;
+      //
+      //         if (bodyA.isSensor)
+      //         {
+      //             blockBody = bodyB;
+      //             playerBody = bodyA;
+      //         }
+      //         else if (bodyB.isSensor)
+      //         {
+      //             blockBody = bodyA;
+      //             playerBody = bodyB;
+      //         }
+      //
+      //         //  You can get to the Sprite via `gameObject` property
+      //         var playerSprite = playerBody.gameObject;
+      //         var blockSprite = blockBody.gameObject;
+      //
+      //         var color;
+      //
+      //         if (playerBody.label === 'left')
+      //         {
+      //             color = 0xff0000;
+      //         }
+      //         else if (playerBody.label === 'right')
+      //         {
+      //             color = 0x00ff00;
+      //         }
+      //         else if (playerBody.label === 'top')
+      //         {
+      //             color = 0x0000ff;
+      //         }
+      //         else if (playerBody.label === 'bottom')
+      //         {
+      //             color = 0xffff00;
+      //         }
+      //
+      //         blockSprite.setTintFill(color);
+      //     }
+      // }
+
+
+
+
 }
 
 function removePlayer(self, playerId, arene) {
