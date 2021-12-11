@@ -862,13 +862,15 @@ function update() {
     });
 
     this.testgroup.getChildren().forEach((tonneau) => {
-      console.log(tonneau.id);
+      // console.log(tonneau.id);
     });
 
     this.tonneaux.getChildren().forEach((tonneau) => {
 
-      this.testgroup.getMatching('id', tonneau.id)[0].x = tonneau.x
-      this.testgroup.getMatching('id', tonneau.id)[0].y = tonneau.y
+      // this.testgroup.getMatching('id', tonneau.id)[0].x = tonneau.x
+      tonneau.angle = this.testgroup.getMatching('id', tonneau.id)[0].angle
+      // this.testgroup.getMatching('id', tonneau.id)[0].x = tonneau.x
+      // this.testgroup.getMatching('id', tonneau.id)[0].y = tonneau.y
 
       barils[tonneau.id] = {
         x: tonneau.x,
@@ -877,6 +879,9 @@ function update() {
         id: tonneau.id,
         alpha: tonneau.alpha
       }
+      // console.log(tonneau);
+      console.log(this.testgroup.getMatching('id', tonneau.id)[0].angle);
+
     });
 
     this.players["Naruto"].getChildren().forEach((player) => {
@@ -1188,12 +1193,13 @@ function handlePlayerInput(self, playerId, arene, input) {
 
 function check(scene, player) {
   // console.log(scene.testgroup);
-  // console.log(scene.physics.closest(scene.rect, [...scene.testgroup.getChildren()]));
-  if( Phaser.Geom.Rectangle.ContainsPoint(scene.rect, {x: player.x ,y: player.y})) {
-    console.log("OOOOOOOOOOOOOOOOOOOUUIII");
-  } else {
-    console.log("NOP");
-  }
+  let proche = scene.physics.closest(scene.rect, [...scene.testgroup.getChildren()]);
+  proche.setAngularVelocity(20)
+  // if( Phaser.Geom.Rectangle.ContainsPoint(scene.rect, {x: player.x ,y: player.y})) {
+  //   console.log("OOOOOOOOOOOOOOOOOOOUUIII");
+  // } else {
+  //   console.log("NOP");
+  // }
 }
 
 function addPlayer(self, playerInfo) {
