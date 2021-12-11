@@ -340,6 +340,15 @@ function interactionTirolienne(player, scene) {
     }
   }
 }
+
+
+function gestionVie(vie, id) {
+  if (vie <= 0) {
+    evenement.emit('fin-de-vie', id)
+  } else {
+    evenement.emit('changement-vie', id)
+  }
+}
 /**
  * CONFIGURATION DE BASE POUR RECOMMENCER LA PARTIE
  * @type {Objects}
@@ -1257,10 +1266,11 @@ function handleCollide(objet1, objet2, info) {
 
   //JOUEUR (objet1 : target)
   console.log(objet1.gameObject.playerId);
-  console.log(objet2.gameObject.playerId);
+  console.log(objet1.gameObject.vie);
+  // console.log(objet2.gameObject.playerId);
 
   if (objet1.gameObject.playerId) {
-    evenement.emit('changement-vie', objet1.gameObject.playerId)
+    gestionVie(objet1.gameObject.vie, objet1.gameObject.playerId)
   }
 
 }
