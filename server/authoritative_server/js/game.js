@@ -215,6 +215,10 @@ function testAttaque(charge, scene, player) {
     // this.swordHitbox.body.enable = false
     // this.physics.world.remove(this.swordHitbox.body)
   })
+  var za = scene.matter.add.gameObject(player.zoneAttaque);
+  za.body.collisionFilter.mask = 0
+  za.setIgnoreGravity(true).setStatic(true)
+  scene.matter.overlap(player, za, handleCollide, undefined, scene)
 }
 
 function interactionTonneau(player, scene) {
@@ -1183,6 +1187,19 @@ function addPlayer(self, playerInfo) {
   joueur.attaqueFrame = playerInfo.attaqueFrame
   joueur.setFrictionAir(0.05);
   joueur.setMass(joueur.masse);
+
+  joueur.zoneAttaque = self.add.rectangle(0, 0 ,joueur.displayWidth, joueur.displayHeight, 0x0e88bd, 0.5).setDepth(400);
+  joueur.zoneAttaque.x = joueur.getRightCenter().x
+  joueur.zoneAttaque.y = joueur.getRightCenter().y
+  // zoneAttaque.width -= joueur.getRightCenter().y
+
+
+  // joueur.socle2 = self.add.zone(playerInfo.x, playerInfo.y + 190, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
+
+
+
+
+
   self.players[playerInfo.arene].add(joueur);
 
   // if(!Phaser.Geom.Rectangle.ContainsRect(rectangles, rect))
