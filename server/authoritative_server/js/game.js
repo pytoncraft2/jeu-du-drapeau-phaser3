@@ -216,14 +216,17 @@ function testAttaque(charge, scene, player) {
     // this.physics.world.remove(this.swordHitbox.body)
   })
   var za = scene.matter.add.gameObject(player.zoneAttaque);
-  za.body.collisionFilter.mask = 0
+  // za.body.collisionFilter.mask = 0
+  za.body.collisionFilter.group = Phaser.Math.Between(1, 10)
+za.body.collisionFilter.mask = 0
+
   za.setIgnoreGravity(true).setStatic(true)
 
   player.flipX ?
-  (player.zoneAttaque.x = player.getLeftCenter().x + 300, player.zoneAttaque.y = player.getLeftCenter().y)
-  : (player.zoneAttaque.x = player.getRightCenter().x + 300, player.zoneAttaque.y = player.getRightCenter().y)
+  (player.zoneAttaque.x = player.getLeftCenter().x - 70, player.zoneAttaque.y = player.getLeftCenter().y)
+  : (player.zoneAttaque.x = player.getRightCenter().x + 70, player.zoneAttaque.y = player.getRightCenter().y)
 
-  scene.matter.overlap(player, za, handleCollide, undefined, scene)
+  scene.matter.overlap(scene.players['Naruto'].getChildren(), za, handleCollide, undefined, scene)
 }
 
 function interactionTonneau(player, scene) {
@@ -1252,10 +1255,12 @@ function handleCollide(objet1, objet2, objet3, objet4) {
 
   //JOUEUR
   console.log(objet1.gameObject.playerId);
+  console.log(objet2.gameObject.playerId);
+
   // console.log(objet1.scale);
   // console.log("________");
   // console.log(objet2.scale);
-  console.log(objet4);
+  // console.log(objet4);
 
 if (objet1.playerId) {
   console.log("OBJ 1 ID");
