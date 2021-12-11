@@ -164,9 +164,9 @@ function attaque(charge, scene, player) {
               var distance = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone.x, y: fontainezone.y});
               var distance2 = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone2.x, y: fontainezone2.y});
               if (distance < 530 && distance < 540) {
-                events.emit('changement-vie-equipe', "B", puissance + player.puissanceBonus)
+                events.emit('changement-vie-equipe', "B", puissance + player.puissanceBonus, player.puissanceDeBase)
               } else if (distance2 < 530 && distance2 < 540) {
-                events.emit('changement-vie-equipe', "A", puissance + player.puissanceBonus)
+                events.emit('changement-vie-equipe', "A", puissance + player.puissanceBonus, player.puissanceDeBase)
               } else if (tonneau[0]) {
                 // events.emit('lancer-tonneau', player.flipX, puissance + player.puissanceBonus, tonneau[0].id)
                 tonneau[0].setVelocity((player.flipX ? -10 * (puissance * 5)  : 10 * (puissance * 5)), - (puissance * 100) )
@@ -181,66 +181,7 @@ function attaque(charge, scene, player) {
 }
 
 function testAttaque(charge, scene, player) {
-  // player.play('attack')
-
-  // const startHit = (anim, frame) => {
-//     console.log(frame.index);
-//     if (frame.textureFrame == player.attaqueFrame)
-//     {
-//       return
-//     }
-//     //
-//     player.off(Phaser.Animations.Events.ANIMATION_UPDATE, startHit)
-//     //
-//     // this.swordHitbox.x = player.flipX
-//     // ? player.x - player.displayWidth * 0.25
-//     // : player.x + player.displayWidth * 0.25
-//     //
-//     // this.swordHitbox.y = player.y + player.height * 0.2
-//     //
-//     // this.swordHitbox.body.enable = true
-//     // this.physics.world.add(this.swordHitbox.body)
-//     // console.log("___DEBUT");
-//     // console.log("START HIT");
-//     // console.log(frame.AnimationFrame.textureFrame);
-//     // console.log(frame.textureFrame);
-//     // console.log("____FIN");
-//   }
-//
-//   player.on(Phaser.Animations.Events.ANIMATION_UPDATE, startHit)
-//
-//   player.once(Phaser.Animations.Events.ANIMATION_COMPLETE_KEY + 'attack', () => {
-//     // this.knightStateMachine.setState('idle')
-//     // console.log("ANIMATION SPECIAL ATTAQUE");
-//     // player.setAlpha(0.1)
-//     // TODO: hide and remove the sword swing hitbox
-//     // this.swordHitbox.body.enable = false
-//     // this.physics.world.remove(this.swordHitbox.body)
-//   })
-//   var za = scene.matter.add.gameObject(player.zoneAttaque);
-//   // za.body.collisionFilter.mask = 0
-//   za.setCollisionCategory(null);
-//
-//   // za.body.collisionFilter.group = Phaser.Math.Between(1, 10)
-// // za.body.collisionFilter.mask = 0
-//
-//   za.setIgnoreGravity(true).setStatic(true)
-//
-//   player.flipX ?
-//   (player.zoneAttaque.x = player.getLeftCenter().x - 70, player.zoneAttaque.y = player.getLeftCenter().y)
-//   : (player.zoneAttaque.x = player.getRightCenter().x + 70, player.zoneAttaque.y = player.getRightCenter().y)
-//
-//   scene.matter.overlap(scene.players['Naruto'].getChildren(), za, handleCollide, undefined, scene)
-//
-
-
-
-
-
-  var count;
   if (charge) {
-    count = false;
-
     scene.tween = scene.tweens.timeline({
       tweens: [{
         targets: player,
@@ -315,60 +256,22 @@ function testAttaque(charge, scene, player) {
       scene.tween.stop()
       player.setAlpha(1)
     }
-    // const recupereLePlusProche = scene.tonneaux.getChildren().map(t => {
-    //   if (Phaser.Math.Distance.BetweenPoints(player, t) < 300 && Phaser.Math.Distance.BetweenPoints(player, t) < 310) {
-    //     return t
-    //   }
-    // } );
-    // var tonneau = recupereLePlusProche.filter( Boolean );
     player.play('attack', true)
 
-    count = true;
-    count = false;
-
     const startHit = (anim, frame) => {
-        // console.log(frame.index);
         if (frame.textureFrame == player.attaqueFrame)
         {
           return
         }
-        //
         player.off(Phaser.Animations.Events.ANIMATION_UPDATE, startHit)
-        //
-        // this.swordHitbox.x = player.flipX
-        // ? player.x - player.displayWidth * 0.25
-        // : player.x + player.displayWidth * 0.25
-        //
-        // this.swordHitbox.y = player.y + player.height * 0.2
-        //
-        // this.swordHitbox.body.enable = true
-        // this.physics.world.add(this.swordHitbox.body)
-        console.log("___DEBUT");
-        // console.log("START HIT");
-        // console.log(frame.AnimationFrame.textureFrame);
-        console.log(frame.textureFrame);
-        console.log("____FIN");
-
         player.flipX ?
         (player.zoneAttaque.x = player.getLeftCenter().x - 70, player.zoneAttaque.y = player.getLeftCenter().y)
         : (player.zoneAttaque.x = player.getRightCenter().x + 70, player.zoneAttaque.y = player.getRightCenter().y)
-
         scene.matter.overlap(scene.players['Naruto'].getChildren(), player.zoneAttaque, handleCollide, undefined, scene)
-
-
-
-
       }
 
         player.on(Phaser.Animations.Events.ANIMATION_UPDATE, startHit)
-
         player.once(Phaser.Animations.Events.ANIMATION_COMPLETE_KEY + 'attack', () => {
-          // this.knightStateMachine.setState('idle')
-          // console.log("ANIMATION SPECIAL ATTAQUE");
-          // player.setAlpha(0.1)
-          // TODO: hide and remove the sword swing hitbox
-          // this.swordHitbox.body.enable = false
-          // this.physics.world.remove(this.swordHitbox.body)
           console.log("FIN ATTACK ANIM");
         })
 
@@ -551,6 +454,7 @@ parametres['dessinatrice1'] = {
     displayWidth: 104,
     displayHeight: 302,
     masse: 30,
+    puissanceDeBase: 10,
     attaqueFrame: "positiona3"
   },
   toucheA: (charge, scene, player) => {
@@ -579,6 +483,7 @@ parametres['ninja'] = {
     displayWidth: 149,
     displayHeight: 140,
     masse: 10,
+    puissanceDeBase: 12,
     attaqueFrame: "positiona1"
   },
   toucheA: (charge, scene, player) => {
@@ -606,6 +511,7 @@ parametres['ninja'] = {
 parametres['ninja2'] = {
   etatInitial: {
     vie: 5,
+    puissanceDeBase: 8,
     displayWidth: 158.8,
     displayHeight: 160.4,
     masse: 15,
@@ -634,6 +540,7 @@ parametres['ninja2'] = {
 parametres['aventuriere2'] = {
   etatInitial: {
     vie: 5,
+    puissanceDeBase: 10,
     displayWidth: 38.40,
     displayHeight: 51.2,
     masse: 20,
@@ -665,6 +572,7 @@ parametres['chevalier'] = {
     displayWidth: 217.60,
     displayHeight: 241.6,
     masse: 35,
+    puissanceDeBase: 12,
     attaqueFrame: "positiona3"
   },
   toucheA: (charge, scene, player) => {
@@ -693,6 +601,7 @@ parametres['naruto'] = {
     displayWidth: 102,
     displayHeight: 300,
     masse: 25,
+    puissanceDeBase: 8,
     attaqueFrame: "positiona3"
   },
   toucheA: (charge, scene, player) => {
@@ -1275,8 +1184,8 @@ function recupereLeTonneauLePlusProche(player, tonneaux) {
  * @return {[type]}           [description]
  */
 
- function changementVieEquipe(equipe, puissance) {
-   this.vieEquipe[equipe] -= puissance * 10;
+ function changementVieEquipe(equipe, puissance, puissanceDeBase) {
+   this.vieEquipe[equipe] -= puissance * puissanceDeBase;
    if (this.vieEquipe[equipe] <= 0) {
      if (equipe == "A" && fontainezone2.active) {
        fontainezone2.setActive(false);
@@ -1392,6 +1301,7 @@ function addPlayer(self, playerInfo) {
   joueur.attacked = playerInfo.attacked;
   joueur.masse = playerInfo.masse;
   joueur.puissanceBonus = playerInfo.puissanceBonus;
+  joueur.puissanceDeBase = playerInfo.puissanceDeBase;
   joueur.attaqueFrame = playerInfo.attaqueFrame
   joueur.setFrictionAir(0.05);
   joueur.setMass(joueur.masse);
