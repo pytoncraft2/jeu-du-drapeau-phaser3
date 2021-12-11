@@ -218,6 +218,11 @@ function testAttaque(charge, scene, player) {
   var za = scene.matter.add.gameObject(player.zoneAttaque);
   za.body.collisionFilter.mask = 0
   za.setIgnoreGravity(true).setStatic(true)
+
+  player.flipX ?
+  (player.zoneAttaque.x = player.getLeftCenter().x, player.zoneAttaque.y = player.getLeftCenter().y)
+  : (player.zoneAttaque.x = player.getRightCenter().x, player.zoneAttaque.y = player.getRightCenter().y)
+
   scene.matter.overlap(player, za, handleCollide, undefined, scene)
 }
 
