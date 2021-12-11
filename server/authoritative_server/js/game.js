@@ -648,6 +648,17 @@ function create() {
 
   // matDrapeauBleu = this.matter.add.image(-4848.428561331542, -1043.2723001427164, 'matDrapeauBleu').setDepth(1)
 
+  this.testgroup = this.physics.add.group({
+      defaultKey: 'tonneau',
+      bounceX: 1,
+      bounceY: 1,
+      collideWorldBounds: true
+  });
+
+this.testgroup.create(100, 200).setVelocity(100, 200);
+this.testgroup.create(500, 200).setVelocity(-100, -100);
+this.testgroup.create(300, 400).setVelocity(60, 100);
+this.testgroup.create(600, 300).setVelocity(-30, -50);
 
 this.tonneaux = this.add.group()
 let tonneau1 = this.add.zone(-1000, 1700, 210, 210).setSize(155, 215.6)
@@ -1161,6 +1172,8 @@ function handlePlayerInput(self, playerId, arene, input) {
 }
 
 function check(scene, player) {
+  // console.log(scene.testgroup);
+  console.log(scene.physics.closest(scene.rect, [...scene.testgroup.getChildren()]));
   if( Phaser.Geom.Rectangle.ContainsPoint(scene.rect, {x: player.x ,y: player.y})) {
     console.log("OOOOOOOOOOOOOOOOOOOUUIII");
   } else {
