@@ -494,8 +494,17 @@ def.body.collisionFilter.mask = 44
     this.matter.add.mouseSpring();
 
     this.cameras.main.setZoom(0.5);
-  },
 
+    console.log("BEFORE");
+    // this.matter.overlap(this.players, this.drapeaux, this.handleCollide, undefined, this)
+    this.matter.overlap(this.players, this.players, this.handleCollide )
+
+    console.log("AFTER");
+
+  },
+  handleCollide: function(objet1, objet2) {
+    console.log("Copyright (c) 2018 Copyright Holder All Rights Reserved.");
+  },
   setVieEquipe: function(value, equipe) {
     const width = 500
     const percent = Phaser.Math.Clamp(value, 0, 100) / 100
@@ -779,7 +788,7 @@ def.body.collisionFilter.mask = 44
   displayPlayers: function(self, playerInfo, iscurrent) {
     console.log("Ajout joueur function");
     console.log(playerInfo);
-    const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, playerInfo.atlas, 'face0').setAlpha(1).setScale(0.4).setDepth(0.1);
+    const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, playerInfo.atlas, 'face0').setAlpha(1).setScale(0.4).setDepth(0.1).setIgnoreGravity(true);
     // alert(joueur.displayWidth)
     // alert(joueur.displayHeight)
 
@@ -819,6 +828,7 @@ def.body.collisionFilter.mask = 44
 
     // joueur.socle2 = self.add.zone(playerInfo.x, playerInfo.y + 190, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
     var za = self.matter.add.gameObject(zoneAttaque);
+
 
 
 
