@@ -495,11 +495,6 @@ def.body.collisionFilter.mask = 44
 
     this.cameras.main.setZoom(0.5);
 
-    console.log("BEFORE");
-    // this.matter.overlap(this.players, this.drapeaux, this.handleCollide, undefined, this)
-    this.matter.overlap(this.players, this.players, this.handleCollide )
-
-    console.log("AFTER");
 
   },
   handleCollide: function(objet1, objet2) {
@@ -823,11 +818,12 @@ def.body.collisionFilter.mask = 44
     }
 
     joueur.ombre = self.add.ellipse(position.x, position.y - 30, 100, 20, couleur).setAlpha(0.8).setDepth(-1);
-    let zoneAttaque = self.add.rectangle(playerInfo.x, playerInfo.y ,210, 210).setSize(200, 40).setDepth(400);
+    let zoneAttaque = self.add.rectangle(playerInfo.x + playerInfo.displayWidth * 0.78, playerInfo.y ,210, 210).setSize(playerInfo.displayWidth / 2, playerInfo.displayHeight).setDepth(400);
 
 
     // joueur.socle2 = self.add.zone(playerInfo.x, playerInfo.y + 190, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
     var za = self.matter.add.gameObject(zoneAttaque);
+    self.matter.overlap(joueur, za, this.handleCollide, undefined, this)
 
 
 
