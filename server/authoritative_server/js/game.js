@@ -880,9 +880,14 @@ function update() {
         alpha: tonneau.alpha
       }
       // console.log(tonneau);
-      console.log(this.testgroup.getMatching('id', tonneau.id)[0].angle);
+      // console.log(this.testgroup.getMatching('id', tonneau.id)[0].angle);
 
     });
+if (this.rect) {
+  console.log("ouisitiitit-----------------------------------");
+this.rect.x = this.players["Naruto"].getChildren()[0].x
+this.rect.y = this.players["Naruto"].getChildren()[0].y
+}
 
     this.players["Naruto"].getChildren().forEach((player) => {
       const input = players[player.arene][player.playerId].input;
