@@ -180,7 +180,7 @@ function attaque(charge, scene, player) {
 }
 
 function testAttaque(charge, scene, player) {
-  player.play('attack', true)
+  player.play('attack')
 
   const startHit = (anim, frame) => {
     if (frame.textureFrame == player.attaqueFrame)
@@ -209,8 +209,8 @@ function testAttaque(charge, scene, player) {
 
   player.once(Phaser.Animations.Events.ANIMATION_COMPLETE_KEY + 'attack', () => {
     // this.knightStateMachine.setState('idle')
-    // console.log("OK");
-    player.setAlpha(0.1)
+    // console.log("ANIMATION SPECIAL ATTAQUE");
+    // player.setAlpha(0.1)
     // TODO: hide and remove the sword swing hitbox
     // this.swordHitbox.body.enable = false
     // this.physics.world.remove(this.swordHitbox.body)
