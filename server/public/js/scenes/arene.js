@@ -134,13 +134,16 @@ def.body.collisionFilter.mask = 44
       let moi = self.players.getMatching('playerId', self.socket.id)[0].playerId
 
       if (id == moi) {
+        if (this.vies.getFirstAlive()) {
         this.vies.getFirstAlive().setAlpha(0.2).setActive(false)
+        }
       }
     })
 
     this.socket.on("fin_de_vie", (id, vie) => {
       let moi = self.players.getMatching('playerId', self.socket.id)[0].playerId
 
+      console.log(vie);
       if (id == moi) {
         this.vies.getChildren().forEach((cercle, i) => {
           cercle.setActive(true).setAlpha(1)

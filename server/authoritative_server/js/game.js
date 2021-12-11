@@ -218,8 +218,10 @@ function testAttaque(charge, scene, player) {
   })
   var za = scene.matter.add.gameObject(player.zoneAttaque);
   // za.body.collisionFilter.mask = 0
-  za.body.collisionFilter.group = Phaser.Math.Between(1, 10)
-za.body.collisionFilter.mask = 0
+  za.setCollisionCategory(null);
+
+  // za.body.collisionFilter.group = Phaser.Math.Between(1, 10)
+// za.body.collisionFilter.mask = 0
 
   za.setIgnoreGravity(true).setStatic(true)
 
@@ -343,6 +345,8 @@ function interactionTirolienne(player, scene) {
 
 
 function gestionVie(vie, id) {
+  console.log("VVVVVVVVVVVVVVVVVVIIIIE");
+  console.log(vie);
   if (vie <= 0) {
     evenement.emit('fin-de-vie', id)
   } else {
@@ -386,7 +390,7 @@ parametres['dessinatrice1'] = {
 
 parametres['ninja'] = {
   etatInitial: {
-    vie: 3,
+    vie: 4,
     displayWidth: 149,
     displayHeight: 140,
     masse: 10,
@@ -1123,7 +1127,7 @@ function changementVie(id) {
 
 function finDeVie(id) {
   let joueur = this.players["Naruto"].getMatching("playerId", id)[0]
-  joueur.vie = 5;
+  joueur.vie = parametres[joueur.atlas].etatInitial.vie
   let x = joueur.equipe == "A" ? -379 : 7000
   let y = joueur.equipe == "A" ? 100 : -1600
   joueur.setCollisionGroup(6).setCollidesWith(4)
@@ -1210,38 +1214,10 @@ function addPlayer(self, playerInfo) {
   joueur.zoneAttaque = self.add.rectangle(0, 0 ,joueur.displayWidth, joueur.displayHeight, 0x0e88bd, 0.5).setDepth(400);
   joueur.zoneAttaque.x = joueur.getRightCenter().x
   joueur.zoneAttaque.y = joueur.getRightCenter().y
-  // zoneAttaque.width -= joueur.getRightCenter().y
-
-
-  // joueur.socle2 = self.add.zone(playerInfo.x, playerInfo.y + 190, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
-
-
-
-
 
   self.players[playerInfo.arene].add(joueur);
 
-  // if(!Phaser.Geom.Rectangle.ContainsRect(rectangles, rect))
-// {
-//     graphics.strokeRectShape(rectangles[i]);
-// }
-  // joueur.socle = self.add.zone(playerInfo.x + 400, playerInfo.y, 210, 210).setSize(350, 340).setOrigin(0.5, 0.5);
-  // joueur.socle.setFriction(0.05);
-// joueur.socle.setFrictionAir(0.0005);
-// joueur.socle.setBounce(0.9);
-
-  // var v = self.matter.add.gameObject(joueur.socle);
-  // v.setIgnoreGravity(true).setStatic(true).setCollisionGroup(9).setCollidesWith(99)
   joueur.ombre = self.add.ellipse(-79, 327 - 30, 100, 20, 0x0009).setAlpha(0.5);
-  // joueur.box = self.add.rectangle(playerInfo.displayWidth * 0.75, playerInfo.displayHeight * 0.5, 64, 128, 0xffffff)
-  // joueur.swordHitbox = self.add.rectangle(0, 0, 32, 64, 0xffffff, 0)
-  // this.physics.add.existing(this.box, true)
-//   this.swordHitbox = this.add.rectangle(0, 0, 32, 64, 0xffffff, 0) as unknown as Phaser.Types.Physics.Arcade.ImageWithDynamicBody
-//
-// this.physics.add.existing(this.swordHitbox)
-// this.swordHitbox.body.enable = false
-// this.physics.world.remove(this.swordHitbox.body)
-
   self.tweens.add({
   targets: joueur,
   alpha: 1,
@@ -1250,29 +1226,12 @@ function addPlayer(self, playerInfo) {
   // onComplete: () => (joueur.setScale(0.4), joueur.setCollidesWith(0), joueur.setCollisionGroup(-1)),
   ease: 'Sine.easeInOut'
 });
-
-  // var socleJoueur = self.matter.add.gameObject(joueur.socle);
-  // socleJoueur.setIgnoreGravity(true).setStatic(true)
 }
 
 function handleCollide(objet1, objet2, info) {
-  // console.log("HANDDLE COOOLLIIIDE");
-  // console.log("OOOOOOOOOOOBBBJJETT 1");
-  // console.log(objet1);
-  // console.log("OOOOOOOOOOOBBBJJETT 2");
-
-  //RECTANGLE
-  // console.log(objet2);
-
-  //JOUEUR (objet1 : target)
-  console.log(objet1.gameObject.playerId);
-  console.log(objet1.gameObject.vie);
-  // console.log(objet2.gameObject.playerId);
-
   if (objet1.gameObject.playerId) {
     gestionVie(objet1.gameObject.vie, objet1.gameObject.playerId)
   }
-
 }
 
 function removePlayer(self, playerId, arene) {
