@@ -818,7 +818,14 @@ def.body.collisionFilter.mask = 44
     }
 
     joueur.ombre = self.add.ellipse(position.x, position.y - 30, 100, 20, couleur).setAlpha(0.8).setDepth(-1);
-    let zoneAttaque = self.add.rectangle(playerInfo.x + playerInfo.displayWidth * 0.78, playerInfo.y ,210, 210).setSize(playerInfo.displayWidth / 2, playerInfo.displayHeight).setDepth(400);
+    // let zoneAttaque = self.add.rectangle(playerInfo.x + playerInfo.displayWidth, playerInfo.y ,210, 210).setSize(playerInfo.displayWidth / 2, playerInfo.displayHeight).setDepth(400);
+    // console.log(joueur.width);
+    // console.log(joueur.displayWidth);
+    // console.log(joueur.getBottomLeft())
+    console.log(joueur.getBottomCenter())
+    let zoneAttaque = self.add.rectangle(0, 0 ,32, 64, 0x0e88bd, 0.5).setDepth(400);
+    zoneAttaque.x = joueur.getRightCenter().x
+    zoneAttaque.y = joueur.getRightCenter().y
 
 
     // joueur.socle2 = self.add.zone(playerInfo.x, playerInfo.y + 190, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
