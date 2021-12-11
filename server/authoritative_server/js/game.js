@@ -1175,13 +1175,15 @@ function addPlayer(self, playerInfo) {
   joueur.setFrictionAir(0.05);
   joueur.setMass(joueur.masse);
   self.players[playerInfo.arene].add(joueur);
-  joueur.socle = self.add.zone(playerInfo.x + 400, playerInfo.y, 210, 210).setSize(350, 340).setOrigin(0.5, 0.5);
+  var rect = new Phaser.GameObjects.Rectangle(self, playerInfo.x,playerInfo.y, 350, 340);
+  self.add.existing(rect);
+  // joueur.socle = self.add.zone(playerInfo.x + 400, playerInfo.y, 210, 210).setSize(350, 340).setOrigin(0.5, 0.5);
   // joueur.socle.setFriction(0.05);
 // joueur.socle.setFrictionAir(0.0005);
 // joueur.socle.setBounce(0.9);
 
-  var v = self.matter.add.gameObject(joueur.socle);
-  v.setIgnoreGravity(true).setStatic(true).setCollisionGroup(9).setCollidesWith(99)
+  // var v = self.matter.add.gameObject(joueur.socle);
+  // v.setIgnoreGravity(true).setStatic(true).setCollisionGroup(9).setCollidesWith(99)
   joueur.ombre = self.add.ellipse(-79, 327 - 30, 100, 20, 0x0009).setAlpha(0.5);
   // joueur.box = self.add.rectangle(playerInfo.displayWidth * 0.75, playerInfo.displayHeight * 0.5, 64, 128, 0xffffff)
   // joueur.swordHitbox = self.add.rectangle(0, 0, 32, 64, 0xffffff, 0)
@@ -1197,7 +1199,7 @@ function addPlayer(self, playerInfo) {
 //
 // TODO: add physics overlap with dummy box; show box damaged on overlap
 // this.boxStateMachine.setState('damage')
-self.matter.overlap(joueur, v, handleCollide, undefined, this)
+// self.matter.overlap(joueur, v, handleCollide, undefined, this)
   self.tweens.add({
   targets: joueur,
   alpha: 1,
