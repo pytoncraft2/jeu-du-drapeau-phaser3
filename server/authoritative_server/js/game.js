@@ -1,5 +1,6 @@
 const players = {};
 const clones = {};
+var evenement = null;
 players['Naruto'] = {};
 clones['Naruto'] = {};
 players['Pikachu'] = {};
@@ -155,7 +156,7 @@ function attaque(charge, scene, player) {
       to: 1,
       scale: 1,
       duration: 500,
-      onUpdateParams: [ scene.events ],
+      onUpdateParams: [ evenement ],
       onUpdate: function functionName(tween, targets, events) {
         if (player.active) {
           if (player.anims.getFrameName() == player.attaqueFrame) {
@@ -554,6 +555,7 @@ function preload() {
 
 function create() {
 
+
   this.tween = null;
   this.tweenSaut = null;
   this.graph = this.add.graphics();
@@ -690,12 +692,12 @@ t4.setMass(40).setFriction(2).setFrictionAir(0.1)
 this.tonneaux.addMultiple([t1, t2, t3, t4])
 
 
-  this.events = new Phaser.Events.EventEmitter()
-  this.events.on('changement-vie-equipe', changementVieEquipe, this)
-  this.events.on('changement-vie', changementVie, this)
-  this.events.on('lancer-tonneau', lancerTonneau, this)
-  this.events.on('fin-de-vie', finDeVie, this)
-  this.events.on('fin-de-partie', finDePartie, this)
+  evenement = new Phaser.Events.EventEmitter()
+  evenement.on('changement-vie-equipe', changementVieEquipe, this)
+  evenement.on('changement-vie', changementVie, this)
+  evenement.on('lancer-tonneau', lancerTonneau, this)
+  evenement.on('fin-de-vie', finDeVie, this)
+  evenement.on('fin-de-partie', finDePartie, this)
 
   //tobogan mini socles
   let microPlatforme = self.add.zone(1916, 235, 210, 210).setSize(200, 40);
@@ -1244,7 +1246,7 @@ function addPlayer(self, playerInfo) {
   // socleJoueur.setIgnoreGravity(true).setStatic(true)
 }
 
-function handleCollide(objet1, objet2, objet3, objet4) {
+function handleCollide(objet1, objet2, info) {
   // console.log("HANDDLE COOOLLIIIDE");
   // console.log("OOOOOOOOOOOBBBJJETT 1");
   // console.log(objet1);
@@ -1253,78 +1255,13 @@ function handleCollide(objet1, objet2, objet3, objet4) {
   //RECTANGLE
   // console.log(objet2);
 
-  //JOUEUR
+  //JOUEUR (objet1 : target)
   console.log(objet1.gameObject.playerId);
   console.log(objet2.gameObject.playerId);
 
-  // console.log(objet1.scale);
-  // console.log("________");
-  // console.log(objet2.scale);
-  // console.log(objet4);
-
-if (objet1.playerId) {
-  console.log("OBJ 1 ID");
-  console.log(objet1.playerId);
-
-} else if (objet2.playerId) {
-  console.log("OBJ 2 ID");
-  console.log(objet2.playerId);
-
-}
-      //  Loop through all of the collision pairs
-      // var pairs = event.pairs;
-      //
-      // for (var i = 0; i < pairs.length; i++)
-      // {
-      //     var bodyA = pairs[i].bodyA;
-      //     var bodyB = pairs[i].bodyB;
-      //
-      //     //  We only want sensor collisions
-      //     if (pairs[i].isSensor)
-      //     {
-      //         var blockBody;
-      //         var playerBody;
-      //
-      //         if (bodyA.isSensor)
-      //         {
-      //             blockBody = bodyB;
-      //             playerBody = bodyA;
-      //         }
-      //         else if (bodyB.isSensor)
-      //         {
-      //             blockBody = bodyA;
-      //             playerBody = bodyB;
-      //         }
-      //
-      //         //  You can get to the Sprite via `gameObject` property
-      //         var playerSprite = playerBody.gameObject;
-      //         var blockSprite = blockBody.gameObject;
-      //
-      //         var color;
-      //
-      //         if (playerBody.label === 'left')
-      //         {
-      //             color = 0xff0000;
-      //         }
-      //         else if (playerBody.label === 'right')
-      //         {
-      //             color = 0x00ff00;
-      //         }
-      //         else if (playerBody.label === 'top')
-      //         {
-      //             color = 0x0000ff;
-      //         }
-      //         else if (playerBody.label === 'bottom')
-      //         {
-      //             color = 0xffff00;
-      //         }
-      //
-      //         blockSprite.setTintFill(color);
-      //     }
-      // }
-
-
-
+  if (objet1.gameObject.playerId) {
+    evenement.emit('changement-vie', objet1.gameObject.playerId)
+  }
 
 }
 
