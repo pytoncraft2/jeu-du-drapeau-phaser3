@@ -655,10 +655,6 @@ function create() {
       collideWorldBounds: true
   });
 
-this.testgroup.create(100, 200).setVelocity(100, 200);
-this.testgroup.create(500, 200).setVelocity(-100, -100);
-this.testgroup.create(300, 400).setVelocity(60, 100);
-this.testgroup.create(600, 300).setVelocity(-30, -50);
 
 this.tonneaux = this.add.group()
 let tonneau1 = this.add.zone(-1000, 1700, 210, 210).setSize(155, 215.6)
@@ -669,6 +665,7 @@ let tonneau3 = this.add.zone(-1400, 1700, 210, 210).setSize(155, 215.6)
 tonneau3.id = 3;
 let tonneau4 = this.add.zone(-1600, 1700, 210, 210).setSize(155, 215.6)
 tonneau4.id = 4;
+
 
 t1 = self.matter.add.gameObject(tonneau1);
 t1.setMass(40).setFriction(2).setFrictionAir(0.1)
@@ -684,6 +681,17 @@ t3.setMass(40).setFriction(2).setFrictionAir(0.1)
 
 t4 = self.matter.add.gameObject(tonneau4);
 t4.setMass(40).setFriction(2).setFrictionAir(0.1)
+
+var to1  = this.testgroup.create(100, 200).setPosition(t1.x, t1.y);
+var to2  = this.testgroup.create(500, 200).setPosition(t2.x, t2.y);
+var to3  = this.testgroup.create(300, 400).setPosition(t3.x, t3.y);
+var to4 =  this.testgroup.create(600, 300).setPosition(t4.x, t4.y);
+
+to1.id = tonneau1.id
+to2.id = tonneau2.id
+to3.id = tonneau3.id
+to4.id = tonneau4.id
+
 
 this.tonneaux.addMultiple([t1, t2, t3, t4])
 
@@ -853,6 +861,9 @@ function update() {
       }
     });
 
+    // this.testgroup.getChildren().forEach((tonneau) => {
+    //
+    // });
 
     this.tonneaux.getChildren().forEach((tonneau) => {
       barils[tonneau.id] = {
