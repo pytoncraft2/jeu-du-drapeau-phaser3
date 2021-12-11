@@ -648,13 +648,6 @@ function create() {
 
   // matDrapeauBleu = this.matter.add.image(-4848.428561331542, -1043.2723001427164, 'matDrapeauBleu').setDepth(1)
 
-  this.testgroup = this.physics.add.group({
-      defaultKey: 'tonneau',
-      bounceX: 1,
-      bounceY: 1,
-      collideWorldBounds: true
-  });
-
 
 this.tonneaux = this.add.group()
 let tonneau1 = this.add.zone(-1000, 1700, 210, 210).setSize(155, 215.6)
@@ -681,17 +674,6 @@ t3.setMass(40).setFriction(2).setFrictionAir(0.1)
 
 t4 = self.matter.add.gameObject(tonneau4);
 t4.setMass(40).setFriction(2).setFrictionAir(0.1)
-
-var to1  = this.testgroup.create(100, 200).setPosition(t1.x, t1.y);
-var to2  = this.testgroup.create(500, 200).setPosition(t2.x, t2.y);
-var to3  = this.testgroup.create(300, 400).setPosition(t3.x, t3.y);
-var to4 =  this.testgroup.create(600, 300).setPosition(t4.x, t4.y);
-
-to1.id = tonneau1.id
-to2.id = tonneau2.id
-to3.id = tonneau3.id
-to4.id = tonneau4.id
-
 
 this.tonneaux.addMultiple([t1, t2, t3, t4])
 
@@ -861,17 +843,7 @@ function update() {
       }
     });
 
-    this.testgroup.getChildren().forEach((tonneau) => {
-      // console.log(tonneau.id);
-    });
-
     this.tonneaux.getChildren().forEach((tonneau) => {
-
-      // this.testgroup.getMatching('id', tonneau.id)[0].x = tonneau.x
-      tonneau.angle = this.testgroup.getMatching('id', tonneau.id)[0].angle
-      // this.testgroup.getMatching('id', tonneau.id)[0].x = tonneau.x
-      // this.testgroup.getMatching('id', tonneau.id)[0].y = tonneau.y
-
       barils[tonneau.id] = {
         x: tonneau.x,
         y: tonneau.y,
@@ -879,9 +851,6 @@ function update() {
         id: tonneau.id,
         alpha: tonneau.alpha
       }
-      // console.log(tonneau);
-      // console.log(this.testgroup.getMatching('id', tonneau.id)[0].angle);
-
     });
 if (this.rect) {
   console.log("ouisitiitit-----------------------------------");
@@ -1197,9 +1166,6 @@ function handlePlayerInput(self, playerId, arene, input) {
 }
 
 function check(scene, player) {
-  // console.log(scene.testgroup);
-  let proche = scene.physics.closest({x: player.x, y: player.y}, [...scene.testgroup.getChildren()]);
-  proche.setAngularVelocity(20)
   // if( Phaser.Geom.Rectangle.ContainsPoint(scene.rect, {x: player.x ,y: player.y})) {
   //   console.log("OOOOOOOOOOOOOOOOOOOUUIII");
   // } else {
