@@ -145,6 +145,7 @@ def.body.collisionFilter.mask = 44
 
       console.log(vie);
       if (id == moi) {
+        this.cameras.main.shake(500);
         this.vies.getChildren().forEach((cercle, i) => {
           cercle.setActive(true).setAlpha(1)
         });
