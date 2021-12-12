@@ -479,6 +479,8 @@ def.body.collisionFilter.mask = 44
     this.zKeyPressed = this.input.keyboard.addKey('Z');
     this.eKeyPressed = this.input.keyboard.addKey('E');
 
+    this.toucheProtection = this.input.keyboard.addKey('ALT');
+
     //Se redresser
     this.toucheM = this.input.keyboard.addKey('M');
     //DROITE-GAUCHE
@@ -631,6 +633,16 @@ def.body.collisionFilter.mask = 44
         chargeSaut: false
       });
     }
+
+    /**
+     * SE PROTEGER
+     *
+     */
+     if (Phaser.Input.Keyboard.JustDown(this.toucheProtection)) {
+       this.socket.emit('playerInput', {
+         protection: true
+       });
+     }
 
 
     /**
