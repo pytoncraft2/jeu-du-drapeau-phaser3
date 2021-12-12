@@ -313,39 +313,42 @@ function interactionTonneauDrapeau(player, scene) {
     constraints[player.playerId]['tonneau'] = {}
   }
 
-//FONTAINE
+  if (!fontainezone2.active) {
+    var distance = Phaser.Math.Distance.BetweenPoints(scene.drapeaux.getChildren()[0], {x: fontainezone.x, y: fontainezone.y});
 
-if (!fontainezone2.active) {
+    //ATTRAPER DRAPEAU BLEU
     var distanceDrapeauBleu = Phaser.Math.Distance.BetweenPoints(player, {x: scene.drapeaux.getChildren()[0].x, y: scene.drapeaux.getChildren()[0].y});
-  if (distanceDrapeauBleu < 130 && distanceDrapeauBleu < 140) {
-    if (Object.keys(constraints[player.playerId]['drapeau']).length == 0) {
-      constraints[player.playerId]['drapeau'] = scene.matter.add.constraint(scene.drapeaux.getChildren()[0], player, 0)
-    } else {
-      scene.matter.world.removeConstraint(constraints[player.playerId]['drapeau']);
-      constraints[player.playerId]['drapeau'] = {}
-    }
-
-    if (fontainezone.contains(drapeauVert.x, drapeauVert.y)) {
-      scene.events.emit('fin-de-partie', "A")
-    }
-  }
-}
-
-if (!fontainezone.active) {
-  if (drapeauBleu.contains(player.x, player.y)) {
-    if (Object.keys(constraints[player.playerId]['drapeau']).length == 0) {
-      constraints[player.playerId]['drapeau'] = scene.matter.add.constraint(scene.drapeaux.getChildren()[0], player, 0)
-    } else {
-      scene.matter.world.removeConstraint(constraints[player.playerId]['drapeau']);
-      constraints[player.playerId]['drapeau'] = {}
-    }
-
-    if (fontainezone2.contains(drapeauBleu.x, drapeauBleu.y)) {
-      scene.events.emit('fin-de-partie', "B")
+    if (distanceDrapeauBleu < 130 && distanceDrapeauBleu < 140) {
+      if (Object.keys(constraints[player.playerId]['drapeau']).length == 0) {
+        constraints[player.playerId]['drapeau'] = scene.matter.add.constraint(scene.drapeaux.getChildren()[0], player, 0)
+        console.log("DRAPEAU ATTRAPER");
+      } else {
+        scene.matter.world.removeConstraint(constraints[player.playerId]['drapeau']);
+        constraints[player.playerId]['drapeau'] = {}
+        console.log("DRAPEAU LACHER");
+        if (distance < 530 && distance < 540) {
+          scene.events.emit('fin-de-partie', "A")
+        }
+      }
     }
   }
-}
 
+  if (!fontainezone.active) {
+    var distance2 = Phaser.Math.Distance.BetweenPoints(scene.drapeaux.getChildren()[1], {x: fontainezone2.x, y: fontainezone2.y});
+    //ATTRAPER DRAPEAU VERT
+    var distanceDrapeauVert = Phaser.Math.Distance.BetweenPoints(player, {x: scene.drapeaux.getChildren()[1].x, y: scene.drapeaux.getChildren()[1].y});
+    if (distanceDrapeauVert < 130 && distanceDrapeauVert < 140) {
+      if (Object.keys(constraints[player.playerId]['drapeau']).length == 0) {
+        constraints[player.playerId]['drapeau'] = scene.matter.add.constraint(scene.drapeaux.getChildren()[1], player, 0)
+      } else {
+        scene.matter.world.removeConstraint(constraints[player.playerId]['drapeau']);
+        constraints[player.playerId]['drapeau'] = {}
+        if (distance2 < 530 && distance2 < 540) {
+          scene.events.emit('fin-de-partie', "B")
+        }
+      }
+    }
+  }
 })
 
 
@@ -359,43 +362,7 @@ if (!fontainezone.active) {
   * @return {[type]}               [description]
   */
   //SI LE DRAPEAU SE SITUE A LA MEME POSITION QUE LA FONTAINE
-  // if (!fontainezone2.active) {
-  //   // var distance = Phaser.Math.Distance.BetweenPoints(scene.drapeaux.getChildren()[0], {x: fontainezone.x, y: fontainezone.y});
-  //
-  //
-  //   //ATTRAPER DRAPEAU BLEU
-  //   // var distanceDrapeauBleu = Phaser.Math.Distance.BetweenPoints(player, {x: scene.drapeaux.getChildren()[0].x, y: scene.drapeaux.getChildren()[0].y});
-  //   if (distanceDrapeauBleu < 130 && distanceDrapeauBleu < 140) {
-  //     if (Object.keys(constraints[player.playerId]['drapeau']).length == 0) {
-  //       constraints[player.playerId]['drapeau'] = scene.matter.add.constraint(scene.drapeaux.getChildren()[0], player, 0)
-  //       console.log("DRAPEAU ATTRAPER");
-  //     } else {
-  //       scene.matter.world.removeConstraint(constraints[player.playerId]['drapeau']);
-  //       constraints[player.playerId]['drapeau'] = {}
-  //       console.log("DRAPEAU LACHER");
-  //       if (distance < 530 && distance < 540) {
-  //         scene.events.emit('fin-de-partie', "A")
-  //       }
-  //     }
-  //   }
-  // }
-  //
-  // if (!fontainezone.active) {
-  //   var distance2 = Phaser.Math.Distance.BetweenPoints(scene.drapeaux.getChildren()[1], {x: fontainezone2.x, y: fontainezone2.y});
-  //   //ATTRAPER DRAPEAU VERT
-  //   var distanceDrapeauVert = Phaser.Math.Distance.BetweenPoints(player, {x: scene.drapeaux.getChildren()[1].x, y: scene.drapeaux.getChildren()[1].y});
-  //   if (distanceDrapeauVert < 130 && distanceDrapeauVert < 140) {
-  //     if (Object.keys(constraints[player.playerId]['drapeau']).length == 0) {
-  //       constraints[player.playerId]['drapeau'] = scene.matter.add.constraint(scene.drapeaux.getChildren()[1], player, 0)
-  //     } else {
-  //       scene.matter.world.removeConstraint(constraints[player.playerId]['drapeau']);
-  //       constraints[player.playerId]['drapeau'] = {}
-  //       if (distance2 < 530 && distance2 < 540) {
-  //         scene.events.emit('fin-de-partie', "B")
-  //       }
-  //     }
-  //   }
-  // }
+
 
 
 
