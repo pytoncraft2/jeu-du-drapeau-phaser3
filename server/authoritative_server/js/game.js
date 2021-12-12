@@ -275,6 +275,91 @@ function interactionTonneau(player, scene) {
   }
 }
 
+function testInteractionTonneau(player, scene) {
+  /**
+  * GESTION TONNEAU
+  * @param  {constraints[player.playerId]} Object le tonneau auquel le joueur est attaché
+  * si le joueur ne tient pas de tonneau: attrape le tonneau le plus proche
+  * sinon détache le tonneau du joueur
+  *   !tonneau.length : false => un tonneau est atteignable
+  *   !tonneau.length : true => aucun tonneau est atteignable
+  */
+  scene.matter.overlap([...scene.tonneaux.getChildren()], player.zoneAttaque, (objet1, objet2) => {
+    console.log("OUIIII--------");
+    if (Object.keys(constraints[player.playerId]['tonneau']).length == 0) {
+      if (objet1.gameObject.name == "tonneau") {
+        objet1.gameObject.body.collisionFilter.mask = 0
+        objet1.gameObject.setFixedRotation().setIgnoreGravity(true)
+        scene.tweens.add({
+          targets: objet1.gameObject,
+          x: player.x,
+          y: player.y - player.displayHeight / 2 - 105,
+          onComplete: () => {
+            objet1.gameObject.setCollidesWith(-1).setIgnoreGravity(false); constraints[player.playerId]['tonneau'] = scene.matter.add.constraint(objet1.gameObject, player)
+          },
+          duration: 500
+        })
+      }
+    }
+
+    //si le joueur tient un tonneau
+    // enleve la constrainte
+    else {
+    console.log("NOP--------");
+      scene.matter.world.removeConstraint(constraints[player.playerId]['tonneau']);
+      constraints[player.playerId]['tonneau'] = {}
+    }
+  })
+
+  /**
+  * -----GESTION DRAPEAU
+  * APPLIQUE L'ATTACHE AU DRAPEAU SI :
+  * FONTAINE ENNEMIE DÉTRUITE et DRAPEAU ACCESSIBLE
+  *
+  * @param  {[type]} fontainezone2 emplacement de la zone de la fontaine
+  * @return {[type]}               [description]
+  */
+  //SI LE DRAPEAU SE SITUE A LA MEME POSITION QUE LA FONTAINE
+  // if (!fontainezone2.active) {
+  //   var distance = Phaser.Math.Distance.BetweenPoints(scene.drapeaux.getChildren()[0], {x: fontainezone.x, y: fontainezone.y});
+  //
+  //
+  //   //ATTRAPER DRAPEAU BLEU
+  //   var distanceDrapeauBleu = Phaser.Math.Distance.BetweenPoints(player, {x: scene.drapeaux.getChildren()[0].x, y: scene.drapeaux.getChildren()[0].y});
+  //   if (distanceDrapeauBleu < 130 && distanceDrapeauBleu < 140) {
+  //     if (Object.keys(constraints[player.playerId]['drapeau']).length == 0) {
+  //       constraints[player.playerId]['drapeau'] = scene.matter.add.constraint(scene.drapeaux.getChildren()[0], player, 0)
+  //       console.log("DRAPEAU ATTRAPER");
+  //     } else {
+  //       scene.matter.world.removeConstraint(constraints[player.playerId]['drapeau']);
+  //       constraints[player.playerId]['drapeau'] = {}
+  //       console.log("DRAPEAU LACHER");
+  //       if (distance < 530 && distance < 540) {
+  //         scene.events.emit('fin-de-partie', "A")
+  //       }
+  //     }
+  //   }
+  // }
+  //
+  // if (!fontainezone.active) {
+  //   var distance2 = Phaser.Math.Distance.BetweenPoints(scene.drapeaux.getChildren()[1], {x: fontainezone2.x, y: fontainezone2.y});
+  //   //ATTRAPER DRAPEAU VERT
+  //   var distanceDrapeauVert = Phaser.Math.Distance.BetweenPoints(player, {x: scene.drapeaux.getChildren()[1].x, y: scene.drapeaux.getChildren()[1].y});
+  //   if (distanceDrapeauVert < 130 && distanceDrapeauVert < 140) {
+  //     if (Object.keys(constraints[player.playerId]['drapeau']).length == 0) {
+  //       constraints[player.playerId]['drapeau'] = scene.matter.add.constraint(scene.drapeaux.getChildren()[1], player, 0)
+  //     } else {
+  //       scene.matter.world.removeConstraint(constraints[player.playerId]['drapeau']);
+  //       constraints[player.playerId]['drapeau'] = {}
+  //       if (distance2 < 530 && distance2 < 540) {
+  //         scene.events.emit('fin-de-partie', "B")
+  //       }
+  //     }
+  //   }
+  // }
+}
+
+
 function interactionTirolienne(player, scene) {
   var dist = Phaser.Math.Distance.BetweenPoints(player, scene.bullet);
   if (dist < 530 && dist < 540) {
@@ -362,7 +447,8 @@ parametres['ninja'] = {
     interactionTirolienne(scene, player)
   },
   toucheE: (scene, player) => {
-    interactionTonneau(scene, player)
+    // interactionTonneau(scene, player)
+    testInteractionTonneau(scene, player)
   },
   toucheR: (scene, player) => {
     toupie(scene.tweens, player)
