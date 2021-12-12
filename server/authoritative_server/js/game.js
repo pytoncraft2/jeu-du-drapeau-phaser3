@@ -72,115 +72,7 @@ function multiclonage(scene, player) {
 
 }
 
-
 function attaque(charge, scene, player) {
-  var count;
-  if (charge) {
-    count = false;
-
-    scene.tween = scene.tweens.timeline({
-
-      tweens: [{
-        targets: player,
-        alpha: 0.35,
-        ease: 'Power1',
-        duration: 250
-      },
-      {
-        targets: player,
-        ease: 'Power1',
-        alpha: 0.58,
-        duration: 250
-      },
-      {
-        targets: player,
-        alpha: 0.35,
-        ease: 'Power1',
-        duration: 250,
-      },
-      {
-        targets: player,
-        ease: 'Power1',
-        alpha: 0.58,
-        duration: 250
-      },
-      {
-        targets: player,
-        alpha: 0.30,
-        ease: 'Power1',
-        duration: 250,
-      },
-      {
-        targets: player,
-        alpha: 0.80,
-        ease: 'Power1',
-        duration: 250,
-      },
-      {
-        targets: player,
-        alpha: 0.54,
-        ease: 'Power1',
-        duration: 250,
-      },
-      {
-        targets: player,
-        alpha: 0.80,
-        ease: 'Power1',
-        duration: 250,
-      }],
-      onComplete: () => player.setTint(0xff0000).setAlpha(1)
-
-    });
-
-    player.play('idle_attack', true)
-    charge = false;
-  } else {
-    let puissance = scene.tween.totalProgress;
-    player.clearTint()
-    if (scene.tween.isPlaying()) {
-      scene.tween.stop()
-      player.setAlpha(1)
-    }
-    const recupereLePlusProche = scene.tonneaux.getChildren().map(t => {
-      if (Phaser.Math.Distance.BetweenPoints(player, t) < 300 && Phaser.Math.Distance.BetweenPoints(player, t) < 310) {
-        return t
-      }
-    } );
-    var tonneau = recupereLePlusProche.filter( Boolean );
-    player.play('attack', true)
-
-    count = true;
-    scene.tween = scene.tweens.add({
-      targets: player.ombre,
-      from: 0,
-      to: 1,
-      scale: 1,
-      duration: 500,
-      onUpdateParams: [ evenement ],
-      onUpdate: function functionName(tween, targets, events) {
-        if (player.active) {
-          if (player.anims.getFrameName() == player.attaqueFrame) {
-            if (count) {
-              var distance = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone.x, y: fontainezone.y});
-              var distance2 = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone2.x, y: fontainezone2.y});
-              if (distance < 530 && distance < 540) {
-                events.emit('changement-vie-equipe', "B", puissance + player.puissanceBonus, player.puissanceDeBase)
-              } else if (distance2 < 530 && distance2 < 540) {
-                events.emit('changement-vie-equipe', "A", puissance + player.puissanceBonus, player.puissanceDeBase)
-              } else if (tonneau[0]) {
-                // events.emit('lancer-tonneau', player.flipX, puissance + player.puissanceBonus, tonneau[0].id)
-                tonneau[0].setVelocity((player.flipX ? -10 * (puissance * 5)  : 10 * (puissance * 5)), - (puissance * 100) )
-              }
-              count = false;
-            }
-          }
-        }
-      }
-    })
-  }
-}
-
-function testAttaque(charge, scene, player) {
   if (charge) {
     scene.tween = scene.tweens.timeline({
       tweens: [{
@@ -292,50 +184,7 @@ function testAttaque(charge, scene, player) {
         player.once(Phaser.Animations.Events.ANIMATION_COMPLETE_KEY + 'attack', () => {
           console.log("FIN ATTACK ANIM");
         })
-
-
-    // scene.tween = scene.tweens.add({
-    //   targets: player.ombre,
-    //   from: 0,
-    //   to: 1,
-    //   scale: 1,
-    //   duration: 500,
-    //   onUpdateParams: [ evenement ],
-    //   onUpdate: function functionName(tween, targets, events) {
-    //     if (player.active) {
-    //       if (player.anims.getFrameName() == player.attaqueFrame) {
-    //         if (count) {
-    //           var distance = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone.x, y: fontainezone.y});
-    //           var distance2 = Phaser.Math.Distance.BetweenPoints(player, {x: fontainezone2.x, y: fontainezone2.y});
-    //           if (distance < 530 && distance < 540) {
-    //             events.emit('changement-vie-equipe', "B", puissance + player.puissanceBonus)
-    //           } else if (distance2 < 530 && distance2 < 540) {
-    //             events.emit('changement-vie-equipe', "A", puissance + player.puissanceBonus)
-    //           } else if (tonneau[0]) {
-    //             // events.emit('lancer-tonneau', player.flipX, puissance + player.puissanceBonus, tonneau[0].id)
-    //             tonneau[0].setVelocity((player.flipX ? -10 * (puissance * 5)  : 10 * (puissance * 5)), - (puissance * 100) )
-    //           }
-    //           count = false;
-    //         }
-    //       }
-    //     }
-    //   }
-    // })
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 function interactionTonneau(player, scene) {
@@ -507,8 +356,7 @@ parametres['ninja'] = {
     attaqueFrame: "positiona1"
   },
   toucheA: (charge, scene, player) => {
-    // check(scene, player)
-    testAttaque(charge, scene, player)
+    attaque(charge, scene, player)
   },
   toucheZ: (scene, player) => {
     interactionTirolienne(scene, player)
@@ -1314,16 +1162,6 @@ function handlePlayerInput(self, playerId, arene, input) {
 
     });
   });
-}
-
-function check(scene, player) {
-  if (fontainezone.contains(player.x, player.y)) {
-    console.log("FFFFFFONTAINE 000");
-  }
-
-  if (fontainezone2.contains(player.x, player.y)) {
-    console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFONTAINE 2");
-  }
 }
 
 function addPlayer(self, playerInfo) {
