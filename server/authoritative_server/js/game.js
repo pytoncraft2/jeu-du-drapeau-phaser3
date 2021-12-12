@@ -1257,6 +1257,14 @@ function changementVie(id, tween, superAttaque, puissance) {
   let joueur = this.players["Naruto"].getMatching("playerId", id)[0]
   joueur.vie -= 1;
   joueur.setTint(0xff0000)
+  joueur.setTint(0xff0000)
+  this.matter.world.removeConstraint(constraints[joueur.playerId]['tonneau']);
+  this.matter.world.removeConstraint(constraints[joueur.playerId]['drapeau']);
+  this.matter.world.removeConstraint(constraints[joueur.playerId]['bullet']);
+  constraints[joueur.playerId]['tonneau'] = {}
+  constraints[joueur.playerId]['drapeau'] = {}
+  constraints[joueur.playerId]['bullet'] = {}
+
   tween.addCounter({
       duration: 300,
       onComplete: () => (joueur.clearTint())
