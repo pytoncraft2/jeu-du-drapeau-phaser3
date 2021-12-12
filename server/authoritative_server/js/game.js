@@ -243,7 +243,7 @@ function testAttaque(charge, scene, player) {
         ease: 'Power1',
         duration: 200,
       }],
-      onComplete: () => player.setTint(0xff0000).setAlpha(1)
+      onComplete: () => player.setTint(0xffa500).setAlpha(1)
 
     });
 
@@ -1230,6 +1230,7 @@ function recupereLeTonneauLePlusProche(player, tonneaux) {
 function changementVie(id) {
   let joueur = this.players["Naruto"].getMatching("playerId", id)[0]
   joueur.vie -= 1;
+  joueur.setTint(0xff0000)
   io.to("Naruto").emit("changement_vie", id, joueur.vie);
 }
 
