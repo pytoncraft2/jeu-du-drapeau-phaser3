@@ -243,7 +243,7 @@ function testAttaque(charge, scene, player) {
         ease: 'Power1',
         duration: 200,
       }],
-      onComplete: () => player.setTint(0xffa500).setAlpha(1)
+      onComplete: () => (player.setTint(0xffa500).setAlpha(1))
 
     });
 
@@ -278,7 +278,7 @@ function testAttaque(charge, scene, player) {
 
         scene.matter.overlap([...scene.players['Naruto'].getChildren(), ...scene.tonneaux.getChildren()], player.zoneAttaque, (objet1, objet2) => {
           if (objet1.gameObject.playerId) {
-            gestionVie(objet1.gameObject.vie, objet1.gameObject.playerId, scene.tweens)
+            gestionVie(objet1.gameObject.vie, objet1.gameObject.playerId, scene.tweens, puissance)
           }
 
           if (objet1.gameObject.name == "tonneau") {
@@ -451,11 +451,11 @@ function interactionTirolienne(player, scene) {
 }
 
 
-function gestionVie(vie, id, tween) {
+function gestionVie(vie, id, tween, superAttaque) {
   if (vie <= 0) {
     evenement.emit('fin-de-vie', id)
   } else {
-    evenement.emit('changement-vie', id, tween)
+    evenement.emit('changement-vie', id, tween, superAttaque)
   }
 }
 
@@ -1227,7 +1227,7 @@ function recupereLeTonneauLePlusProche(player, tonneaux) {
  * @return {[type]}    [description]
  */
 
-function changementVie(id, tween) {
+function changementVie(id, tween, superAttaque, puissance) {
   let joueur = this.players["Naruto"].getMatching("playerId", id)[0]
   joueur.vie -= 1;
   joueur.setTint(0xff0000)
@@ -1235,6 +1235,9 @@ function changementVie(id, tween) {
       duration: 300,
       onComplete: () => (joueur.clearTint())
     })
+    if (superAttaque == true) {
+      joueur.setVelocityX(joueur.flipX ? 30 : -30)
+    }
   io.to("Naruto").emit("changement_vie", id, joueur.vie);
 }
 
