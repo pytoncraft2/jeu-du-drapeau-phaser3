@@ -768,6 +768,9 @@ function create() {
   fontainezone2 = new Phaser.Geom.Rectangle(8235, -1553, 640, 613);
   fontainezone = new Phaser.Geom.Rectangle(-4870, -790, 640, 613);
 
+  fontainezone.active = true;
+  fontainezone2.active = true;
+
 
     this.drapeaux = this.add.group()
     this.drapeaux.name = "drapeaux";
@@ -1206,13 +1209,16 @@ function recupereLeTonneauLePlusProche(player, tonneaux) {
  */
 
  function changementVieEquipe(equipe, puissance, puissanceDeBase) {
+   console.log("FONTAINE ACTIVE ?");
+   console.log(fontainezone.active);
+   console.log(fontainezone2.active);
    this.vieEquipe[equipe] -= puissance * puissanceDeBase;
    if (this.vieEquipe[equipe] <= 0) {
      if (equipe == "A" && fontainezone2.active) {
-       fontainezone2.setActive(false);
+       fontainezone2.active = false;
        io.to("Naruto").emit("drapeau_debloque", equipe);
      } else if (equipe == "B" && fontainezone.active){
-       fontainezone.setActive(false);
+       fontainezone.active = false;
        io.to("Naruto").emit("drapeau_debloque", equipe);
      }
    }
@@ -1278,8 +1284,8 @@ function finDePartie(equipe) {
   drapeaux = {}
   this.vieEquipe["A"] = 100;
   this.vieEquipe["B"] = 100;
-  fontainezone2.setActive(true);
-  fontainezone.setActive(true);
+  fontainezone2.active = true;
+  fontainezone.active = true;
 
   // this.scene.restart();
 
