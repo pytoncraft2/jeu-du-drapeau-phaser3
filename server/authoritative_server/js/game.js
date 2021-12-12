@@ -785,8 +785,8 @@ function create() {
   this.groupeBullets = this.add.group();
   this.canon1 = this.add.rectangle(0, -460, 333, 125)
 
-  fontainezone2 = new Phaser.Geom.Rectangle(8235, -1553, 640, 613);
-  fontainezone = new Phaser.Geom.Rectangle(-4870, -790, 640, 613);
+  fontainezone2 = new Phaser.Geom.Rectangle(7935, -1900, 640, 613);
+  fontainezone = new Phaser.Geom.Rectangle(-5200, -1100, 640, 613);
 
   fontainezone.active = true;
   fontainezone2.active = true;

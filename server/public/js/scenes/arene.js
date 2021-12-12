@@ -25,6 +25,9 @@ const Arene = new Phaser.Class({
 
   create: function() {
 
+
+
+
     this.vieEquipeA = 100
     this.vieEquipeB = 100
     this.lastHealthEquipeA = 100;
@@ -60,6 +63,14 @@ def.body.collisionFilter.mask = 44
     this.derniereVieEquipe = 100;
 
     this.graphics = this.add.graphics()
+    this.graphics2 = this.add.graphics()
+    var fontainezone2 = new Phaser.Geom.Rectangle(7935, -1900, 640, 613);
+var fontainezone = new Phaser.Geom.Rectangle(-5200, -1100, 640, 613);
+this.graphics.fillStyle(0xff0000, 1);   // rouge
+this.graphics2.fillStyle(0xffa500, 1);   // orange
+
+this.graphics.fillRectShape(fontainezone2);
+this.graphics2.fillRectShape(fontainezone);
     this.barreEquipeA = this.add.graphics()
     this.barreEquipeB = this.add.graphics()
     // this.setVieEquipeBarre(100)
@@ -363,7 +374,8 @@ def.body.collisionFilter.mask = 44
 
     console.log('down');
 
-    console.log(pointer.x, pointer.y);
+    console.log(pointer.x);
+    console.log(pointer.y);
     console.log("IMG");
     // console.log(this.matDrapeauBleu.x);
 // console.log(this.matDrapeauBleu.y);
