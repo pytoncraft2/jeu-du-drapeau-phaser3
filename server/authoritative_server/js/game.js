@@ -23,16 +23,11 @@ function invisible(scene, player) {
 }
 
 function agrandissement(scene, player) {
-  console.log("SSSSSSSSCAAAALE");
-  console.log(player.displayWidth);
-  console.log("SSSSSSSSCAAAALE");
-  console.log(player.displayHeight);
   scene.tweens.addCounter({
     duration: 10000,
     onComplete: () => (player.active ? player.setDisplaySize(player.displayWidth - 100, player.displayHeight - 100) : null, player.puissanceBonus = 0)
   })
 
-  // player.setScale(0.8)
   player.setDisplaySize(player.displayWidth + 100, player.displayHeight + 100)
   player.puissanceBonus = 3;
 }
@@ -506,7 +501,6 @@ parametres['dessinatrice1'] = {
 parametres['ninja'] = {
   etatInitial: {
     vie: 4,
-    scale: 0.3768214224490002,
     displayWidth: 149,
     displayHeight: 140,
     masse: 10,
