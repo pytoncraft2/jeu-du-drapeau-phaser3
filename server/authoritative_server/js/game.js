@@ -269,11 +269,11 @@ function testAttaque(charge, scene, player) {
         : (player.zoneAttaque.x = player.getRightCenter().x + 70, player.zoneAttaque.y = player.getRightCenter().y)
 
         if (fontainezone.contains(player.x, player.y)) {
-          evenement.emit('changement-vie-equipe', "B", puissance + player.puissanceBonus)
+          evenement.emit('changement-vie-equipe', "B", puissance + player.puissanceBonus, player.puissanceDeBase)
         }
 
         if (fontainezone2.contains(player.x, player.y)) {
-          evenement.emit('changement-vie-equipe', "A", puissance + player.puissanceBonus)
+          evenement.emit('changement-vie-equipe', "A", puissance + player.puissanceBonus, player.puissanceDeBase)
         }
 
         scene.matter.overlap([...scene.players['Naruto'].getChildren(), ...scene.tonneaux.getChildren()], player.zoneAttaque, (objet1, objet2) => {
@@ -284,7 +284,6 @@ function testAttaque(charge, scene, player) {
           if (objet1.gameObject.name == "tonneau") {
             gestionTonneaux(puissance, player.flipX, objet1.gameObject)
           }
-
 
         })
       }
@@ -508,6 +507,7 @@ parametres['ninja'] = {
     attaqueFrame: "positiona1"
   },
   toucheA: (charge, scene, player) => {
+    // check(scene, player)
     testAttaque(charge, scene, player)
   },
   toucheZ: (scene, player) => {
@@ -523,7 +523,6 @@ parametres['ninja'] = {
     agrandissement(scene, player)
   },
   toucheEspace: (charge, scene, player) => {
-    check(scene, player)
     saut(charge, scene, player)
   },
 }
