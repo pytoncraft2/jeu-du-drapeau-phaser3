@@ -284,7 +284,12 @@ function testInteractionTonneau(player, scene) {
   *   !tonneau.length : false => un tonneau est atteignable
   *   !tonneau.length : true => aucun tonneau est atteignable
   */
+  player.flipX ?
+  (player.zoneAttaque.x = player.getLeftCenter().x - 70, player.zoneAttaque.y = player.getLeftCenter().y)
+  : (player.zoneAttaque.x = player.getRightCenter().x + 70, player.zoneAttaque.y = player.getRightCenter().y)
+
   if (Object.keys(constraints[player.playerId]['tonneau']).length == 0) {
+
     scene.matter.overlap([...scene.tonneaux.getChildren()], player.zoneAttaque, (objet1, objet2) => {
       console.log("OUIIII--------");
       if (objet1.gameObject.name == "tonneau") {
