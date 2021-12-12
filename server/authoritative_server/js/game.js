@@ -275,23 +275,23 @@ function interactionTonneau(player, scene) {
   }
 }
 
-function testInteractionTonneau(player, scene) {
-  /**
-  * GESTION TONNEAU
-  * @param  {constraints[player.playerId]} Object le tonneau auquel le joueur est attaché
-  * si le joueur ne tient pas de tonneau: attrape le tonneau le plus proche
-  * sinon détache le tonneau du joueur
-  *   !tonneau.length : false => un tonneau est atteignable
-  *   !tonneau.length : true => aucun tonneau est atteignable
-  */
+/**
+ * INTERACTION: TONNEAU + DRAPEAU
+ * @param  {[type]} player [description]
+ * @param  {[type]} scene  [description]
+ * @return {[type]}        [description]
+ */
+
+function interactionTonneauDrapeau(player, scene) {
+
+  //TONNEAU
   player.flipX ?
   (player.zoneAttaque.x = player.getLeftCenter().x - 70, player.zoneAttaque.y = player.getLeftCenter().y)
   : (player.zoneAttaque.x = player.getRightCenter().x + 70, player.zoneAttaque.y = player.getRightCenter().y)
 
+    scene.matter.overlap([...scene.tonneaux.getChildren(), ...scene.drapeaux.getChildren()], player.zoneAttaque, (objet1, objet2) => {
   if (Object.keys(constraints[player.playerId]['tonneau']).length == 0) {
 
-    scene.matter.overlap([...scene.tonneaux.getChildren()], player.zoneAttaque, (objet1, objet2) => {
-      console.log("OUIIII--------");
       if (objet1.gameObject.name == "tonneau") {
         objet1.gameObject.body.collisionFilter.mask = 0
         objet1.gameObject.setFixedRotation().setIgnoreGravity(true)
@@ -305,12 +305,49 @@ function testInteractionTonneau(player, scene) {
           duration: 500
         })
       }
-    })
+
+
   }
   else {
     scene.matter.world.removeConstraint(constraints[player.playerId]['tonneau']);
     constraints[player.playerId]['tonneau'] = {}
   }
+
+//FONTAINE
+
+if (!fontainezone2.active) {
+  if (player.contains(drapeauVert.x, drapeauVert.y)) {
+    if (Object.keys(constraints[player.playerId]['drapeau']).length == 0) {
+      constraints[player.playerId]['drapeau'] = scene.matter.add.constraint(scene.drapeaux.getChildren()[0], player, 0)
+    } else {
+      scene.matter.world.removeConstraint(constraints[player.playerId]['drapeau']);
+      constraints[player.playerId]['drapeau'] = {}
+    }
+
+    if (fontainezone.contains(drapeauVert.x, drapeauVert.y)) {
+      scene.events.emit('fin-de-partie', "A")
+    }
+  }
+}
+
+if (!fontainezone.active) {
+  if (player.contains(drapeauBleu.x, drapeauBleu.y)) {
+    if (Object.keys(constraints[player.playerId]['drapeau']).length == 0) {
+      constraints[player.playerId]['drapeau'] = scene.matter.add.constraint(scene.drapeaux.getChildren()[0], player, 0)
+    } else {
+      scene.matter.world.removeConstraint(constraints[player.playerId]['drapeau']);
+      constraints[player.playerId]['drapeau'] = {}
+    }
+
+    if (fontainezone2.contains(drapeauBleu.x, drapeauBleu.y)) {
+      scene.events.emit('fin-de-partie', "B")
+    }
+  }
+}
+
+})
+
+
 
   /**
   * -----GESTION DRAPEAU
@@ -322,11 +359,11 @@ function testInteractionTonneau(player, scene) {
   */
   //SI LE DRAPEAU SE SITUE A LA MEME POSITION QUE LA FONTAINE
   // if (!fontainezone2.active) {
-  //   var distance = Phaser.Math.Distance.BetweenPoints(scene.drapeaux.getChildren()[0], {x: fontainezone.x, y: fontainezone.y});
+  //   // var distance = Phaser.Math.Distance.BetweenPoints(scene.drapeaux.getChildren()[0], {x: fontainezone.x, y: fontainezone.y});
   //
   //
   //   //ATTRAPER DRAPEAU BLEU
-  //   var distanceDrapeauBleu = Phaser.Math.Distance.BetweenPoints(player, {x: scene.drapeaux.getChildren()[0].x, y: scene.drapeaux.getChildren()[0].y});
+  //   // var distanceDrapeauBleu = Phaser.Math.Distance.BetweenPoints(player, {x: scene.drapeaux.getChildren()[0].x, y: scene.drapeaux.getChildren()[0].y});
   //   if (distanceDrapeauBleu < 130 && distanceDrapeauBleu < 140) {
   //     if (Object.keys(constraints[player.playerId]['drapeau']).length == 0) {
   //       constraints[player.playerId]['drapeau'] = scene.matter.add.constraint(scene.drapeaux.getChildren()[0], player, 0)
@@ -358,6 +395,15 @@ function testInteractionTonneau(player, scene) {
   //     }
   //   }
   // }
+
+
+
+
+
+
+
+
+
 }
 
 
@@ -419,7 +465,7 @@ parametres['dessinatrice1'] = {
     interactionTirolienne(scene, player)
   },
   toucheE: (scene, player) => {
-    interactionTonneau(scene, player)
+    interaction(scene, player)
   },
   toucheR: (scene, player) => {
     invisible(scene, player)
@@ -449,7 +495,7 @@ parametres['ninja'] = {
   },
   toucheE: (scene, player) => {
     // interactionTonneau(scene, player)
-    testInteractionTonneau(scene, player)
+    interactionTonneauDrapeau(scene, player)
   },
   toucheR: (scene, player) => {
     toupie(scene.tweens, player)
@@ -479,7 +525,7 @@ parametres['ninja2'] = {
     interactionTirolienne(scene, player)
   },
   toucheE: (scene, player) => {
-    interactionTonneau(scene, player)
+    interactionTonneauDrapeau(scene, player)
   },
   toucheR: (scene, player) => {
     invisible(scene, player)
@@ -511,7 +557,7 @@ parametres['aventuriere2'] = {
     invisible(scene, player)
   },
   toucheE: (scene, player) => {
-    interactionTonneau(scene, player)
+    interactionTonneauDrapeau(scene, player)
   },
   toucheT: (scene, player) => {
     agrandissement(scene, player)
@@ -537,7 +583,7 @@ parametres['chevalier'] = {
     interactionTirolienne(scene, player)
   },
   toucheE: (scene, player) => {
-    interactionTonneau(scene, player)
+    interactionTonneauDrapeau(scene, player)
   },
   toucheR: (scene, player) => {
     invisible(scene, player)
@@ -566,7 +612,7 @@ parametres['naruto'] = {
     interactionTirolienne(scene, player)
   },
   toucheE: (scene, player) => {
-    interactionTonneau(scene, player)
+    interactionTonneauDrapeau(scene, player)
   },
   toucheR: (scene, player) => {
     multiclonage(scene, player)
@@ -608,7 +654,8 @@ var fontainezone2;
 var CATEGORIE_JOUEUR = 0b0001
 var CATEGORIE_ENNEMIE = 0b0010
 var CATEGORIE_PLATFORME = 1
-var matDrapeauBleu;
+var drapeauBleu;
+var drapeauVert;
 
 function preload() {
   this.load.atlas('dessinatrice1', 'assets/personnages/dessinatrice1/dessinatrice1.png', 'assets/personnages/dessinatrice1/dessinatrice1_atlas.json');
@@ -713,19 +760,20 @@ function create() {
   let matDrapeauBleu = this.add.zone(-4868.428561331542, -775.2723001427164, 32, 640)
   let matDrapeauVert = this.add.zone(8242.130999766403, -1566.8232688524165, 32, 640)
 
-  var matBleu = this.matter.add.gameObject(matDrapeauBleu);
-  matBleu.setFixedRotation().setIgnoreGravity(true)
-  matBleu.body.collisionFilter.mask = 42
+  drapeauBleu = this.matter.add.gameObject(matDrapeauBleu);
+  drapeauBleu.setFixedRotation().setIgnoreGravity(true)
+  drapeauBleu.body.collisionFilter.mask = 42
+  drapeauBleu.id = 1;
+  drapeauBleu.name = "A"
 
-  matBleu.id = 1;
 
+  drapeauVert = this.matter.add.gameObject(matDrapeauVert);
+  drapeauVert.setFixedRotation().setIgnoreGravity(true)
+  drapeauVert.id = 2;
+  drapeauVert.name = "B"
 
-  var matVert = this.matter.add.gameObject(matDrapeauVert);
-  matVert.setFixedRotation().setIgnoreGravity(true)
-  matVert.id = 2;
-
-  matVert.body.collisionFilter.mask = 44
-  this.drapeaux.addMultiple([matVert, matBleu]);
+  drapeauVert.body.collisionFilter.mask = 44
+  this.drapeaux.addMultiple([drapeauVert, drapeauBleu]);
 
   // matDrapeauBleu = this.matter.add.image(-4848.428561331542, -1043.2723001427164, 'matDrapeauBleu').setDepth(1)
 
