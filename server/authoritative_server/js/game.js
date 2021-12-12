@@ -316,7 +316,8 @@ function interactionTonneauDrapeau(player, scene) {
 //FONTAINE
 
 if (!fontainezone2.active) {
-  if (player.contains(drapeauVert.x, drapeauVert.y)) {
+    var distanceDrapeauBleu = Phaser.Math.Distance.BetweenPoints(player, {x: scene.drapeaux.getChildren()[0].x, y: scene.drapeaux.getChildren()[0].y});
+  if (distanceDrapeauBleu < 130 && distanceDrapeauBleu < 140) {
     if (Object.keys(constraints[player.playerId]['drapeau']).length == 0) {
       constraints[player.playerId]['drapeau'] = scene.matter.add.constraint(scene.drapeaux.getChildren()[0], player, 0)
     } else {
@@ -331,7 +332,7 @@ if (!fontainezone2.active) {
 }
 
 if (!fontainezone.active) {
-  if (player.contains(drapeauBleu.x, drapeauBleu.y)) {
+  if (drapeauBleu.contains(player.x, player.y)) {
     if (Object.keys(constraints[player.playerId]['drapeau']).length == 0) {
       constraints[player.playerId]['drapeau'] = scene.matter.add.constraint(scene.drapeaux.getChildren()[0], player, 0)
     } else {
