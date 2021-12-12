@@ -284,9 +284,9 @@ function testInteractionTonneau(player, scene) {
   *   !tonneau.length : false => un tonneau est atteignable
   *   !tonneau.length : true => aucun tonneau est atteignable
   */
-  scene.matter.overlap([...scene.tonneaux.getChildren()], player.zoneAttaque, (objet1, objet2) => {
-    console.log("OUIIII--------");
-    if (Object.keys(constraints[player.playerId]['tonneau']).length == 0) {
+  if (Object.keys(constraints[player.playerId]['tonneau']).length == 0) {
+    scene.matter.overlap([...scene.tonneaux.getChildren()], player.zoneAttaque, (objet1, objet2) => {
+      console.log("OUIIII--------");
       if (objet1.gameObject.name == "tonneau") {
         objet1.gameObject.body.collisionFilter.mask = 0
         objet1.gameObject.setFixedRotation().setIgnoreGravity(true)
@@ -300,16 +300,12 @@ function testInteractionTonneau(player, scene) {
           duration: 500
         })
       }
-    }
-
-    //si le joueur tient un tonneau
-    // enleve la constrainte
-    else {
-    console.log("NOP--------");
-      scene.matter.world.removeConstraint(constraints[player.playerId]['tonneau']);
-      constraints[player.playerId]['tonneau'] = {}
-    }
-  })
+    })
+  }
+  else {
+    scene.matter.world.removeConstraint(constraints[player.playerId]['tonneau']);
+    constraints[player.playerId]['tonneau'] = {}
+  }
 
   /**
   * -----GESTION DRAPEAU
