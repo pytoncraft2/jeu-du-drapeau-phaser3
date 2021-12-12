@@ -267,6 +267,15 @@ function testAttaque(charge, scene, player) {
         player.flipX ?
         (player.zoneAttaque.x = player.getLeftCenter().x - 70, player.zoneAttaque.y = player.getLeftCenter().y)
         : (player.zoneAttaque.x = player.getRightCenter().x + 70, player.zoneAttaque.y = player.getRightCenter().y)
+
+        if (fontainezone.contains(player.x, player.y)) {
+          evenement.emit('changement-vie-equipe', "B", puissance + player.puissanceBonus)
+        }
+
+        if (fontainezone2.contains(player.x, player.y)) {
+          evenement.emit('changement-vie-equipe', "A", puissance + player.puissanceBonus)
+        }
+
         scene.matter.overlap([...scene.players['Naruto'].getChildren(), ...scene.tonneaux.getChildren()], player.zoneAttaque, (objet1, objet2) => {
           if (objet1.gameObject.playerId) {
             gestionVie(objet1.gameObject.vie, objet1.gameObject.playerId)
@@ -276,9 +285,7 @@ function testAttaque(charge, scene, player) {
             gestionTonneaux(puissance, player.flipX, objet1.gameObject)
           }
 
-          if (objet1.gameObject.name == "fontaineA") {
-          gestionFontaine(objet1.gameObject.name, puissance + player.puissanceBonus, player.puissanceDeBase)
-          }
+
         })
       }
 
@@ -516,8 +523,8 @@ parametres['ninja'] = {
     agrandissement(scene, player)
   },
   toucheEspace: (charge, scene, player) => {
-    // saut(charge, scene, player)
     check(scene, player)
+    saut(charge, scene, player)
   },
 }
 
@@ -1303,11 +1310,12 @@ function handlePlayerInput(self, playerId, arene, input) {
 }
 
 function check(scene, player) {
-  circle.contains(player.x, player.y)
-  if( Phaser.Geom.Rectangle.ContainsPoint(fontainezone2, {x: player.x ,y: player.y})) {
-    console.log("OOOOOOOOOOOOOOOOOOOUUIII");
-  } else {
-    console.log("NOP");
+  if (fontainezone.contains(player.x, player.y)) {
+    console.log("FFFFFFONTAINE 000");
+  }
+
+  if (fontainezone2.contains(player.x, player.y)) {
+    console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFONTAINE 2");
   }
 }
 
