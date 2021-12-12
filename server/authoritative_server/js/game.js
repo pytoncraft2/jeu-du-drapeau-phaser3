@@ -1064,13 +1064,6 @@ function update() {
             player.play("idle_walk", true)
           }
         }
-        if (input.ctrl) {
-          this.tween = this.tweens.add({
-            targets: player,
-            angle: 0,
-            duration: 500
-          })
-        }
       } else if (input.left) {
         if (input.walk) {
           player.thrustBack(0.1)
@@ -1082,14 +1075,6 @@ function update() {
           player.play("idle_walk", true)
           }
         }
-        if (input.ctrl) {
-          this.tween = this.tweens.add({
-            targets: player,
-            angle: 0,
-            duration: 500
-          })
-          input.ctrl = false;
-        }
       } else if (input.up) {
         player.play('goback')
         input.up = false;
@@ -1099,6 +1084,15 @@ function update() {
       }
 
 
+      //SE REDRESSER
+      if (input.redresser) {
+        this.tween = this.tweens.add({
+          targets: player,
+          angle: 0,
+          duration: 500
+        })
+        input.redresser = false;
+      }
 
 
 

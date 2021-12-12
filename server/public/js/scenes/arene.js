@@ -469,9 +469,17 @@ def.body.collisionFilter.mask = 44
 
 
 
+    //TIROLIENNE + interactionTonneau
     this.zKeyPressed = this.input.keyboard.addKey('Z');
     this.eKeyPressed = this.input.keyboard.addKey('E');
-    this.ctrlKey = this.input.keyboard.addKey('CTRL');
+
+    //Se redresser
+    this.toucheM = this.input.keyboard.addKey('M');
+    //DROITE-GAUCHE
+    this.toucheGauche = this.input.keyboard.addKey('J');
+    this.toucheDroite = this.input.keyboard.addKey('L');
+    this.toucheHaut = this.input.keyboard.addKey('I');
+    this.toucheBas = this.input.keyboard.addKey('K');
     this.zoom1 = this.input.keyboard.addKey('ZERO');
     this.zoom2 = this.input.keyboard.addKey('NINE');
     this.zoom3 = this.input.keyboard.addKey('EIGHT');
@@ -483,7 +491,6 @@ def.body.collisionFilter.mask = 44
     this.specialKeyPressed = this.input.keyboard.addKey('R');
     this.special2KeyPressed = this.input.keyboard.addKey('T');
     this.aKeyPressed = this.input.keyboard.addKey('A');
-    this.cKeyPressed = this.input.keyboard.addKey('CTRL');
     this.cursors = this.input.keyboard.createCursorKeys();
     this.leftKeyPressed = false;
     this.rightKeyPressed = false;
@@ -621,42 +628,47 @@ def.body.collisionFilter.mask = 44
 
 
     /**
+     * SE REDRESSER
+     */
+     if (Phaser.Input.Keyboard.JustDown(this.toucheM)) {
+       this.socket.emit('playerInput', {
+         redresser: true
+       });
+     }
+
+    /**
      * GAUCHE
      */
 
-    if (Phaser.Input.Keyboard.JustDown(this.cursors.left)) {
+    if (Phaser.Input.Keyboard.JustDown(this.toucheGauche)) {
       this.socket.emit('playerInput', {
         left: true,
-        walk: true,
-        ctrl: this.ctrlKey.isDown
+        walk: true
       });
     }
 
 
-    if (Phaser.Input.Keyboard.JustUp(this.cursors.left)) {
+    if (Phaser.Input.Keyboard.JustUp(this.toucheGauche)) {
       this.socket.emit('playerInput', {
         left: true,
-        walk: false,
-        ctrl: this.ctrlKey.isDown
+        walk: false
       });
     }
 
     /**
      * DROITE
      */
-    if (Phaser.Input.Keyboard.JustDown(this.cursors.right)) {
+    if (Phaser.Input.Keyboard.JustDown(this.toucheDroite)) {
       this.socket.emit('playerInput', {
         right: true,
-        walk: true,
-        ctrl: this.ctrlKey.isDown
+        walk: true
       });
     }
 
-    if (Phaser.Input.Keyboard.JustUp(this.cursors.right)) {
+    if (Phaser.Input.Keyboard.JustUp(this.toucheDroite)) {
       this.socket.emit('playerInput', {
         right: true,
-        walk: false,
-        ctrl: this.ctrlKey.isDown
+        walk: false
       });
     }
 
@@ -664,32 +676,31 @@ def.body.collisionFilter.mask = 44
     /**
      * MARCHE VERS LE FOND ET L'AVANT
      */
-    if (Phaser.Input.Keyboard.JustDown(this.cursors.up)) {
+    if (Phaser.Input.Keyboard.JustDown(this.toucheHaut)) {
       this.socket.emit('playerInput', {
         up: true,
       });
     }
 
-    if (Phaser.Input.Keyboard.JustDown(this.cursors.down)) {
-      this.socket.emit('playerInput', {
-        down: true,
-      });
-    }
-
-    if (Phaser.Input.Keyboard.JustUp(this.cursors.up)) {
+    if (Phaser.Input.Keyboard.JustUp(this.toucheHaut)) {
       this.socket.emit('playerInput', {
         up: false,
       });
     }
 
-    if (Phaser.Input.Keyboard.JustUp(this.cursors.down)) {
+
+    if (Phaser.Input.Keyboard.JustDown(this.toucheBas)) {
       this.socket.emit('playerInput', {
-        down: false,
+        down: true,
       });
     }
 
 
-
+    if (Phaser.Input.Keyboard.JustUp(this.toucheBas)) {
+      this.socket.emit('playerInput', {
+        down: false,
+      });
+    }
 
     if (Phaser.Input.Keyboard.JustDown(this.aKeyPressed)) {
       this.players.getChildren()[0].flipX ?
@@ -758,7 +769,7 @@ def.body.collisionFilter.mask = 44
       });
     }
 
-    if (Phaser.Input.Keyboard.JustDown(this.ctrlKey)) {
+    if (Phaser.Input.Keyboard.JustDown(this.toucheM)) {
       this.socket.emit('playerInput', {
         canonMaintenu: false,
         canonRelache: true
