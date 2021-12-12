@@ -276,15 +276,9 @@ function testAttaque(charge, scene, player) {
             gestionTonneaux(puissance, player.flipX, objet1.gameObject)
           }
 
-          if (objet1.gameObject.name == "fontaine") {
-            // gestionFontaine(objet1.gameObject.name, puissance + player.puissanceBonus, player.puissanceDeBase)
-            console.log("FONTAINEEEE------------------------");
+          if (objet1.gameObject.name == "fontaineA") {
+          gestionFontaine(objet1.gameObject.name, puissance + player.puissanceBonus, player.puissanceDeBase)
           }
-          // if( Phaser.Geom.Rectangle.ContainsPoint(scene.rect, {x: player.x ,y: player.y})) {
-          //   console.log("OOOOOOOOOOOOOOOOOOOUUIII");
-          // } else {
-          //   console.log("NOP");
-          // }
         })
       }
 
@@ -687,7 +681,10 @@ function create() {
   this.tweenSaut = null;
   this.graph = this.add.graphics();
 
-
+  this.vieEquipe = {
+    "A": 100,
+    "B": 100
+  }
 
       this.anims.create({
         key: 'attack',
@@ -762,27 +759,8 @@ function create() {
   this.groupeBullets = this.add.group();
   this.canon1 = this.add.rectangle(0, -460, 333, 125)
 
-  fontainezone = this.add.zone(-4870, -790, 210, 210).setSize(640, 613)
-  fontainezone.name = "fontaine"
-  fontainezone2 = this.add.zone(8235, -1553, 210, 210).setSize(640, 613)
-  fontainezone2.name = "fontaine"
-
-  // this.vieEquipe = {
-  //   "A": {
-  //     fontaine: fontainezone,
-  //     vie: 100
-  //   } ,
-  //   "B": {
-  //     fontaine: fontainezone2,
-  //     vie: 100
-  //   },
-  // }
-
-  this.vieEquipe = {
-    "A": 100,
-    "B": 100
-  }
-
+  fontainezone2 = new Phaser.Geom.Rectangle(8235, -1553, 640, 613);
+  fontainezone = new Phaser.Geom.Rectangle(-4870, -790, 640, 613);
 
 
     this.drapeaux = this.add.group()
@@ -1325,11 +1303,12 @@ function handlePlayerInput(self, playerId, arene, input) {
 }
 
 function check(scene, player) {
-  // if( Phaser.Geom.Rectangle.ContainsPoint(scene.rect, {x: player.x ,y: player.y})) {
-  //   console.log("OOOOOOOOOOOOOOOOOOOUUIII");
-  // } else {
-  //   console.log("NOP");
-  // }
+  circle.contains(player.x, player.y)
+  if( Phaser.Geom.Rectangle.ContainsPoint(fontainezone2, {x: player.x ,y: player.y})) {
+    console.log("OOOOOOOOOOOOOOOOOOOUUIII");
+  } else {
+    console.log("NOP");
+  }
 }
 
 function addPlayer(self, playerInfo) {
@@ -1368,6 +1347,9 @@ function addPlayer(self, playerInfo) {
   // onComplete: () => (joueur.setScale(0.4), joueur.setCollidesWith(0), joueur.setCollisionGroup(-1)),
   ease: 'Sine.easeInOut'
 });
+}
+
+function handleCollide(objet1, objet2, info) {
 }
 
 function removePlayer(self, playerId, arene) {
