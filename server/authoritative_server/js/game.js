@@ -267,7 +267,15 @@ function testAttaque(charge, scene, player) {
         player.flipX ?
         (player.zoneAttaque.x = player.getLeftCenter().x - 70, player.zoneAttaque.y = player.getLeftCenter().y)
         : (player.zoneAttaque.x = player.getRightCenter().x + 70, player.zoneAttaque.y = player.getRightCenter().y)
-        scene.matter.overlap([...scene.players['Naruto'].getChildren(), ...scene.tonneaux.getChildren()], player.zoneAttaque, handleCollide, undefined, scene)
+        scene.matter.overlap([...scene.players['Naruto'].getChildren(), ...scene.tonneaux.getChildren()], player.zoneAttaque, (objet1, objet2) => {
+          if (objet1.gameObject.playerId) {
+            gestionVie(objet1.gameObject.vie, objet1.gameObject.playerId)
+          }
+
+          if (objet1.gameObject.name == "tonneau") {
+            gestionTonneaux(puissance, player.flipX, objet1.gameObject)
+          }
+        })
       }
 
         player.on(Phaser.Animations.Events.ANIMATION_UPDATE, startHit)
@@ -433,8 +441,6 @@ function interactionTirolienne(player, scene) {
 
 
 function gestionVie(vie, id) {
-  console.log("VVVVVVVVVVVVVVVVVVIIIIE");
-  console.log(vie);
   if (vie <= 0) {
     evenement.emit('fin-de-vie', id)
   } else {
@@ -442,9 +448,8 @@ function gestionVie(vie, id) {
   }
 }
 
-function gestionTonneaux(tonneau) {
-  // tonneau.setVelocity((player.flipX ? -10 * (puissance * 5)  : 10 * (puissance * 5)), - (puissance * 100) )
-  tonneau.setVelocityY(-100)
+function gestionTonneaux(puissance, rotation, tonneau) {
+  tonneau.setVelocity((rotation ? -10 * (puissance * 5)  : 10 * (puissance * 5)), - (puissance * 100) )
 }
 /**
  * CONFIGURATION DE BASE POUR RECOMMENCER LA PARTIE
@@ -1339,13 +1344,6 @@ function addPlayer(self, playerInfo) {
 }
 
 function handleCollide(objet1, objet2, info) {
-  if (objet1.gameObject.playerId) {
-    gestionVie(objet1.gameObject.vie, objet1.gameObject.playerId)
-  }
-
-  if (objet1.gameObject.name == "tonneau") {
-    gestionTonneaux(objet1.gameObject)
-  }
 }
 
 function removePlayer(self, playerId, arene) {
