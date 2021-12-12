@@ -331,6 +331,11 @@ if (fontainezone2.contains(player.x, player.y)) {
       console.log("suppresionn CONSTRAINT VERT");
     }
   }
+} else if (Object.keys(constraints[player.playerId]['drapeau']).length == 1) {
+  if (!fontainezone2.active) {
+    scene.matter.world.removeConstraint(constraints[player.playerId]['drapeau']);
+    constraints[player.playerId]['drapeau'] = {}
+  }
 }
   //   if (Object.keys(constraints[player.playerId]['drapeau']).length == 0) {
   //     constraints[player.playerId]['drapeau'] = scene.matter.add.constraint(scene.drapeaux.getChildren()[0], player, 0)
@@ -357,7 +362,13 @@ if (fontainezone2.contains(player.x, player.y)) {
       console.log("SUPPRESSION CONSTRAINT BLEU");
       }
     }
+  } else if (Object.keys(constraints[player.playerId]['drapeau']).length == 1) {
+    if (!fontainezone2.active) {
+      scene.matter.world.removeConstraint(constraints[player.playerId]['drapeau']);
+      constraints[player.playerId]['drapeau'] = {}
+    }
   }
+
   // if (drapeauBleu.contains(player.x, player.y)) {
   //   if (Object.keys(constraints[player.playerId]['drapeau']).length == 0) {
   //     constraints[player.playerId]['drapeau'] = scene.matter.add.constraint(scene.drapeaux.getChildren()[0], player, 0)
