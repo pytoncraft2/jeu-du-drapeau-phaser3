@@ -148,13 +148,26 @@ function attaque(charge, scene, player) {
       scene.tween.stop()
       player.setAlpha(1)
     }
+    console.log("AAAAAAAAAAAATTAAACK FRAME:");
+    console.log(player.attaqueFrame);
     player.play('attack', true)
 
     const startHit = (anim, frame) => {
         if (frame.textureFrame == player.attaqueFrame)
         {
+          scene.matter.overlap([...scene.players['Naruto'].getChildren(), ...scene.tonneaux.getChildren()], player.zoneAttaque, (objet1, objet2) => {
+            if (objet1.gameObject.playerId) {
+              gestionVie(objet1.gameObject.vie, objet1.gameObject.playerId, scene.tweens, puissance, objet1.gameObject.flipX)
+            }
+
+            if (objet1.gameObject.name == "tonneau") {
+              gestionTonneaux(puissance, player.flipX, objet1.gameObject)
+            }
+
+          })
           return
         }
+        console.log(frame.textureFrame);
         player.off(Phaser.Animations.Events.ANIMATION_UPDATE, startHit)
         player.flipX ?
         (player.zoneAttaque.x = player.getLeftCenter().x - 70, player.zoneAttaque.y = player.getLeftCenter().y)
@@ -168,16 +181,6 @@ function attaque(charge, scene, player) {
           evenement.emit('changement-vie-equipe', "A", puissance + player.puissanceBonus, player.puissanceDeBase)
         }
 
-        scene.matter.overlap([...scene.players['Naruto'].getChildren(), ...scene.tonneaux.getChildren()], player.zoneAttaque, (objet1, objet2) => {
-          if (objet1.gameObject.playerId) {
-            gestionVie(objet1.gameObject.vie, objet1.gameObject.playerId, scene.tweens, puissance, objet1.gameObject.flipX)
-          }
-
-          if (objet1.gameObject.name == "tonneau") {
-            gestionTonneaux(puissance, player.flipX, objet1.gameObject)
-          }
-
-        })
       }
 
         player.on(Phaser.Animations.Events.ANIMATION_UPDATE, startHit)
@@ -401,7 +404,7 @@ parametres['dessinatrice1'] = {
     displayHeight: 302,
     masse: 30,
     puissanceDeBase: 10,
-    attaqueFrame: "positiona3"
+    attaqueFrame: "positiona5"
   },
   toucheA: (charge, scene, player) => {
     attaque(charge, scene, player)
@@ -1009,19 +1012,19 @@ function update() {
           constraints[player.playerId]['bullet'] = {}
 
           this.tweens.addCounter({
-              duration: 300,
-              onComplete: () => (player.clearTint())
-            })
+            duration: 300,
+            onComplete: () => (player.clearTint())
+          })
 
-            if (player.etatAttaque.repousser) {
-              player.setVelocityX(player.etatAttaque.direction ? player.etatAttaque.repousser * 30 : -player.etatAttaque.repousser * 30 )
-            }
-            io.to("Naruto").emit("changement_vie", player.playerId, player.vie);
+          if (player.etatAttaque.repousser) {
+            player.setVelocityX(player.etatAttaque.direction ? player.etatAttaque.repousser * 30 : -player.etatAttaque.repousser * 30 )
           }
+          io.to("Naruto").emit("changement_vie", player.playerId, player.vie);
+        }
 
 
-      // player.setAlpha(0.5)
-      player.etatAttaque.attacked = false;
+        // player.setAlpha(0.5)
+        player.etatAttaque.attacked = false;
       }
 
       /**
