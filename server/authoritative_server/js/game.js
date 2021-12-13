@@ -380,7 +380,7 @@ function interactionTonneauDrapeau(player, scene) {
 
 function interactionTirolienne(player, scene) {
   var dist = Phaser.Math.Distance.BetweenPoints(player, scene.bullet);
-  if (dist < 530 && dist < 540) {
+  if (dist < 900 && dist < 700) {
     if (Object.entries(constraints[player.playerId]['bullet']).length === 0) {
       constraints[player.playerId]['bullet'] = scene.matter.add.constraint(scene.bullet, player)
 
@@ -782,22 +782,22 @@ tonneau4.id = 4;
 
 
 t1 = self.matter.add.gameObject(tonneau1);
-t1.setMass(40).setFriction(2).setFrictionAir(0.1)
+t1.setMass(20).setFriction(0).setFrictionAir(0.1)
 t1.name = "tonneau"
 
 
 t2 = self.matter.add.gameObject(tonneau2);
-t2.setMass(40).setFriction(2).setFrictionAir(0.1)
+t2.setMass(20).setFriction(0).setFrictionAir(0.1)
 t2.name = "tonneau"
 
 
 t3 = self.matter.add.gameObject(tonneau3);
-t3.setMass(40).setFriction(2).setFrictionAir(0.1)
+t3.setMass(20).setFriction(0).setFrictionAir(0.1)
 t3.name = "tonneau"
 
 
 t4 = self.matter.add.gameObject(tonneau4);
-t4.setMass(40).setFriction(2).setFrictionAir(0.1)
+t4.setMass(20).setFriction(0).setFrictionAir(0.1)
 t4.name = "tonneau"
 
 this.tonneaux.addMultiple([t1, t2, t3, t4])
