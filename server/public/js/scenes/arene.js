@@ -25,9 +25,6 @@ const Arene = new Phaser.Class({
 
   create: function() {
 
-
-
-
     this.vieEquipeA = 100
     this.vieEquipeB = 100
     this.lastHealthEquipeA = 100;
@@ -347,6 +344,13 @@ def.body.collisionFilter.mask = 44
     let platformeZoneTonneaux = this.add.image(-2500, 1790, 'platforme').setDepth(-2)
 
     this.facade1 = this.add.image(-135, 106, 'facade').setDepth(1).setAlpha(0.4)
+    var gg = this.add.graphics();
+
+var rect = new Phaser.Geom.Rectangle(this.facade1.x - this.facade1.width / 2, this.facade1.y + 100, this.facade1.displayWidth, 200);
+
+gg.fillRectShape(rect);
+gg.setDepth(200)
+
     let toit1 = this.add.image(-135, -245, 'plafond').setDepth(2)
     this.fontaine1 = this.add.image(-4870, -790, 'fontaine').setDepth(2)
     this.fontaine1Derriere = this.add.image(-4870, -790, 'fontaineDerriere').setDepth(0)
@@ -721,9 +725,9 @@ def.body.collisionFilter.mask = 44
     }
 
     if (Phaser.Input.Keyboard.JustDown(this.aKeyPressed)) {
-      this.players.getChildren()[0].flipX ?
-      (this.players.getChildren()[0].zoneAttaque.x = this.players.getChildren()[0].getLeftCenter().x - 70, this.players.getChildren()[0].zoneAttaque.y = this.players.getChildren()[0].getLeftCenter().y)
-      : (this.players.getChildren()[0].zoneAttaque.x = this.players.getChildren()[0].getRightCenter().x + 70, this.players.getChildren()[0].zoneAttaque.y = this.players.getChildren()[0].getRightCenter().y)
+      // this.players.getChildren()[0].flipX ?
+      // (this.players.getChildren()[0].zoneAttaque.x = this.players.getChildren()[0].getLeftCenter().x - 70, this.players.getChildren()[0].zoneAttaque.y = this.players.getChildren()[0].getLeftCenter().y)
+      // : (this.players.getChildren()[0].zoneAttaque.x = this.players.getChildren()[0].getRightCenter().x + 70, this.players.getChildren()[0].zoneAttaque.y = this.players.getChildren()[0].getRightCenter().y)
       // joueur.zoneAttaque.x = joueur.getRightCenter().x
       // joueur.zoneAttaque.y = joueur.getRightCenter().y
 
@@ -862,16 +866,16 @@ def.body.collisionFilter.mask = 44
     // console.log(joueur.width);
     // console.log(joueur.displayWidth);
     // console.log(joueur.getBottomLeft())
-    console.log(joueur.getBottomCenter())
-    joueur.zoneAttaque = self.add.rectangle(0, 0 ,joueur.displayWidth, joueur.displayHeight, 0x0e88bd, 0.5).setDepth(400);
-    joueur.zoneAttaque.x = joueur.getRightCenter().x
-    joueur.zoneAttaque.y = joueur.getRightCenter().y
-    // zoneAttaque.width -= joueur.getRightCenter().y
-
-
-    // joueur.socle2 = self.add.zone(playerInfo.x, playerInfo.y + 190, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
-    var za = self.matter.add.gameObject(joueur.zoneAttaque);
-    self.matter.overlap(joueur, za, this.handleCollide, undefined, this)
+    // console.log(joueur.getBottomCenter())
+    // joueur.zoneAttaque = self.add.rectangle(0, 0 ,joueur.displayWidth, joueur.displayHeight, 0x0e88bd, 0.5).setDepth(400);
+    // joueur.zoneAttaque.x = joueur.getRightCenter().x
+    // joueur.zoneAttaque.y = joueur.getRightCenter().y
+    // // zoneAttaque.width -= joueur.getRightCenter().y
+    //
+    //
+    // // joueur.socle2 = self.add.zone(playerInfo.x, playerInfo.y + 190, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
+    // var za = self.matter.add.gameObject(joueur.zoneAttaque);
+    // self.matter.overlap(joueur, za, this.handleCollide, undefined, this)
 
 
 
