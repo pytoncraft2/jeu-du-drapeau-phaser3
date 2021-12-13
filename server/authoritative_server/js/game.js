@@ -864,7 +864,13 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
         attaque: false,
         puissanceBonus: 0,
         alpha: 1,
-        attacked: false,
+        etatAttaque: {
+          attacked: false,
+          repousser: (puissance) => {
+          console.log("RRRRRRRRRRRRRRRRRRREPOUSER")
+          console.log(puissance)
+          }
+        },
         degat: 0,
         depth: 30,
         anim: 'profil',
@@ -983,9 +989,32 @@ function update() {
       input.protection = false;
       }
 
-      if (player.attacked) {
-      player.setAlpha(0.5)
-      player.attacked = false;
+      if (player.etatAttaque.attacked) {
+
+        // console.log(player.repousser);
+        if (!player.protege) {
+          player.vie -= 1;
+          player.setTint(0xff0000)
+          this.matter.world.removeConstraint(constraints[player.playerId]['tonneau']);
+          this.matter.world.removeConstraint(constraints[player.playerId]['drapeau']);
+          this.matter.world.removeConstraint(constraints[player.playerId]['bullet']);
+          constraints[player.playerId]['tonneau'] = {}
+          constraints[player.playerId]['drapeau'] = {}
+          constraints[player.playerId]['bullet'] = {}
+
+          this.tweens.addCounter({
+              duration: 300,
+              onComplete: () => (player.clearTint())
+            })
+            // if (superAttaque == true) {
+            //   player.setVelocityX(player.flipX ? 30 : -30)
+            // }
+            io.to("Naruto").emit("changement_vie", player.playerId, player.vie);
+          }
+
+
+      // player.setAlpha(0.5)
+      player.etatAttaque.attacked = false;
       }
 
       /**
@@ -1168,26 +1197,9 @@ function recupereLeTonneauLePlusProche(player, tonneaux) {
 
 function changementVie(id, tween, superAttaque, puissance) {
   let joueur = this.players["Naruto"].getMatching("playerId", id)[0]
-  if (!joueur.protege) {
-    joueur.vie -= 1;
-    joueur.setTint(0xff0000)
-    this.matter.world.removeConstraint(constraints[joueur.playerId]['tonneau']);
-    this.matter.world.removeConstraint(constraints[joueur.playerId]['drapeau']);
-    this.matter.world.removeConstraint(constraints[joueur.playerId]['bullet']);
-    constraints[joueur.playerId]['tonneau'] = {}
-    constraints[joueur.playerId]['drapeau'] = {}
-    constraints[joueur.playerId]['bullet'] = {}
-
-    tween.addCounter({
-        duration: 300,
-        onComplete: () => (joueur.clearTint())
-      })
-      if (superAttaque == true) {
-        joueur.setVelocityX(joueur.flipX ? 30 : -30)
-      }
-    io.to("Naruto").emit("changement_vie", id, joueur.vie);
-  } else {
-    console.log("JOUEUR PROTEGER");
+  joueur.etatAttaque.attacked = true;
+  if (superAttaque) {
+  // joueur.repousser(puissance)
   }
 }
 
@@ -1270,7 +1282,8 @@ function addPlayer(self, playerInfo) {
   joueur.vie = playerInfo.vie;
   joueur.vieEquipe = playerInfo.vieEquipe;
   joueur.degat = playerInfo.degat;
-  joueur.attacked = playerInfo.attacked;
+  joueur.etatAttaque.attacked = playerInfo.etatAttaque.attacked;
+  joueur.etatAttaque.repousser = playerInfo.etatAttaque.repousser
   joueur.protege = playerInfo.protege;
   joueur.masse = playerInfo.masse;
   joueur.puissanceBonus = playerInfo.puissanceBonus;
