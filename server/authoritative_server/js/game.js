@@ -170,7 +170,7 @@ function attaque(charge, scene, player) {
 
         scene.matter.overlap([...scene.players['Naruto'].getChildren(), ...scene.tonneaux.getChildren()], player.zoneAttaque, (objet1, objet2) => {
           if (objet1.gameObject.playerId) {
-            gestionVie(objet1.gameObject.vie, objet1.gameObject.playerId, scene.tweens, puissance, objet1.gameObject.flipX, objet1.gameObject.puissanceDeBase)
+            gestionVie(objet1.gameObject.vie, objet1.gameObject.playerId, scene.tweens, puissance, objet1.gameObject.flipX)
           }
 
           if (objet1.gameObject.name == "tonneau") {
@@ -374,13 +374,13 @@ function interactionTirolienne(player, scene) {
 }
 
 
-function gestionVie(vie, id, tween, superAttaque, direction, puissanceDeBase) {
+function gestionVie(vie, id, tween, superAttaque, direction) {
   console.log("GESTION VIE");
   console.log(superAttaque);
   if (vie <= 0) {
     evenement.emit('fin-de-vie', id)
   } else {
-    evenement.emit('changement-vie', id, tween, superAttaque, direction, puissanceDeBase)
+    evenement.emit('changement-vie', id, tween, superAttaque, direction)
   }
 }
 
@@ -429,7 +429,7 @@ parametres['ninja'] = {
     displayWidth: 149,
     displayHeight: 140,
     masse: 10,
-    puissanceDeBase: 18,
+    puissanceDeBase: 12,
     attaqueFrame: "positiona1"
   },
   toucheA: (charge, scene, player) => {
@@ -869,8 +869,7 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
         etatAttaque: {
           attacked: false,
           repousser: false,
-          direction: null,
-          puissanceDeBase: 0,
+          direction: null
         },
         degat: 0,
         depth: 30,
@@ -1015,7 +1014,7 @@ function update() {
             })
 
             if (player.etatAttaque.repousser) {
-              player.setVelocityX(player.etatAttaque.direction ? player.etatAttaque.repousser * player.etatAttaque.puissanceDeBase : -player.etatAttaque.repousser * player.etatAttaque.puissanceDeBase)
+              player.setVelocityX(player.etatAttaque.direction ? player.etatAttaque.repousser * 30 : -player.etatAttaque.repousser * 30 )
             }
             io.to("Naruto").emit("changement_vie", player.playerId, player.vie);
           }
@@ -1203,12 +1202,11 @@ function recupereLeTonneauLePlusProche(player, tonneaux) {
  * @return {[type]}    [description]
  */
 
-function changementVie(id, tween, superAttaque, direction, puissanceDeBase) {
+function changementVie(id, tween, superAttaque, direction) {
   let joueur = this.players["Naruto"].getMatching("playerId", id)[0]
   joueur.etatAttaque.attacked = true;
   // if (superAttaque == true) {
   joueur.etatAttaque.repousser = superAttaque;
-  joueur.etatAttaque.puissanceDeBase = puissanceDeBase;
   joueur.etatAttaque.direction = direction;
   // }
 }
@@ -1295,7 +1293,6 @@ function addPlayer(self, playerInfo) {
   joueur.etatAttaque = {}
   joueur.etatAttaque.attacked = playerInfo.etatAttaque.attacked;
   joueur.etatAttaque.repousser = playerInfo.etatAttaque.repousser
-  joueur.etatAttaque.puissanceDeBase = playerInfo.etatAttaque.puissanceDeBase
   joueur.etatAttaque.direction = playerInfo.etatAttaque.direction
   joueur.protege = playerInfo.protege;
   joueur.masse = playerInfo.masse;
