@@ -160,7 +160,7 @@ function attaque(charge, scene, player) {
 
           scene.matter.overlap([...scene.players['Naruto'].getChildren(), ...scene.tonneaux.getChildren()], player.zoneAttaque, (objet1, objet2) => {
             if (objet1.gameObject.playerId) {
-              gestionVie(objet1.gameObject.vie, objet1.gameObject.playerId, scene.tweens, puissance, objet1.gameObject.flipX)
+              gestionVie(objet1.gameObject.vie, objet1.gameObject.playerId, scene.tweens, puissance, objet1.gameObject.direction)
             }
 
             if (objet1.gameObject.name == "tonneau") {
@@ -869,6 +869,7 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
         wall: false,
         attaque: false,
         puissanceBonus: 0,
+        direction: "droite",
         alpha: 1,
         etatAttaque: {
           attacked: false,
@@ -987,7 +988,7 @@ function update() {
       player.setTint(0x14b2f9)
       player.protege = true;
       this.tweens.addCounter({
-        duration: 4000,
+        duration: 1000,
         onComplete: () => (player.protege = false, player.clearTint())
       })
       input.protection = false;
@@ -999,6 +1000,43 @@ function update() {
       * @param  {[type]} player [description]
       * @return {[type]}        [description]
       */
+
+      /**
+       * DROITE-GAUCHE
+       */
+
+      if (input.right) {
+        player.direction = "droite"
+        if (input.walk) {
+          player.thrust(0.1)
+          player.play('walk', true)
+          player.setFlipX(false)
+        } else {
+          player.thrust(0)
+          if (player.body.speed < 2) {
+            player.play("idle_walk", true)
+          }
+        }
+      } else if (input.left) {
+        player.direction = "gauche"
+        if (input.walk) {
+          player.thrustBack(0.1)
+          player.play('walk', true)
+          player.setFlipX(true)
+        } else {
+          player.thrust(0)
+          if (player.body.speed < 2) {
+          player.play("idle_walk", true)
+          }
+        }
+      } else if (input.up) {
+        player.play('goback')
+        input.up = false;
+      } else if (input.down) {
+        player.play('front')
+        input.down = false;
+      }
+
       if (player.etatAttaque.attacked) {
 
         // console.log(player.repousser);
@@ -1018,7 +1056,35 @@ function update() {
           })
 
           if (player.etatAttaque.repousser) {
-            player.setVelocityX(player.etatAttaque.direction ? player.etatAttaque.repousser * 30 : -player.etatAttaque.repousser * 30 )
+            console.log("moi_");
+            console.log(player.flipX);
+            console.log("_lui");
+            console.log(player.etatAttaque.direction);
+            console.log("__fin__");
+            let moi = player.flipX;
+            let lui = player.etatAttaque.direction;
+
+            console.log("direction ennemie");
+            console.log(player.etatAttaque.direction);
+            console.log("direction ennemie");
+            console.log(player.direction);
+            if (player.etatAttaque.direction != player.direction) {
+              // player.setVelocityX(player.etatAttaque.repousser * 30)
+            } else {
+              // player.setVelocityX(-player.etatAttaque.repousser * 30)
+            }
+            // if (moi == true && lui == false) {
+              // player.setVelocityX(!player.flipX && player.etatAttaque.direction ? player.etatAttaque.repousser * 30 : -player.etatAttaque.repousser * 30)
+            // } else {
+              // player.setVelocityX(player.etatAttaque.direction ? player.etatAttaque.repousser * 30 : -player.etatAttaque.repousser * 30)
+            // }
+            // if (player.etatAttaque.direction != player.flipX) {
+            //   // player.setVelocityX(!player.etatAttaque.direction ? player.etatAttaque.repousser * 30 : -player.etatAttaque.repousser * 30 )
+            //   player.setVelocityX(player.etatAttaque.repousser * 30)
+            // } else {
+            //   // player.setVelocityX(player.etatAttaque.repousser * 30)
+            //   // player.setVelocityX(player.etatAttaque.direction ? -player.etatAttaque.repousser * 30 : player.etatAttaque.repousser * 30 )
+            // }
           }
           io.to("Naruto").emit("changement_vie", player.playerId, player.vie);
         }
@@ -1027,41 +1093,6 @@ function update() {
         // player.setAlpha(0.5)
         player.etatAttaque.attacked = false;
       }
-
-      /**
-       * DROITE-GAUCHE
-       */
-
-      if (input.right) {
-        if (input.walk) {
-          player.thrust(0.1)
-          player.play('walk', true)
-          player.setFlipX(false)
-        } else {
-          player.thrust(0)
-          if (player.body.speed < 2) {
-            player.play("idle_walk", true)
-          }
-        }
-      } else if (input.left) {
-        if (input.walk) {
-          player.thrustBack(0.1)
-          player.play('walk', true)
-          player.setFlipX(true)
-        } else {
-          player.thrust(0)
-          if (player.body.speed < 2) {
-          player.play("idle_walk", true)
-          }
-        }
-      } else if (input.up) {
-        player.play('goback')
-        input.up = false;
-      } else if (input.down) {
-        player.play('front')
-        input.down = false;
-      }
-
 
       //SE REDRESSER
       if (input.redresser) {
