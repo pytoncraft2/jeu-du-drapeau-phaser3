@@ -72,6 +72,30 @@ function multiclonage(scene, player) {
 
 }
 
+function recevoirDegat(scene, player) {
+        // console.log(player.repousser);
+        if (!player.protege) {
+          player.vie -= 1;
+          player.setTint(0xff0000)
+          scene.matter.world.removeConstraint(constraints[player.playerId]['tonneau']);
+          scene.matter.world.removeConstraint(constraints[player.playerId]['drapeau']);
+          scene.matter.world.removeConstraint(constraints[player.playerId]['bullet']);
+          constraints[player.playerId]['tonneau'] = {}
+          constraints[player.playerId]['drapeau'] = {}
+          constraints[player.playerId]['bullet'] = {}
+
+          scene.tweens.addCounter({
+            duration: 300,
+            onComplete: () => (player.clearTint())
+          })
+
+          if (player.etatAttaque.repousser) {
+            player.setVelocityX(player.etatAttaque.direction ? player.etatAttaque.repousser * 30 : -player.etatAttaque.repousser * 30)
+          }
+          io.to("Naruto").emit("changement_vie", player.playerId, player.vie);
+        }
+}
+
 function attaque(charge, scene, player) {
   if (charge) {
     scene.tween = scene.tweens.timeline({
@@ -424,6 +448,9 @@ parametres['dessinatrice1'] = {
   },
   toucheEspace: (charge, scene, player) => {
     saut(charge, scene, player)
+  },
+  gestionRecevoirDegat: (scene, player) => {
+    recevoirDegat(scene, player)
   }
 }
 
@@ -455,6 +482,9 @@ parametres['ninja'] = {
   toucheEspace: (charge, scene, player) => {
     saut(charge, scene, player)
   },
+  gestionRecevoirDegat: (scene, player) => {
+    recevoirDegat(scene, player)
+  }
 }
 
 
@@ -484,6 +514,9 @@ parametres['ninja2'] = {
   },
   toucheEspace: (charge, scene, player) => {
     saut(charge, scene, player)
+  },
+  gestionRecevoirDegat: (scene, player) => {
+    recevoirDegat(scene, player)
   }
 }
 
@@ -513,6 +546,9 @@ parametres['aventuriere2'] = {
   },
   toucheEspace: (charge, scene, player) => {
     saut(charge, scene, player)
+  },
+  gestionRecevoirDegat: (scene, player) => {
+    recevoirDegat(scene, player)
   }
 }
 
@@ -542,6 +578,9 @@ parametres['chevalier'] = {
   },
   toucheEspace: (charge, scene, player) => {
     saut(charge, scene, player)
+  },
+  gestionRecevoirDegat: (scene, player) => {
+    recevoirDegat(scene, player)
   }
 }
 
@@ -571,6 +610,9 @@ parametres['naruto'] = {
   },
   toucheEspace: (charge, scene, player) => {
     saut(charge, scene, player)
+  },
+  gestionRecevoirDegat: (scene, player) => {
+    recevoirDegat(scene, player)
   }
 }
 
@@ -1000,31 +1042,7 @@ function update() {
       * @return {[type]}        [description]
       */
       if (player.etatAttaque.attacked) {
-
-        // console.log(player.repousser);
-        if (!player.protege) {
-          player.vie -= 1;
-          player.setTint(0xff0000)
-          this.matter.world.removeConstraint(constraints[player.playerId]['tonneau']);
-          this.matter.world.removeConstraint(constraints[player.playerId]['drapeau']);
-          this.matter.world.removeConstraint(constraints[player.playerId]['bullet']);
-          constraints[player.playerId]['tonneau'] = {}
-          constraints[player.playerId]['drapeau'] = {}
-          constraints[player.playerId]['bullet'] = {}
-
-          this.tweens.addCounter({
-            duration: 300,
-            onComplete: () => (player.clearTint())
-          })
-
-          if (player.etatAttaque.repousser) {
-            player.setVelocityX(player.etatAttaque.direction ? player.etatAttaque.repousser * 30 : -player.etatAttaque.repousser * 30)
-          }
-          io.to("Naruto").emit("changement_vie", player.playerId, player.vie);
-        }
-
-
-        // player.setAlpha(0.5)
+        parametres[player.atlas].gestionRecevoirDegat(this, player)
         player.etatAttaque.attacked = false;
       }
 
