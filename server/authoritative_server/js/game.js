@@ -148,13 +148,16 @@ function attaque(charge, scene, player) {
       scene.tween.stop()
       player.setAlpha(1)
     }
-    console.log("AAAAAAAAAAAATTAAACK FRAME:");
-    console.log(player.attaqueFrame);
     player.play('attack', true)
 
     const startHit = (anim, frame) => {
         if (frame.textureFrame == player.attaqueFrame)
         {
+          player.flipX ?
+          (player.zoneAttaque.x = player.getLeftCenter().x - 70, player.zoneAttaque.y = player.getLeftCenter().y)
+          : (player.zoneAttaque.x = player.getRightCenter().x + 70, player.zoneAttaque.y = player.getRightCenter().y)
+
+
           scene.matter.overlap([...scene.players['Naruto'].getChildren(), ...scene.tonneaux.getChildren()], player.zoneAttaque, (objet1, objet2) => {
             if (objet1.gameObject.playerId) {
               gestionVie(objet1.gameObject.vie, objet1.gameObject.playerId, scene.tweens, puissance, objet1.gameObject.flipX)
@@ -165,22 +168,20 @@ function attaque(charge, scene, player) {
             }
 
           })
-          return
-        }
-        console.log(frame.textureFrame);
+
+
+          if (fontainezone.contains(player.x, player.y)) {
+            evenement.emit('changement-vie-equipe', "B", puissance + player.puissanceBonus, player.puissanceDeBase)
+          }
+
+          if (fontainezone2.contains(player.x, player.y)) {
+            evenement.emit('changement-vie-equipe', "A", puissance + player.puissanceBonus, player.puissanceDeBase)
+          }
         player.off(Phaser.Animations.Events.ANIMATION_UPDATE, startHit)
-        player.flipX ?
-        (player.zoneAttaque.x = player.getLeftCenter().x - 70, player.zoneAttaque.y = player.getLeftCenter().y)
-        : (player.zoneAttaque.x = player.getRightCenter().x + 70, player.zoneAttaque.y = player.getRightCenter().y)
-
-        if (fontainezone.contains(player.x, player.y)) {
-          evenement.emit('changement-vie-equipe', "B", puissance + player.puissanceBonus, player.puissanceDeBase)
         }
-
-        if (fontainezone2.contains(player.x, player.y)) {
-          evenement.emit('changement-vie-equipe', "A", puissance + player.puissanceBonus, player.puissanceDeBase)
-        }
-
+        // console.log(frame.textureFrame);
+        // player.off(Phaser.Animations.Events.ANIMATION_UPDATE, startHit)
+        // console.log(frame.textureFrame);
       }
 
         player.on(Phaser.Animations.Events.ANIMATION_UPDATE, startHit)
@@ -404,7 +405,7 @@ parametres['dessinatrice1'] = {
     displayHeight: 302,
     masse: 30,
     puissanceDeBase: 10,
-    attaqueFrame: "positiona5"
+    attaqueFrame: "positiona3"
   },
   toucheA: (charge, scene, player) => {
     attaque(charge, scene, player)
