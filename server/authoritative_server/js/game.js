@@ -434,17 +434,17 @@ parametres['dessinatrice1'] = {
   toucheA: (charge, scene, player) => {
     attaque(charge, scene, player)
   },
+  toucheZ: (scene, player) => {
+    agrandissement(scene, player)
+  },
+  toucheE: (scene, player) => {
+    agrandissement(scene, player)
+  },
   toucheT: (scene, player) => {
     interactionTirolienne(scene, player)
   },
-  toucheE: (scene, player) => {
-    interaction(scene, player)
-  },
   toucheR: (scene, player) => {
     invisible(scene, player)
-  },
-  toucheZ: (scene, player) => {
-    agrandissement(scene, player)
   },
   toucheEspace: (charge, scene, player) => {
     saut(charge, scene, player)
@@ -466,19 +466,20 @@ parametres['ninja'] = {
   toucheA: (charge, scene, player) => {
     attaque(charge, scene, player)
   },
-  toucheT: (scene, player) => {
-    interactionTirolienne(scene, player)
+  toucheZ: (scene, player) => {
+    invisible(scene, player)
   },
   toucheE: (scene, player) => {
     // interactionTonneau(scene, player)
     interactionTonneauDrapeau(scene, player)
   },
+  toucheT: (scene, player) => {
+    interactionTirolienne(scene, player)
+  },
   toucheR: (scene, player) => {
     toupie(scene.tweens, player)
   },
-  toucheZ: (scene, player) => {
-    agrandissement(scene, player)
-  },
+
   toucheEspace: (charge, scene, player) => {
     saut(charge, scene, player)
   },
@@ -500,8 +501,8 @@ parametres['ninja2'] = {
   toucheA: (charge, scene, player) => {
     attaque(charge, scene, player)
   },
-  toucheT: (scene, player) => {
-    interactionTirolienne(scene, player)
+  toucheZ: (scene, player) => {
+    agrandissement(scene, player)
   },
   toucheE: (scene, player) => {
     interactionTonneauDrapeau(scene, player)
@@ -509,8 +510,8 @@ parametres['ninja2'] = {
   toucheR: (scene, player) => {
     invisible(scene, player)
   },
-  toucheZ: (scene, player) => {
-    agrandissement(scene, player)
+  toucheT: (scene, player) => {
+    interactionTirolienne(scene, player)
   },
   toucheEspace: (charge, scene, player) => {
     saut(charge, scene, player)
@@ -532,17 +533,17 @@ parametres['aventuriere2'] = {
   toucheA: (charge, scene, player) => {
     attaque(charge, scene, player)
   },
-  toucheT: (scene, player) => {
-    interactionTirolienne(scene, player)
-  },
-  toucheR: (scene, player) => {
-    invisible(scene, player)
+  toucheZ: (scene, player) => {
+    agrandissement(scene, player)
   },
   toucheE: (scene, player) => {
     interactionTonneauDrapeau(scene, player)
   },
-  toucheZ: (scene, player) => {
-    agrandissement(scene, player)
+  toucheR: (scene, player) => {
+    invisible(scene, player)
+  },
+  toucheT: (scene, player) => {
+    interactionTirolienne(scene, player)
   },
   toucheEspace: (charge, scene, player) => {
     saut(charge, scene, player)
@@ -564,8 +565,8 @@ parametres['chevalier'] = {
   toucheA: (charge, scene, player) => {
     attaque(charge, scene, player)
   },
-  toucheT: (scene, player) => {
-    interactionTirolienne(scene, player)
+  toucheZ: (scene, player) => {
+    agrandissement(scene, player)
   },
   toucheE: (scene, player) => {
     interactionTonneauDrapeau(scene, player)
@@ -573,8 +574,8 @@ parametres['chevalier'] = {
   toucheR: (scene, player) => {
     invisible(scene, player)
   },
-  toucheZ: (scene, player) => {
-    agrandissement(scene, player)
+  toucheT: (scene, player) => {
+    interactionTirolienne(scene, player)
   },
   toucheEspace: (charge, scene, player) => {
     saut(charge, scene, player)
@@ -596,8 +597,8 @@ parametres['naruto'] = {
   toucheA: (charge, scene, player) => {
     attaque(charge, scene, player)
   },
-  toucheT: (scene, player) => {
-    interactionTirolienne(scene, player)
+  toucheZ: (scene, player) => {
+    agrandissement(scene, player)
   },
   toucheE: (scene, player) => {
     interactionTonneauDrapeau(scene, player)
@@ -605,8 +606,8 @@ parametres['naruto'] = {
   toucheR: (scene, player) => {
     multiclonage(scene, player)
   },
-  toucheZ: (scene, player) => {
-    agrandissement(scene, player)
+  toucheT: (scene, player) => {
+    interactionTirolienne(scene, player)
   },
   toucheEspace: (charge, scene, player) => {
     saut(charge, scene, player)
