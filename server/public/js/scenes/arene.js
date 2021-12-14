@@ -794,7 +794,15 @@ this.maison2Zone = new Phaser.Geom.Rectangle(this.facade2.x - this.facade2.displ
 
     if (Phaser.Input.Keyboard.JustUp(this.specialKeyPressed)) {
       this.socket.emit('playerInput', {
-        special: true
+        special: true,
+        specialRelache: false,
+      });
+    }
+
+    if (Phaser.Input.Keyboard.JustDown(this.specialKeyPressed)) {
+      this.socket.emit('playerInput', {
+        special: true,
+        specialRelache: true,
       });
     }
 

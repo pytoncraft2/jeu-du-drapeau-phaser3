@@ -22,6 +22,57 @@ function invisible(scene, player) {
   player.ombre.setAlpha(0)
 }
 
+function tirer(scene, player, relache) {
+  console.log("IIIIIIIIIIIIIIIIIII");
+  // console.log(charge);
+  if (relache) {
+    scene.bulletCanon = scene.matter.add.image(player.flipX ? player.x - 80 : player.x + 80, player.y, 'bullet').setCircle().setIgnoreGravity(true).setBounce(1.6)
+    scene.bulletCanon.type = "boulet";
+    scene.charge = scene.tweens.add({
+      targets: scene.bulletCanon,
+      scale: 4,
+      paused: false,
+      duration: 2000,
+      repeat: 0
+    });
+  } else {
+      scene.charge.stop()
+      scene.bulletCanon.setIgnoreGravity(false)
+      var coefDir;
+      if (player.direction == 'gauche') { coefDir = -1; } else { coefDir = 1 }
+      scene.bulletCanon.setVelocity(90 * coefDir, 0); // vitesse en x et en y
+
+      // this.charge = this.tweens.add({
+      //   targets: this.bulletCanon,
+      //   x: this.l.x2,
+      //   y: this.l.y2,
+      //   paused: false,
+      //   duration: 2000,
+      //   repeat: 0,
+      // });
+  }
+
+
+  // if (charge) {
+  //   player.play('idle_attack', true)
+  //   charge = false;
+  // } else {
+  //   let puissance = scene.tween.totalProgress;
+  //   player.clearTint()
+  //   if (scene.tween.isPlaying()) {
+  //     scene.tween.stop()
+  //     player.setAlpha(1)
+  //   }
+  //   player.play('attack', true)
+  //
+  // }
+
+
+
+
+
+}
+
 function agrandissement(scene, player) {
   scene.tweens.addCounter({
     duration: 10000,
@@ -603,8 +654,9 @@ parametres['naruto'] = {
   toucheE: (scene, player) => {
     interactionTonneauDrapeau(scene, player)
   },
-  toucheR: (scene, player) => {
-    multiclonage(scene, player)
+  toucheR: (scene, player, charge) => {
+    // multiclonage(scene, player)
+    tirer(scene, player, charge)
   },
   toucheT: (scene, player) => {
     interactionTirolienne(scene, player)
@@ -905,6 +957,7 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
       players[socket.room][socket.id] = {
         ...parametres[socket.atlas]['etatInitial'],
         protege: false,
+        direction: "gauche",
         atlas: socket.atlas,
         arene: socket.room,
         equipe: socket.equipe,
@@ -1016,7 +1069,10 @@ function update() {
 
       // R
       if (input.special) {
-        parametres[player.atlas].toucheR(this, player);
+        // if (input.chargeSpecial) {
+        //
+        // }
+        parametres[player.atlas].toucheR(this, player, input.specialRelache);
         input.special = false;
       }
 
@@ -1059,6 +1115,7 @@ function update() {
        */
 
       if (input.right) {
+        player.direction = "droite"
         if (input.walk) {
           player.thrust(0.1)
           player.play('walk', true)
@@ -1070,6 +1127,7 @@ function update() {
           }
         }
       } else if (input.left) {
+        player.direction = "gauche"
         if (input.walk) {
           player.thrustBack(0.1)
           player.play('walk', true)
@@ -1324,6 +1382,7 @@ function addPlayer(self, playerInfo) {
   joueur.etatAttaque.attacked = playerInfo.etatAttaque.attacked;
   joueur.etatAttaque.repousser = playerInfo.etatAttaque.repousser
   joueur.etatAttaque.direction = playerInfo.etatAttaque.direction
+  joueur.direction = playerInfo.direction
   joueur.protege = playerInfo.protege;
   joueur.masse = playerInfo.masse;
   joueur.puissanceBonus = playerInfo.puissanceBonus;
