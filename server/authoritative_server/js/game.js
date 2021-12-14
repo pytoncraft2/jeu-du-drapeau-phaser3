@@ -434,7 +434,7 @@ parametres['dessinatrice1'] = {
   toucheA: (charge, scene, player) => {
     attaque(charge, scene, player)
   },
-  toucheZ: (scene, player) => {
+  toucheT: (scene, player) => {
     interactionTirolienne(scene, player)
   },
   toucheE: (scene, player) => {
@@ -443,7 +443,7 @@ parametres['dessinatrice1'] = {
   toucheR: (scene, player) => {
     invisible(scene, player)
   },
-  toucheT: (scene, player) => {
+  toucheZ: (scene, player) => {
     agrandissement(scene, player)
   },
   toucheEspace: (charge, scene, player) => {
@@ -466,7 +466,7 @@ parametres['ninja'] = {
   toucheA: (charge, scene, player) => {
     attaque(charge, scene, player)
   },
-  toucheZ: (scene, player) => {
+  toucheT: (scene, player) => {
     interactionTirolienne(scene, player)
   },
   toucheE: (scene, player) => {
@@ -476,7 +476,7 @@ parametres['ninja'] = {
   toucheR: (scene, player) => {
     toupie(scene.tweens, player)
   },
-  toucheT: (scene, player) => {
+  toucheZ: (scene, player) => {
     agrandissement(scene, player)
   },
   toucheEspace: (charge, scene, player) => {
@@ -500,7 +500,7 @@ parametres['ninja2'] = {
   toucheA: (charge, scene, player) => {
     attaque(charge, scene, player)
   },
-  toucheZ: (scene, player) => {
+  toucheT: (scene, player) => {
     interactionTirolienne(scene, player)
   },
   toucheE: (scene, player) => {
@@ -509,7 +509,7 @@ parametres['ninja2'] = {
   toucheR: (scene, player) => {
     invisible(scene, player)
   },
-  toucheT: (scene, player) => {
+  toucheZ: (scene, player) => {
     agrandissement(scene, player)
   },
   toucheEspace: (charge, scene, player) => {
@@ -532,7 +532,7 @@ parametres['aventuriere2'] = {
   toucheA: (charge, scene, player) => {
     attaque(charge, scene, player)
   },
-  toucheZ: (scene, player) => {
+  toucheT: (scene, player) => {
     interactionTirolienne(scene, player)
   },
   toucheR: (scene, player) => {
@@ -541,7 +541,7 @@ parametres['aventuriere2'] = {
   toucheE: (scene, player) => {
     interactionTonneauDrapeau(scene, player)
   },
-  toucheT: (scene, player) => {
+  toucheZ: (scene, player) => {
     agrandissement(scene, player)
   },
   toucheEspace: (charge, scene, player) => {
@@ -564,7 +564,7 @@ parametres['chevalier'] = {
   toucheA: (charge, scene, player) => {
     attaque(charge, scene, player)
   },
-  toucheZ: (scene, player) => {
+  toucheT: (scene, player) => {
     interactionTirolienne(scene, player)
   },
   toucheE: (scene, player) => {
@@ -573,7 +573,7 @@ parametres['chevalier'] = {
   toucheR: (scene, player) => {
     invisible(scene, player)
   },
-  toucheT: (scene, player) => {
+  toucheZ: (scene, player) => {
     agrandissement(scene, player)
   },
   toucheEspace: (charge, scene, player) => {
@@ -596,7 +596,7 @@ parametres['naruto'] = {
   toucheA: (charge, scene, player) => {
     attaque(charge, scene, player)
   },
-  toucheZ: (scene, player) => {
+  toucheT: (scene, player) => {
     interactionTirolienne(scene, player)
   },
   toucheE: (scene, player) => {
@@ -605,7 +605,7 @@ parametres['naruto'] = {
   toucheR: (scene, player) => {
     multiclonage(scene, player)
   },
-  toucheT: (scene, player) => {
+  toucheZ: (scene, player) => {
     agrandissement(scene, player)
   },
   toucheEspace: (charge, scene, player) => {
@@ -994,12 +994,12 @@ function update() {
         input.attaque = false;
       }
 
-
-      // Z
-      if (input.tirolienne) {
-        parametres[player.atlas].toucheZ(player, this)
-        input.tirolienne = false;
+      // z
+      if (input.special2) {
+        parametres[player.atlas].toucheZ(this, player)
+        input.special2 = false;
       }
+
 
       // E
       if (input.interactionTonneau) {
@@ -1014,10 +1014,11 @@ function update() {
       }
 
       // T
-      if (input.special2) {
-        parametres[player.atlas].toucheT(this, player)
-        input.special2 = false;
+      if (input.tirolienne) {
+        parametres[player.atlas].toucheT(player, this)
+        input.tirolienne = false;
       }
+
 
       // ESPACE
       if (input.saut) {
