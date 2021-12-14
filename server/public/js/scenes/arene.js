@@ -609,26 +609,6 @@ this.maison2Zone = new Phaser.Geom.Rectangle(this.facade2.x - this.facade2.displ
 
   update: function() {
 
-    if (this.players.getChildren().length) {
-      this.players.getChildren().forEach((item, i) => {
-        // if (item.playerId == this.socket.id) {
-          if (this.maison1Zone.contains(this.players.getChildren()[0].getBottomCenter().x, this.players.getChildren()[0].getBottomCenter().y)) {
-            this.facade1.setAlpha(0.4)
-          } else {
-            this.facade1.setAlpha(1)
-          }
-
-          if (this.maison2Zone.contains(this.players.getChildren()[0].getBottomCenter().x, this.players.getChildren()[0].getBottomCenter().y)) {
-            this.facade2.setAlpha(0.4)
-          } else {
-            this.facade2.setAlpha(1)
-          }
-        // }
-      });
-    }
-
-
-
     /**
      * TIROLIENNE CONTROLE
      */
