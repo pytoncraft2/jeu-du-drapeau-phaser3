@@ -25,6 +25,9 @@ const Arene = new Phaser.Class({
 
   create: function() {
 
+
+
+
     this.vieEquipeA = 100
     this.vieEquipeB = 100
     this.lastHealthEquipeA = 100;
@@ -344,13 +347,14 @@ def.body.collisionFilter.mask = 44
     let platformeZoneTonneaux = this.add.image(-2500, 1790, 'platforme').setDepth(-2)
 
     this.facade1 = this.add.image(-135, 106, 'facade').setDepth(1).setAlpha(0.4)
-    var gg = this.add.graphics();
+    var g1 = this.add.graphics();
 
-var rect = new Phaser.Geom.Rectangle(this.facade1.x - this.facade1.width / 2, this.facade1.y + 100, this.facade1.displayWidth, 200);
+// var rect = new Phaser.Geom.Rectangle(this.facade1.x - this.facade1.displayWidth / 2, 300, 200);
+this.maison1Zone = new Phaser.Geom.Rectangle(this.facade1.x - this.facade1.displayWidth / 2, this.facade1.y + 100, this.facade1.width, 200);
 
-gg.fillRectShape(rect);
-gg.setDepth(200)
 
+// g1.fillRectShape(this.maison1Zone);
+// g1.setDepth(200)
     let toit1 = this.add.image(-135, -245, 'plafond').setDepth(2)
     this.fontaine1 = this.add.image(-4870, -790, 'fontaine').setDepth(2)
     this.fontaine1Derriere = this.add.image(-4870, -790, 'fontaineDerriere').setDepth(0)
@@ -386,6 +390,17 @@ gg.setDepth(200)
     let poteau2 = this.add.image(5675, -1676, 'poteau')
     let platforme2 = this.add.image(7000, -1400, 'platforme').setDepth(-2)
     this.facade2 = this.add.image(7000, -1584, 'facade').setDepth(1).setAlpha(0.4)
+
+    var g2 = this.add.graphics();
+
+// var rect = new Phaser.Geom.Rectangle(this.facade1.x - this.facade1.displayWidth / 2, 300, 200);
+this.maison2Zone = new Phaser.Geom.Rectangle(this.facade2.x - this.facade2.displayWidth / 2, this.facade2.y + 100, this.facade2.width, 200);
+
+
+// g2.fillRectShape(this.maison2Zone);
+// g2.setDepth(200)
+
+
     let toit2 = this.add.image(7000, -1935, 'plafond').setDepth(2)
     this.fontaine2 = this.add.image(8235, -1553, 'fontaine').setDepth(2)
     this.fontaine2Derriere = this.add.image(8235, -1553, 'fontaineDerriere').setDepth(0)
@@ -593,6 +608,25 @@ gg.setDepth(200)
   },
 
   update: function() {
+
+    if (this.players.getChildren().length) {
+      this.players.getChildren().forEach((item, i) => {
+        // if (item.playerId == this.socket.id) {
+          if (this.maison1Zone.contains(this.players.getChildren()[0].getBottomCenter().x, this.players.getChildren()[0].getBottomCenter().y)) {
+            this.facade1.setAlpha(0.4)
+          } else {
+            this.facade1.setAlpha(1)
+          }
+
+          if (this.maison2Zone.contains(this.players.getChildren()[0].getBottomCenter().x, this.players.getChildren()[0].getBottomCenter().y)) {
+            this.facade2.setAlpha(0.4)
+          } else {
+            this.facade2.setAlpha(1)
+          }
+        // }
+      });
+    }
+
 
 
     /**
