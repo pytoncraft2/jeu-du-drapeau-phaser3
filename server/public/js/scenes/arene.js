@@ -493,6 +493,7 @@ this.maison2Zone = new Phaser.Geom.Rectangle(this.facade2.x - this.facade2.displ
      */
 
 
+    this.escape = this.input.keyboard.addKey('ESC');
 
     //TIROLIENNE + interactionTonneau
     this.tirolienneKeyPressed = this.input.keyboard.addKey('T');
@@ -615,6 +616,12 @@ this.maison2Zone = new Phaser.Geom.Rectangle(this.facade2.x - this.facade2.displ
     if (Phaser.Input.Keyboard.JustDown(this.tirolienneKeyPressed)) {
       this.socket.emit('playerInput', {
         tirolienne: true,
+      });
+    }
+
+    if (Phaser.Input.Keyboard.JustDown(this.escape)) {
+      this.socket.emit('playerInput', {
+        escape: true,
       });
     }
 

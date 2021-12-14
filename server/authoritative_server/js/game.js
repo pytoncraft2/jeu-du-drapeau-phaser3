@@ -25,7 +25,7 @@ function invisible(scene, player) {
 function agrandissement(scene, player) {
   scene.tweens.addCounter({
     duration: 10000,
-    onComplete: () => (player.active ? player.setDisplaySize(player.displayWidth - 100, player.displayHeight - 100) : null, player.puissanceBonus = 0)
+    onComplete: () => (player.active ? player.setDisplaySize(player.displayWidth -= 100, player.displayHeight -= 100) : null, player.puissanceBonus = 0)
   })
 
   player.setDisplaySize(player.displayWidth + 100, player.displayHeight + 100)
@@ -403,8 +403,8 @@ function interactionTirolienne(player, scene) {
 
 
 function gestionVie(vie, id, tween, superAttaque, direction) {
-  console.log("GESTION VIE");
-  console.log(superAttaque);
+  // console.log("GESTION VIE");
+  // console.log(superAttaque);
   if (vie <= 0) {
     evenement.emit('fin-de-vie', id)
   } else {
@@ -987,6 +987,12 @@ function update() {
       const input = players[player.arene][player.playerId].input;
 
       player.ombre.x = player.x
+      if (input.escape) {
+        this.matter.world.localWorld.constraints = []
+        this.matter.world.removeConstraint(constraints[player.playerId]['tonneau']);
+        constraints[player.playerId]['tonneau'] = {}
+        input.escape = false;
+      }
 
       // A
       if (input.attaque) {
