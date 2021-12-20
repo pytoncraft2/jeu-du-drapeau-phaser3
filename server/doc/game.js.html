@@ -1,4 +1,32 @@
-const players = {};
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: game.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: game.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const players = {};
 const clones = {};
 var evenement = null;
 players['Naruto'] = {};
@@ -99,7 +127,7 @@ function toupie(tweens, player) {
 function saut(chargeSaut, scene, player) {
   var puissance
   if (chargeSaut) {
-    if (player.body.speed < 2) {
+    if (player.body.speed &lt; 2) {
       player.play('sautPreparation')
     }
 
@@ -115,7 +143,7 @@ function saut(chargeSaut, scene, player) {
     if (scene.tweenSaut.isPlaying()) {
       scene.tweenSaut.stop()
     }
-    if (player.body.speed < 2) {
+    if (player.body.speed &lt; 2) {
       player.play('saut')
     } else {
       player.play('jump')
@@ -323,13 +351,13 @@ function interactionTonneau(player, scene) {
 
     //ATTRAPER DRAPEAU BLEU
     var distanceDrapeauBleu = Phaser.Math.Distance.BetweenPoints(player, {x: scene.drapeaux.getChildren()[0].x, y: scene.drapeaux.getChildren()[0].y});
-    if (distanceDrapeauBleu < 130 && distanceDrapeauBleu < 140) {
+    if (distanceDrapeauBleu &lt; 130 &amp;&amp; distanceDrapeauBleu &lt; 140) {
       if (Object.keys(constraints[player.playerId]['drapeau']).length == 0) {
         constraints[player.playerId]['drapeau'] = scene.matter.add.constraint(scene.drapeaux.getChildren()[0], player, 0)
       } else {
         scene.matter.world.removeConstraint(constraints[player.playerId]['drapeau']);
         constraints[player.playerId]['drapeau'] = {}
-        if (distance < 530 && distance < 540) {
+        if (distance &lt; 530 &amp;&amp; distance &lt; 540) {
           scene.events.emit('fin-de-partie', "A")
         }
       }
@@ -340,13 +368,13 @@ function interactionTonneau(player, scene) {
     var distance2 = Phaser.Math.Distance.BetweenPoints(scene.drapeaux.getChildren()[1], {x: fontainezone2.x, y: fontainezone2.y});
     //ATTRAPER DRAPEAU VERT
     var distanceDrapeauVert = Phaser.Math.Distance.BetweenPoints(player, {x: scene.drapeaux.getChildren()[1].x, y: scene.drapeaux.getChildren()[1].y});
-    if (distanceDrapeauVert < 130 && distanceDrapeauVert < 140) {
+    if (distanceDrapeauVert &lt; 130 &amp;&amp; distanceDrapeauVert &lt; 140) {
       if (Object.keys(constraints[player.playerId]['drapeau']).length == 0) {
         constraints[player.playerId]['drapeau'] = scene.matter.add.constraint(scene.drapeaux.getChildren()[1], player, 0)
       } else {
         scene.matter.world.removeConstraint(constraints[player.playerId]['drapeau']);
         constraints[player.playerId]['drapeau'] = {}
-        if (distance2 < 530 && distance2 < 540) {
+        if (distance2 &lt; 530 &amp;&amp; distance2 &lt; 540) {
           scene.events.emit('fin-de-partie', "B")
         }
       }
@@ -396,7 +424,7 @@ function interactionTonneauDrapeau(player, scene) {
 
 // if (!fontainezone2.active) {
   var distanceDrapeauVert = Phaser.Math.Distance.BetweenPoints(player, {x: drapeauVert.x, y: drapeauVert.y});
-  if (distanceDrapeauVert < 130 && distanceDrapeauVert < 140) {
+  if (distanceDrapeauVert &lt; 130 &amp;&amp; distanceDrapeauVert &lt; 140) {
       if (!fontainezone2.active) {
         if (Object.keys(constraints[player.playerId]['drapeau']).length == 0) {
           constraints[player.playerId]['drapeau'] = scene.matter.add.constraint(drapeauVert, player, 0)
@@ -412,7 +440,7 @@ function interactionTonneauDrapeau(player, scene) {
   }
 
   var distanceDrapeauBleu = Phaser.Math.Distance.BetweenPoints(player, {x: drapeauBleu.x, y: drapeauBleu.y});
-  if (distanceDrapeauBleu < 130 && distanceDrapeauBleu < 140) {
+  if (distanceDrapeauBleu &lt; 130 &amp;&amp; distanceDrapeauBleu &lt; 140) {
     if (!fontainezone.active) {
       if (Object.keys(constraints[player.playerId]['drapeau']).length == 0) {
         constraints[player.playerId]['drapeau'] = scene.matter.add.constraint(drapeauBleu, player, 0)
@@ -430,7 +458,7 @@ function interactionTonneauDrapeau(player, scene) {
 
 function interactionTirolienne(player, scene) {
   var dist = Phaser.Math.Distance.BetweenPoints(player, scene.bullet);
-  if (dist < 900 && dist < 700) {
+  if (dist &lt; 900 &amp;&amp; dist &lt; 700) {
     if (Object.entries(constraints[player.playerId]['bullet']).length === 0) {
       constraints[player.playerId]['bullet'] = scene.matter.add.constraint(scene.bullet, player)
 
@@ -455,7 +483,7 @@ function interactionTirolienne(player, scene) {
 function gestionVie(vie, id, tween, superAttaque, direction) {
   // console.log("GESTION VIE");
   // console.log(superAttaque);
-  if (vie <= 0) {
+  if (vie &lt;= 0) {
     evenement.emit('fin-de-vie', id)
   } else {
     evenement.emit('changement-vie', id, tween, superAttaque, direction)
@@ -1118,7 +1146,7 @@ function update() {
           player.setFlipX(false)
         } else {
           player.thrust(0)
-          if (player.body.speed < 2) {
+          if (player.body.speed &lt; 2) {
             player.play("idle_walk", true)
           }
         }
@@ -1130,7 +1158,7 @@ function update() {
           player.setFlipX(true)
         } else {
           player.thrust(0)
-          if (player.body.speed < 2) {
+          if (player.body.speed &lt; 2) {
           player.play("idle_walk", true)
           }
         }
@@ -1171,7 +1199,7 @@ function update() {
     if (input.canonMaintenu) {
       var distCanon = Phaser.Math.Distance.BetweenPoints(player, this.canon1);
 
-      if (distCanon < 106 && distCanon < 121) {
+      if (distCanon &lt; 106 &amp;&amp; distCanon &lt; 121) {
         input.canonMaintenu = false;
         this.bulletCanon = this.matter.add.image(this.canon1.x, this.canon1.y + 20, 'bullet').setCircle().setIgnoreGravity(true).setBounce(1.6)
         this.bulletCanon.type = "boulet";
@@ -1249,7 +1277,7 @@ function update() {
 
 function recupereLeTonneauLePlusProche(player, tonneaux) {
   const recupereLePlusProche = tonneaux.map(t => {
-    if (Phaser.Math.Distance.BetweenPoints(player, t) < 300 && Phaser.Math.Distance.BetweenPoints(player, t) < 310) {
+    if (Phaser.Math.Distance.BetweenPoints(player, t) &lt; 300 &amp;&amp; Phaser.Math.Distance.BetweenPoints(player, t) &lt; 310) {
       return t
     }
   });
@@ -1267,11 +1295,11 @@ function recupereLeTonneauLePlusProche(player, tonneaux) {
 
  function changementVieEquipe(equipe, puissance, puissanceDeBase) {
    this.vieEquipe[equipe] -= puissance * puissanceDeBase;
-   if (this.vieEquipe[equipe] <= 0) {
-     if (equipe == "A" && fontainezone2.active) {
+   if (this.vieEquipe[equipe] &lt;= 0) {
+     if (equipe == "A" &amp;&amp; fontainezone2.active) {
        fontainezone2.active = false;
        io.to("Naruto").emit("drapeau_debloque", equipe);
-     } else if (equipe == "B" && fontainezone.active){
+     } else if (equipe == "B" &amp;&amp; fontainezone.active){
        fontainezone.active = false;
        io.to("Naruto").emit("drapeau_debloque", equipe);
      }
@@ -1415,3 +1443,26 @@ function removePlayer(self, playerId, arene) {
 
 const game = new Phaser.Game(config);
 window.gameLoaded();
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#changementVie">changementVie</a></li><li><a href="global.html#changementVieEquipe">changementVieEquipe</a></li><li><a href="global.html#finDeVie">finDeVie</a></li><li><a href="global.html#interactionTonneauDrapeau">interactionTonneauDrapeau</a></li><li><a href="global.html#invisible">invisible</a></li><li><a href="global.html#parametres">parametres</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Mon Dec 20 2021 18:49:11 GMT+0100 (GMT+01:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
