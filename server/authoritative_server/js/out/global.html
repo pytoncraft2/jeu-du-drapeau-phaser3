@@ -94,83 +94,6 @@
     
 
     
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-<h4 class="name" id="parametres"><span class="type-signature">(constant) </span>parametres<span class="type-signature"> :Object</span></h4>
-
-
-
-
-<div class="description">
-    CONFIGURATION DE CHAQUE JOUEUR
-touches correspondant a une capacites specifique
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Object</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="game.js.html">game.js</a>, <a href="game.js.html#line436">line 436</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -576,7 +499,7 @@ touches correspondant a une capacites specifique
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="game.js.html">game.js</a>, <a href="game.js.html#line1260">line 1260</a>
+        <a href="game.js.html">game.js</a>, <a href="game.js.html#line1271">line 1271</a>
     </li></ul></dd>
     
 
@@ -759,96 +682,7 @@ touches correspondant a une capacites specifique
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="game.js.html">game.js</a>, <a href="game.js.html#line1241">line 1241</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="finDeVie"><span class="type-signature"></span>finDeVie<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    REMISE A 5 DE LA VIE DU JOUEUR
-RESPAWN AVEC ANIMATION
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="game.js.html">game.js</a>, <a href="game.js.html#line1275">line 1275</a>
+        <a href="game.js.html">game.js</a>, <a href="game.js.html#line1252">line 1252</a>
     </li></ul></dd>
     
 
@@ -1031,7 +865,7 @@ RESPAWN AVEC ANIMATION
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="game.js.html">game.js</a>, <a href="game.js.html#line425">line 425</a>
+        <a href="game.js.html">game.js</a>, <a href="game.js.html#line426">line 426</a>
     </li></ul></dd>
     
 
@@ -1260,7 +1094,7 @@ RESPAWN AVEC ANIMATION
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="game.js.html">game.js</a>, <a href="game.js.html#line410">line 410</a>
+        <a href="game.js.html">game.js</a>, <a href="game.js.html#line411">line 411</a>
     </li></ul></dd>
     
 
@@ -1274,6 +1108,11 @@ RESPAWN AVEC ANIMATION
 
 
 
+
+<h5>Fires:</h5>
+<ul>
+    <li><a href="global.html#event:finDeVie">event:finDeVie</a></li>
+</ul>
 
 
 
@@ -2469,6 +2308,148 @@ recupere et filtre les objets à l'interieur du rectangle et interagit avec eux
     
 
     
+        <h3 class="subsection-title">Events</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="event:finDeVie">finDeVie</h4>
+    
+
+    
+
+
+
+<div class="description">
+    Fin de vie d'un joueur
+Retour au spawn
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">id du joueur ciblé</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="game.js.html">game.js</a>, <a href="game.js.html#line1286">line 1286</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
 </article>
 
 </section>
@@ -2479,13 +2460,13 @@ recupere et filtre les objets à l'interieur du rectangle et interagit avec eux
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="parametres._dessinatrice1_.html">'dessinatrice1'</a></li><li><a href="parametres._ninja_.html">'ninja'</a></li></ul><h3>Global</h3><ul><li><a href="global.html#agrandissement">agrandissement</a></li><li><a href="global.html#attaque">attaque</a></li><li><a href="global.html#changementVie">changementVie</a></li><li><a href="global.html#changementVieEquipe">changementVieEquipe</a></li><li><a href="global.html#finDeVie">finDeVie</a></li><li><a href="global.html#gestionTonneaux">gestionTonneaux</a></li><li><a href="global.html#gestionVie">gestionVie</a></li><li><a href="global.html#interactionTirolienne">interactionTirolienne</a></li><li><a href="global.html#interactionTonneauDrapeau">interactionTonneauDrapeau</a></li><li><a href="global.html#invisible">invisible</a></li><li><a href="global.html#parametres">parametres</a></li><li><a href="global.html#recevoirDegat">recevoirDegat</a></li><li><a href="global.html#saut">saut</a></li><li><a href="global.html#tirer">tirer</a></li><li><a href="global.html#toupie">toupie</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="parametres.html">parametres</a></li><li><a href="parametres._aventuriere2_.html">'aventuriere2'</a></li><li><a href="parametres._chevalier_.html">'chevalier'</a></li><li><a href="parametres._naruto_.html">'naruto'</a></li><li><a href="parametres._ninja2_.html">'ninja2'</a></li><li><a href="parametres._ninja_.html">'ninja'</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:finDeVie">finDeVie</a></li></ul><h3>Global</h3><ul><li><a href="global.html#agrandissement">agrandissement</a></li><li><a href="global.html#attaque">attaque</a></li><li><a href="global.html#changementVie">changementVie</a></li><li><a href="global.html#changementVieEquipe">changementVieEquipe</a></li><li><a href="global.html#gestionTonneaux">gestionTonneaux</a></li><li><a href="global.html#gestionVie">gestionVie</a></li><li><a href="global.html#interactionTirolienne">interactionTirolienne</a></li><li><a href="global.html#interactionTonneauDrapeau">interactionTonneauDrapeau</a></li><li><a href="global.html#invisible">invisible</a></li><li><a href="global.html#recevoirDegat">recevoirDegat</a></li><li><a href="global.html#saut">saut</a></li><li><a href="global.html#tirer">tirer</a></li><li><a href="global.html#toupie">toupie</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Mon Dec 20 2021 23:59:35 GMT+0100 (GMT+01:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Tue Dec 21 2021 00:21:07 GMT+0100 (GMT+01:00)
 </footer>
 
 <script> prettyPrint(); </script>

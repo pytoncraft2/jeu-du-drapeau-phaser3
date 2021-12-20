@@ -405,6 +405,7 @@ function interactionTonneauDrapeau(player, scene) {
   * @param  {Object} tween        animation pour la fin de vie
   * @param  {Boolean} superAttaque indique si le joueur qui attaque a chargé au maximum son attaque
   * @param  {String} direction    direction du joueur qui attaque (droite|gauche)
+  * @fires finDeVie#vie
   */
 
  function gestionVie(vie, id, tween, superAttaque, direction) {
@@ -425,26 +426,12 @@ function interactionTonneauDrapeau(player, scene) {
 function gestionTonneaux(puissance, rotation, tonneau) {
   tonneau.setVelocity((rotation ? -10 * (puissance * 5)  : 10 * (puissance * 5)), - (puissance * 100) )
 }
-
-  /**
-   * The complete Triforce, or one or more components of the Triforce.
-   * @typedef {Object} WishGranter~Triforce
-   * @property {boolean} hasCourage - Indicates whether the Courage component is present.
-   * @property {boolean} hasPower - Indicates whether the Power component is present.
-   * @property {boolean} hasWisdom - Indicates whether the Wisdom component is present.
-   */
-
-  /**
-   * A class for granting wishes, powered by the Triforce.
-   * @class
-   * @param {...WishGranter~Triforce} triforce - One to three {@link WishGranter~Triforce} objects
-   * containing all three components of the Triforce.
-   */
+/**
+ * Configuration des chaque joueur
+ * @namespace
+ */
 const parametres = {};
- /**
-  * Dessinatrice
-  * @namespace
-  */
+
 parametres['dessinatrice1'] = {
   /** documented as Dessinatrice.etatInitial */
   etatInitial: {
@@ -518,7 +505,10 @@ parametres['ninja'] = {
   }
 }
 
-
+/**
+ * Ninja2
+ * @namespace
+ */
 parametres['ninja2'] = {
   etatInitial: {
     vie: 5,
@@ -551,6 +541,10 @@ parametres['ninja2'] = {
   }
 }
 
+/**
+ * Aventuriere2
+ * @namespace
+ */
 parametres['aventuriere2'] = {
   etatInitial: {
     vie: 5,
@@ -583,6 +577,10 @@ parametres['aventuriere2'] = {
   }
 }
 
+/**
+ * Chevalier
+ * @namespace
+ */
 parametres['chevalier'] = {
   etatInitial: {
     vie: 20,
@@ -614,6 +612,11 @@ parametres['chevalier'] = {
     recevoirDegat(scene, player)
   }
 }
+
+/**
+ * Naruto
+ * @namespace
+ */
 
 parametres['naruto'] = {
   etatInitial: {
@@ -1279,6 +1282,14 @@ function changementVie(id, tween, superAttaque, direction) {
  * REMISE A 5 DE LA VIE DU JOUEUR
  * RESPAWN AVEC ANIMATION
  */
+
+ /**
+  * Fin de vie d'un joueur
+  * Retour au spawn
+  *
+  * @event finDeVie#vie
+  * @param  {String} id id du joueur ciblé
+  */
 
 function finDeVie(id) {
   let joueur = this.players["Naruto"].getMatching("playerId", id)[0]
