@@ -1,8 +1,4 @@
-/**
-* @module Dessinatrice
-*
-* @memberof module:Joueur
-**/
+
 
 
 const players = {};
@@ -430,18 +426,27 @@ function gestionTonneaux(puissance, rotation, tonneau) {
   tonneau.setVelocity((rotation ? -10 * (puissance * 5)  : 10 * (puissance * 5)), - (puissance * 100) )
 }
 
- /**
-  * @description CONFIGURATION DE CHAQUE JOUEUR
-  * touches correspondant a une capacites specifique
-  *
-  * @constant {Object}
-  */
+  /**
+   * The complete Triforce, or one or more components of the Triforce.
+   * @typedef {Object} WishGranter~Triforce
+   * @property {boolean} hasCourage - Indicates whether the Courage component is present.
+   * @property {boolean} hasPower - Indicates whether the Power component is present.
+   * @property {boolean} hasWisdom - Indicates whether the Wisdom component is present.
+   */
 
+  /**
+   * A class for granting wishes, powered by the Triforce.
+   * @class
+   * @param {...WishGranter~Triforce} triforce - One to three {@link WishGranter~Triforce} objects
+   * containing all three components of the Triforce.
+   */
 const parametres = {};
-/**
- * @description Dessinatrice
- */
+ /**
+  * Dessinatrice
+  * @namespace
+  */
 parametres['dessinatrice1'] = {
+  /** documented as Dessinatrice.etatInitial */
   etatInitial: {
     vie: 5,
     displayWidth: 104,
@@ -450,6 +455,7 @@ parametres['dessinatrice1'] = {
     puissanceDeBase: 10,
     attaqueFrame: "positiona3"
   },
+  /** documented as Dessinatrice.toucheA */
   toucheA: (charge, scene, player) => {
     attaque(charge, scene, player)
   },
@@ -473,7 +479,12 @@ parametres['dessinatrice1'] = {
   }
 }
 
+/**
+ * Ninja
+ * @namespace
+ */
 parametres['ninja'] = {
+
   etatInitial: {
     vie: 4,
     displayWidth: 149,
