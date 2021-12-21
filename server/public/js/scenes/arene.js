@@ -10,9 +10,10 @@ var player;
   * nom de l'arene choisi
   * nom de l'equipe choisi
   * le nom du personnage choisi
-  * @class
-  * @classdesc Zone de combat du joueur
+  * @namespace Client
   */
+
+
 const Arene = new Phaser.Class({
 
   Extends: Phaser.Scene,
