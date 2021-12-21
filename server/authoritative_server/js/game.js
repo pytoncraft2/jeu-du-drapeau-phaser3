@@ -1,6 +1,6 @@
-
-
-
+/**
+ * @memberof module:Samplemodule
+ */
 const players = {};
 const clones = {};
 var evenement = null;
@@ -1370,6 +1370,10 @@ function addPlayer(self, playerInfo) {
 
 function handleCollide(objet1, objet2, info) {
 }
+
+/**
+ * @module Samplemodule
+ */
 
 function removePlayer(self, playerId, arene) {
   self.players[arene].getChildren().forEach((player) => {
