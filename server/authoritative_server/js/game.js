@@ -8,8 +8,6 @@
 */
 
 
-
-
 const players = {};
 const clones = {};
 var evenement = null;
