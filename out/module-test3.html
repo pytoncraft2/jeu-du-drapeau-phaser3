@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>public/js/scenes/interfaces-menu/selection-joueur.js - Documentation</title>
+    <title>test3 - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,66 +29,257 @@
 
 <div id="main">
     
-    <h1 class="page-title">public/js/scenes/interfaces-menu/selection-joueur.js</h1>
+    <h1 class="page-title">test3</h1>
     
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Selection des personnage
- * Identifiant de la class Solo
- * @type {String}
- */
+        
+    
+</header>
 
- /**
- * Affiche les joueurs
- * Selectionne la clé de l'image lors du clique et l'envoie dans la class Multijoueur pour afficher le bon skin dans le jeu
- * @return {void}
- */
+<article>
+    <div class="container-overview">
+    
+        
 
- const SelectionJoueur = new Phaser.Class({
+        
+    
+    </div>
 
-   Extends: Phaser.Scene,
+    
 
-   initialize:
+    
 
-   function SelectionJoueur ()
-   {
-     Phaser.Scene.call(this, { key: 'selectionJoueur' });
-   },
+    
 
-   init: function(data) {
-     this.liste = data.liste;
-   },
+     
 
-   create: function() {
-     const self = this;
-     var x = 290;
-     var y = 600;
-     var up = 0;
-     this.liste.forEach((item, i) => {
-       this.player = 'player' + i.toString();
-       this.player = self.add.image(x + up, y, item).setScale(0.48).setOrigin(0.5, 1);
-       up += 200;
+    
 
-       this.player.setInteractive().on('pointerdown', function() {
-         self.scene.start('areneEquipes', {
-           personnage: this.frame.texture.key
-         });
-       });
-     });
-   },
- });
+    
 
-export default SelectionJoueur;
-</code></pre>
-        </article>
-    </section>
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name" id="~test"><span class="type-signature">(inner) </span>test<span class="signature">(equipe, puissance, puissanceDeBase)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    DIMINUTION VIE EQUIPE SELON LA PUISSANCE DE L'ATTAQUE DU JOUEUR 2
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="authoritative_server_js_Capacites.js.html">authoritative_server/js/Capacites.js</a>, <a href="authoritative_server_js_Capacites.js.html#line18">line 18</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>equipe</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>String</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                nom de l'equipe (A|B)
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>puissance</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                Puissance du joueur qui a attaqué
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>puissanceDeBase</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                Puissance de base du joueur qui a attaqué
+Solves equations of the form a * x = b
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-examples">
+<h5>Example</h5>
+
+    <pre class="prettyprint"><code>// returns 2
+test("A", 0.88, 10);</code></pre>
+
+</div>
+
+</div>
+        
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

@@ -2,12 +2,16 @@
  * @namespace Serveur
  */
 
-/**
-* @module utils
-*/
+ /**
+ * @module test1
+ * @property {module:test1} test1
+ */
 
 /**
- * Create a matrix
- * @class
+ * ma desc
+ * @param  {Number} a description
+ * @return {Number}   description
  */
-function Matrix(){}
+ function functionName(a) {
+
+ }

@@ -1,6 +1,15 @@
 /**
- * @memberof module:Samplemodule
+ * @namespace Serveur
+ * @property {module:test2} test2
  */
+
+ /**
+* @module test2
+*/
+
+
+
+
 const players = {};
 const clones = {};
 var evenement = null;

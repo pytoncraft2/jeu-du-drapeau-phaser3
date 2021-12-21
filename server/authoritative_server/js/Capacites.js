@@ -1,4 +1,10 @@
 /**
+* @module test3
+* @property {module:test3} test3
+*/
+
+
+/**
  * DIMINUTION VIE EQUIPE SELON LA PUISSANCE DE L'ATTAQUE DU JOUEUR 2
  * @param  {String} equipe          nom de l'equipe (A|B)
  * @param  {Number} puissance       Puissance du joueur qui a attaqué
