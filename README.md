@@ -1,43 +1,42 @@
-# jeu-du-drapeau-phaser3
-
 ### Table of Contents
 
 *   [invisible][1]
     *   [Parameters][2]
-*   [tirer][3]
-    *   [Parameters][4]
-*   [agrandissement][5]
-    *   [Parameters][6]
-*   [toupie][7]
-    *   [Parameters][8]
-*   [saut][9]
-    *   [Parameters][10]
-*   [recevoirDegat][11]
-    *   [Parameters][12]
-*   [attaque][13]
-    *   [Parameters][14]
-*   [interactionTonneauDrapeau][15]
-    *   [Parameters][16]
-*   [interactionTirolienne][17]
-    *   [Parameters][18]
-*   [gestionVie][19]
-    *   [Parameters][20]
-*   [gestionTonneaux][21]
-    *   [Parameters][22]
-*   [socleJoueur][23]
-*   [attacked][24]
-*   [right][25]
-*   [canonMaintenu][26]
-    *   [Parameters][27]
-*   [x][28]
-*   [changementVieEquipe][29]
-    *   [Parameters][30]
-*   [changementVie][31]
-    *   [Parameters][32]
-*   [finDeVie][33]
-    *   [Parameters][34]
-*   [finDeVie][35]
-    *   [Parameters][36]
+    *   [Examples][3]
+*   [tirer][4]
+    *   [Parameters][5]
+*   [agrandissement][6]
+    *   [Parameters][7]
+*   [toupie][8]
+    *   [Parameters][9]
+*   [saut][10]
+    *   [Parameters][11]
+*   [recevoirDegat][12]
+    *   [Parameters][13]
+*   [attaque][14]
+    *   [Parameters][15]
+*   [interactionTonneauDrapeau][16]
+    *   [Parameters][17]
+*   [interactionTirolienne][18]
+    *   [Parameters][19]
+*   [gestionVie][20]
+    *   [Parameters][21]
+*   [gestionTonneaux][22]
+    *   [Parameters][23]
+*   [socleJoueur][24]
+*   [attacked][25]
+*   [right][26]
+*   [canonMaintenu][27]
+    *   [Parameters][28]
+*   [x][29]
+*   [changementVieEquipe][30]
+    *   [Parameters][31]
+*   [changementVie][32]
+    *   [Parameters][33]
+*   [finDeVie][34]
+    *   [Parameters][35]
+*   [finDeVie][36]
+    *   [Parameters][37]
 
 ## invisible
 
@@ -45,8 +44,16 @@ Rendre invisible un joueur
 
 ### Parameters
 
-*   `scene` **[Object][37]** Scene du jeu
-*   `player` **[Object][37]** le joueur qui est a rendre invisible
+*   `scene` **[Object][38]** Scene du jeu
+*   `player` **[Object][38]** le joueur qui est a rendre invisible
+    Solves equations of the form a \* x = b
+
+### Examples
+
+```javascript
+// returns 2
+invisible({tween}, player);
+```
 
 ## tirer
 
@@ -54,9 +61,9 @@ Charger et tirer une boule (pouvoir de Naruto) llll
 
 ### Parameters
 
-*   `scene` **[Object][37]** Scene du jeu
-*   `player` **[Object][37]** le joueur qui tire la boule
-*   `relache` **[Boolean][38]** indique si le joueur maintient ou relache le bouton
+*   `scene` **[Object][38]** Scene du jeu
+*   `player` **[Object][38]** le joueur qui tire la boule
+*   `relache` **[Boolean][39]** indique si le joueur maintient ou relache le bouton
 
 ## agrandissement
 
@@ -64,8 +71,8 @@ Change la taille du joueur (pouvoir)
 
 ### Parameters
 
-*   `scene` **[Object][37]** Scene du jeu
-*   `player` **[Object][37]** joueur qui s'aggrandis
+*   `scene` **[Object][38]** Scene du jeu
+*   `player` **[Object][38]** joueur qui s'aggrandis
 
 ## toupie
 
@@ -73,8 +80,8 @@ Effectuer plusieurs rotation sur le joueur pendant 2secondes
 
 ### Parameters
 
-*   `tweens` **[Object][37]** gestion de l'animation pour le décompte
-*   `player` **[Object][37]** joueur qui effectue la rotation
+*   `tweens` **[Object][38]** gestion de l'animation pour le décompte
+*   `player` **[Object][38]** joueur qui effectue la rotation
 
 ## saut
 
@@ -82,9 +89,9 @@ Effectuer un saut sur un joueur
 
 ### Parameters
 
-*   `chargeSaut` **[Boolean][38]** indique si le joueur maintient ou relache le bouton
-*   `scene` **[Object][37]** Scene du jeu
-*   `player` **[Object][37]** joueur qui effectue un saut
+*   `chargeSaut` **[Boolean][39]** indique si le joueur maintient ou relache le bouton
+*   `scene` **[Object][38]** Scene du jeu
+*   `player` **[Object][38]** joueur qui effectue un saut
 
 ## recevoirDegat
 
@@ -92,8 +99,8 @@ Recevoir des dégats pour un joueur
 
 ### Parameters
 
-*   `scene` **[Object][37]** Scene du jeu
-*   `player` **[Object][37]** joueur qui recoit les dégats
+*   `scene` **[Object][38]** Scene du jeu
+*   `player` **[Object][38]** joueur qui recoit les dégats
 
 ## attaque
 
@@ -101,9 +108,9 @@ Effectuer une attaque ou/et un repoussement sur un objet|joueur
 
 ### Parameters
 
-*   `charge` **[Boolean][38]** indique si le joueur maintient ou relache le bouton
-*   `scene` **[Object][37]** Scene du jeu
-*   `player` **[Object][37]** joueur qui effectue une attaque
+*   `charge` **[Boolean][39]** indique si le joueur maintient ou relache le bouton
+*   `scene` **[Object][38]** Scene du jeu
+*   `player` **[Object][38]** joueur qui effectue une attaque
 
 ## interactionTonneauDrapeau
 
@@ -118,8 +125,8 @@ recupere et filtre les objets à l'interieur du rectangle et interagit avec eux
 
 ### Parameters
 
-*   `player` **[Object][37]** joueur qui interagie avec l'objet (tonneau|drapeau)
-*   `scene` **[Object][37]** Scene du jeu
+*   `player` **[Object][38]** joueur qui interagie avec l'objet (tonneau|drapeau)
+*   `scene` **[Object][38]** Scene du jeu
 
 ## interactionTirolienne
 
@@ -127,8 +134,8 @@ Utiliser la tirolienne quand le joueur est proche de celle ci
 
 ### Parameters
 
-*   `player` **[Object][37]** joueur qui utilise la tirolienne
-*   `scene` **[Object][37]** Scene du jeu
+*   `player` **[Object][38]** joueur qui utilise la tirolienne
+*   `scene` **[Object][38]** Scene du jeu
 
 ## gestionVie
 
@@ -136,11 +143,11 @@ Diminuer la vie d'un joueur ou faire perdre le joueur
 
 ### Parameters
 
-*   `vie` **[Number][39]** vie du joueur qui est attaqué
-*   `id` **[String][40]** id du joueur qui est attaqué
-*   `tween` **[Object][37]** animation pour la fin de vie
-*   `superAttaque` **[Boolean][38]** indique si le joueur qui attaque a chargé au maximum son attaque
-*   `direction` **[String][40]** direction du joueur qui attaque (droite|gauche)
+*   `vie` **[Number][40]** vie du joueur qui est attaqué
+*   `id` **[String][41]** id du joueur qui est attaqué
+*   `tween` **[Object][38]** animation pour la fin de vie
+*   `superAttaque` **[Boolean][39]** indique si le joueur qui attaque a chargé au maximum son attaque
+*   `direction` **[String][41]** direction du joueur qui attaque (droite|gauche)
 
 ## gestionTonneaux
 
@@ -148,9 +155,9 @@ pousser un tonneau celon la puissance émis par le joueur
 
 ### Parameters
 
-*   `puissance` **[Number][39]** charge du joueur
-*   `rotation` **[Boolean][38]** position du joueur face au tonneau (droite|gauche)
-*   `tonneau` **[Object][37]** tonneau ciblé
+*   `puissance` **[Number][40]** charge du joueur
+*   `rotation` **[Boolean][39]** position du joueur face au tonneau (droite|gauche)
+*   `tonneau` **[Object][38]** tonneau ciblé
 
 ## socleJoueur
 
@@ -175,8 +182,8 @@ SINON IL S'EN DETACHE
 
 ### Parameters
 
-*   `constraints` **[Object][37]** attache des joueurs
-*   `constraints` **[Object][37]** \['bullet'] attache de la balle correspondant au joueur
+*   `constraints` **[Object][38]** attache des joueurs
+*   `constraints` **[Object][38]** \['bullet'] attache de la balle correspondant au joueur
 
 ## x
 
@@ -188,9 +195,9 @@ DIMINUTION VIE EQUIPE SELON LA PUISSANCE DE L'ATTAQUE DU JOUEUR
 
 ### Parameters
 
-*   `equipe` **[String][40]** nom de l'equipe (A|B)
-*   `puissance` **[Number][39]** Puissance du joueur qui a attaqué
-*   `puissanceDeBase` **[Number][39]** Puissance de base du joueur qui a attaqué
+*   `equipe` **[String][41]** nom de l'equipe (A|B)
+*   `puissance` **[Number][40]** Puissance du joueur qui a attaqué
+*   `puissanceDeBase` **[Number][40]** Puissance de base du joueur qui a attaqué
 
 ## changementVie
 
@@ -219,84 +226,86 @@ Retour au spawn
 
 ### Parameters
 
-*   `id` **[String][40]** id du joueur ciblé
+*   `id` **[String][41]** id du joueur ciblé
 
 [1]: #invisible
 
 [2]: #parameters
 
-[3]: #tirer
+[3]: #examples
 
-[4]: #parameters-1
+[4]: #tirer
 
-[5]: #agrandissement
+[5]: #parameters-1
 
-[6]: #parameters-2
+[6]: #agrandissement
 
-[7]: #toupie
+[7]: #parameters-2
 
-[8]: #parameters-3
+[8]: #toupie
 
-[9]: #saut
+[9]: #parameters-3
 
-[10]: #parameters-4
+[10]: #saut
 
-[11]: #recevoirdegat
+[11]: #parameters-4
 
-[12]: #parameters-5
+[12]: #recevoirdegat
 
-[13]: #attaque
+[13]: #parameters-5
 
-[14]: #parameters-6
+[14]: #attaque
 
-[15]: #interactiontonneaudrapeau
+[15]: #parameters-6
 
-[16]: #parameters-7
+[16]: #interactiontonneaudrapeau
 
-[17]: #interactiontirolienne
+[17]: #parameters-7
 
-[18]: #parameters-8
+[18]: #interactiontirolienne
 
-[19]: #gestionvie
+[19]: #parameters-8
 
-[20]: #parameters-9
+[20]: #gestionvie
 
-[21]: #gestiontonneaux
+[21]: #parameters-9
 
-[22]: #parameters-10
+[22]: #gestiontonneaux
 
-[23]: #soclejoueur
+[23]: #parameters-10
 
-[24]: #attacked
+[24]: #soclejoueur
 
-[25]: #right
+[25]: #attacked
 
-[26]: #canonmaintenu
+[26]: #right
 
-[27]: #parameters-11
+[27]: #canonmaintenu
 
-[28]: #x
+[28]: #parameters-11
 
-[29]: #changementvieequipe
+[29]: #x
 
-[30]: #parameters-12
+[30]: #changementvieequipe
 
-[31]: #changementvie
+[31]: #parameters-12
 
-[32]: #parameters-13
+[32]: #changementvie
 
-[33]: #findevie
+[33]: #parameters-13
 
-[34]: #parameters-14
+[34]: #findevie
 
-[35]: #findevie-1
+[35]: #parameters-14
 
-[36]: #parameters-15
+[36]: #findevie-1
 
-[37]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[37]: #parameters-15
 
-[38]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+[38]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
-[39]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+[39]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
 
-[40]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[40]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+
+[41]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
