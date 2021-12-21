@@ -154,6 +154,9 @@ def.body.collisionFilter.mask = 44
       }
     });
 
+     /**
+      * @listens module:serveur:finDeVie
+      */
     this.socket.on("changement_vie", (id, vie) => {
       let moi = self.players.getMatching('playerId', self.socket.id)[0].playerId
 
