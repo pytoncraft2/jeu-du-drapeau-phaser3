@@ -1,10 +1,10 @@
 /**
  * @namespace Serveur
- * @property {module:test2} test2
+ * @property {module:serveur} serveur
  */
 
  /**
-* @module test2
+* @module serveur
 */
 
 
@@ -1379,10 +1379,6 @@ function addPlayer(self, playerInfo) {
 
 function handleCollide(objet1, objet2, info) {
 }
-
-/**
- * @module Samplemodule
- */
 
 function removePlayer(self, playerId, arene) {
   self.players[arene].getChildren().forEach((player) => {

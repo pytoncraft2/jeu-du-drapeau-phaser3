@@ -1,3 +1,14 @@
+/**
+ * @namespace Client
+ * @property {module:client} client
+ */
+
+ /**
+* @module client
+*/
+
+
+
 import PanelViewer from './elements/panel-viewer.js'
 import Animations from './elements/liste-animations.js'
 import Maison from './elements/objets/maison.js'
@@ -5,13 +16,7 @@ import Maison from './elements/objets/maison.js'
 var gfx
 var player;
 
- /**
-  * Arene qui prend en parametre (init) :
-  * nom de l'arene choisi
-  * nom de l'equipe choisi
-  * le nom du personnage choisi
-  * @namespace Client
-  */
+
 
 
 const Arene = new Phaser.Class({
