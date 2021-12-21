@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Home - Documentation</title>
+    <title>public/js/scenes/interfaces-menu/selection-joueur.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,25 +29,66 @@
 
 <div id="main">
     
+    <h1 class="page-title">public/js/scenes/interfaces-menu/selection-joueur.js</h1>
+    
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Selection des personnage
+ * Identifiant de la class Solo
+ * @type {String}
+ */
 
+ /**
+ * Affiche les joueurs
+ * Selectionne la clé de l'image lors du clique et l'envoie dans la class Multijoueur pour afficher le bon skin dans le jeu
+ * @return {void}
+ */
 
+ const SelectionJoueur = new Phaser.Class({
 
+   Extends: Phaser.Scene,
 
+   initialize:
 
+   function SelectionJoueur ()
+   {
+     Phaser.Scene.call(this, { key: 'selectionJoueur' });
+   },
 
+   init: function(data) {
+     this.liste = data.liste;
+   },
 
+   create: function() {
+     const self = this;
+     var x = 290;
+     var y = 600;
+     var up = 0;
+     this.liste.forEach((item, i) => {
+       this.player = 'player' + i.toString();
+       this.player = self.add.image(x + up, y, item).setScale(0.48).setOrigin(0.5, 1);
+       up += 200;
 
+       this.player.setInteractive().on('pointerdown', function() {
+         self.scene.start('areneEquipes', {
+           personnage: this.frame.texture.key
+         });
+       });
+     });
+   },
+ });
 
-    
-
-
-
+export default SelectionJoueur;
+</code></pre>
+        </article>
+    </section>
 
 
 

@@ -1,6 +1,5 @@
 /**
 * [TOGGLE AFFICHAGE DU PANEL SELON DONNÉS]
-* @return {[type]} [description]
 */
 
 
