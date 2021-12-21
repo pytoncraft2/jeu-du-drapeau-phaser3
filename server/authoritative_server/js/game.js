@@ -426,14 +426,9 @@ function interactionTonneauDrapeau(player, scene) {
 function gestionTonneaux(puissance, rotation, tonneau) {
   tonneau.setVelocity((rotation ? -10 * (puissance * 5)  : 10 * (puissance * 5)), - (puissance * 100) )
 }
-/**
- * Configuration des chaque joueur
- * @namespace
- */
 const parametres = {};
 
 parametres['dessinatrice1'] = {
-  /** documented as Dessinatrice.etatInitial */
   etatInitial: {
     vie: 5,
     displayWidth: 104,
@@ -442,7 +437,6 @@ parametres['dessinatrice1'] = {
     puissanceDeBase: 10,
     attaqueFrame: "positiona3"
   },
-  /** documented as Dessinatrice.toucheA */
   toucheA: (charge, scene, player) => {
     attaque(charge, scene, player)
   },
@@ -465,11 +459,6 @@ parametres['dessinatrice1'] = {
     recevoirDegat(scene, player)
   }
 }
-
-/**
- * Ninja
- * @namespace
- */
 parametres['ninja'] = {
 
   etatInitial: {
@@ -505,10 +494,6 @@ parametres['ninja'] = {
   }
 }
 
-/**
- * Ninja2
- * @namespace
- */
 parametres['ninja2'] = {
   etatInitial: {
     vie: 5,
@@ -541,10 +526,6 @@ parametres['ninja2'] = {
   }
 }
 
-/**
- * Aventuriere2
- * @namespace
- */
 parametres['aventuriere2'] = {
   etatInitial: {
     vie: 5,
@@ -577,10 +558,6 @@ parametres['aventuriere2'] = {
   }
 }
 
-/**
- * Chevalier
- * @namespace
- */
 parametres['chevalier'] = {
   etatInitial: {
     vie: 20,
@@ -612,11 +589,6 @@ parametres['chevalier'] = {
     recevoirDegat(scene, player)
   }
 }
-
-/**
- * Naruto
- * @namespace
- */
 
 parametres['naruto'] = {
   etatInitial: {
