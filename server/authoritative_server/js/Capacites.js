@@ -1,23 +1,24 @@
-export const Capacites = (tween, player) => {
-  invisible(tween, player) {
-       tween.addCounter({
-         duration: 5000,
-         onComplete: () => (player.active ? (player.setAlpha(1), player.ombre.setAlpha(1)) : null)
-       })
-       tween.add({
-         targets: player,
-         alpha: 0,
-         duration: 500
-       })
-       player.ombre.setAlpha(0)
-    // ...do something here
-  },
-  agrandissement(params) {
-    // ...do something here
-  },
-  nestedObj: {
-    myNestedMethod(params) {
-      // ...do something here
+/**
+ * DIMINUTION VIE EQUIPE SELON LA PUISSANCE DE L'ATTAQUE DU JOUEUR 2
+ * @param  {String} equipe          nom de l'equipe (A|B)
+ * @param  {Number} puissance       Puissance du joueur qui a attaqué
+ * @param  {Number} puissanceDeBase Puissance de base du joueur qui a attaqué
+ * Solves equations of the form a * x = b
+ * @example
+ * // returns 2
+ * test("A", 0.88, 10);
+ */
+
+function test(equipe, puissance, puissanceDeBase) {
+  this.vieEquipe[equipe] -= puissance * puissanceDeBase;
+  if (this.vieEquipe[equipe] <= 0) {
+    if (equipe == "A" && fontainezone2.active) {
+      fontainezone2.active = false;
+      io.to("Naruto").emit("drapeau_debloque", equipe);
+    } else if (equipe == "B" && fontainezone.active){
+      fontainezone.active = false;
+      io.to("Naruto").emit("drapeau_debloque", equipe);
     }
   }
-};
+  io.to("Naruto").emit("changement_vie_equipe", equipe, this.vieEquipe[equipe]);
+}
