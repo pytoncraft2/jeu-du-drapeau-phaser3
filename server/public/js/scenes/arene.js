@@ -16,12 +16,14 @@ import Maison from './elements/objets/maison.js'
 var gfx
 var player;
 
-
-
-
+/** @constant
+@type {string}
+@default
+*/
 const Arene = new Phaser.Class({
 
   Extends: Phaser.Scene,
+
 
   initialize:
 
@@ -30,12 +32,25 @@ const Arene = new Phaser.Class({
         key: 'arene'
       });
     },
+
+  /**
+   * Recuperation des parametres choisi du joueur
+   * @param  {Object} data parametre choisi par le joueur
+   * @param {Object} data.personnage nom du personnage choisi et suppression du "_" pour eviter erreur de repetition de nom d'image
+   * @param {Object} data.arene nom de l'arene choisi (Naruto...)
+   * @param {Object} data.equipe nom de l'equipe choisi (A|B)
+   */
+
   init: function(data) {
     this.personnage = data.personnage.slice(0, -1);
     this.arene = data.arene;
     this.equipe = data.equipe;
   },
 
+
+  /**
+   * Création des objets du jeu + connexion a socket.io
+   */
   create: function() {
 
 
@@ -89,6 +104,9 @@ def.body.collisionFilter.mask = 44
     this.players = {}
     this.clones = {}
 
+    /**
+     * {@link GroupeJoueur}
+     */
     this.players = this.add.group();
     this.clones = this.add.group();
     this.tonneaux = this.add.group();
@@ -108,11 +126,11 @@ def.body.collisionFilter.mask = 44
 
     var self = this;
     new Animations(this.anims)
+
     /**
-     * CONNEXION
-     * Démarre connexion socket
-     * Envoi dès la connexion un entete avec le nom de l'atlas à charger pour Definir atlas
-     * @type {string}
+     * @name Socket active connexion avec socket.io
+     * @fires connexionSocket
+     * @inner
      */
     this.socket = io();
     this.matter.world.disableGravity();
@@ -121,6 +139,7 @@ def.body.collisionFilter.mask = 44
      /**
      * Transmission de l'arene/personnage/equipe choisie au serveur
      * @name Socket nouveu joueur
+     * @fires nouveau_joueur
      * @param {String} arene nom de l'arene choisi
      * @param {String} equipe nom de l'equipe choisi
      * @param {String} personnage atlas du personnage choisi
@@ -558,79 +577,13 @@ this.maison2Zone = new Phaser.Geom.Rectangle(this.facade2.x - this.facade2.displ
 
 
   },
-  handleCollide: function(objet1, objet2) {
-    console.log("Copyright (c) 2018 Copyright Holder All Rights Reserved.");
-  },
-  setVieEquipe: function(value, equipe) {
-    const width = 500
-    const percent = Phaser.Math.Clamp(value, 0, 100) / 100
-    this.barreEquipe[equipe].clear()
-    this.barreEquipe[equipe].fillStyle(0xd00b0b)
-    this.barreEquipe[equipe].fillRoundedRect(1700, -330, width, 20, 5).setScrollFactor(0)
-    if (percent > 0) {
-      this.barreEquipe[equipe].fillStyle(0x0e88bd)
-      this.barreEquipe[equipe].fillRoundedRect(1700, -330, width * percent, 20, 5)
-    }
-  },
-  changementVieEquipe: function(value) {
-    this.setVieEquipe(value, equipe)
-    this.lastHealthEquipe[equipe] = value
-  },
 
-  changementVieEquipeA: function(value) {
-    this.tweens.addCounter({
-      from: this.lastHealthEquipeA,
-      to: value,
-      duration: 200,
-      ease: Phaser.Math.Easing.Sine.InOut,
-      onUpdate: tween => {
-        const value = tween.getValue()
-        this.setVieEquipeA(value)
-        this.fontaine2.setAlpha(value/100)
-        this.fontaine2Derriere.setAlpha(value/100 + 0.04)
-      },
-    })
-    this.lastHealthEquipeA = value
-  },
-  changementVieEquipeB: function(value) {
 
-    this.tweens.addCounter({
-      from: this.lastHealthEquipeB,
-      to: value,
-      duration: 200,
-      ease: Phaser.Math.Easing.Sine.InOut,
-      onUpdate: tween => {
-        const value = tween.getValue()
-        this.setVieEquipeB(value)
-        this.fontaine1.setAlpha(value/100)
-        this.fontaine1Derriere.setAlpha(value/100 + 0.04)
-      },
-    })
-    this.lastHealthEquipeB = value
-  },
-  setVieEquipeA: function(value) {
-    const width = 500
-    const percent = Phaser.Math.Clamp(value, 0, 100) / 100
-    this.barreEquipeA.clear()
-    this.barreEquipeA.fillStyle(0xd00b0b)
-    this.barreEquipeA.fillRoundedRect(1700, -330, width, 20, 5).setScrollFactor(0)
-    if (percent > 0) {
-      this.barreEquipeA.fillStyle(0x0e88bd)
-      this.barreEquipeA.fillRoundedRect(1700, -330, width * percent, 20, 5)
-    }
-  },
-  setVieEquipeB: function(value) {
-    const width = 500
-    const percent = Phaser.Math.Clamp(value, 0, 100) / 100
-    this.barreEquipeB.clear()
-    this.barreEquipeB.fillStyle(0xd00b0b)
-    this.barreEquipeB.fillRoundedRect(-710, -330, width, 20, 5).setScrollFactor(0)
-    if (percent > 0) {
-      this.barreEquipeB.fillStyle(0x0ea733)
-      this.barreEquipeB.fillRoundedRect(-710, -330, width * percent, 20, 5)
-    }
-  },
-
+  /**
+   * Observe les touches pressé par le joueur
+   * Envoie un objet contenant la touche pressé au serveur
+   * Zoom et dézoom le caméra
+   */
   update: function() {
 
     /**
@@ -874,6 +827,57 @@ this.maison2Zone = new Phaser.Geom.Rectangle(this.facade2.x - this.facade2.displ
 
   },
 
+  /**
+   * Affiche et ajoute un joueur au groupe
+   * @see GroupeJoueur
+   * @param  {Object} self référence à la scene
+   * @param  {Object} playerInfo parametres reçu du serveur
+   * @param  {Boolean} iscurrent  Verifie si le joueur correspond fait referance au joueur courant
+   * @example
+   * displayPlayers(...scene, {
+    "vie": 4,
+    "displayWidth": 149,
+    "displayHeight": 140,
+    "masse": 10,
+    "puissanceDeBase": 12,
+    "attaqueFrame": "positiona1",
+    "protege": false,
+    "direction": "gauche",
+    "atlas": "ninja",
+    "arene": "Naruto",
+    "equipe": "A",
+    "mask": 1,
+    "wall": false,
+    "attaque": false,
+    "puissanceBonus": 0,
+    "alpha": 1,
+    "etatAttaque": {
+        "attacked": false,
+        "repousser": false,
+        "direction": null
+    },
+    "degat": 0,
+    "depth": 30,
+    "anim": "profil",
+    "size": 200,
+    "vieEquipe": {
+        "A": 100,
+        "B": 100
+    },
+    "x": -379,
+    "y": 137,
+    "playerId": "ErVKiiwjJJpLAdhoAAAA",
+    "input": {
+        "left": false,
+        "right": false,
+        "up": false,
+        "down": false,
+        "a": false,
+        "z": false
+    }
+}, true)
+   */
+
   displayPlayers: function(self, playerInfo, iscurrent) {
     console.log("Ajout joueur function");
     console.log(playerInfo);
@@ -959,6 +963,14 @@ this.maison2Zone = new Phaser.Geom.Rectangle(this.facade2.x - this.facade2.displ
 
     }
   },
+
+  /**
+   * Créer un portail qui apparait et disparait un certain moment
+   * @param  {Number} x position y
+   * @param  {Number} y position x
+   * @example
+   * apparitionPortail(0, 0)
+   */
   apparitionPortail: function(x, y) {
     const portail = this.add.image(x, y, 'portal').setDepth(0).setScale(0).setAngle(0);
 
@@ -977,7 +989,82 @@ this.maison2Zone = new Phaser.Geom.Rectangle(this.facade2.x - this.facade2.displ
       duration: 2400,
     })
 
-  }
+  },
+
+
+  /**
+   * Change la barre de vie de l'equipe A avec une animation
+   * @param  {Number} value valeur final de la vie (après l'attaque)
+   */
+
+  // TODO: faire une fonction qui change la vie au lieu de 2
+ changementVieEquipeA: function(value) {
+   this.tweens.addCounter({
+     from: this.lastHealthEquipeA,
+     to: value,
+     duration: 200,
+     ease: Phaser.Math.Easing.Sine.InOut,
+     onUpdate: tween => {
+       const value = tween.getValue()
+       this.setVieEquipeA(value)
+       this.fontaine2.setAlpha(value/100)
+       this.fontaine2Derriere.setAlpha(value/100 + 0.04)
+     },
+   })
+   this.lastHealthEquipeA = value
+ },
+
+ /**
+* Change la barre de vie de l'equipe B avec une animation
+* @param  {Number} value valeur final de la vie (après l'attaque)
+*/
+ changementVieEquipeB: function(value) {
+
+   this.tweens.addCounter({
+     from: this.lastHealthEquipeB,
+     to: value,
+     duration: 200,
+     ease: Phaser.Math.Easing.Sine.InOut,
+     onUpdate: tween => {
+       const value = tween.getValue()
+       this.setVieEquipeB(value)
+       this.fontaine1.setAlpha(value/100)
+       this.fontaine1Derriere.setAlpha(value/100 + 0.04)
+     },
+   })
+   this.lastHealthEquipeB = value
+ },
+
+ /**
+  * Affiche et change la barre de vie de l'equipe A
+  * @param  {Number} value valeur final de la vie
+  */
+ setVieEquipeA: function(value) {
+   const width = 500
+   const percent = Phaser.Math.Clamp(value, 0, 100) / 100
+   this.barreEquipeA.clear()
+   this.barreEquipeA.fillStyle(0xd00b0b)
+   this.barreEquipeA.fillRoundedRect(1700, -330, width, 20, 5).setScrollFactor(0)
+   if (percent > 0) {
+     this.barreEquipeA.fillStyle(0x0e88bd)
+     this.barreEquipeA.fillRoundedRect(1700, -330, width * percent, 20, 5)
+   }
+ },
+ /**
+ * Affiche et change la barre de vie de l'equipe B
+ * @param  {Number} value valeur final de la vie
+ */
+ setVieEquipeB: function(value) {
+   const width = 500
+   const percent = Phaser.Math.Clamp(value, 0, 100) / 100
+   this.barreEquipeB.clear()
+   this.barreEquipeB.fillStyle(0xd00b0b)
+   this.barreEquipeB.fillRoundedRect(-710, -330, width, 20, 5).setScrollFactor(0)
+   if (percent > 0) {
+     this.barreEquipeB.fillStyle(0x0ea733)
+     this.barreEquipeB.fillRoundedRect(-710, -330, width * percent, 20, 5)
+   }
+ }
 });
 
 export default Arene;
