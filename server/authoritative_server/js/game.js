@@ -11,7 +11,7 @@
 /** @constant
     @type {Object}
     @default
-    [link text]{@link joueurs}
+    [link text]{@link ObjetJoueur}
     @description Groupe de joueurs à envoyé au client avec des parametres qui change
 */
 const players = {};
@@ -750,6 +750,16 @@ function create() {
   const self = this;
   this.players = {}
   this.clones = {}
+  /**
+   *
+   */
+   /** @constant
+   @type {Object}
+   @default
+   [link text]{@link joueurs}
+   @description Groupe de joueurs que le serveur met continuellement à jour (qui reste sur le serveur)
+   */
+
   this.players['Naruto'] = this.add.group();
   this.players['Pikachu'] = this.add.group();
   this.clones['Naruto'] = this.add.group();
@@ -969,7 +979,13 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
         },
       };
 
+      /**
+       * @param {Object} self référence au jeu - scene
+       * @param {Objet} players [Groupe de joueur]{@link module:serveur~players}
+       */
+
       addPlayer(self, players[socket.room][socket.id]);
+      //ajout du joueur dans le groupe joueur du serveur
       socket.emit("tout_les_joueurs", players);
 
       socket.broadcast.to(room).emit("nouveau_joueur", players[socket.room][socket.id]);
