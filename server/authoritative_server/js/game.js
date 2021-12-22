@@ -891,12 +891,6 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
   this.bullet.setFixedRotation();
   this.bullet.setStatic(true).setDepth(2);
 
-  /**
-   * Commence la connexion à socket.io
-   * @event connexionSocket
-   * @param  {Object} socket réference au parametres de l'api socket.io
-   */
-
   io.on('connection', function(socket) {
     console.log("ONE CONNEXION");
 
@@ -905,8 +899,9 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
      *
      * @param room nom de l'arene (NARUO|DESSINATRICE)
      * @param equipe equipe choisie (A|B)
-     * @see {@link module:client}
+     * @param atlas nom de l'atlas du personnage choisi
      * @event nouveau_joueur
+     * @listens nouveau_joueur
      */
     socket.on("nouveau_joueur", (room, equipe, atlas) => {
       equipe == "A"
