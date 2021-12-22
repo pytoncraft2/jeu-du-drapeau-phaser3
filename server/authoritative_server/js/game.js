@@ -8,6 +8,12 @@
 */
 
 
+/** @constant
+    @type {Object}
+    @default
+    [link text]{@link joueurs}
+    @description Groupe de joueurs à envoyé au client avec des parametres qui change
+*/
 const players = {};
 const clones = {};
 var evenement = null;
@@ -895,7 +901,10 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
     console.log("ONE CONNEXION");
 
     /**
-     * Arrivé d'un joueur sur l'arene
+     * Arrivé d'un joueur sur l'arene depuis le client
+     * Création de l'objet du joueur avec les parametres specifiques au personnage choisi (taille, poids ...)
+     * Ajout du personnage au groupe de joueur
+     * Ajout du nouveu joueur dans le [Groupe de joueur]{@link module:serveur~players}
      *
      * @param room nom de l'arene (NARUO|DESSINATRICE)
      * @param equipe equipe choisie (A|B)
