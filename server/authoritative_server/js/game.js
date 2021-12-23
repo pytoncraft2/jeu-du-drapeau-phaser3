@@ -986,8 +986,6 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
       //ajout du joueur dans le groupe joueur du serveur
       socket.emit("tout_les_joueurs", players);
 
-
-
       /**
        * Envoie les parametres du nouveau joueur à toute les autres personnes déja connecté
        * @event nouveu
@@ -998,6 +996,13 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
        */
       socket.broadcast.to(room).emit("nouveau_joueur", players[socket.room][socket.id]);
 
+
+      /**
+       * Déconnexion du joueur
+       * Suppression du joueur dans l'[objet joueur]{@link ObjetJoueur}
+       * Suppression du joueur dans le [groupe de joueur Phaser]{@link GroupeJoueur}
+       * @event Deconnexion
+       */
       socket.on('disconnect', function() {
         console.log('user disconnected');
         // remove player from server
