@@ -920,7 +920,7 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
      * @param equipe equipe choisie (A|B)
      * @param atlas nom de l'atlas du personnage choisi
      * @event nouveau_joueur
-     * @listens nouveau_joueur
+     * @listens finDeVie
      */
     socket.on("nouveau_joueur", (room, equipe, atlas) => {
       equipe == "A"

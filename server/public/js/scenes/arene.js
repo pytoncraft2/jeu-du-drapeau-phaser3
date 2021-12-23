@@ -131,7 +131,7 @@ const Arene = new Phaser.Class({
      /**
      * Transmission de l'arene, du personnage et de l'equipe choisie par le joueur au serveur
      * @name Socket nouveu joueur
-     * @fires nouveau_joueur
+     * @fires un_nouveau_joueur
      * @param {String} arene nom de l'arene choisi
      * @param {String} equipe nom de l'equipe choisi
      * @param {String} personnage atlas du personnage choisi
