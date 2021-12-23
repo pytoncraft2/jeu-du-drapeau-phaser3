@@ -989,9 +989,12 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
 
 
       /**
-       * Evenement nouveau joueur
+       * Envoie les parametres du nouveau joueur à toute les autres personnes déja connecté
        * @event nouveu
-       * @property {room} channel - le channel à qui envoyer l'info.
+       * @property {room} channel - le channel de destination à qui envoyé
+       * @property {players} joueur les infos du joueurs (id, atlas) qui vient d'arrivé
+       * @example
+       * socket.broadcast.to("Naruto").emit("nouveau_joueur", players["Naruto"][12345]);
        */
       socket.broadcast.to(room).emit("nouveau_joueur", players[socket.room][socket.id]);
 

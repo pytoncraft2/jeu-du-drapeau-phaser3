@@ -142,8 +142,7 @@ const Arene = new Phaser.Class({
 
       /**
       * @name Socket - ecoute l'arrivé d'un nouveau joueur
-      * @param {module:serveur~event:nouveau} data - Objet avec les parametres du joueur à afficher
-      * @listens module:serveur~event:nouveau
+      * @listens nouveau
       */
      this.socket.on("nouveau_joueur", (data) => {
        console.log("NOUVEAU JOUEUR DATA");
@@ -829,7 +828,7 @@ const Arene = new Phaser.Class({
   /**
    * Affiche et ajoute un joueur au groupe
    * @see GroupeJoueur
-   * @param  {Object} self référence à la scene
+   * @param  {Object} self référence à la scene Phaser
    * @param  {Object} playerInfo parametres reçu du serveur
    * @param  {Boolean} iscurrent  Verifie si le joueur correspond fait referance au joueur courant
    * @example
