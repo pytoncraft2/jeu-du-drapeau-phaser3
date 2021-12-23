@@ -911,14 +911,14 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
 
     /**
      * Arrivé d'un joueur sur l'arene depuis le client
-     * Création de l'objet du joueur avec les parametres specifiques au personnage choisi (taille, poids ...)
-     * Ajout du personnage au groupe de joueur
-     * Ajout du nouveu joueur dans le [Groupe de joueur]{@link module:serveur~players}
+     * Création de l'objet du joueur avec les parametres specifiques au personnage choisi (taille, poids ...)<br>
+     * Ajout du personnage au groupe de joueur<br>
+     * Ajout du nouveu joueur dans le [l'objet contenant touts les joueurs]{@link module:serveur~players}<br>
      *
-     * @param room nom de l'arene (NARUO|DESSINATRICE)
+     * @param room nom de l'arene (NARUO|DESSINATRICE...)
      * @param equipe equipe choisie (A|B)
      * @param atlas nom de l'atlas du personnage choisi
-     * @event nouveau_joueur
+     * @event AjoutJoueurSeveur
      */
     socket.on("nouveau_joueur", (room, equipe, atlas) => {
       equipe == "A"
@@ -988,7 +988,6 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
 
       /**
        * Envoie les parametres du nouveau joueur à toute les autres personnes déja connecté
-       * @event nouveu
        * @property {room} channel - le channel de destination à qui envoyé
        * @property {players} joueur les infos du joueurs (id, atlas) qui vient d'arrivé
        * @example
@@ -999,8 +998,8 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
 
       /**
        * Déconnexion du joueur
-       * Suppression du joueur dans l'[objet joueur]{@link ObjetJoueur}
-       * Suppression du joueur dans le [groupe de joueur Phaser]{@link GroupeJoueur}
+       * Suppression du joueur dans l'[objet joueur]{@link ObjetJoueur} <br>
+       * Suppression du joueur dans le [Groupe de joueur Phaser]{@link module:serveur~players} <br>
        * @event Deconnexion
        */
       socket.on('disconnect', function() {
