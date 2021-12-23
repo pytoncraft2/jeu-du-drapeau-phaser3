@@ -418,7 +418,6 @@ function interactionTonneauDrapeau(player, scene) {
   * @param  {Object} tween        animation pour la fin de vie
   * @param  {Boolean} superAttaque indique si le joueur qui attaque a chargé au maximum son attaque
   * @param  {String} direction    direction du joueur qui attaque (droite|gauche)
-  * @fires finDeVie
   */
 
  function gestionVie(vie, id, tween, superAttaque, direction) {
@@ -920,7 +919,6 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
      * @param equipe equipe choisie (A|B)
      * @param atlas nom de l'atlas du personnage choisi
      * @event nouveau_joueur
-     * @listens finDeVie
      */
     socket.on("nouveau_joueur", (room, equipe, atlas) => {
       equipe == "A"
@@ -988,6 +986,13 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
       //ajout du joueur dans le groupe joueur du serveur
       socket.emit("tout_les_joueurs", players);
 
+
+
+      /**
+       * Evenement nouveau joueur
+       * @event nouveu
+       * @property {room} channel - le channel à qui envoyer l'info.
+       */
       socket.broadcast.to(room).emit("nouveau_joueur", players[socket.room][socket.id]);
 
       socket.on('disconnect', function() {
@@ -1301,7 +1306,6 @@ function changementVie(id, tween, superAttaque, direction) {
   * Fin de vie d'un joueur
   * Retour au spawn
   *
-  * @event finDeVie
   * @param  {String} id id du joueur ciblé
   */
 

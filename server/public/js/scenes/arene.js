@@ -130,8 +130,8 @@ const Arene = new Phaser.Class({
 
      /**
      * Transmission de l'arene, du personnage et de l'equipe choisie par le joueur au serveur
-     * @name Socket nouveu joueur
-     * @fires un_nouveau_joueur
+     * @name Socket - nouveu joueur
+     * @fires nouveau_joueur
      * @param {String} arene nom de l'arene choisi
      * @param {String} equipe nom de l'equipe choisi
      * @param {String} personnage atlas du personnage choisi
@@ -140,6 +140,11 @@ const Arene = new Phaser.Class({
      */
      this.socket.emit("nouveau_joueur", this.arene, this.equipe, this.personnage);
 
+      /**
+      * @name Socket - ecoute l'arrivé d'un nouveau joueur
+      * @param {module:serveur~event:nouveau} data - Objet avec les parametres du joueur à afficher
+      * @listens module:serveur~event:nouveau
+      */
      this.socket.on("nouveau_joueur", (data) => {
        console.log("NOUVEAU JOUEUR DATA");
        self.displayPlayers(self, data, false);
