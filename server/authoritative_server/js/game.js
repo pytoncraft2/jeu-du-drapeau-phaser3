@@ -25,419 +25,6 @@ drapeaux = {};
 constraints = {};
 
 
-/**
- * Rendre invisible un joueur
- * @param  {Object} scene  Scene du jeu
- * @param  {Object} player le joueur qui est a rendre invisible
- */
-function invisible(scene, player) {
-  scene.tweens.addCounter({
-    duration: 5000,
-    onComplete: () => (player.active ? (player.setAlpha(1), player.ombre.setAlpha(1)) : null)
-  })
-  scene.tweens.add({
-    targets: player,
-    alpha: 0,
-    duration: 500
-  })
-  player.ombre.setAlpha(0)
-}
-
-/**
- * Charger et tirer une boule (pouvoir de Naruto) llll
- *
- * @param  {Object} scene   Scene du jeu
- * @param  {Object} player  le joueur qui tire la boule
- * @param  {Boolean} relache indique si le joueur maintient ou relache le bouton
- */
-
-function tirer(scene, player, relache) {
-  if (relache) {
-    scene.bulletCanon = scene.matter.add.image(player.flipX ? player.x - 80 : player.x + 80, player.y, 'bullet').setCircle().setIgnoreGravity(true).setBounce(1.6)
-    scene.bulletCanon.type = "boulet";
-    scene.charge = scene.tweens.add({
-      targets: scene.bulletCanon,
-      scale: 4,
-      paused: false,
-      duration: 2000,
-      repeat: 0
-    });
-  } else {
-      scene.charge.stop()
-      scene.bulletCanon.setIgnoreGravity(false)
-      var coefDir;
-      if (player.direction == 'gauche') { coefDir = -1; } else { coefDir = 1 }
-      scene.bulletCanon.setVelocity(90 * coefDir, 0); // vitesse en x et en y
-  }
-}
-
-/**
- * Change la taille du joueur (pouvoir)
- *
- * @param  {Object} scene  Scene du jeu
- * @param  {Object} player joueur qui s'aggrandis
- */
-
-function agrandissement(scene, player) {
-  scene.tweens.addCounter({
-    duration: 10000,
-    onComplete: () => (player.active ? player.setDisplaySize(player.displayWidth -= 100, player.displayHeight -= 100) : null, player.puissanceBonus = 0)
-  })
-
-  player.setDisplaySize(player.displayWidth + 100, player.displayHeight + 100)
-  player.puissanceBonus = 3;
-}
-
-/**
- * Effectuer plusieurs rotation sur le joueur pendant 2secondes
- *
- * @param  {Object} tweens gestion de l'animation pour le décompte
- * @param  {Object} player joueur qui effectue la rotation
- */
-
-function toupie(tweens, player) {
-  tweens.addCounter({
-    duration: 2000,
-    onComplete: () => (player.active ? (player.setRotation(0)) : null)
-  })
-  player.setAngularVelocity(1)
-}
-
-
-/**
- * Effectuer un saut sur un joueur
- *
- * @param  {Boolean} chargeSaut indique si le joueur maintient ou relache le bouton
- * @param  {Object} scene      Scene du jeu
- * @param  {Object} player     joueur qui effectue un saut
- */
-function saut(chargeSaut, scene, player) {
-  var puissance
-  if (chargeSaut) {
-    if (player.body.speed < 2) {
-      player.play('sautPreparation')
-    }
-
-    scene.tweenSaut = scene.tweens.addCounter({
-      from: 0,
-      to: 100,
-      duration: 800,
-    })
-
-    chargeSaut = false;
-  } else {
-      puissance = scene.tweenSaut.getValue()
-    if (scene.tweenSaut.isPlaying()) {
-      scene.tweenSaut.stop()
-    }
-    if (player.body.speed < 2) {
-      player.play('saut')
-    } else {
-      player.play('jump')
-    }
-    player.setVelocity( player.body.speed > 2 ? (player.flipX ? -puissance: puissance) : 0, -puissance)
-  }
-}
-
-function multiclonage(scene, player) {
-
-}
-
-/**
- * Recevoir des dégats par un joueur
- *
- * @param  {Object} scene  Scene du jeu
- * @param  {Object} player joueur qui recoit les dégats
- */
-function recevoirDegat(scene, player) {
-        // console.log(player.repousser);
-        if (!player.protege) {
-          player.vie -= 1;
-          player.setTint(0xff0000)
-          scene.matter.world.removeConstraint(constraints[player.playerId]['tonneau']);
-          scene.matter.world.removeConstraint(constraints[player.playerId]['drapeau']);
-          scene.matter.world.removeConstraint(constraints[player.playerId]['bullet']);
-          constraints[player.playerId]['tonneau'] = {}
-          constraints[player.playerId]['drapeau'] = {}
-          constraints[player.playerId]['bullet'] = {}
-
-          scene.tweens.addCounter({
-            duration: 300,
-            onComplete: () => (player.clearTint())
-          })
-
-          if (player.etatAttaque.repousser) {
-            player.setVelocityX(player.etatAttaque.direction ? player.etatAttaque.repousser * 30 : -player.etatAttaque.repousser * 30)
-          }
-          io.to("Naruto").emit("changement_vie", player.playerId, player.vie);
-        }
-}
-
-
-/**
- * Effectuer une attaque ou/et un repoussement sur un objet|joueur
- *
- * @param  {Boolean} charge indique si le joueur maintient ou relache le bouton
- * @param  {Object} scene  Scene du jeu
- * @param  {Object} player joueur qui effectue une attaque
- */
- function attaque(charge, scene, player) {
-   if (charge) {
-     scene.tween = scene.tweens.timeline({
-       tweens: [{
-         targets: player,
-         alpha: 0.35,
-         ease: 'Power1',
-         duration: 200
-       },
-       {
-         targets: player,
-         ease: 'Power1',
-         alpha: 0.58,
-         duration: 200
-       },
-       {
-         targets: player,
-         ease: 'Power1',
-         alpha: 0.34,
-         duration: 200
-       },
-       {
-         targets: player,
-         ease: 'Power1',
-         alpha: 0.58,
-         duration: 200
-       },
-       {
-         targets: player,
-         alpha: 0.35,
-         ease: 'Power1',
-         duration: 200,
-       },
-       {
-         targets: player,
-         ease: 'Power1',
-         alpha: 0.58,
-         duration: 200
-       },
-       {
-         targets: player,
-         alpha: 0.30,
-         ease: 'Power1',
-         duration: 200,
-       },
-       {
-         targets: player,
-         alpha: 0.80,
-         ease: 'Power1',
-         duration: 200,
-       },
-       {
-         targets: player,
-         alpha: 0.54,
-         ease: 'Power1',
-         duration: 200,
-       },
-       {
-         targets: player,
-         alpha: 0.80,
-         ease: 'Power1',
-         duration: 200,
-       }],
-       onComplete: () => (player.setTint(0xffa500).setAlpha(1))
-
-     });
-
-     player.play('idle_attack', true)
-     charge = false;
-   } else {
-     let puissance = scene.tween.totalProgress;
-     player.clearTint()
-     if (scene.tween.isPlaying()) {
-       scene.tween.stop()
-       player.setAlpha(1)
-     }
-     player.play('attack', true)
-
-     const startHit = (anim, frame) => {
-       if (frame.textureFrame == player.attaqueFrame)
-       {
-         player.flipX ?
-         (player.zoneAttaque.x = player.getLeftCenter().x - 70, player.zoneAttaque.y = player.getLeftCenter().y)
-         : (player.zoneAttaque.x = player.getRightCenter().x + 70, player.zoneAttaque.y = player.getRightCenter().y)
-
-
-         scene.matter.overlap([...scene.players['Naruto'].getChildren(), ...scene.tonneaux.getChildren()], player.zoneAttaque, (objet1, objet2) => {
-           if (objet1.gameObject.playerId) {
-             gestionVie(objet1.gameObject.vie, objet1.gameObject.playerId, scene.tweens, puissance, objet1.gameObject.flipX)
-           }
-
-           if (objet1.gameObject.name == "tonneau") {
-             gestionTonneaux(puissance, player.flipX, objet1.gameObject)
-           }
-
-         })
-
-
-         if (fontainezone.contains(player.x, player.y)) {
-           evenement.emit('changement-vie-equipe', "B", puissance + player.puissanceBonus, player.puissanceDeBase)
-         }
-
-         if (fontainezone2.contains(player.x, player.y)) {
-           evenement.emit('changement-vie-equipe', "A", puissance + player.puissanceBonus, player.puissanceDeBase)
-         }
-         player.off(Phaser.Animations.Events.ANIMATION_UPDATE, startHit)
-       }
-     }
-
-     player.on(Phaser.Animations.Events.ANIMATION_UPDATE, startHit)
-     player.once(Phaser.Animations.Events.ANIMATION_COMPLETE_KEY + 'attack', () => {
-       console.log("FIN ATTACK ANIM");
-     })
-   }
- }
-
-/**
- * Interactions avec un tonneau|drapeau le plus proche du joueur
- * celon la direction du joueur (droite|gauche)
- *
- * si le joueur ne tient pas de tonneau|drapeau: attrape le tonneau|drapeau le plus proche
- * sinon détache le tonneau du joueur
- *
- * créer un rectangle de zone d'attaque à droite ou a gauche du joueur (celon sa direction)
- * recupere et filtre les objets à l'interieur du rectangle et interagit avec eux
- *
- * @param  {Object} player joueur qui interagie avec l'objet (tonneau|drapeau)
- * @param  {Object} scene  Scene du jeu
- */
-
-function interactionTonneauDrapeau(player, scene) {
-
-  //TONNEAU
-  player.flipX ?
-  (player.zoneAttaque.x = player.getLeftCenter().x - 70, player.zoneAttaque.y = player.getLeftCenter().y)
-  : (player.zoneAttaque.x = player.getRightCenter().x + 70, player.zoneAttaque.y = player.getRightCenter().y)
-
-    scene.matter.overlap([...scene.tonneaux.getChildren(), ...scene.drapeaux.getChildren()], player.zoneAttaque, (objet1, objet2) => {
-  if (Object.keys(constraints[player.playerId]['tonneau']).length == 0) {
-
-      if (objet1.gameObject.name == "tonneau") {
-        objet1.gameObject.body.collisionFilter.mask = 0
-        objet1.gameObject.setFixedRotation().setIgnoreGravity(true)
-        scene.tweens.add({
-          targets: objet1.gameObject,
-          x: player.x,
-          y: player.y - player.displayHeight / 2 - 105,
-          onComplete: () => {
-            objet1.gameObject.setCollidesWith(-1).setIgnoreGravity(false); constraints[player.playerId]['tonneau'] = scene.matter.add.constraint(objet1.gameObject, player)
-          },
-          duration: 500
-        })
-      }
-
-
-  }
-  else {
-    scene.matter.world.removeConstraint(constraints[player.playerId]['tonneau']);
-    constraints[player.playerId]['tonneau'] = {}
-  }
-
-
-})
-
-//FONTAINE
-
-// if (!fontainezone2.active) {
-  var distanceDrapeauVert = Phaser.Math.Distance.BetweenPoints(player, {x: drapeauVert.x, y: drapeauVert.y});
-  if (distanceDrapeauVert < 130 && distanceDrapeauVert < 140) {
-      if (!fontainezone2.active) {
-        if (Object.keys(constraints[player.playerId]['drapeau']).length == 0) {
-          constraints[player.playerId]['drapeau'] = scene.matter.add.constraint(drapeauVert, player, 0)
-        } else {
-          scene.matter.world.removeConstraint(constraints[player.playerId]['drapeau']);
-          constraints[player.playerId]['drapeau'] = {}
-        }
-          if (fontainezone.contains(drapeauVert.x, drapeauVert.y)) {
-            evenement.emit('fin-de-partie', "A")
-          }
-
-      }
-  }
-
-  var distanceDrapeauBleu = Phaser.Math.Distance.BetweenPoints(player, {x: drapeauBleu.x, y: drapeauBleu.y});
-  if (distanceDrapeauBleu < 130 && distanceDrapeauBleu < 140) {
-    if (!fontainezone.active) {
-      if (Object.keys(constraints[player.playerId]['drapeau']).length == 0) {
-        constraints[player.playerId]['drapeau'] = scene.matter.add.constraint(drapeauBleu, player, 0)
-      } else {
-        scene.matter.world.removeConstraint(constraints[player.playerId]['drapeau']);
-        constraints[player.playerId]['drapeau'] = {}
-      }
-      if (fontainezone2.contains(drapeauBleu.x, drapeauBleu.y)) {
-        evenement.emit('fin-de-partie', "B")
-      }
-    }
-  }
-}
-
-
-/**
- * Utiliser la tirolienne quand le joueur est proche de celle ci
- *
- * @param  {Object} player joueur qui utilise la tirolienne
- * @param  {Object} scene  Scene du jeu
- */
- function interactionTirolienne(player, scene) {
-   var dist = Phaser.Math.Distance.BetweenPoints(player, scene.bullet);
-   if (dist < 900 && dist < 700) {
-     if (Object.entries(constraints[player.playerId]['bullet']).length === 0) {
-       constraints[player.playerId]['bullet'] = scene.matter.add.constraint(scene.bullet, player)
-
-       var tween = scene.tweens.add({
-         targets: scene.bullet,
-         x: 5675,
-         y: -2376,
-         onComplete: () => (scene.matter.world.removeConstraint(constraints[player.playerId]['bullet']), constraints[player.playerId]['bullet'] = {}),  // set context? how?
-         yoyo: true,
-         // onYoyo: function () { addEvent('onYoyo') },
-         duration: 3500,
-       });
-     }
-     else {
-       scene.matter.world.removeConstraint(constraints[player.playerId]['bullet']);
-       constraints[player.playerId]['bullet'] = {}
-     }
-   }
- }
-
- /**
-  * Diminuer la vie d'un joueur ou faire perdre le joueur
-  *
-  * @param  {Number} vie          vie du joueur qui est attaqué
-  * @param  {String} id           id du joueur qui est attaqué
-  * @param  {Object} tween        animation pour la fin de vie
-  * @param  {Boolean} superAttaque indique si le joueur qui attaque a chargé au maximum son attaque
-  * @param  {String} direction    direction du joueur qui attaque (droite|gauche)
-  */
-
- function gestionVie(vie, id, tween, superAttaque, direction) {
-   if (vie <= 0) {
-     evenement.emit('fin-de-vie', id)
-   } else {
-     evenement.emit('changement-vie', id, tween, superAttaque, direction)
-   }
- }
-
- /**
-  * pousser un tonneau celon la puissance émis par le joueur
-  *
-  * @param  {Number} puissance charge du joueur
-  * @param  {Boolean} rotation  position du joueur face au tonneau (droite|gauche)
-  * @param  {Object} tonneau   tonneau ciblé
-  */
-function gestionTonneaux(puissance, rotation, tonneau) {
-  tonneau.setVelocity((rotation ? -10 * (puissance * 5)  : 10 * (puissance * 5)), - (puissance * 100) )
-}
 const parametres = {};
 
 parametres['dessinatrice1'] = {
@@ -835,7 +422,6 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
   evenement = new Phaser.Events.EventEmitter()
   evenement.on('changement-vie-equipe', changementVieEquipe, this)
   evenement.on('changement-vie', changementVie, this)
-  evenement.on('lancer-tonneau', lancerTonneau, this)
   evenement.on('fin-de-vie', finDeVie, this)
   evenement.on('fin-de-partie', finDePartie, this)
 
@@ -1043,6 +629,7 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
  /**
   * Mise à jour des parametres des élements des groupes de la Scene Phaser<br>
   * Position Drapeaux, Tonneaux, Joueurs ...
+  * @fires MiseAjourJoueurs
   * @param  {Number} time  L'heure actuelle. Soit une valeur de minuterie haute résolution si elle provient de Request Animation Frame, soit Date.now si vous utilisez SetTimeout.<br>
   * @param  {Number} delta fps
   * @property {object}  this.drapeaux liste des drapeaux du groupe Phaser à ittérer
@@ -1051,8 +638,8 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
   * pour l'envoyer au client
   * @property {Object} this.tonneaux liste des tonneaux du Groupe Phaser à ittérer
   * @property {Object} tonneaux nouveau parametres des tonneaux à envoyer au client
-  * @property {Object} this.players liste des joueurs [Groupe de joueur]{@link module:serveur~players}
-  * @property {Object} players Objets [Groupe de joueur]{@link module:serveur~players}
+  * @property {Object} this.players liste des joueurs du Groupe Phaser à ittérer
+  * @property {Object} players [Objet des joueurs]{@link module:serveur~players} contenant les nouveaux parametres des joueurs à envoyer au client
   */
 function update(time, delta) {
 
@@ -1286,17 +873,6 @@ function update(time, delta) {
 }
 
 
-function recupereLeTonneauLePlusProche(player, tonneaux) {
-  const recupereLePlusProche = tonneaux.map(t => {
-    if (Phaser.Math.Distance.BetweenPoints(player, t) < 300 && Phaser.Math.Distance.BetweenPoints(player, t) < 310) {
-      return t
-    }
-  });
-  return recupereLePlusProche.filter( Boolean );
-}
-
-
-
  /**
   * DIMINUTION VIE EQUIPE SELON LA PUISSANCE DE L'ATTAQUE DU JOUEUR
   * @param  {String} equipe          nom de l'equipe (A|B)
@@ -1318,29 +894,25 @@ function recupereLeTonneauLePlusProche(player, tonneaux) {
    io.to("Naruto").emit("changement_vie_equipe", equipe, this.vieEquipe[equipe]);
  }
 
-
-/**
- * DIMINUTION VIE DU JOUEUR: NOMBRE DE VIE -1
- */
+ /**
+  * Diminution vie du joueur: nombre de vie actuelle -1
+  * @param  {String} id           id du joueur ciblé
+  * @param  {Object} tween        Phaser.tween
+  * @param  {Boolean|Number} superAttaque valeur de la charge du joueur qui attaque (enre 0 et 1)
+  * @param  {String} direction    direction du joueur qui attaque
+  */
 
 function changementVie(id, tween, superAttaque, direction) {
   let joueur = this.players["Naruto"].getMatching("playerId", id)[0]
   joueur.etatAttaque.attacked = true;
-  // if (superAttaque == true) {
   joueur.etatAttaque.repousser = superAttaque;
   joueur.etatAttaque.direction = direction;
-  // }
 }
 
 
-/**
- * REMISE A 5 DE LA VIE DU JOUEUR
- * RESPAWN AVEC ANIMATION
- */
-
  /**
-  * Fin de vie d'un joueur
-  * Retour au spawn
+  * Reinitialise la vie du joueur<br>
+  * Retour au spawn avec animation
   *
   * @param  {String} id id du joueur ciblé
   */
@@ -1367,6 +939,12 @@ function finDeVie(id) {
 }
 
 
+/**
+ * Réinitialise tout les parametres de la scene (position, scores...)
+ * @param  {String} equipe nom de l'equipe qui à perdu
+ * @fires finDePartie
+ */
+
 function finDePartie(equipe) {
   this.matter.world.localWorld.constraints = []
   io.to("Naruto").emit("fin_de_partie", equipe);
@@ -1378,22 +956,18 @@ function finDePartie(equipe) {
   fontainezone2.active = true;
   fontainezone.active = true;
 
-  // this.scene.restart();
-
-  // this.drapeaux.getChildren()[1].body.position.x = 8242
-  // this.drapeaux.getChildren()[0].body.position.x = 8242.130999766403;
-  // this.drapeaux.getChildren()[0].body.position.y = -1566.8232688524165
-
-  // this.scene.pause();
   this.drapeaux.getChildren()[0].setPosition(8242.130999766403, -1566.8232688524165).setSize(32, 640).setIgnoreGravity(true).setVelocity(0, 0)
   this.drapeaux.getChildren()[1].setPosition(-4868.428561331542, -775.2723001427164).setSize(32, 640).setIgnoreGravity(true).setVelocity(0, 0)
-  // this.scene.resume();
 }
 
-function lancerTonneau(direction, puissance, tonneauId) {
-console.log("LANCER TONNEAU");
-}
 
+/**
+ * Met à jour l'objet input du joueur par les nouvelles valeurs des touches pressés
+ * @param  {Object} self     Phaser.scene
+ * @param  {String} playerId id du joueur qui appuie sur la touche
+ * @param  {String} arene    arene du joueur qui appuie sur la touche
+ * @param  {Object} input    les nouvelles valeurs des touches pressés du joueur
+ */
 
 function handlePlayerInput(self, playerId, arene, input) {
 
@@ -1407,6 +981,11 @@ function handlePlayerInput(self, playerId, arene, input) {
   });
 }
 
+/**
+ * Ajout du joueur à la scene Phaser
+ * @param {Object} self       Phaser.scene
+ * @param {Object} playerInfo parametres special du joueur (atlas, equipe ...)
+ */
 function addPlayer(self, playerInfo) {
   const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, 'dessinatrice1', 'face0').setDisplaySize(playerInfo.displayWidth, playerInfo.displayHeight).setAlpha(1);
   joueur.playerId = playerInfo.playerId;
@@ -1450,13 +1029,431 @@ function addPlayer(self, playerInfo) {
 });
 }
 
-function handleCollide(objet1, objet2, info) {
-}
-
+/**
+ * Suppression du joueur de la scene Phaser<br>
+ * @param  {Object} self     Phaser.scene
+ * @param  {String} playerId id du joueur à supprimer
+ * @param  {String} arene    arene du joueur à supprimer
+ */
 function removePlayer(self, playerId, arene) {
   self.players[arene].getChildren().forEach((player) => {
     if (playerId === player.playerId) player.destroy(true)
   });
+}
+
+
+/**
+ * Rendre invisible un joueur
+ * @param  {Object} scene  Scene du jeu
+ * @param  {Object} player le joueur qui est a rendre invisible
+ */
+function invisible(scene, player) {
+  scene.tweens.addCounter({
+    duration: 5000,
+    onComplete: () => (player.active ? (player.setAlpha(1), player.ombre.setAlpha(1)) : null)
+  })
+  scene.tweens.add({
+    targets: player,
+    alpha: 0,
+    duration: 500
+  })
+  player.ombre.setAlpha(0)
+}
+
+/**
+ * Charger et tirer une boule (pouvoir de Naruto)
+ *
+ * @param  {Object} scene   Scene du jeu Phaser
+ * @param  {Object} player  le joueur qui tire la boule
+ * @param  {Boolean} relache indique si le joueur maintient ou relache le bouton
+ */
+
+function tirer(scene, player, relache) {
+  if (relache) {
+    scene.bulletCanon = scene.matter.add.image(player.flipX ? player.x - 80 : player.x + 80, player.y, 'bullet').setCircle().setIgnoreGravity(true).setBounce(1.6)
+    scene.bulletCanon.type = "boulet";
+    scene.charge = scene.tweens.add({
+      targets: scene.bulletCanon,
+      scale: 4,
+      paused: false,
+      duration: 2000,
+      repeat: 0
+    });
+  } else {
+      scene.charge.stop()
+      scene.bulletCanon.setIgnoreGravity(false)
+      var coefDir;
+      if (player.direction == 'gauche') { coefDir = -1; } else { coefDir = 1 }
+      scene.bulletCanon.setVelocity(90 * coefDir, 0); // vitesse en x et en y
+  }
+}
+
+/**
+ * Change la taille du joueur (pouvoir)
+ *
+ * @param  {Object} scene  Scene du jeu Phaser
+ * @param  {Object} player joueur qui s'aggrandis
+ */
+
+function agrandissement(scene, player) {
+  scene.tweens.addCounter({
+    duration: 10000,
+    onComplete: () => (player.active ? player.setDisplaySize(player.displayWidth -= 100, player.displayHeight -= 100) : null, player.puissanceBonus = 0)
+  })
+
+  player.setDisplaySize(player.displayWidth + 100, player.displayHeight + 100)
+  player.puissanceBonus = 3;
+}
+
+/**
+ * Effectuer plusieurs rotation sur le joueur pendant 2secondes
+ *
+ * @param  {Object} tweens gestion de l'animation pour le décompte
+ * @param  {Object} player joueur qui effectue la rotation
+ */
+
+function toupie(tweens, player) {
+  tweens.addCounter({
+    duration: 2000,
+    onComplete: () => (player.active ? (player.setRotation(0)) : null)
+  })
+  player.setAngularVelocity(1)
+}
+
+
+/**
+ * Effectuer un saut sur un joueur
+ *
+ * @param  {Boolean} chargeSaut indique si le joueur maintient ou relache le bouton
+ * @param  {Object} scene      Scene du jeu
+ * @param  {Object} player     joueur qui effectue un saut
+ */
+function saut(chargeSaut, scene, player) {
+  var puissance
+  if (chargeSaut) {
+    if (player.body.speed < 2) {
+      player.play('sautPreparation')
+    }
+
+    scene.tweenSaut = scene.tweens.addCounter({
+      from: 0,
+      to: 100,
+      duration: 800,
+    })
+
+    chargeSaut = false;
+  } else {
+      puissance = scene.tweenSaut.getValue()
+    if (scene.tweenSaut.isPlaying()) {
+      scene.tweenSaut.stop()
+    }
+    if (player.body.speed < 2) {
+      player.play('saut')
+    } else {
+      player.play('jump')
+    }
+    player.setVelocity( player.body.speed > 2 ? (player.flipX ? -puissance: puissance) : 0, -puissance)
+  }
+}
+
+function multiclonage(scene, player) {
+
+}
+
+/**
+ * Recevoir des dégats par un joueur
+ *
+ * @param  {Object} scene  Scene du jeu
+ * @param  {Object} player joueur qui recoit les dégats
+ */
+function recevoirDegat(scene, player) {
+        // console.log(player.repousser);
+        if (!player.protege) {
+          player.vie -= 1;
+          player.setTint(0xff0000)
+          scene.matter.world.removeConstraint(constraints[player.playerId]['tonneau']);
+          scene.matter.world.removeConstraint(constraints[player.playerId]['drapeau']);
+          scene.matter.world.removeConstraint(constraints[player.playerId]['bullet']);
+          constraints[player.playerId]['tonneau'] = {}
+          constraints[player.playerId]['drapeau'] = {}
+          constraints[player.playerId]['bullet'] = {}
+
+          scene.tweens.addCounter({
+            duration: 300,
+            onComplete: () => (player.clearTint())
+          })
+
+          if (player.etatAttaque.repousser) {
+            player.setVelocityX(player.etatAttaque.direction ? player.etatAttaque.repousser * 30 : -player.etatAttaque.repousser * 30)
+          }
+          io.to("Naruto").emit("changement_vie", player.playerId, player.vie);
+        }
+}
+
+
+/**
+ * Effectuer une attaque ou/et un repoussement sur un objet|joueur
+ *
+ * @param  {Boolean} charge indique si le joueur maintient ou relache le bouton
+ * @param  {Object} scene  Scene du jeu
+ * @param  {Object} player joueur qui effectue une attaque
+ */
+ function attaque(charge, scene, player) {
+   if (charge) {
+     scene.tween = scene.tweens.timeline({
+       tweens: [{
+         targets: player,
+         alpha: 0.35,
+         ease: 'Power1',
+         duration: 200
+       },
+       {
+         targets: player,
+         ease: 'Power1',
+         alpha: 0.58,
+         duration: 200
+       },
+       {
+         targets: player,
+         ease: 'Power1',
+         alpha: 0.34,
+         duration: 200
+       },
+       {
+         targets: player,
+         ease: 'Power1',
+         alpha: 0.58,
+         duration: 200
+       },
+       {
+         targets: player,
+         alpha: 0.35,
+         ease: 'Power1',
+         duration: 200,
+       },
+       {
+         targets: player,
+         ease: 'Power1',
+         alpha: 0.58,
+         duration: 200
+       },
+       {
+         targets: player,
+         alpha: 0.30,
+         ease: 'Power1',
+         duration: 200,
+       },
+       {
+         targets: player,
+         alpha: 0.80,
+         ease: 'Power1',
+         duration: 200,
+       },
+       {
+         targets: player,
+         alpha: 0.54,
+         ease: 'Power1',
+         duration: 200,
+       },
+       {
+         targets: player,
+         alpha: 0.80,
+         ease: 'Power1',
+         duration: 200,
+       }],
+       onComplete: () => (player.setTint(0xffa500).setAlpha(1))
+
+     });
+
+     player.play('idle_attack', true)
+     charge = false;
+   } else {
+     let puissance = scene.tween.totalProgress;
+     player.clearTint()
+     if (scene.tween.isPlaying()) {
+       scene.tween.stop()
+       player.setAlpha(1)
+     }
+     player.play('attack', true)
+
+     const startHit = (anim, frame) => {
+       if (frame.textureFrame == player.attaqueFrame)
+       {
+         player.flipX ?
+         (player.zoneAttaque.x = player.getLeftCenter().x - 70, player.zoneAttaque.y = player.getLeftCenter().y)
+         : (player.zoneAttaque.x = player.getRightCenter().x + 70, player.zoneAttaque.y = player.getRightCenter().y)
+
+
+         scene.matter.overlap([...scene.players['Naruto'].getChildren(), ...scene.tonneaux.getChildren()], player.zoneAttaque, (objet1, objet2) => {
+           if (objet1.gameObject.playerId) {
+             gestionVie(objet1.gameObject.vie, objet1.gameObject.playerId, scene.tweens, puissance, objet1.gameObject.flipX)
+           }
+
+           if (objet1.gameObject.name == "tonneau") {
+             gestionTonneaux(puissance, player.flipX, objet1.gameObject)
+           }
+
+         })
+
+
+         if (fontainezone.contains(player.x, player.y)) {
+           evenement.emit('changement-vie-equipe', "B", puissance + player.puissanceBonus, player.puissanceDeBase)
+         }
+
+         if (fontainezone2.contains(player.x, player.y)) {
+           evenement.emit('changement-vie-equipe', "A", puissance + player.puissanceBonus, player.puissanceDeBase)
+         }
+         player.off(Phaser.Animations.Events.ANIMATION_UPDATE, startHit)
+       }
+     }
+
+     player.on(Phaser.Animations.Events.ANIMATION_UPDATE, startHit)
+     player.once(Phaser.Animations.Events.ANIMATION_COMPLETE_KEY + 'attack', () => {
+       console.log("FIN ATTACK ANIM");
+     })
+   }
+ }
+
+/**
+ * Interactions avec un tonneau|drapeau le plus proche du joueur<br>
+ * celon la direction du joueur (droite|gauche)<br><br>
+ *
+ * si le joueur ne tient pas de tonneau|drapeau: attrape le tonneau|drapeau le plus proche<br>
+ * sinon détache le tonneau du joueur<br><br>
+ *
+ * créer un rectangle de zone d'attaque à droite ou a gauche du joueur (celon sa direction)<br>
+ * recupere et filtre les objets à l'interieur du rectangle et interagit avec eux<br>
+ *
+ * @param  {Object} player joueur qui interagie avec l'objet (tonneau|drapeau)
+ * @param  {Object} scene  Scene du jeu
+ */
+
+function interactionTonneauDrapeau(player, scene) {
+
+  //TONNEAU
+  player.flipX ?
+  (player.zoneAttaque.x = player.getLeftCenter().x - 70, player.zoneAttaque.y = player.getLeftCenter().y)
+  : (player.zoneAttaque.x = player.getRightCenter().x + 70, player.zoneAttaque.y = player.getRightCenter().y)
+
+    scene.matter.overlap([...scene.tonneaux.getChildren(), ...scene.drapeaux.getChildren()], player.zoneAttaque, (objet1, objet2) => {
+  if (Object.keys(constraints[player.playerId]['tonneau']).length == 0) {
+
+      if (objet1.gameObject.name == "tonneau") {
+        objet1.gameObject.body.collisionFilter.mask = 0
+        objet1.gameObject.setFixedRotation().setIgnoreGravity(true)
+        scene.tweens.add({
+          targets: objet1.gameObject,
+          x: player.x,
+          y: player.y - player.displayHeight / 2 - 105,
+          onComplete: () => {
+            objet1.gameObject.setCollidesWith(-1).setIgnoreGravity(false); constraints[player.playerId]['tonneau'] = scene.matter.add.constraint(objet1.gameObject, player)
+          },
+          duration: 500
+        })
+      }
+
+
+  }
+  else {
+    scene.matter.world.removeConstraint(constraints[player.playerId]['tonneau']);
+    constraints[player.playerId]['tonneau'] = {}
+  }
+
+
+})
+
+//FONTAINE
+
+// if (!fontainezone2.active) {
+  var distanceDrapeauVert = Phaser.Math.Distance.BetweenPoints(player, {x: drapeauVert.x, y: drapeauVert.y});
+  if (distanceDrapeauVert < 130 && distanceDrapeauVert < 140) {
+      if (!fontainezone2.active) {
+        if (Object.keys(constraints[player.playerId]['drapeau']).length == 0) {
+          constraints[player.playerId]['drapeau'] = scene.matter.add.constraint(drapeauVert, player, 0)
+        } else {
+          scene.matter.world.removeConstraint(constraints[player.playerId]['drapeau']);
+          constraints[player.playerId]['drapeau'] = {}
+        }
+          if (fontainezone.contains(drapeauVert.x, drapeauVert.y)) {
+            evenement.emit('fin-de-partie', "A")
+          }
+
+      }
+  }
+
+  var distanceDrapeauBleu = Phaser.Math.Distance.BetweenPoints(player, {x: drapeauBleu.x, y: drapeauBleu.y});
+  if (distanceDrapeauBleu < 130 && distanceDrapeauBleu < 140) {
+    if (!fontainezone.active) {
+      if (Object.keys(constraints[player.playerId]['drapeau']).length == 0) {
+        constraints[player.playerId]['drapeau'] = scene.matter.add.constraint(drapeauBleu, player, 0)
+      } else {
+        scene.matter.world.removeConstraint(constraints[player.playerId]['drapeau']);
+        constraints[player.playerId]['drapeau'] = {}
+      }
+      if (fontainezone2.contains(drapeauBleu.x, drapeauBleu.y)) {
+        evenement.emit('fin-de-partie', "B")
+      }
+    }
+  }
+}
+
+
+/**
+ * Utiliser la tirolienne quand le joueur est proche de celle ci
+ *
+ * @param  {Object} player joueur qui utilise la tirolienne
+ * @param  {Object} scene  Scene du jeu
+ */
+ function interactionTirolienne(player, scene) {
+   var dist = Phaser.Math.Distance.BetweenPoints(player, scene.bullet);
+   if (dist < 900 && dist < 700) {
+     if (Object.entries(constraints[player.playerId]['bullet']).length === 0) {
+       constraints[player.playerId]['bullet'] = scene.matter.add.constraint(scene.bullet, player)
+
+       var tween = scene.tweens.add({
+         targets: scene.bullet,
+         x: 5675,
+         y: -2376,
+         onComplete: () => (scene.matter.world.removeConstraint(constraints[player.playerId]['bullet']), constraints[player.playerId]['bullet'] = {}),  // set context? how?
+         yoyo: true,
+         // onYoyo: function () { addEvent('onYoyo') },
+         duration: 3500,
+       });
+     }
+     else {
+       scene.matter.world.removeConstraint(constraints[player.playerId]['bullet']);
+       constraints[player.playerId]['bullet'] = {}
+     }
+   }
+ }
+
+ /**
+  * Diminuer la vie d'un joueur ou faire perdre le joueur
+  *
+  * @param  {Number} vie          vie du joueur qui est attaqué
+  * @param  {String} id           id du joueur qui est attaqué
+  * @param  {Object} tween        animation pour la fin de vie
+  * @param  {Boolean} superAttaque indique si le joueur qui attaque a chargé au maximum son attaque
+  * @param  {String} direction    direction du joueur qui attaque (droite|gauche)
+  */
+
+ function gestionVie(vie, id, tween, superAttaque, direction) {
+   if (vie <= 0) {
+     evenement.emit('fin-de-vie', id)
+   } else {
+     evenement.emit('changement-vie', id, tween, superAttaque, direction)
+   }
+ }
+
+ /**
+  * pousser un tonneau celon la puissance émis par le joueur
+  *
+  * @param  {Number} puissance charge du joueur
+  * @param  {Boolean} rotation  position du joueur face au tonneau (droite|gauche)
+  * @param  {Object} tonneau   tonneau ciblé
+  */
+function gestionTonneaux(puissance, rotation, tonneau) {
+  tonneau.setVelocity((rotation ? -10 * (puissance * 5)  : 10 * (puissance * 5)), - (puissance * 100) )
 }
 const game = new Phaser.Game(config);
 window.gameLoaded();

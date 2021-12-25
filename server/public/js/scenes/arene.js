@@ -216,6 +216,10 @@ const Arene = new Phaser.Class({
      });
 
 
+     /**
+      * Déconnexion du joueur de socket io et redirection sur la page de victoire|défaite
+      * @event finDePartie
+      */
      this.socket.on("fin_de_partie", (equipe) => {
 
        let moi = self.players.getMatching('playerId', self.socket.id)[0].equipe
@@ -321,9 +325,17 @@ const Arene = new Phaser.Class({
      /**
      * MISE À JOUR DU JOUEUR
      * Cherche l'id du joueur et Modifie les parametres de celui ci
+     * @event MiseAjourJoueurs
      * @param  {Object} players liste de l'id du socket de tout les joueurs
      * @return {void}
      */
+
+     /**
+      * Mise à jour des joueurs, drapeaux, tonneaux
+      * @param  {Object} players  objet contenant les parametres des joueurs à mettre à jour
+      * @param  {Object} tonneaux objet contenant les parametres des tonneaux à mettre à jour
+      * @param  {Object} drapeaux objet contenant les parametres des drapeaux à mettre à jour
+      */
 
      this.socket.on('playerUpdates', function(players, tonneaux, drapeaux) {
 
