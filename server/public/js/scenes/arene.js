@@ -4,8 +4,8 @@
  */
 
  /**
-* @module client
-*/
+ * @module client
+ */
 
 
 
@@ -16,10 +16,6 @@ import Maison from './elements/objets/maison.js'
 var gfx
 var player;
 
-/** @constant
-@type {string}
-@default
-*/
 const Arene = new Phaser.Class({
 
   Extends: Phaser.Scene,
@@ -131,25 +127,33 @@ const Arene = new Phaser.Class({
      /**
      * Transmission de l'arene, du personnage et de l'equipe choisie par le joueur au serveur
      * @name Socket - nouveu joueur
-     * @fires nouveau_joueur
-     * @param {String} arene nom de l'arene choisi
-     * @param {String} equipe nom de l'equipe choisi
-     * @param {String} personnage atlas du personnage choisi
+     * @fires AjoutJoueurSeveur
+     * @property {String} arene nom de l'arene choisi
+     * @property {String} equipe nom de l'equipe choisi
+     * @property {String} personnage atlas du personnage choisi
      * @example
      * this.socket.emit("nouveau_joueur", "Naruto", "B", "dessinatrice1");
      */
      this.socket.emit("nouveau_joueur", this.arene, this.equipe, this.personnage);
 
-      /**
-      * @name Socket - ecoute l'arrivé d'un nouveau joueur
-      * @listens nouveau
-      */
+
+     /**
+     * @name Affichage joueur
+     * @description Affiche le joueur en parametre coté client
+     * @property {Object} data objet contenant les parametres du joueur à afficher
+     */
+
      this.socket.on("nouveau_joueur", (data) => {
        console.log("NOUVEAU JOUEUR DATA");
        self.displayPlayers(self, data, false);
      });
 
 
+     /**
+     * @name Affichage joueurs
+     * @description Affichage de touts les joueurs passé en parametres
+     * @property {Object} arene objet contenant les parametres des joueur à afficher
+     */
      this.socket.on("tout_les_joueurs", (arene) => {
        Object.keys(arene[self.arene]).forEach(function(id) {
          if (arene[self.arene][id].playerId === self.socket.id) {
@@ -160,7 +164,12 @@ const Arene = new Phaser.Class({
        });
      });
 
-
+     /**
+     * @name Barre de vie equipe
+     * @description Change la valeur de la barre de vie de l'equipe par la nouvelle valeur passé en parametre
+     * @property {String} equipe nom de l'equipe
+     * @property {Number} value nouvelle valeur la vie de l'equipe
+     */
      this.socket.on("changement_vie_equipe", (equipe, value) => {
        if (equipe == "A") {
          // self.setVieEquipeA(value)
@@ -172,7 +181,10 @@ const Arene = new Phaser.Class({
      });
 
      /**
-     * @listens module:serveur:finDeVie
+     * @name Barre de vie joueur
+     * @description Change la valeur de la barre de vie du joueur passé en parametre
+     * @property {String} id id du joueur
+     * @property {Number} vie nouvelle valeur la vie du joueur
      */
      this.socket.on("changement_vie", (id, vie) => {
        let moi = self.players.getMatching('playerId', self.socket.id)[0].playerId
@@ -183,6 +195,13 @@ const Arene = new Phaser.Class({
          }
        }
      })
+
+     /**
+     * @name Ressusciter un joueur
+     * @description Replace le joueur à son endroit de spawn et remet sa vie à son état initiale
+     * @property {String} id id du joueur
+     * @property {Number} vie nouvelle valeur la vie du joueur
+     */
 
      this.socket.on("fin_de_vie", (id, vie) => {
        let moi = self.players.getMatching('playerId', self.socket.id)[0].playerId
@@ -195,6 +214,13 @@ const Arene = new Phaser.Class({
          });
        }
      })
+
+
+     /**
+     * @name Evenement drapeau débloqué
+     * @description Déplace la camera au niveau de la fontaine passé en parametre
+     * @property {String} equipe fontaine de l'equipe qui à était detruit
+     */
 
      this.socket.on("drapeau_debloque", (equipe) => {
 
@@ -215,10 +241,11 @@ const Arene = new Phaser.Class({
        // }
      });
 
-
      /**
       * Déconnexion du joueur de socket io et redirection sur la page de victoire|défaite
-      * @event finDePartie
+      * @name finDePartie
+      * @description Déplace la camera au niveau de la fontaine passé en parametre
+      * @property {String} equipe equipe qui à gagné
       */
      this.socket.on("fin_de_partie", (equipe) => {
 
@@ -226,7 +253,6 @@ const Arene = new Phaser.Class({
        self.players.remove(true);
 
        self.socket.disconnect()
-
 
        if (equipe == "B") {
          this.cameras.main.pan(self.fontaine2.x, self.fontaine2.y, 2500);
@@ -269,18 +295,8 @@ const Arene = new Phaser.Class({
            }
 
          });
-
        }
-       console.log("FIN DE PARTIE");
-
-
-
-
      });
-
-
-
-
 
      //EQUIPE BLEU
      this.barreEquipeA.clear()
@@ -839,7 +855,6 @@ const Arene = new Phaser.Class({
 
   /**
    * Affiche et ajoute un joueur au groupe
-   * @see GroupeJoueur
    * @param  {Object} self référence à la scene Phaser
    * @param  {Object} playerInfo parametres reçu du serveur
    * @param  {Boolean} iscurrent  Verifie si le joueur correspond fait referance au joueur courant
