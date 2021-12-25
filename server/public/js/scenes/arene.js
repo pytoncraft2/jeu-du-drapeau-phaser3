@@ -556,6 +556,7 @@ const Arene = new Phaser.Class({
    * Observe les touches pressé par le joueur
    * Envoie un objet contenant la touche pressé au serveur
    * Zoom et dézoom le caméra
+   * @fires EvenementTouches
    */
   update: function() {
 
