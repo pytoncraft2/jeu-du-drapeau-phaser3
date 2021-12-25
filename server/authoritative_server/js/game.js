@@ -144,7 +144,7 @@ function multiclonage(scene, player) {
 }
 
 /**
- * Recevoir des dégats pour un joueur
+ * Recevoir des dégats par un joueur
  *
  * @param  {Object} scene  Scene du jeu
  * @param  {Object} player joueur qui recoit les dégats
@@ -906,6 +906,12 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
   this.bullet.setFixedRotation();
   this.bullet.setStatic(true).setDepth(2);
 
+  /**
+   * Démarrage de la connexion avec socket io
+   * @param  {Object} socket socket.io
+   * @event ConnexionServeurSocketIO
+   */
+
   io.on('connection', function(socket) {
     console.log("ONE CONNEXION");
 
@@ -978,12 +984,17 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
       };
 
       /**
-       * @param {Object} self référence au jeu - scene
+       * @param {Object} self référence au jeu - scene Phaser
        * @param {Objet} players [Groupe de joueur]{@link module:serveur~players}
        */
 
       addPlayer(self, players[socket.room][socket.id]);
       //ajout du joueur dans le groupe joueur du serveur
+
+      /**
+       * Envoie à tout les clients la nouvelle liste des joueurs à afficher
+       * @property {players} players les joueurs deja presents
+       */
       socket.emit("tout_les_joueurs", players);
 
       /**
@@ -1014,6 +1025,11 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
       });
 
 
+      /**
+      * Change la valeur de l'objet input des touches pressés du joueur par de nouvelles valeurs<br>
+      * @event EvenementTouches
+      * @param inputData touches actionné
+      */
       socket.on('playerInput', function(inputData) {
         handlePlayerInput(self, socket.id, socket.room, inputData);
       });
@@ -1024,8 +1040,21 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
 
 }
 
-function update() {
-
+ /**
+  * Mise à jour des parametres des élements des groupes de la Scene Phaser<br>
+  * Position Drapeaux, Tonneaux, Joueurs ...
+  * @param  {Number} time  L'heure actuelle. Soit une valeur de minuterie haute résolution si elle provient de Request Animation Frame, soit Date.now si vous utilisez SetTimeout.<br>
+  * @param  {Number} delta fps
+  * @property {object}  this.drapeaux liste des drapeaux du groupe Phaser à ittérer
+  * @property {object}  drapeaux recuperation de certain parametres du groupe de drapeau Phaser <br>
+  * pour les retransrire dans l'objet drapeau configuration des parametres des objets drapeaux <br>
+  * pour l'envoyer au client
+  * @property {Object} this.tonneaux liste des tonneaux du Groupe Phaser à ittérer
+  * @property {Object} tonneaux nouveau parametres des tonneaux à envoyer au client
+  * @property {Object} this.players liste des joueurs [Groupe de joueur]{@link module:serveur~players}
+  * @property {Object} players Objets [Groupe de joueur]{@link module:serveur~players}
+  */
+function update(time, delta) {
 
     this.drapeaux.getChildren().forEach((drapeau) => {
       drapeaux[drapeau.id] = {
