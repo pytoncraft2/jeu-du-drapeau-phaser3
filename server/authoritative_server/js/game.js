@@ -584,6 +584,7 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
       socket.emit("tout_les_joueurs", players);
 
       /**
+       * @fires AjoutJoueurClient
        * Envoie les parametres du nouveau joueur à toute les autres personnes déja connecté
        * @property {room} channel - le channel de destination à qui envoyé
        * @property {players} joueur les infos du joueurs (id, atlas) qui vient d'arrivé
