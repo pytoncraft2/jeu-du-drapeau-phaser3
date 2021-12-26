@@ -1067,32 +1067,12 @@ function toupie(tweens, player) {
  * @param  {Object} player     joueur qui effectue un saut
  */
 function saut(scene, player, chargeSaut) {
-  // var puissance
-  // if (chargeSaut) {
-  //   if (player.body.speed < 2) {
-  //     player.play('sautPreparation')
-  //   }
-  //
-  //   scene.tweenSaut = scene.tweens.addCounter({
-  //     from: 0,
-  //     to: 100,
-  //     duration: 800,
-  //   })
-  //
-  //   chargeSaut = false;
-  // } else {
-  //     puissance = scene.tweenSaut.getValue()
-  //   if (scene.tweenSaut.isPlaying()) {
-  //     scene.tweenSaut.stop()
-  //   }
     if (player.body.speed < 2) {
       player.play('saut')
     } else {
       player.play('jump')
     }
-    // player.setVelocity( player.body.speed > 2 ? (player.flipX ? -puissance: puissance) : 0, -puissance)
     player.setVelocityY(-50)
-  // }
 }
 
 function multiclonage(scene, player) {
