@@ -932,14 +932,6 @@ function addPlayer(self, playerInfo) {
   joueur.attaqueFrame = playerInfo.attaqueFrame
   joueur.setFrictionAir(0.05);
   joueur.setMass(joueur.masse);
-  var Bodies = Phaser.Physics.Matter.Matter.Bodies;
-
-  var rectA = Bodies.rectangle(0, 0, 900, 24);
-  var compoundBody = Phaser.Physics.Matter.Matter.Body.create({
-    parts: [ rectA ]
-});
-joueur.setExistingBody(compoundBody);
-
 
   joueur.zoneAttaque = self.add.rectangle(0, 0 ,joueur.displayWidth, joueur.displayHeight, 0x0e88bd, 0.5).setDepth(400);
   joueur.zoneAttaque.x = joueur.getRightCenter().x
