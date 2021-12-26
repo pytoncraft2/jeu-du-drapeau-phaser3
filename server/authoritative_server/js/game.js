@@ -27,6 +27,7 @@ constraints = {};
 
 const parametres = {};
 
+//Tout les joueurs Extends de la dessinatrice (pour l'instant)
 parametres['dessinatrice1'] = {
   etatInitial: {
     vie: 5,
@@ -70,6 +71,12 @@ parametres['ninja'] = {
     puissanceDeBase: 12,
     attaqueFrame: "positiona1"
   },
+  touches: {
+    ...parametres['dessinatrice1'].touches
+  },
+  gestionRecevoirDegat: (scene, player) => {
+    recevoirDegat(scene, player)
+  }
 }
 
 parametres['ninja2'] = {
@@ -81,23 +88,8 @@ parametres['ninja2'] = {
     masse: 15,
     attaqueFrame: "positiona1"
   },
-  toucheA: (charge, scene, player) => {
-    attaque(scene, player, charge)
-  },
-  toucheZ: (scene, player) => {
-    agrandissement(scene, player)
-  },
-  toucheE: (scene, player) => {
-    interactionTonneauDrapeau(scene, player)
-  },
-  toucheR: (scene, player) => {
-    invisible(scene, player)
-  },
-  toucheT: (scene, player) => {
-    interactionTirolienne(scene, player)
-  },
-  toucheEspace: (charge, scene, player) => {
-    saut(charge, scene, player)
+  touches: {
+    ...parametres['dessinatrice1'].touches
   },
   gestionRecevoirDegat: (scene, player) => {
     recevoirDegat(scene, player)
@@ -113,23 +105,8 @@ parametres['aventuriere2'] = {
     masse: 20,
     attaqueFrame: "positiona3"
   },
-  toucheA: (charge, scene, player) => {
-    attaque(scene, player, charge)
-  },
-  toucheZ: (scene, player) => {
-    agrandissement(scene, player)
-  },
-  toucheE: (scene, player) => {
-    interactionTonneauDrapeau(scene, player)
-  },
-  toucheR: (scene, player) => {
-    invisible(scene, player)
-  },
-  toucheT: (scene, player) => {
-    interactionTirolienne(scene, player)
-  },
-  toucheEspace: (charge, scene, player) => {
-    saut(charge, scene, player)
+  touches: {
+    ...parametres['dessinatrice1'].touches
   },
   gestionRecevoirDegat: (scene, player) => {
     recevoirDegat(scene, player)
@@ -145,23 +122,8 @@ parametres['chevalier'] = {
     puissanceDeBase: 12,
     attaqueFrame: "positiona3"
   },
-  toucheA: (charge, scene, player) => {
-    attaque(scene, player, charge)
-  },
-  toucheZ: (scene, player) => {
-    agrandissement(scene, player)
-  },
-  toucheE: (scene, player) => {
-    interactionTonneauDrapeau(scene, player)
-  },
-  toucheR: (scene, player) => {
-    invisible(scene, player)
-  },
-  toucheT: (scene, player) => {
-    interactionTirolienne(scene, player)
-  },
-  toucheEspace: (charge, scene, player) => {
-    saut(charge, scene, player)
+  touches: {
+    ...parametres['dessinatrice1'].touches
   },
   gestionRecevoirDegat: (scene, player) => {
     recevoirDegat(scene, player)
@@ -177,24 +139,8 @@ parametres['naruto'] = {
     puissanceDeBase: 8,
     attaqueFrame: "positiona3"
   },
-  toucheA: (charge, scene, player) => {
-    attaque(scene, player, charge)
-  },
-  toucheZ: (scene, player) => {
-    agrandissement(scene, player)
-  },
-  toucheE: (scene, player) => {
-    interactionTonneauDrapeau(scene, player)
-  },
-  toucheR: (scene, player, charge) => {
-    // multiclonage(scene, player)
-    tirer(scene, player, charge)
-  },
-  toucheT: (scene, player) => {
-    interactionTirolienne(scene, player)
-  },
-  toucheEspace: (charge, scene, player) => {
-    saut(charge, scene, player)
+  touches: {
+    ...parametres['dessinatrice1'].touches
   },
   gestionRecevoirDegat: (scene, player) => {
     recevoirDegat(scene, player)
