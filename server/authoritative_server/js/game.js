@@ -36,30 +36,32 @@ parametres['dessinatrice1'] = {
     puissanceDeBase: 10,
     attaqueFrame: "positiona3"
   },
-  toucheA: (charge, scene, player) => {
-    attaque(scene, player, charge)
-  },
-  toucheZ: (scene, player) => {
-    toupie(scene.tweens, player)
-  },
-  toucheE: (scene, player) => {
-    interactionTonneauDrapeau(scene, player)
-  },
-  toucheT: (scene, player) => {
-    interactionTirolienne(scene, player)
-  },
-  toucheR: (scene, player) => {
-    invisible(scene, player)
-  },
-  toucheEspace: (charge, scene, player) => {
-    saut(scene, player, charge)
+  touches: {
+    toucheA: (charge, scene, player) => {
+      attaque(scene, player, charge)
+    },
+    toucheZ: (scene, player) => {
+      toupie(scene.tweens, player)
+    },
+    toucheE: (scene, player) => {
+      interactionTonneauDrapeau(scene, player)
+    },
+    toucheT: (scene, player) => {
+      interactionTirolienne(scene, player)
+    },
+    toucheR: (scene, player) => {
+      invisible(scene, player)
+    },
+    toucheEspace: (charge, scene, player) => {
+      saut(scene, player, charge)
+    }
   },
   gestionRecevoirDegat: (scene, player) => {
     recevoirDegat(scene, player)
   }
 }
-parametres['ninja'] = {
 
+parametres['ninja'] = {
   etatInitial: {
     vie: 4,
     displayWidth: 149,
@@ -68,29 +70,6 @@ parametres['ninja'] = {
     puissanceDeBase: 12,
     attaqueFrame: "positiona1"
   },
-  toucheA: (charge, scene, player) => {
-    attaque(scene, player, charge)
-  },
-  toucheZ: (scene, player) => {
-    invisible(scene, player)
-  },
-  toucheE: (scene, player) => {
-    // interactionTonneau(scene, player)
-    interactionTonneauDrapeau(scene, player)
-  },
-  toucheT: (scene, player) => {
-    interactionTirolienne(scene, player)
-  },
-  toucheR: (scene, player) => {
-    toupie(scene.tweens, player)
-  },
-
-  toucheEspace: (charge, scene, player) => {
-    saut(charge, scene, player)
-  },
-  gestionRecevoirDegat: (scene, player) => {
-    recevoirDegat(scene, player)
-  }
 }
 
 parametres['ninja2'] = {
@@ -675,20 +654,22 @@ function update(time, delta) {
 
       // A
       if (input.attaque) {
-        parametres[player.atlas].toucheA(input.charge, this, player)
+        console.log("ATTTAQUEEEE");
+        parametres[player.atlas].touches.toucheA(input.charge, this, player)
         input.attaque = false;
       }
 
       // z
       if (input.special2) {
-        parametres[player.atlas].toucheZ(this, player)
+        parametres[player.atlas].touches.toucheZ(this, player)
         input.special2 = false;
       }
 
 
       // E
       if (input.interactionTonneau) {
-        parametres[player.atlas].toucheE(this, player)
+        console.log("TIRO");
+        parametres[player.atlas].touches.toucheE(this, player)
         input.interactionTonneau = false;
       }
 
@@ -697,20 +678,20 @@ function update(time, delta) {
         // if (input.chargeSpecial) {
         //
         // }
-        parametres[player.atlas].toucheR(this, player, input.specialRelache);
+        parametres[player.atlas].touches.toucheR(this, player, input.specialRelache);
         input.special = false;
       }
 
       // T
       if (input.tirolienne) {
-        parametres[player.atlas].toucheT(this, player)
+        parametres[player.atlas].touches.toucheT(this, player)
         input.tirolienne = false;
       }
 
 
       // ESPACE
       if (input.saut) {
-        parametres[player.atlas].toucheEspace(input.chargeSaut, this, player)
+        parametres[player.atlas].touches.toucheEspace(input.chargeSaut, this, player)
         input.saut = false
       }
 
