@@ -37,13 +37,13 @@ parametres['dessinatrice1'] = {
     attaqueFrame: "positiona3"
   },
   toucheA: (charge, scene, player) => {
-    attaque(charge, scene, player)
+    attaque(scene, player, charge)
   },
   toucheZ: (scene, player) => {
-    agrandissement(scene, player)
+    toupie(scene.tweens, player)
   },
   toucheE: (scene, player) => {
-    agrandissement(scene, player)
+    interactionTonneauDrapeau(scene, player)
   },
   toucheT: (scene, player) => {
     interactionTirolienne(scene, player)
@@ -52,7 +52,7 @@ parametres['dessinatrice1'] = {
     invisible(scene, player)
   },
   toucheEspace: (charge, scene, player) => {
-    saut(charge, scene, player)
+    saut(scene, player, charge)
   },
   gestionRecevoirDegat: (scene, player) => {
     recevoirDegat(scene, player)
@@ -69,7 +69,7 @@ parametres['ninja'] = {
     attaqueFrame: "positiona1"
   },
   toucheA: (charge, scene, player) => {
-    attaque(charge, scene, player)
+    attaque(scene, player, charge)
   },
   toucheZ: (scene, player) => {
     invisible(scene, player)
@@ -103,7 +103,7 @@ parametres['ninja2'] = {
     attaqueFrame: "positiona1"
   },
   toucheA: (charge, scene, player) => {
-    attaque(charge, scene, player)
+    attaque(scene, player, charge)
   },
   toucheZ: (scene, player) => {
     agrandissement(scene, player)
@@ -135,7 +135,7 @@ parametres['aventuriere2'] = {
     attaqueFrame: "positiona3"
   },
   toucheA: (charge, scene, player) => {
-    attaque(charge, scene, player)
+    attaque(scene, player, charge)
   },
   toucheZ: (scene, player) => {
     agrandissement(scene, player)
@@ -167,7 +167,7 @@ parametres['chevalier'] = {
     attaqueFrame: "positiona3"
   },
   toucheA: (charge, scene, player) => {
-    attaque(charge, scene, player)
+    attaque(scene, player, charge)
   },
   toucheZ: (scene, player) => {
     agrandissement(scene, player)
@@ -199,7 +199,7 @@ parametres['naruto'] = {
     attaqueFrame: "positiona3"
   },
   toucheA: (charge, scene, player) => {
-    attaque(charge, scene, player)
+    attaque(scene, player, charge)
   },
   toucheZ: (scene, player) => {
     agrandissement(scene, player)
@@ -688,7 +688,7 @@ function update(time, delta) {
 
       // E
       if (input.interactionTonneau) {
-        parametres[player.atlas].toucheE(player, this)
+        parametres[player.atlas].toucheE(this, player)
         input.interactionTonneau = false;
       }
 
@@ -703,7 +703,7 @@ function update(time, delta) {
 
       // T
       if (input.tirolienne) {
-        parametres[player.atlas].toucheT(player, this)
+        parametres[player.atlas].toucheT(this, player)
         input.tirolienne = false;
       }
 
@@ -1129,7 +1129,7 @@ function toupie(tweens, player) {
  * @param  {Object} scene      Scene du jeu
  * @param  {Object} player     joueur qui effectue un saut
  */
-function saut(chargeSaut, scene, player) {
+function saut(scene, player, chargeSaut) {
   var puissance
   if (chargeSaut) {
     if (player.body.speed < 2) {
@@ -1195,11 +1195,11 @@ function recevoirDegat(scene, player) {
 /**
  * Effectuer une attaque ou/et un repoussement sur un objet|joueur
  *
- * @param  {Boolean} charge indique si le joueur maintient ou relache le bouton
  * @param  {Object} scene  Scene du jeu
  * @param  {Object} player joueur qui effectue une attaque
+ * @param  {Boolean} charge indique si le joueur maintient ou relache le bouton
  */
- function attaque(charge, scene, player) {
+ function attaque(scene, player, charge) {
    if (charge) {
      scene.tween = scene.tweens.timeline({
        tweens: [{
@@ -1329,7 +1329,7 @@ function recevoirDegat(scene, player) {
  * @param  {Object} scene  Scene du jeu
  */
 
-function interactionTonneauDrapeau(player, scene) {
+function interactionTonneauDrapeau(scene, player) {
 
   //TONNEAU
   player.flipX ?
@@ -1405,7 +1405,7 @@ function interactionTonneauDrapeau(player, scene) {
  * @param  {Object} player joueur qui utilise la tirolienne
  * @param  {Object} scene  Scene du jeu
  */
- function interactionTirolienne(player, scene) {
+ function interactionTirolienne(scene, player) {
    var dist = Phaser.Math.Distance.BetweenPoints(player, scene.bullet);
    if (dist < 900 && dist < 700) {
      if (Object.entries(constraints[player.playerId]['bullet']).length === 0) {

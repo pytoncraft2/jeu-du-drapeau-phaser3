@@ -519,10 +519,10 @@ const Arene = new Phaser.Class({
      //Se redresser
      this.toucheM = this.input.keyboard.addKey('M');
      //DROITE-GAUCHE
-     this.toucheGauche = this.input.keyboard.addKey('J');
-     this.toucheDroite = this.input.keyboard.addKey('L');
-     this.toucheHaut = this.input.keyboard.addKey('I');
-     this.toucheBas = this.input.keyboard.addKey('K');
+     this.toucheGauche = this.input.keyboard.addKey('Q');
+     this.toucheDroite = this.input.keyboard.addKey('D');
+     this.toucheHaut = this.input.keyboard.addKey('Z');
+     this.toucheBas = this.input.keyboard.addKey('S');
      this.zoom1 = this.input.keyboard.addKey('ZERO');
      this.zoom2 = this.input.keyboard.addKey('NINE');
      this.zoom3 = this.input.keyboard.addKey('EIGHT');
