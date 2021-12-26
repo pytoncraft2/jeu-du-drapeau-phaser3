@@ -350,6 +350,12 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
   evenement.on('fin-de-vie', finDeVie, this)
   evenement.on('fin-de-partie', finDePartie, this)
 
+  //platforme tout en bas
+  let p = self.add.zone(2000, 3000, 210, 210).setSize(994000, 300);
+  var platformeToutEnBas = self.matter.add.gameObject(p).setIgnoreGravity(true).setStatic(true).setFriction(0);
+
+
+
   //tobogan mini socles
   let microPlatforme = self.add.zone(1916, 235, 210, 210).setSize(200, 40);
   var socleJoueur = self.matter.add.gameObject(microPlatforme).setIgnoreGravity(true).setStatic(true).setFriction(0);

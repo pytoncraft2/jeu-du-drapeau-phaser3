@@ -488,6 +488,7 @@ const Arene = new Phaser.Class({
      }).setAngle(-26);
      this.bullet = this.add.image(1210, -400, 'bullet').setDepth(2);
 
+     let soclePlatformeToutEnBAS = this.add.image(2000, 3000, 'platforme').setDepth(-2).setDisplaySize(34000, 300)
 
      var fil = new Phaser.Geom.Line(1210, -400, 5675, -2373);
 
