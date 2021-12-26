@@ -351,7 +351,7 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
   evenement.on('fin-de-partie', finDePartie, this)
 
   //platforme tout en bas
-  let p = self.add.zone(2000, 3000, 210, 210).setSize(994000, 300);
+  let p = self.add.zone(2000, 3000, 210, 210).setSize(34000, 300);
   var platformeToutEnBas = self.matter.add.gameObject(p).setIgnoreGravity(true).setStatic(true).setFriction(0);
 
 
@@ -761,6 +761,13 @@ function update(time, delta) {
 
     }
 
+    /*
+    En dehors de la map: respawn
+     */
+     if (player.y > 6000) {
+       evenement.emit('fin-de-vie', player.playerId)
+     }
+
     /**
      * ROTATION CANON
      */
@@ -1131,6 +1138,10 @@ function recevoirDegat(scene, player) {
  * @param  {Boolean} charge indique si le joueur maintient ou relache le bouton
  */
  function attaque(scene, player, charge) {
+   console.log("xxx");
+   console.log(player.x);
+   console.log("YYY");
+   console.log(player.y);
    if (charge) {
      scene.tween = scene.tweens.timeline({
        tweens: [{
