@@ -379,19 +379,20 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
    */
 
   var socleJoueur = self.matter.add.gameObject(soclePlatformeGauche);
-  socleJoueur.setIgnoreGravity(true).setStatic(true).setFriction(0).setCollisionGroup(2).setCollidesWith(CATEGORIE_JOUEUR)
+  socleJoueur.setIgnoreGravity(true).setStatic(true).setFriction(0.2).setCollisionGroup(2).setCollidesWith(CATEGORIE_JOUEUR)
   var socleJoueur2 = self.matter.add.gameObject(socleToitGauche);
-  socleJoueur2.setIgnoreGravity(true).setStatic(true).setFriction(0).setCollisionGroup(2).setCollidesWith(CATEGORIE_JOUEUR)
+  socleJoueur2.setIgnoreGravity(true).setStatic(true).setFriction(0.2).setCollisionGroup(2).setCollidesWith(CATEGORIE_JOUEUR)
 
   var socleJoueur3 = self.matter.add.gameObject(soclePlatformeDroit);
-  socleJoueur3.setIgnoreGravity(true).setStatic(true).setFriction(0).setCollisionGroup(2).setCollidesWith(CATEGORIE_JOUEUR)
+  socleJoueur3.setIgnoreGravity(true).setStatic(true).setFriction(0.2).setCollisionGroup(2).setCollidesWith(CATEGORIE_JOUEUR)
   var socleJoueur4 = self.matter.add.gameObject(socleToitDroit);
-  socleJoueur4.setIgnoreGravity(true).setStatic(true).setFriction(0).setCollisionGroup(2).setCollidesWith(CATEGORIE_JOUEUR)
+  socleJoueur4.setIgnoreGravity(true).setStatic(true).setFriction(0.2).setCollisionGroup(2).setCollidesWith(CATEGORIE_JOUEUR)
 
 
       var socleFontaineJoueur = self.matter.add.gameObject(baseFontaine).setIgnoreGravity(true).setStatic(true).setFriction(0);
-      var plots1 = self.matter.add.gameObject(plotFontaine1).setIgnoreGravity(true).setStatic(true).setFriction(0);
-      this.plots2 = self.matter.add.gameObject(plotFontaine2).setIgnoreGravity(true).setStatic(true).setFriction(0);
+      var plots1 = self.matter.add.gameObject(plotFontaine1).setIgnoreGravity(true).setStatic(true).setFriction(0.2);
+      this.plots2 = self.matter.add.gameObject(plotFontaine2).setIgnoreGravity(true).setStatic(true).setFriction(0.2);
+
       this.tweens.add({
         targets: this.plots2,
         y: this.plots2.y + 2000,
@@ -638,7 +639,7 @@ function update(time, delta) {
       // ESPACE
       if (input.saut) {
         parametres[player.atlas].touches.toucheEspace(input.chargeSaut, this, player)
-        input.saut = false
+        // input.saut = false
       }
 
       if (input.protection) {
@@ -666,34 +667,30 @@ function update(time, delta) {
 
       if (input.right) {
         player.direction = "droite"
-        if (input.walk) {
+        // if (input.walk) {
           player.thrust(0.1)
           player.play('walk', true)
           player.setFlipX(false)
-        } else {
-          player.thrust(0)
-          if (player.body.speed < 2) {
-            player.play("idle_walk", true)
-          }
-        }
-      } else if (input.left) {
+        // } else {
+          // player.thrust(0)
+          // if (player.body.speed < 2) {
+            // player.play("idle_walk", true)
+          // }
+        // }
+      }
+
+      if (input.left) {
         player.direction = "gauche"
-        if (input.walk) {
+        // if (input.walk) {
           player.thrustBack(0.1)
           player.play('walk', true)
           player.setFlipX(true)
-        } else {
-          player.thrust(0)
-          if (player.body.speed < 2) {
-          player.play("idle_walk", true)
-          }
-        }
-      } else if (input.up) {
-        player.play('goback')
-        input.up = false;
-      } else if (input.down) {
-        player.play('front')
-        input.down = false;
+        // } else {
+          // player.thrust(0)
+          // if (player.body.speed < 2) {
+          // player.play("idle_walk", true)
+          // }
+        // }
       }
 
 
@@ -935,6 +932,14 @@ function addPlayer(self, playerInfo) {
   joueur.attaqueFrame = playerInfo.attaqueFrame
   joueur.setFrictionAir(0.05);
   joueur.setMass(joueur.masse);
+  var Bodies = Phaser.Physics.Matter.Matter.Bodies;
+
+  var rectA = Bodies.rectangle(0, 0, 900, 24);
+  var compoundBody = Phaser.Physics.Matter.Matter.Body.create({
+    parts: [ rectA ]
+});
+joueur.setExistingBody(compoundBody);
+
 
   joueur.zoneAttaque = self.add.rectangle(0, 0 ,joueur.displayWidth, joueur.displayHeight, 0x0e88bd, 0.5).setDepth(400);
   joueur.zoneAttaque.x = joueur.getRightCenter().x
@@ -1057,31 +1062,32 @@ function toupie(tweens, player) {
  * @param  {Object} player     joueur qui effectue un saut
  */
 function saut(scene, player, chargeSaut) {
-  var puissance
-  if (chargeSaut) {
-    if (player.body.speed < 2) {
-      player.play('sautPreparation')
-    }
-
-    scene.tweenSaut = scene.tweens.addCounter({
-      from: 0,
-      to: 100,
-      duration: 800,
-    })
-
-    chargeSaut = false;
-  } else {
-      puissance = scene.tweenSaut.getValue()
-    if (scene.tweenSaut.isPlaying()) {
-      scene.tweenSaut.stop()
-    }
+  // var puissance
+  // if (chargeSaut) {
+  //   if (player.body.speed < 2) {
+  //     player.play('sautPreparation')
+  //   }
+  //
+  //   scene.tweenSaut = scene.tweens.addCounter({
+  //     from: 0,
+  //     to: 100,
+  //     duration: 800,
+  //   })
+  //
+  //   chargeSaut = false;
+  // } else {
+  //     puissance = scene.tweenSaut.getValue()
+  //   if (scene.tweenSaut.isPlaying()) {
+  //     scene.tweenSaut.stop()
+  //   }
     if (player.body.speed < 2) {
       player.play('saut')
     } else {
       player.play('jump')
     }
-    player.setVelocity( player.body.speed > 2 ? (player.flipX ? -puissance: puissance) : 0, -puissance)
-  }
+    // player.setVelocity( player.body.speed > 2 ? (player.flipX ? -puissance: puissance) : 0, -puissance)
+    player.setVelocityY(-50)
+  // }
 }
 
 function multiclonage(scene, player) {
