@@ -517,7 +517,7 @@ const Arene = new Phaser.Class({
      this.toucheProtection = this.input.keyboard.addKey('ALT');
 
      //Se redresser
-     this.toucheM = this.input.keyboard.addKey('M');
+     this.toucheF = this.input.keyboard.addKey('F');
      //DROITE-GAUCHE
      this.toucheGauche = this.input.keyboard.addKey('Q');
      this.toucheDroite = this.input.keyboard.addKey('D');
@@ -623,7 +623,7 @@ const Arene = new Phaser.Class({
     /**
      * SE REDRESSER
      */
-     if (Phaser.Input.Keyboard.JustDown(this.toucheM)) {
+     if (Phaser.Input.Keyboard.JustDown(this.toucheF)) {
        this.socket.emit('playerInput', {
          redresser: true
        });
@@ -762,13 +762,6 @@ const Arene = new Phaser.Class({
     }
 
     if (Phaser.Input.Keyboard.JustUp(this.canonKeyPressed)) {
-      this.socket.emit('playerInput', {
-        canonMaintenu: false,
-        canonRelache: true
-      });
-    }
-
-    if (Phaser.Input.Keyboard.JustDown(this.toucheM)) {
       this.socket.emit('playerInput', {
         canonMaintenu: false,
         canonRelache: true

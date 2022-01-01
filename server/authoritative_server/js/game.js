@@ -775,7 +775,7 @@ function update(time, delta) {
         this.tween = this.tweens.add({
           targets: player,
           angle: 0,
-          duration: 500
+          duration: 300
         })
         input.redresser = false;
       }
