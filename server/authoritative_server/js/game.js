@@ -422,7 +422,7 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
   evenement = new Phaser.Events.EventEmitter()
   evenement.on('changement-vie-equipe', changementVieEquipe, this)
   evenement.on('changement-vie', changementVie, this)
-  evenement.on('fin-de-vie', finDeVie, this)
+  evenement.on('reapparaitre', reapparaitre, this)
   evenement.on('fin-de-partie', finDePartie, this)
 
   //tobogan mini socles
@@ -846,7 +846,7 @@ function update(time, delta) {
     }
 
     if (player.y > 6000) {
-      evenement.emit('fin-de-vie', player.playerId)
+      evenement.emit('reapparaitre', player.playerId)
     }
 
       players[player.arene][player.playerId].x = player.x;
@@ -905,17 +905,13 @@ function update(time, delta) {
   * @param  {Object} tween        Phaser.tween
   * @param  {Boolean|Number} superAttaque valeur de la charge du joueur qui attaque (enre 0 et 1)
   * @param  {String} direction    direction du joueur qui attaque
-  * @param  {Boolean} reapparaitre indique si le joueur revient à la base apres avoir était attaqué
   */
 
-function changementVie(id, tween, superAttaque, direction, reapparaitre) {
+function changementVie(id, tween, superAttaque, direction) {
   let joueur = this.players["Naruto"].getMatching("playerId", id)[0]
   joueur.etatAttaque.attacked = true;
   joueur.etatAttaque.repousser = superAttaque;
   joueur.etatAttaque.direction = direction;
-  if (reapparaitre) {
-    evenement.emit('fin-de-vie', joueur.playerId)
-  }
 }
 
 
@@ -926,7 +922,7 @@ function changementVie(id, tween, superAttaque, direction, reapparaitre) {
   * @param  {String} id id du joueur ciblé
   */
 
-function finDeVie(id) {
+function reapparaitre(id) {
   let joueur = this.players["Naruto"].getMatching("playerId", id)[0]
   joueur.vie = parametres[joueur.atlas].etatInitial.vie
   let x = joueur.equipe == "A" ? -379 : 7000
@@ -1447,13 +1443,11 @@ function interactionTonneauDrapeau(scene, player) {
   */
 
  function gestionAttaque(vie, id, tween, superAttaque, direction) {
-   let reapparaitre;
    if (vie <= 0) {
-     reapparaitre = true;
+     evenement.emit('reapparaitre', id)
    } else {
-     reapparaitre = false;
+     evenement.emit('changement-vie', id, tween, superAttaque, direction)
    }
-     evenement.emit('changement-vie', id, tween, superAttaque, direction, reapparaitre)
  }
 
  /**
