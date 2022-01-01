@@ -58,6 +58,40 @@ parametres['dessinatrice1'] = {
     recevoirDegat(scene, player)
   }
 }
+
+parametres['naruto'] = {
+  etatInitial: {
+    vie: 5,
+    displayWidth: 102,
+    displayHeight: 300,
+    masse: 25,
+    puissanceDeBase: 8,
+    attaqueFrame: "positiona3"
+  },
+  toucheA: (charge, scene, player) => {
+    attaque(scene, player, charge)
+  },
+  toucheZ: (scene, player) => {
+    agrandissement(scene, player)
+  },
+  toucheE: (scene, player) => {
+    interactionTonneauDrapeau(scene, player)
+  },
+  toucheR: (scene, player, charge) => {
+    // multiclonage(scene, player)
+    tirer(scene, player, charge)
+  },
+  toucheT: (scene, player) => {
+    interactionTirolienne(scene, player)
+  },
+  toucheEspace: (scene, player, charge) => {
+    saut(scene, player, charge)
+  },
+  gestionRecevoirDegat: (scene, player) => {
+    recevoirDegat(scene, player)
+  }
+}
+
 parametres['ninja'] = {
 
   etatInitial: {
@@ -93,134 +127,7 @@ parametres['ninja'] = {
   }
 }
 
-parametres['ninja2'] = {
-  etatInitial: {
-    vie: 5,
-    puissanceDeBase: 8,
-    displayWidth: 158.8,
-    displayHeight: 160.4,
-    masse: 15,
-    attaqueFrame: "positiona1"
-  },
-  toucheA: (charge, scene, player) => {
-    attaque(scene, player, charge)
-  },
-  toucheZ: (scene, player) => {
-    agrandissement(scene, player)
-  },
-  toucheE: (scene, player) => {
-    interactionTonneauDrapeau(scene, player)
-  },
-  toucheR: (scene, player) => {
-    invisible(scene, player)
-  },
-  toucheT: (scene, player) => {
-    interactionTirolienne(scene, player)
-  },
-  toucheEspace: (scene, player, charge) => {
-    saut(scene, player, charge)
-  },
-  gestionRecevoirDegat: (scene, player) => {
-    recevoirDegat(scene, player)
-  }
-}
 
-parametres['aventuriere2'] = {
-  etatInitial: {
-    vie: 5,
-    puissanceDeBase: 10,
-    displayWidth: 38.40,
-    displayHeight: 51.2,
-    masse: 20,
-    attaqueFrame: "positiona3"
-  },
-  toucheA: (charge, scene, player) => {
-    attaque(scene, player, charge)
-  },
-  toucheZ: (scene, player) => {
-    agrandissement(scene, player)
-  },
-  toucheE: (scene, player) => {
-    interactionTonneauDrapeau(scene, player)
-  },
-  toucheR: (scene, player) => {
-    invisible(scene, player)
-  },
-  toucheT: (scene, player) => {
-    interactionTirolienne(scene, player)
-  },
-  toucheEspace: (scene, player, charge) => {
-    saut(scene, player, charge)
-  },
-  gestionRecevoirDegat: (scene, player) => {
-    recevoirDegat(scene, player)
-  }
-}
-
-parametres['chevalier'] = {
-  etatInitial: {
-    vie: 20,
-    displayWidth: 217.60,
-    displayHeight: 241.6,
-    masse: 35,
-    puissanceDeBase: 12,
-    attaqueFrame: "positiona3"
-  },
-  toucheA: (charge, scene, player) => {
-    attaque(scene, player, charge)
-  },
-  toucheZ: (scene, player) => {
-    agrandissement(scene, player)
-  },
-  toucheE: (scene, player) => {
-    interactionTonneauDrapeau(scene, player)
-  },
-  toucheR: (scene, player) => {
-    invisible(scene, player)
-  },
-  toucheT: (scene, player) => {
-    interactionTirolienne(scene, player)
-  },
-  toucheEspace: (scene, player, charge) => {
-    saut(scene, player, charge)
-  },
-  gestionRecevoirDegat: (scene, player) => {
-    recevoirDegat(scene, player)
-  }
-}
-
-parametres['naruto'] = {
-  etatInitial: {
-    vie: 5,
-    displayWidth: 102,
-    displayHeight: 300,
-    masse: 25,
-    puissanceDeBase: 8,
-    attaqueFrame: "positiona3"
-  },
-  toucheA: (charge, scene, player) => {
-    attaque(scene, player, charge)
-  },
-  toucheZ: (scene, player) => {
-    agrandissement(scene, player)
-  },
-  toucheE: (scene, player) => {
-    interactionTonneauDrapeau(scene, player)
-  },
-  toucheR: (scene, player, charge) => {
-    // multiclonage(scene, player)
-    tirer(scene, player, charge)
-  },
-  toucheT: (scene, player) => {
-    interactionTirolienne(scene, player)
-  },
-  toucheEspace: (scene, player, charge) => {
-    saut(scene, player, charge)
-  },
-  gestionRecevoirDegat: (scene, player) => {
-    recevoirDegat(scene, player)
-  }
-}
 
 const config = {
   type: Phaser.HEADLESS,
