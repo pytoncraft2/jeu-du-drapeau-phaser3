@@ -51,7 +51,7 @@ parametres['dessinatrice1'] = {
   toucheR: (scene, player) => {
     invisible(scene, player)
   },
-  toucheEspace: (charge, scene, player) => {
+  toucheEspace: (scene, player, charge) => {
     saut(scene, player, charge)
   },
   gestionRecevoirDegat: (scene, player) => {
@@ -85,8 +85,8 @@ parametres['ninja'] = {
     toupie(scene.tweens, player)
   },
 
-  toucheEspace: (charge, scene, player) => {
-    saut(charge, scene, player)
+  toucheEspace: (scene, player, charge) => {
+    saut(scene, player, charge)
   },
   gestionRecevoirDegat: (scene, player) => {
     recevoirDegat(scene, player)
@@ -117,8 +117,8 @@ parametres['ninja2'] = {
   toucheT: (scene, player) => {
     interactionTirolienne(scene, player)
   },
-  toucheEspace: (charge, scene, player) => {
-    saut(charge, scene, player)
+  toucheEspace: (scene, player, charge) => {
+    saut(scene, player, charge)
   },
   gestionRecevoirDegat: (scene, player) => {
     recevoirDegat(scene, player)
@@ -149,8 +149,8 @@ parametres['aventuriere2'] = {
   toucheT: (scene, player) => {
     interactionTirolienne(scene, player)
   },
-  toucheEspace: (charge, scene, player) => {
-    saut(charge, scene, player)
+  toucheEspace: (scene, player, charge) => {
+    saut(scene, player, charge)
   },
   gestionRecevoirDegat: (scene, player) => {
     recevoirDegat(scene, player)
@@ -181,8 +181,8 @@ parametres['chevalier'] = {
   toucheT: (scene, player) => {
     interactionTirolienne(scene, player)
   },
-  toucheEspace: (charge, scene, player) => {
-    saut(charge, scene, player)
+  toucheEspace: (scene, player, charge) => {
+    saut(scene, player, charge)
   },
   gestionRecevoirDegat: (scene, player) => {
     recevoirDegat(scene, player)
@@ -214,8 +214,8 @@ parametres['naruto'] = {
   toucheT: (scene, player) => {
     interactionTirolienne(scene, player)
   },
-  toucheEspace: (charge, scene, player) => {
-    saut(charge, scene, player)
+  toucheEspace: (scene, player, charge) => {
+    saut(scene, player, charge)
   },
   gestionRecevoirDegat: (scene, player) => {
     recevoirDegat(scene, player)
@@ -710,7 +710,7 @@ function update(time, delta) {
 
       // ESPACE
       if (input.saut) {
-        parametres[player.atlas].toucheEspace(input.chargeSaut, this, player)
+        parametres[player.atlas].toucheEspace(this, player, input.chargeSaut)
         input.saut = false
       }
 
@@ -845,6 +845,10 @@ function update(time, delta) {
       this.canon1.setAngle(this.canon1.angle - 5)
     }
 
+    if (player.y > 6000) {
+      evenement.emit('fin-de-vie', player.playerId)
+    }
+
       players[player.arene][player.playerId].x = player.x;
       players[player.arene][player.playerId].y = player.y;
       players[player.arene][player.playerId].frame = player.anims.getFrameName();
@@ -901,13 +905,17 @@ function update(time, delta) {
   * @param  {Object} tween        Phaser.tween
   * @param  {Boolean|Number} superAttaque valeur de la charge du joueur qui attaque (enre 0 et 1)
   * @param  {String} direction    direction du joueur qui attaque
+  * @param  {Boolean} reapparaitre indique si le joueur revient à la base apres avoir était attaqué
   */
 
-function changementVie(id, tween, superAttaque, direction) {
+function changementVie(id, tween, superAttaque, direction, reapparaitre) {
   let joueur = this.players["Naruto"].getMatching("playerId", id)[0]
   joueur.etatAttaque.attacked = true;
   joueur.etatAttaque.repousser = superAttaque;
   joueur.etatAttaque.direction = direction;
+  if (reapparaitre) {
+    evenement.emit('fin-de-vie', joueur.playerId)
+  }
 }
 
 
@@ -1287,7 +1295,7 @@ function recevoirDegat(scene, player) {
 
          scene.matter.overlap([...scene.players['Naruto'].getChildren(), ...scene.tonneaux.getChildren()], player.zoneAttaque, (objet1, objet2) => {
            if (objet1.gameObject.playerId) {
-             gestionVie(objet1.gameObject.vie, objet1.gameObject.playerId, scene.tweens, puissance, objet1.gameObject.flipX)
+             gestionAttaque(objet1.gameObject.vie, objet1.gameObject.playerId, scene.tweens, puissance, objet1.gameObject.flipX)
            }
 
            if (objet1.gameObject.name == "tonneau") {
@@ -1438,12 +1446,14 @@ function interactionTonneauDrapeau(scene, player) {
   * @param  {String} direction    direction du joueur qui attaque (droite|gauche)
   */
 
- function gestionVie(vie, id, tween, superAttaque, direction) {
+ function gestionAttaque(vie, id, tween, superAttaque, direction) {
+   let reapparaitre;
    if (vie <= 0) {
-     evenement.emit('fin-de-vie', id)
+     reapparaitre = true;
    } else {
-     evenement.emit('changement-vie', id, tween, superAttaque, direction)
+     reapparaitre = false;
    }
+     evenement.emit('changement-vie', id, tween, superAttaque, direction, reapparaitre)
  }
 
  /**
