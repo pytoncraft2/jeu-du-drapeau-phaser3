@@ -227,6 +227,17 @@ const config = {
   parent: 'phaser-example',
   width: 1500,
   height: 720,
+  plugins: {
+    scene: [{
+      plugin: PhaserMatterCollisionPlugin.default, // The plugin class
+      key: "matterCollision", // Where to store in Scene.Systems, e.g. scene.sys.matterCollision
+      mapping: "matterCollision" // Where to store in the Scene, e.g. scene.matterCollision
+
+      // Note! If you are including the library via the CDN script tag, the plugin
+      // line should be:
+      // plugin: PhaserMatterCollisionPlugin.default
+    }]
+  },
   scene: {
     preload: preload,
     create: create,
@@ -1017,6 +1028,65 @@ function addPlayer(self, playerInfo) {
   joueur.zoneAttaque.x = joueur.getRightCenter().x
   joueur.zoneAttaque.y = joueur.getRightCenter().y
 
+
+  const {
+    Body,
+    Bodies
+  } = Phaser.Physics.Matter.Matter; // Native Matter modules
+  const {
+    displayWidth: w,
+    displayHeight: h
+  } = joueur;
+  const mainBody = Bodies.rectangle(0, 0, joueur.displayWidth * 0.6, h);
+  joueur.sensors = {
+    bottom: Bodies.rectangle(0, h * 0.5, w * 0.25, 2, {
+      isSensor: true
+    }),
+    left: Bodies.rectangle(-w * 0.35, 0, 2, h * 0.5, {
+      isSensor: true
+    }),
+    right: Bodies.rectangle(w * 0.35, 0, 2, h * 0.5, {
+      isSensor: true
+    })
+  };
+  const compoundBody = Body.create({
+    parts: [mainBody, joueur.sensors.bottom],
+    frictionStatic: 0,
+    frictionAir: 0.05,
+    friction: 0,
+    // The offset here allows us to control where the sprite is placed relative to the
+    // matter body's x and y - here we want the sprite centered over the matter body.
+    render: {
+      sprite: {
+        xOffset: 0.5,
+        yOffset: 0.5
+      }
+    },
+  });
+
+  joueur.setExistingBody(compoundBody)
+  joueur.isTouching = {}
+  self.matter.world.on("beforeupdate", () => {
+    joueur.isTouching.left = false;
+    joueur.isTouching.right = false;
+    joueur.isTouching.ground = false;
+  }, this);
+
+  self.matterCollision.addOnCollideStart({
+    objectA: [joueur.sensors.bottom],
+    callback: eventData => {
+      onSensorCollide(eventData, joueur)
+    },
+    context: this
+  });
+  self.matterCollision.addOnCollideActive({
+    objectA: [joueur.sensors.bottom],
+    callback: eventData => {
+      onSensorCollide(eventData, joueur)
+    },
+    context: this
+  });
+
   var zoneAttaque = self.matter.add.gameObject(joueur.zoneAttaque);
   zoneAttaque.setCollisionCategory(null);
   zoneAttaque.setIgnoreGravity(true).setStatic(true)
@@ -1158,6 +1228,37 @@ function saut(scene, player, chargeSaut) {
       player.play('jump')
     }
     player.setVelocity( player.body.speed > 2 ? (player.flipX ? -puissance: puissance) : 0, -puissance)
+  }
+}
+
+function sautV2(scene, player, isOnGround, isInAir) {
+  timedEvent = new Phaser.Time.TimerEvent({
+    delay: 250,
+    callback: () => (player.canJump = true, player.jumpCounter++)
+  });
+  if (player.canJump && isOnGround) {
+    if (player.body.speed < 2) {
+      player.play('saut')
+    } else {
+      player.play('jump')
+    }
+    player.setVelocityY(-50)
+
+    player.canJump = false;
+    player.jumpCooldownTimer = scene.time.addEvent(timedEvent);
+  }
+
+  if (isInAir && player.jumpCounter == 2) {
+    this.tween = scene.tweens.add({
+      targets: player,
+      angle: player.direction == "droite" ? 720 : -720,
+      duration: 500
+    })
+
+    player.setVelocityY(-50)
+    player.canJump = false;
+    player.jumpCounter = 0;
+    player.jumpCooldownTimer = scene.time.addEvent(timedEvent);
   }
 }
 
@@ -1459,6 +1560,25 @@ function interactionTonneauDrapeau(scene, player) {
   */
 function gestionTonneaux(puissance, rotation, tonneau) {
   tonneau.setVelocity((rotation ? -10 * (puissance * 5)  : 10 * (puissance * 5)), - (puissance * 100) )
+}
+
+
+/**
+ * Detection si le joueur touche le sol
+ * Si les sensors du joueur touche quelquechose
+ * @param  {Object} bodyA Joueur
+ * @param  {Object} bodyB Sol
+ * @param  {Object} pair  [description]
+ */
+function onSensorCollide({
+  bodyA,
+  bodyB,
+  pair
+}, joueur) {
+  if (bodyB.isSensor) return; // We only care about collisions with physical objects
+  if (bodyA === joueur.sensors.bottom) {
+    joueur.isTouching.ground = true;
+  }
 }
 const game = new Phaser.Game(config);
 window.gameLoaded();
