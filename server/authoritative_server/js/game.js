@@ -51,8 +51,8 @@ parametres['dessinatrice1'] = {
   toucheR: (scene, player) => {
     invisible(scene, player)
   },
-  toucheEspace: (scene, player, charge) => {
-    saut(scene, player, charge)
+  toucheEspace: (scene, player, charge, isOnGround, isInAir) => {
+    sautV2(scene, player, charge, isOnGround, isInAir)
   },
   gestionRecevoirDegat: (scene, player) => {
     recevoirDegat(scene, player)
@@ -467,6 +467,14 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
         equipe: socket.equipe,
         mask: mask,
         wall: false,
+        isTouching: {
+          left: false,
+          right: false,
+          ground: false
+        },
+        canJump: true,
+        jumpCounter: 0,
+        jumpCooldownTimer: null,
         attaque: false,
         puissanceBonus: 0,
         alpha: 1,
@@ -638,7 +646,7 @@ function update(time, delta) {
         const isInAir = !isOnGround;
         // Adjust the movement so that the player is slower in the air
         const moveForce = isOnGround ? 0.08 : 0.065;
-        parametres[player.atlas].toucheEspace(this, player, input.chargeSaut)
+        parametres[player.atlas].toucheEspace(this, player, input.chargeSaut, isOnGround, isInAir)
         // parametres[player.atlas].touches.toucheEspace(this, player, isOnGround, isInAir)
 
         input.saut = false
@@ -958,6 +966,10 @@ function addPlayer(self, playerInfo) {
   joueur.direction = playerInfo.direction
   joueur.protege = playerInfo.protege;
   joueur.masse = playerInfo.masse;
+  joueur.isTouching = playerInfo.isTouching;
+  joueur.canJump = playerInfo.canJump;
+  joueur.jumpCounter = playerInfo.jumpCounter;
+  joueur.jumpCooldownTimer = playerInfo.jumpCooldownTimer;
   joueur.puissanceBonus = playerInfo.puissanceBonus;
   joueur.puissanceDeBase = playerInfo.puissanceDeBase;
   joueur.attaqueFrame = playerInfo.attaqueFrame
@@ -1182,11 +1194,15 @@ function saut(scene, player, chargeSaut) {
  * @param  {Boolean} isInAir    detection si le joueur ne touche rien
  */
  function sautV2(scene, player, chargeSaut, isOnGround, isInAir) {
+   console.log("V2");
+   console.log(player.canJump);
+   console.log(isOnGround);
    timedEvent = new Phaser.Time.TimerEvent({
      delay: 250,
-     callback: () => (player.canJump = true, player.jumpCounter++)
+     callback: () => (player.canJump = true)
    });
    if (player.canJump && isOnGround) {
+     console.log("oui");
      if (player.body.speed < 2) {
        player.play('saut')
      } else {
@@ -1195,19 +1211,6 @@ function saut(scene, player, chargeSaut) {
      player.setVelocityY(-50)
 
      player.canJump = false;
-     player.jumpCooldownTimer = scene.time.addEvent(timedEvent);
-   }
-
-   if (isInAir && player.jumpCounter == 2) {
-     this.tween = scene.tweens.add({
-       targets: player,
-       angle: player.direction == "droite" ? 720 : -720,
-       duration: 500
-     })
-
-     player.setVelocityY(-50)
-     player.canJump = false;
-     player.jumpCounter = 0;
      player.jumpCooldownTimer = scene.time.addEvent(timedEvent);
    }
  }
