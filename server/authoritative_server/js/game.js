@@ -58,6 +58,41 @@ parametres['dessinatrice1'] = {
     recevoirDegat(scene, player)
   }
 }
+
+parametres['naruto'] = {
+  etatInitial: {
+    vie: 5,
+    displayWidth: 102,
+    displayHeight: 300,
+    masse: 25,
+    puissanceDeBase: 8,
+    attaqueFrame: "positiona3"
+  },
+  toucheA: (charge, scene, player) => {
+    attaque(scene, player, charge)
+  },
+  toucheZ: (scene, player) => {
+    agrandissement(scene, player)
+  },
+  toucheE: (scene, player) => {
+    interactionTonneauDrapeau(scene, player)
+  },
+  toucheR: (scene, player, charge) => {
+    // multiclonage(scene, player)
+    tirer(scene, player, charge)
+  },
+  toucheT: (scene, player) => {
+    interactionTirolienne(scene, player)
+  },
+  toucheEspace: (scene, player, charge) => {
+    saut(scene, player, charge)
+  },
+  gestionRecevoirDegat: (scene, player) => {
+    recevoirDegat(scene, player)
+  }
+}
+
+
 parametres['ninja'] = {
 
   etatInitial: {
@@ -93,134 +128,6 @@ parametres['ninja'] = {
   }
 }
 
-parametres['ninja2'] = {
-  etatInitial: {
-    vie: 5,
-    puissanceDeBase: 8,
-    displayWidth: 158.8,
-    displayHeight: 160.4,
-    masse: 15,
-    attaqueFrame: "positiona1"
-  },
-  toucheA: (charge, scene, player) => {
-    attaque(scene, player, charge)
-  },
-  toucheZ: (scene, player) => {
-    agrandissement(scene, player)
-  },
-  toucheE: (scene, player) => {
-    interactionTonneauDrapeau(scene, player)
-  },
-  toucheR: (scene, player) => {
-    invisible(scene, player)
-  },
-  toucheT: (scene, player) => {
-    interactionTirolienne(scene, player)
-  },
-  toucheEspace: (scene, player, charge) => {
-    saut(scene, player, charge)
-  },
-  gestionRecevoirDegat: (scene, player) => {
-    recevoirDegat(scene, player)
-  }
-}
-
-parametres['aventuriere2'] = {
-  etatInitial: {
-    vie: 5,
-    puissanceDeBase: 10,
-    displayWidth: 38.40,
-    displayHeight: 51.2,
-    masse: 20,
-    attaqueFrame: "positiona3"
-  },
-  toucheA: (charge, scene, player) => {
-    attaque(scene, player, charge)
-  },
-  toucheZ: (scene, player) => {
-    agrandissement(scene, player)
-  },
-  toucheE: (scene, player) => {
-    interactionTonneauDrapeau(scene, player)
-  },
-  toucheR: (scene, player) => {
-    invisible(scene, player)
-  },
-  toucheT: (scene, player) => {
-    interactionTirolienne(scene, player)
-  },
-  toucheEspace: (scene, player, charge) => {
-    saut(scene, player, charge)
-  },
-  gestionRecevoirDegat: (scene, player) => {
-    recevoirDegat(scene, player)
-  }
-}
-
-parametres['chevalier'] = {
-  etatInitial: {
-    vie: 20,
-    displayWidth: 217.60,
-    displayHeight: 241.6,
-    masse: 35,
-    puissanceDeBase: 12,
-    attaqueFrame: "positiona3"
-  },
-  toucheA: (charge, scene, player) => {
-    attaque(scene, player, charge)
-  },
-  toucheZ: (scene, player) => {
-    agrandissement(scene, player)
-  },
-  toucheE: (scene, player) => {
-    interactionTonneauDrapeau(scene, player)
-  },
-  toucheR: (scene, player) => {
-    invisible(scene, player)
-  },
-  toucheT: (scene, player) => {
-    interactionTirolienne(scene, player)
-  },
-  toucheEspace: (scene, player, charge) => {
-    saut(scene, player, charge)
-  },
-  gestionRecevoirDegat: (scene, player) => {
-    recevoirDegat(scene, player)
-  }
-}
-
-parametres['naruto'] = {
-  etatInitial: {
-    vie: 5,
-    displayWidth: 102,
-    displayHeight: 300,
-    masse: 25,
-    puissanceDeBase: 8,
-    attaqueFrame: "positiona3"
-  },
-  toucheA: (charge, scene, player) => {
-    attaque(scene, player, charge)
-  },
-  toucheZ: (scene, player) => {
-    agrandissement(scene, player)
-  },
-  toucheE: (scene, player) => {
-    interactionTonneauDrapeau(scene, player)
-  },
-  toucheR: (scene, player, charge) => {
-    // multiclonage(scene, player)
-    tirer(scene, player, charge)
-  },
-  toucheT: (scene, player) => {
-    interactionTirolienne(scene, player)
-  },
-  toucheEspace: (scene, player, charge) => {
-    saut(scene, player, charge)
-  },
-  gestionRecevoirDegat: (scene, player) => {
-    recevoirDegat(scene, player)
-  }
-}
 
 const config = {
   type: Phaser.HEADLESS,
@@ -727,7 +634,13 @@ function update(time, delta) {
 
       // ESPACE
       if (input.saut) {
+        const isOnGround = player.isTouching.ground;
+        const isInAir = !isOnGround;
+        // Adjust the movement so that the player is slower in the air
+        const moveForce = isOnGround ? 0.08 : 0.065;
         parametres[player.atlas].toucheEspace(this, player, input.chargeSaut)
+        // parametres[player.atlas].touches.toucheEspace(this, player, isOnGround, isInAir)
+
         input.saut = false
       }
 
@@ -1003,9 +916,24 @@ function handlePlayerInput(self, playerId, arene, input) {
   });
 }
 
-function onSensorCollide() {
-  console.log("ok");
-  return
+
+/**
+ * Detection si le joueur touche le sol
+ * Si les sensors du joueur touche quelquechose
+ * @param  {Object} bodyA Joueur
+ * @param  {Object} bodyB Sol
+ * @param  {Object} pair  [description]
+ */
+function onSensorCollide({
+  bodyA,
+  bodyB,
+  pair
+}, joueur) {
+  if (bodyB.isSensor) return; // We only care about collisions with physical objects
+  if (bodyA === joueur.sensors.bottom) {
+    joueur.isTouching.ground = true;
+  }
+  // console.log("OKAAAAAAAAAAAAAAAAAAAAAAAAAAAAY");
 }
 
 /**
@@ -1015,6 +943,7 @@ function onSensorCollide() {
  */
 function addPlayer(self, playerInfo) {
   const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, 'dessinatrice1', 'face0').setDisplaySize(playerInfo.displayWidth, playerInfo.displayHeight).setAlpha(1);
+
   joueur.playerId = playerInfo.playerId;
   joueur.arene = playerInfo.arene;
   joueur.equipe = playerInfo.equipe;
@@ -1040,10 +969,6 @@ function addPlayer(self, playerInfo) {
   joueur.zoneAttaque.y = joueur.getRightCenter().y
 
 
-  // let {
-  //   displayWidth: w,
-  //   displayHeight: h
-  // } = joueur;
   let w = joueur.displayWidth;
   let h = joueur.displayHeight;
 
@@ -1060,7 +985,7 @@ function addPlayer(self, playerInfo) {
     })
   };
   joueur.compoundBody = Body.create({
-    parts: [joueur.mainBody, joueur.sensors.bottom],
+    parts: [joueur.mainBody, joueur.sensors.bottom, joueur.sensors.left, joueur.sensors.right],
     frictionStatic: 0,
     frictionAir: 0.05,
     friction: 0,
@@ -1075,27 +1000,34 @@ function addPlayer(self, playerInfo) {
   });
 
   joueur.setExistingBody(joueur.compoundBody)
+  joueur.setPosition(playerInfo.x, playerInfo.y);
+
+  // let {
+  //   displayWidth: w,
+  //   displayHeight: h
+  // } = joueur;
+
   joueur.isTouching = {}
-  // self.matter.world.on("beforeupdate", () => {
-  //   joueur.isTouching.left = false;
-  //   joueur.isTouching.right = false;
-  //   joueur.isTouching.ground = false;
-  // }, self);
+  self.matter.world.on("beforeupdate", () => {
+    joueur.isTouching.left = false;
+    joueur.isTouching.right = false;
+    joueur.isTouching.ground = false;
+  }, self);
   //
-  // self.matterCollision.addOnCollideStart({
-  //   objectA: [joueur.sensors.bottom],
-  //   callback: eventData => {
-  //     onSensorCollide(eventData, joueur)
-  //   },
-  //   context: joueur
-  // });
-  // self.matterCollision.addOnCollideActive({
-  //   objectA: [joueur.sensors.bottom],
-  //   callback: eventData => {
-  //     onSensorCollide(eventData, joueur)
-  //   },
-  //   context: joueur
-  // });
+  self.matterCollision.addOnCollideStart({
+    objectA: [joueur.sensors.bottom],
+    callback: eventData => {
+      onSensorCollide(eventData, joueur)
+    },
+    context: this
+  });
+  self.matterCollision.addOnCollideActive({
+    objectA: [joueur.sensors.bottom],
+    callback: eventData => {
+      onSensorCollide(eventData, joueur)
+    },
+    context: this
+  });
   //
   var zoneAttaque = self.matter.add.gameObject(joueur.zoneAttaque);
   zoneAttaque.setCollisionCategory(null);
@@ -1240,6 +1172,45 @@ function saut(scene, player, chargeSaut) {
     player.setVelocity( player.body.speed > 2 ? (player.flipX ? -puissance: puissance) : 0, -puissance)
   }
 }
+
+/**
+ * Effectuer un saut + un double saut
+ *
+ * @param  {Object}  scene      Scene Phaser
+ * @param  {Object}  player     joueur qui effectue un saut
+ * @param  {Boolean} isOnGround detection si le joueur touche le sol sur une platforme
+ * @param  {Boolean} isInAir    detection si le joueur ne touche rien
+ */
+ function sautV2(scene, player, chargeSaut, isOnGround, isInAir) {
+   timedEvent = new Phaser.Time.TimerEvent({
+     delay: 250,
+     callback: () => (player.canJump = true, player.jumpCounter++)
+   });
+   if (player.canJump && isOnGround) {
+     if (player.body.speed < 2) {
+       player.play('saut')
+     } else {
+       player.play('jump')
+     }
+     player.setVelocityY(-50)
+
+     player.canJump = false;
+     player.jumpCooldownTimer = scene.time.addEvent(timedEvent);
+   }
+
+   if (isInAir && player.jumpCounter == 2) {
+     this.tween = scene.tweens.add({
+       targets: player,
+       angle: player.direction == "droite" ? 720 : -720,
+       duration: 500
+     })
+
+     player.setVelocityY(-50)
+     player.canJump = false;
+     player.jumpCounter = 0;
+     player.jumpCooldownTimer = scene.time.addEvent(timedEvent);
+   }
+ }
 
 function multiclonage(scene, player) {
 
