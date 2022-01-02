@@ -84,8 +84,8 @@ parametres['naruto'] = {
   toucheT: (scene, player) => {
     interactionTirolienne(scene, player)
   },
-  toucheEspace: (scene, player, charge) => {
-    saut(scene, player, charge)
+  toucheEspace: (scene, player, chargeSaut, isOnGround, isInAir) => {
+    saut(scene, player, chargeSaut, isOnGround, isInAir)
   },
   gestionRecevoirDegat: (scene, player) => {
     recevoirDegat(scene, player)
@@ -120,8 +120,8 @@ parametres['ninja'] = {
     toupie(scene.tweens, player)
   },
 
-  toucheEspace: (scene, player, charge) => {
-    saut(scene, player, charge)
+  toucheEspace: (scene, player, chargeSaut, isOnGround, isInAir) => {
+    saut(scene, player, chargeSaut, isOnGround, isInAir)
   },
   gestionRecevoirDegat: (scene, player) => {
     recevoirDegat(scene, player)
@@ -1157,13 +1157,12 @@ function toupie(tweens, player) {
  * @param  {Object} scene      Scene du jeu
  * @param  {Object} player     joueur qui effectue un saut
  */
-function saut(scene, player, chargeSaut) {
+function saut(scene, player, chargeSaut, isOnGround, isInAir) {
   var puissance
   if (chargeSaut) {
     if (player.body.speed < 2) {
       player.play('sautPreparation')
     }
-
     scene.tweenSaut = scene.tweens.addCounter({
       from: 0,
       to: 100,
@@ -1181,7 +1180,37 @@ function saut(scene, player, chargeSaut) {
     } else {
       player.play('jump')
     }
-    player.setVelocity( player.body.speed > 2 ? (player.flipX ? -puissance: puissance) : 0, -puissance)
+
+
+    console.log("GROUND");
+    console.log(isOnGround);
+    if (isOnGround) {
+      player.setVelocity( player.body.speed > 2 ? (player.flipX ? -puissance: puissance) : 0, -puissance)
+      player.jumpCounter = 0;
+    } else if (isInAir) {
+      if (player.jumpCounter == 0) {
+        player.jumpCounter++;
+        player.setVelocityY(-puissance * 2)
+      }
+    }
+
+    // timedEvent = new Phaser.Time.TimerEvent({
+    //   delay: 250,
+    //   callback: () => (player.canJump = true)
+    // });
+    // if (player.canJump && isOnGround) {
+    //   console.log("oui");
+    //   if (player.body.speed < 2) {
+    //     player.play('saut')
+    //   } else {
+    //     player.play('jump')
+    //   }
+    //   player.setVelocityY(-50)
+    //
+    //   player.canJump = false;
+    //   player.jumpCooldownTimer = scene.time.addEvent(timedEvent);
+    // }
+
   }
 }
 
