@@ -861,10 +861,9 @@ const Arene = new Phaser.Class({
 
     joueur.setFrictionAir(0.05);
     joueur.setMass(30);
-    joueur.zoneAttaque = self.add.rectangle(0, 0 ,joueur.displayWidth, joueur.displayHeight, 0x0e88bd, 0.5).setDepth(400);
+    joueur.zoneAttaque = self.add.rectangle(0, 0 ,joueur.displayWidth/2, joueur.displayHeight, 0x0e88bd, 0.5).setDepth(400);
     joueur.body.collisionFilter.group = Phaser.Math.Between(1, 10)
     joueur.body.collisionFilter.mask = 0
-
 
     let couleur = playerInfo.equipe == "A" ? 0x0ea733 : 0x0e88bd
     let position = playerInfo.equipe == "A" ? {

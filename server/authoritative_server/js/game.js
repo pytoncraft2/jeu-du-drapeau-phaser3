@@ -979,7 +979,7 @@ function addPlayer(self, playerInfo) {
   joueur.setFrictionAir(0.05);
   joueur.setMass(joueur.masse);
 
-  joueur.zoneAttaque = self.add.rectangle(0, 0 ,joueur.displayWidth, joueur.displayHeight, 0x0e88bd, 0.5).setDepth(400);
+  joueur.zoneAttaque = self.add.rectangle(0, 0 ,joueur.displayWidth/2, joueur.displayHeight, 0x0e88bd, 0.5).setDepth(400);
   joueur.zoneAttaque.x = joueur.getRightCenter().x
   joueur.zoneAttaque.y = joueur.getRightCenter().y
 
@@ -1371,8 +1371,8 @@ function recevoirDegat(scene, player) {
        if (frame.textureFrame == player.attaqueFrame)
        {
          player.flipX ?
-         (player.zoneAttaque.x = player.getLeftCenter().x - 70, player.zoneAttaque.y = player.getLeftCenter().y)
-         : (player.zoneAttaque.x = player.getRightCenter().x + 70, player.zoneAttaque.y = player.getRightCenter().y)
+         (player.zoneAttaque.x = player.getLeftCenter().x - 0, player.zoneAttaque.y = player.getLeftCenter().y)
+         : (player.zoneAttaque.x = player.getRightCenter().x + 0, player.zoneAttaque.y = player.getRightCenter().y)
 
 
          scene.matter.overlap([...scene.players['Naruto'].getChildren(), ...scene.tonneaux.getChildren()], player.zoneAttaque, (objet1, objet2) => {
@@ -1423,8 +1423,8 @@ function interactionTonneauDrapeau(scene, player) {
 
   //TONNEAU
   player.flipX ?
-  (player.zoneAttaque.x = player.getLeftCenter().x - 70, player.zoneAttaque.y = player.getLeftCenter().y)
-  : (player.zoneAttaque.x = player.getRightCenter().x + 70, player.zoneAttaque.y = player.getRightCenter().y)
+  (player.zoneAttaque.x = player.getLeftCenter().x - 0, player.zoneAttaque.y = player.getLeftCenter().y)
+  : (player.zoneAttaque.x = player.getRightCenter().x + 0, player.zoneAttaque.y = player.getRightCenter().y)
 
     scene.matter.overlap([...scene.tonneaux.getChildren(), ...scene.drapeaux.getChildren()], player.zoneAttaque, (objet1, objet2) => {
   if (Object.keys(constraints[player.playerId]['tonneau']).length == 0) {
