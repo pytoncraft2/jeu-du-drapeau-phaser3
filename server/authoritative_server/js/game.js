@@ -153,7 +153,7 @@ const config = {
       matter: {
         debug: false,
         gravity: {
-          y: 6,
+          y: 9,
         },
       },
       arcade: {
@@ -645,7 +645,7 @@ function update(time, delta) {
         const isOnGround = player.isTouching.ground;
         const isInAir = !isOnGround;
         // Adjust the movement so that the player is slower in the air
-        const moveForce = isOnGround ? 0.08 : 0.065;
+        const moveForce = isOnGround ? 0.28 : 9.265;
         parametres[player.atlas].toucheEspace(this, player, input.chargeSaut, isOnGround, isInAir)
         // parametres[player.atlas].touches.toucheEspace(this, player, isOnGround, isInAir)
 
@@ -675,6 +675,7 @@ function update(time, delta) {
        * DROITE-GAUCHE
        */
 
+       console.log(player.body.speed);
       if (input.right) {
         player.direction = "droite"
         if (input.walk) {
@@ -976,8 +977,9 @@ function addPlayer(self, playerInfo) {
   joueur.puissanceBonus = playerInfo.puissanceBonus;
   joueur.puissanceDeBase = playerInfo.puissanceDeBase;
   joueur.attaqueFrame = playerInfo.attaqueFrame
-  joueur.setFrictionAir(0.05);
+  // joueur.setFrictionAir(0.05);
   joueur.setMass(joueur.masse);
+  joueur.setFriction(1);
 
   joueur.zoneAttaque = self.add.rectangle(0, 0 ,joueur.displayWidth/2, joueur.displayHeight, 0x0e88bd, 0.5).setDepth(400);
   joueur.zoneAttaque.x = joueur.getRightCenter().x
@@ -1001,9 +1003,9 @@ function addPlayer(self, playerInfo) {
   };
   joueur.compoundBody = Body.create({
     parts: [joueur.mainBody, joueur.sensors.bottom, joueur.sensors.left, joueur.sensors.right],
-    frictionStatic: 0,
-    frictionAir: 0.05,
-    friction: 0,
+    frictionStatic: 1.4,
+    frictionAir: 0.09,
+    friction: 0.9,
     // The offset here allows us to control where the sprite is placed relative to the
     // matter body's x and y - here we want the sprite centered over the matter body.
     render: {
@@ -1178,7 +1180,7 @@ function saut(scene, player, chargeSaut, isOnGround, isInAir) {
     if (scene.tweenSaut.isPlaying()) {
       scene.tweenSaut.stop()
     }
-    if (player.body.speed < 2) {
+    if (player.body.speed < 1) {
       player.play('saut')
     } else {
       player.play('jump')
@@ -1188,7 +1190,7 @@ function saut(scene, player, chargeSaut, isOnGround, isInAir) {
     console.log("GROUND");
     console.log(isOnGround);
     if (isOnGround) {
-      player.setVelocity( player.body.speed > 2 ? (player.flipX ? -puissance: puissance) : 0, -puissance)
+      player.setVelocity( player.body.speed > 3 ? (player.flipX ? -puissance: puissance) : 0, -puissance)
       player.jumpCounter = 0;
     } else if (isInAir) {
       if (player.jumpCounter == 0) {
@@ -1235,7 +1237,7 @@ function saut(scene, player, chargeSaut, isOnGround, isInAir) {
    });
    if (player.canJump && isOnGround) {
      console.log("oui");
-     if (player.body.speed < 2) {
+     if (player.body.speed < 1) {
        player.play('saut')
      } else {
        player.play('jump')
