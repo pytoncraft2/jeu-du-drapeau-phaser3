@@ -787,6 +787,9 @@ function update(time, delta) {
       evenement.emit('reapparaitre', player.playerId)
     }
 
+    players[player.arene][player.playerId].zoneAX = player.zoneAttaque.x;
+    players[player.arene][player.playerId].zoneAY = player.zoneAttaque.y;
+
       players[player.arene][player.playerId].x = player.x;
       players[player.arene][player.playerId].y = player.y;
       players[player.arene][player.playerId].frame = player.anims.getFrameName();
