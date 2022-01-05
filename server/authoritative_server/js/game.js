@@ -700,7 +700,7 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
         this.tween = this.tweens.add({
           targets: player,
           angle: 0,
-          duration: 300
+          duration: 200
         })
         input.redresser = false;
       }

@@ -568,8 +568,8 @@ const Arene = new Phaser.Class({
 
     this.cursors.space.isDown ? this.spaceKeyPressed = true : this.spaceKeyPressed = false
 
-    this.cursors.left.isDown ? this.leftKeyPressed = true :
-  this.cursors.right.isDown ? this.rightKeyPressed = true :
+    this.toucheGauche.isDown ? this.leftKeyPressed = true :
+  this.toucheDroite.isDown ? this.rightKeyPressed = true :
   (this.leftKeyPressed = false, this.rightKeyPressed = false)
 
 
