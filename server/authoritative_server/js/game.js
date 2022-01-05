@@ -52,7 +52,7 @@ parametres['dessinatrice1'] = {
     invisible(scene, player)
   },
   toucheEspace: (scene, player, charge, isOnGround, isInAir) => {
-    sautV2(scene, player, charge, isOnGround, isInAir)
+    sautV3(scene, player, charge, isOnGround, isInAir)
   },
   gestionRecevoirDegat: (scene, player) => {
     recevoirDegat(scene, player)
@@ -85,7 +85,7 @@ parametres['naruto'] = {
     interactionTirolienne(scene, player)
   },
   toucheEspace: (scene, player, chargeSaut, isOnGround, isInAir) => {
-    saut(scene, player, chargeSaut, isOnGround, isInAir)
+    sautV3(scene, player, chargeSaut, isOnGround, isInAir)
   },
   gestionRecevoirDegat: (scene, player) => {
     recevoirDegat(scene, player)
@@ -648,14 +648,7 @@ function update(time, delta) {
         input.tirolienne = false;
       }
 
-      // ESPACE
-      if (input.saut) {
 
-        parametres[player.atlas].toucheEspace(this, player, input.chargeSaut, isOnGround, isInAir)
-        // parametres[player.atlas].touches.toucheEspace(this, player, isOnGround, isInAir)
-
-        input.saut = false
-      }
 
       if (input.protection) {
       player.setTint(0x14b2f9)
@@ -676,43 +669,86 @@ function update(time, delta) {
         player.etatAttaque.attacked = false;
       }
 
+
+
+      if (input.left && !input.c) {
+        player.play('walk', true)
+        player.direction = "gauche"
+        player.applyForce({ x: -moveForce, y: 0 });
+        player.flipX = true;
+      }
+
+      if (input.right && !input.c) {
+        player.play('walk', true)
+        player.direction = "droite"
+        player.applyForce({ x: moveForce, y: 0 });
+        player.flipX = false;
+      }
+
+
+      //droite idle
+      // if (player.body.velocity.x < 1) {
+      //     player.play("idle_walk", true)
+      // }
+
+      // if (player.body.velocity.x > -1 || player.body.velocity.x < 1) {
+          // player.play("idle_walk", true)
+      // }
+      // if (input.space && isOnGround) {
+      //   console.log("space");
+      //   // player.base = player.y;
+      //   // player.setIgnoreGravity(false);
+      //   player.setVelocityY(-59);
+      //   // player.anim = 'jump';
+      // }
       /**
        * DROITE-GAUCHE
        */
 
-      if (input.right) {
-        player.direction = "droite"
-        if (input.walk) {
-          // player.thrust(0.1)
-          player.applyForce({ x: moveForce, y: 0 });
-          player.play('walk', true)
-          player.setFlipX(false)
-        } else {
-          player.thrust(0)
-          if (player.body.speed < 2) {
-            player.play("idle_walk", true)
-          }
-        }
-      } else if (input.left) {
-        player.direction = "gauche"
-        if (input.walk) {
-          player.applyForce({ x: -moveForce, y: 0 });
-          // player.thrustBack(0.1)
-          player.play('walk', true)
-          player.setFlipX(true)
-        } else {
-          player.thrust(0)
-          if (player.body.speed < 2) {
-          player.play("idle_walk", true)
-          }
-        }
-      } else if (input.up) {
-        player.play('goback')
-        input.up = false;
-      } else if (input.down) {
-        player.play('front')
-        input.down = false;
-      }
+      // if (input.right) {
+      //   // console.log(input.saut);
+      //   player.direction = "droite"
+      //   // if (input.walk) {
+      //   //   player.applyForce({ x: moveForce, y: 0 });
+      //   //   player.play('walk', true)
+      //   //   player.setFlipX(false)
+      //   // } else {
+      //   //   player.thrust(0)
+      //   //   if (player.body.speed < 2) {
+      //   //     player.play("idle_walk", true)
+      //   //   }
+      //   // }
+      // } else if (input.left) {
+      //   player.direction = "gauche"
+      //   if (input.walk) {
+      //   //   player.applyForce({ x: -moveForce, y: 0 });
+      //   //   player.play('walk', true)
+      //   //   player.setFlipX(true)
+      //   } else {
+      //   //   player.thrust(0)
+      //   //   if (player.body.speed < 2) {
+      //   //   player.play("idle_walk", true)
+      //   //   }
+      //   }
+      // }
+
+      // else if (input.up) {
+      //   player.play('goback')
+      //   input.up = false;
+      // } else if (input.down) {
+      //   player.play('front')
+      //   input.down = false;
+      // }
+
+
+      // ESPACE
+if (input.space) {
+
+  parametres[player.atlas].toucheEspace(this, player, input.chargeSaut, isOnGround, isInAir)
+  // parametres[player.atlas].touches.toucheEspace(this, player, isOnGround, isInAir)
+
+  // input.space = false
+}
 
 
       //SE REDRESSER
@@ -1256,6 +1292,73 @@ function saut(scene, player, chargeSaut, isOnGround, isInAir) {
      player.jumpCooldownTimer = scene.time.addEvent(timedEvent);
    }
  }
+
+
+function sautV3(scene, player, chargeSaut, isOnGround, isInAir) {
+
+  let doubleJump;
+  // timedEvent = new Phaser.Time.TimerEvent({
+  //   delay: 250,
+  //   callback: () => (player.canJump = true)
+  // });
+  // if (player.canJump && isOnGround) {
+  //   // if (player.body.speed < 2) {
+  //     // player.play('saut')
+  //   // } else {
+  //     player.play('jump')
+  //   // }
+  //   player.setVelocityY(-60)
+  //
+  //   player.canJump = false;
+  //   player.jumpCooldownTimer = scene.time.addEvent(timedEvent);
+  // }
+
+if (isOnGround) {
+  player.setVelocityY(-90)
+
+console.log("ground");
+player.canJump = false;
+scene.tweens.addCounter({
+  duration: 300,
+  onComplete: () => (player.canJump = true)
+})
+
+}
+
+if (isInAir) {
+if (player.canJump) {
+    player.setVelocityY(-90)
+    player.canJump = false;
+
+    scene.tweens.add({
+      targets: player,
+      angle: player.direction == "droite" ? 720 : -720,
+      duration: 360
+    })
+}
+
+  console.log("aiiire");
+}
+
+  // if (isOnGround && player.canJump) {
+  // player.play('saut')
+  //   player.setVelocityY(-60)
+  //   player.jumpCounter = 0;
+  //     console.log("simple");
+  // } else if (isInAir) {
+  //   if (player.jumpCounter == 0) {
+  //     player.jumpCounter++;
+  //     console.log("double");
+  //     player.setVelocityY(-60)
+  //     scene.tweens.add({
+  //       targets: player,
+  //       angle: player.direction == "droite" ? 720 : -720,
+  //       duration: 360
+  //     })
+  //   }
+  // }
+
+}
 
 function multiclonage(scene, player) {
 
