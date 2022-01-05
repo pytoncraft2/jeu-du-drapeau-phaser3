@@ -597,6 +597,15 @@ function update(time, delta) {
     this.players["Naruto"].getChildren().forEach((player) => {
       const input = players[player.arene][player.playerId].input;
 
+      const isOnGround = player.isTouching.ground;
+      const isInAir = !isOnGround;
+      // Adjust the movement so that the player is slower in the air
+      // const moveForce = isOnGround ? 9.28 : 0;
+
+      const moveForce = isOnGround ? 0.31 : 0.305;
+
+
+
       player.ombre.x = player.x
       if (input.escape) {
         this.matter.world.localWorld.constraints = []
@@ -639,13 +648,9 @@ function update(time, delta) {
         input.tirolienne = false;
       }
 
-
       // ESPACE
       if (input.saut) {
-        const isOnGround = player.isTouching.ground;
-        const isInAir = !isOnGround;
-        // Adjust the movement so that the player is slower in the air
-        const moveForce = isOnGround ? 0.28 : 9.265;
+
         parametres[player.atlas].toucheEspace(this, player, input.chargeSaut, isOnGround, isInAir)
         // parametres[player.atlas].touches.toucheEspace(this, player, isOnGround, isInAir)
 
@@ -675,11 +680,11 @@ function update(time, delta) {
        * DROITE-GAUCHE
        */
 
-       console.log(player.body.speed);
       if (input.right) {
         player.direction = "droite"
         if (input.walk) {
-          player.thrust(0.1)
+          // player.thrust(0.1)
+          player.applyForce({ x: moveForce, y: 0 });
           player.play('walk', true)
           player.setFlipX(false)
         } else {
@@ -691,7 +696,8 @@ function update(time, delta) {
       } else if (input.left) {
         player.direction = "gauche"
         if (input.walk) {
-          player.thrustBack(0.1)
+          player.applyForce({ x: -moveForce, y: 0 });
+          // player.thrustBack(0.1)
           player.play('walk', true)
           player.setFlipX(true)
         } else {
@@ -1004,7 +1010,7 @@ function addPlayer(self, playerInfo) {
   joueur.compoundBody = Body.create({
     parts: [joueur.mainBody, joueur.sensors.bottom, joueur.sensors.left, joueur.sensors.right],
     frictionStatic: 1.4,
-    frictionAir: 0.09,
+    frictionAir: 0.12,
     friction: 0.9,
     // The offset here allows us to control where the sprite is placed relative to the
     // matter body's x and y - here we want the sprite centered over the matter body.
@@ -1186,16 +1192,18 @@ function saut(scene, player, chargeSaut, isOnGround, isInAir) {
       player.play('jump')
     }
 
-
-    console.log("GROUND");
-    console.log(isOnGround);
     if (isOnGround) {
-      player.setVelocity( player.body.speed > 3 ? (player.flipX ? -puissance: puissance) : 0, -puissance)
+      player.setVelocity( player.body.speed > 3 ? (player.flipX ? -puissance * 2: puissance * 2) : 0, -puissance * 2)
       player.jumpCounter = 0;
     } else if (isInAir) {
       if (player.jumpCounter == 0) {
         player.jumpCounter++;
         player.setVelocityY(-puissance * 2)
+        scene.tweens.add({
+          targets: player,
+          angle: player.direction == "droite" ? 720 : -720,
+          duration: 360
+        })
       }
     }
 
