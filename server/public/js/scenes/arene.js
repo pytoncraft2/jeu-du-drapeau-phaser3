@@ -417,13 +417,13 @@ const Arene = new Phaser.Class({
      // g1.fillRectShape(this.maison1Zone);
      // g1.setDepth(200)
      let toit1 = this.add.image(-135, -245, 'plafond').setDepth(2)
-     this.fontaine1 = this.add.image(-4870, -790, 'fontaine').setDepth(2)
+     this.fontaine1 = this.add.image(-4870, -790, 'fontaine').setDepth(0.1)
      this.fontaine1Derriere = this.add.image(-4870, -790, 'fontaineDerriere').setDepth(0)
 
      this.drapeaux = this.add.group()
-     let matDrapeauBleu = this.add.image(-4868.428561331542, -775.2723001427164, 'drapeauBleu').setDepth(1).setOrigin(0, 1)
+     let matDrapeauBleu = this.add.image(-4868.428561331542, -775.2723001427164, 'drapeauBleu').setDepth(0.01).setOrigin(0, 1)
      matDrapeauBleu.id = 1;
-     let matDrapeauVert = this.add.image(8242.130999766403, -1566.8232688524165, 'drapeauVert').setDepth(1).setOrigin(0, 1)
+     let matDrapeauVert = this.add.image(8242.130999766403, -1566.8232688524165, 'drapeauVert').setDepth(0.01).setOrigin(0, 1)
      matDrapeauVert.id = 2;
      this.drapeaux.addMultiple([matDrapeauBleu, matDrapeauVert]);
 
