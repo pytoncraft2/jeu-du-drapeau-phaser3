@@ -121,7 +121,7 @@ parametres['ninja'] = {
   },
 
   toucheEspace: (scene, player, chargeSaut, isOnGround, isInAir) => {
-    saut(scene, player, chargeSaut, isOnGround, isInAir)
+    sautV3(scene, player, chargeSaut, isOnGround, isInAir)
   },
   gestionRecevoirDegat: (scene, player) => {
     recevoirDegat(scene, player)
@@ -574,7 +574,7 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
   * @property {Object} this.players liste des joueurs du Groupe Phaser à ittérer
   * @property {Object} players [Objet des joueurs]{@link module:serveur~players} contenant les nouveaux parametres des joueurs à envoyer au client
   */
-function update(time, delta) {
+  function update(time, delta) {
 
     this.drapeaux.getChildren().forEach((drapeau) => {
       drapeaux[drapeau.id] = {
@@ -651,13 +651,13 @@ function update(time, delta) {
 
 
       if (input.protection) {
-      player.setTint(0x14b2f9)
-      player.protege = true;
-      this.tweens.addCounter({
-        duration: 1000,
-        onComplete: () => (player.protege = false, player.clearTint())
-      })
-      input.protection = false;
+        player.setTint(0x14b2f9)
+        player.protege = true;
+        this.tweens.addCounter({
+          duration: 1000,
+          onComplete: () => (player.protege = false, player.clearTint())
+        })
+        input.protection = false;
       }
 
 
@@ -685,70 +685,14 @@ function update(time, delta) {
         player.flipX = false;
       }
 
-
-      //droite idle
-      // if (player.body.velocity.x < 1) {
-      //     player.play("idle_walk", true)
-      // }
-
-      // if (player.body.velocity.x > -1 || player.body.velocity.x < 1) {
-          // player.play("idle_walk", true)
-      // }
-      // if (input.space && isOnGround) {
-      //   console.log("space");
-      //   // player.base = player.y;
-      //   // player.setIgnoreGravity(false);
-      //   player.setVelocityY(-59);
-      //   // player.anim = 'jump';
-      // }
-      /**
-       * DROITE-GAUCHE
-       */
-
-      // if (input.right) {
-      //   // console.log(input.saut);
-      //   player.direction = "droite"
-      //   // if (input.walk) {
-      //   //   player.applyForce({ x: moveForce, y: 0 });
-      //   //   player.play('walk', true)
-      //   //   player.setFlipX(false)
-      //   // } else {
-      //   //   player.thrust(0)
-      //   //   if (player.body.speed < 2) {
-      //   //     player.play("idle_walk", true)
-      //   //   }
-      //   // }
-      // } else if (input.left) {
-      //   player.direction = "gauche"
-      //   if (input.walk) {
-      //   //   player.applyForce({ x: -moveForce, y: 0 });
-      //   //   player.play('walk', true)
-      //   //   player.setFlipX(true)
-      //   } else {
-      //   //   player.thrust(0)
-      //   //   if (player.body.speed < 2) {
-      //   //   player.play("idle_walk", true)
-      //   //   }
-      //   }
-      // }
-
-      // else if (input.up) {
-      //   player.play('goback')
-      //   input.up = false;
-      // } else if (input.down) {
-      //   player.play('front')
-      //   input.down = false;
-      // }
-
-
       // ESPACE
-if (input.space) {
+      if (input.space) {
 
-  parametres[player.atlas].toucheEspace(this, player, input.chargeSaut, isOnGround, isInAir)
-  // parametres[player.atlas].touches.toucheEspace(this, player, isOnGround, isInAir)
+        parametres[player.atlas].toucheEspace(this, player, input.chargeSaut, isOnGround, isInAir)
+        // parametres[player.atlas].touches.toucheEspace(this, player, isOnGround, isInAir)
 
-  // input.space = false
-}
+        // input.space = false
+      }
 
 
       //SE REDRESSER
@@ -764,74 +708,74 @@ if (input.space) {
 
 
       /**
-       * TIROLIENNE
-       * QUAND LE JOUEUR EST PROCHE DE LA TIROLIENNE
-       * LE JOUEUR SUIT LA BALLE DE LA TIROLIENNE
-       * SINON IL S'EN DETACHE
-       *
-       * @param  { Object } constraints attache des joueurs
-       * @param { Object } constraints['bullet'] attache de la balle correspondant au joueur
-       */
+      * TIROLIENNE
+      * QUAND LE JOUEUR EST PROCHE DE LA TIROLIENNE
+      * LE JOUEUR SUIT LA BALLE DE LA TIROLIENNE
+      * SINON IL S'EN DETACHE
+      *
+      * @param  { Object } constraints attache des joueurs
+      * @param { Object } constraints['bullet'] attache de la balle correspondant au joueur
+      */
 
 
 
-    //CANON FEU
-    if (input.canonMaintenu) {
-      var distCanon = Phaser.Math.Distance.BetweenPoints(player, this.canon1);
+      //CANON FEU
+      if (input.canonMaintenu) {
+        var distCanon = Phaser.Math.Distance.BetweenPoints(player, this.canon1);
 
-      if (distCanon < 106 && distCanon < 121) {
-        input.canonMaintenu = false;
-        this.bulletCanon = this.matter.add.image(this.canon1.x, this.canon1.y + 20, 'bullet').setCircle().setIgnoreGravity(true).setBounce(1.6)
-        this.bulletCanon.type = "boulet";
-        this.charge = this.tweens.add({
-          targets: this.bulletCanon,
-          scale: 4,
-          paused: false,
-          duration: 2000,
-          repeat: 0
-        });
+        if (distCanon < 106 && distCanon < 121) {
+          input.canonMaintenu = false;
+          this.bulletCanon = this.matter.add.image(this.canon1.x, this.canon1.y + 20, 'bullet').setCircle().setIgnoreGravity(true).setBounce(1.6)
+          this.bulletCanon.type = "boulet";
+          this.charge = this.tweens.add({
+            targets: this.bulletCanon,
+            scale: 4,
+            paused: false,
+            duration: 2000,
+            repeat: 0
+          });
+        }
+      } else if (input.canonRelache) {
+        if (this.charge) {
+          this.charge.stop()
+
+          this.l = new Phaser.Geom.Line(this.canon1.x, this.canon1.y, this.canon1.x + 5400, this.canon1.y);
+          var rad = Phaser.Math.DegToRad(this.canon1.angle);
+          let line = Phaser.Geom.Line.SetToAngle(this.l, this.canon1.x, this.canon1.y, rad, 4000);
+          this.graph.lineStyle(10, 0xcf0000, 1);
+          this.charge = this.tweens.add({
+            targets: this.bulletCanon,
+            x: this.l.x2,
+            y: this.l.y2,
+            paused: false,
+            duration: 2000,
+            repeat: 0,
+          });
+        }
+        input.canonRelache = false;
+
       }
-    } else if (input.canonRelache) {
-      if (this.charge) {
-      this.charge.stop()
 
-      this.l = new Phaser.Geom.Line(this.canon1.x, this.canon1.y, this.canon1.x + 5400, this.canon1.y);
-      var rad = Phaser.Math.DegToRad(this.canon1.angle);
-      let line = Phaser.Geom.Line.SetToAngle(this.l, this.canon1.x, this.canon1.y, rad, 4000);
-      this.graph.lineStyle(10, 0xcf0000, 1);
-      this.charge = this.tweens.add({
-        targets: this.bulletCanon,
-        x: this.l.x2,
-        y: this.l.y2,
-        paused: false,
-        duration: 2000,
-        repeat: 0,
-      });
+      /**
+      * ROTATION CANON
+      */
+
+      if (input.x) {
+        input.x = false;
+        this.canon1.setAngle(this.canon1.angle + 5)
       }
-      input.canonRelache = false;
 
-    }
+      if (input.v) {
+        input.v = false;
+        this.canon1.setAngle(this.canon1.angle - 5)
+      }
 
-    /**
-     * ROTATION CANON
-     */
+      if (player.y > 6000) {
+        evenement.emit('reapparaitre', player.playerId)
+      }
 
-    if (input.x) {
-      input.x = false;
-      this.canon1.setAngle(this.canon1.angle + 5)
-    }
-
-    if (input.v) {
-      input.v = false;
-      this.canon1.setAngle(this.canon1.angle - 5)
-    }
-
-    if (player.y > 6000) {
-      evenement.emit('reapparaitre', player.playerId)
-    }
-
-    players[player.arene][player.playerId].zoneAX = player.zoneAttaque.x;
-    players[player.arene][player.playerId].zoneAY = player.zoneAttaque.y;
+      players[player.arene][player.playerId].zoneAX = player.zoneAttaque.x;
+      players[player.arene][player.playerId].zoneAY = player.zoneAttaque.y;
 
       players[player.arene][player.playerId].x = player.x;
       players[player.arene][player.playerId].y = player.y;
@@ -859,7 +803,7 @@ if (input.space) {
     });
     io.to("Naruto").emit("playerUpdates", players["Naruto"], barils, drapeaux);
 
-}
+  }
 
 
  /**
