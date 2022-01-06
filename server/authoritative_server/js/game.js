@@ -351,8 +351,6 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
   evenement.on('fin-de-partie', finDePartie, this)
 
   //platforme tout en bas
-  let p = self.add.zone(2000, 3000, 210, 210).setSize(34000, 300);
-  var platformeToutEnBas = self.matter.add.gameObject(p).setIgnoreGravity(true).setStatic(true).setFriction(0);
 
 
 
@@ -385,19 +383,19 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
    */
 
   var socleJoueur = self.matter.add.gameObject(soclePlatformeGauche);
-  socleJoueur.setIgnoreGravity(true).setStatic(true).setFriction(0.2).setCollisionGroup(2).setCollidesWith(CATEGORIE_JOUEUR)
+  socleJoueur.setIgnoreGravity(true).setStatic(true).setFriction(0.01).setCollisionGroup(2).setCollidesWith(CATEGORIE_JOUEUR)
   var socleJoueur2 = self.matter.add.gameObject(socleToitGauche);
-  socleJoueur2.setIgnoreGravity(true).setStatic(true).setFriction(0.2).setCollisionGroup(2).setCollidesWith(CATEGORIE_JOUEUR)
+  socleJoueur2.setIgnoreGravity(true).setStatic(true).setFriction(0.01).setCollisionGroup(2).setCollidesWith(CATEGORIE_JOUEUR)
 
   var socleJoueur3 = self.matter.add.gameObject(soclePlatformeDroit);
-  socleJoueur3.setIgnoreGravity(true).setStatic(true).setFriction(0.2).setCollisionGroup(2).setCollidesWith(CATEGORIE_JOUEUR)
+  socleJoueur3.setIgnoreGravity(true).setStatic(true).setFriction(0.01).setCollisionGroup(2).setCollidesWith(CATEGORIE_JOUEUR)
   var socleJoueur4 = self.matter.add.gameObject(socleToitDroit);
-  socleJoueur4.setIgnoreGravity(true).setStatic(true).setFriction(0.2).setCollisionGroup(2).setCollidesWith(CATEGORIE_JOUEUR)
+  socleJoueur4.setIgnoreGravity(true).setStatic(true).setFriction(0.01).setCollisionGroup(2).setCollidesWith(CATEGORIE_JOUEUR)
 
 
       var socleFontaineJoueur = self.matter.add.gameObject(baseFontaine).setIgnoreGravity(true).setStatic(true).setFriction(0);
-      var plots1 = self.matter.add.gameObject(plotFontaine1).setIgnoreGravity(true).setStatic(true).setFriction(0.2);
-      this.plots2 = self.matter.add.gameObject(plotFontaine2).setIgnoreGravity(true).setStatic(true).setFriction(0.2);
+      var plots1 = self.matter.add.gameObject(plotFontaine1).setIgnoreGravity(true).setStatic(true).setFriction(0.01);
+      this.plots2 = self.matter.add.gameObject(plotFontaine2).setIgnoreGravity(true).setStatic(true).setFriction(0.01);
 
       this.tweens.add({
         targets: this.plots2,
@@ -610,7 +608,7 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
       // Adjust the movement so that the player is slower in the air
       // const moveForce = isOnGround ? 9.28 : 0;
 
-      const moveForce = isOnGround ? 0.31 : 0.305;
+      const moveForce = isOnGround ? 0.18 : 0.205;
 
 
 
@@ -625,13 +623,13 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
       // A
       if (input.attaque) {
         console.log("ATTTAQUEEEE");
-        parametres[player.atlas].touches.toucheA(input.charge, this, player)
+        parametres[player.atlas].toucheA(input.charge, this, player)
         input.attaque = false;
       }
 
       // z
       if (input.special2) {
-        parametres[player.atlas].touches.toucheZ(this, player)
+        parametres[player.atlas].toucheZ(this, player)
         input.special2 = false;
       }
 
@@ -639,7 +637,7 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
       // E
       if (input.interactionTonneau) {
         console.log("TIRO");
-        parametres[player.atlas].touches.toucheE(this, player)
+        parametres[player.atlas].toucheE(this, player)
         input.interactionTonneau = false;
       }
 
@@ -648,13 +646,13 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
         // if (input.chargeSpecial) {
         //
         // }
-        parametres[player.atlas].touches.toucheR(this, player, input.specialRelache);
+        parametres[player.atlas].toucheR(this, player, input.specialRelache);
         input.special = false;
       }
 
       // T
       if (input.tirolienne) {
-        parametres[player.atlas].touches.toucheT(this, player)
+        parametres[player.atlas].toucheT(this, player)
         input.tirolienne = false;
       }
 
