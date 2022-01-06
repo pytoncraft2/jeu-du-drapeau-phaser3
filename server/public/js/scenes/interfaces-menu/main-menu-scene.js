@@ -11,7 +11,7 @@ const MainMenu = new Phaser.Class({
 
     create: function ()
     {
-      var liste = ['dessinatrice1_', 'naruto_', 'ninja_', 'ninja2_', 'aventuriere2_', 'chevalier_'];
+      var liste = ['dessinatrice1_', 'naruto_', 'ninja_'];
 
         var sceneB = this.scene.get('sceneB');
 

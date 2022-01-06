@@ -37,93 +37,23 @@ parametres['dessinatrice1'] = {
     puissanceDeBase: 10,
     attaqueFrame: "positiona3"
   },
-  touches: {
-    toucheA: (charge, scene, player) => {
-      attaque(scene, player, charge)
-    },
-    toucheZ: (scene, player) => {
-      toupie(scene.tweens, player)
-    },
-    toucheE: (scene, player) => {
-      interactionTonneauDrapeau(scene, player)
-    },
-    toucheT: (scene, player) => {
-      interactionTirolienne(scene, player)
-    },
-    toucheR: (scene, player) => {
-      invisible(scene, player)
-    },
-    toucheEspace: (charge, scene, player) => {
-      saut(scene, player, charge)
-    }
+  toucheA: (charge, scene, player) => {
+    attaque(scene, player, charge)
   },
-  gestionRecevoirDegat: (scene, player) => {
-    recevoirDegat(scene, player)
-  }
-}
-
-parametres['ninja'] = {
-  etatInitial: {
-    vie: 4,
-    displayWidth: 149,
-    displayHeight: 140,
-    masse: 10,
-    puissanceDeBase: 12,
-    attaqueFrame: "positiona1"
+  toucheZ: (scene, player) => {
+    toupie(scene.tweens, player)
   },
-  touches: {
-    ...parametres['dessinatrice1'].touches
+  toucheE: (scene, player) => {
+    interactionTonneauDrapeau(scene, player)
   },
-  gestionRecevoirDegat: (scene, player) => {
-    recevoirDegat(scene, player)
-  }
-}
-
-parametres['ninja2'] = {
-  etatInitial: {
-    vie: 5,
-    puissanceDeBase: 8,
-    displayWidth: 158.8,
-    displayHeight: 160.4,
-    masse: 15,
-    attaqueFrame: "positiona1"
+  toucheT: (scene, player) => {
+    interactionTirolienne(scene, player)
   },
-  touches: {
-    ...parametres['dessinatrice1'].touches
+  toucheR: (scene, player) => {
+    invisible(scene, player)
   },
-  gestionRecevoirDegat: (scene, player) => {
-    recevoirDegat(scene, player)
-  }
-}
-
-parametres['aventuriere2'] = {
-  etatInitial: {
-    vie: 5,
-    puissanceDeBase: 10,
-    displayWidth: 38.40,
-    displayHeight: 51.2,
-    masse: 20,
-    attaqueFrame: "positiona3"
-  },
-  touches: {
-    ...parametres['dessinatrice1'].touches
-  },
-  gestionRecevoirDegat: (scene, player) => {
-    recevoirDegat(scene, player)
-  }
-}
-
-parametres['chevalier'] = {
-  etatInitial: {
-    vie: 20,
-    displayWidth: 217.60,
-    displayHeight: 241.6,
-    masse: 35,
-    puissanceDeBase: 12,
-    attaqueFrame: "positiona3"
-  },
-  touches: {
-    ...parametres['dessinatrice1'].touches
+  toucheEspace: (scene, player, charge, isOnGround, isInAir) => {
+    saut(scene, player, charge, isOnGround, isInAir)
   },
   gestionRecevoirDegat: (scene, player) => {
     recevoirDegat(scene, player)
@@ -139,19 +69,83 @@ parametres['naruto'] = {
     puissanceDeBase: 8,
     attaqueFrame: "positiona3"
   },
-  touches: {
-    ...parametres['dessinatrice1'].touches
+  toucheA: (charge, scene, player) => {
+    attaque(scene, player, charge)
+  },
+  toucheZ: (scene, player) => {
+    agrandissement(scene, player)
+  },
+  toucheE: (scene, player) => {
+    interactionTonneauDrapeau(scene, player)
+  },
+  toucheR: (scene, player, charge) => {
+    // multiclonage(scene, player)
+    tirer(scene, player, charge)
+  },
+  toucheT: (scene, player) => {
+    interactionTirolienne(scene, player)
+  },
+  toucheEspace: (scene, player, chargeSaut, isOnGround, isInAir) => {
+    saut(scene, player, chargeSaut, isOnGround, isInAir)
   },
   gestionRecevoirDegat: (scene, player) => {
     recevoirDegat(scene, player)
   }
 }
 
+
+parametres['ninja'] = {
+
+  etatInitial: {
+    vie: 4,
+    displayWidth: 149,
+    displayHeight: 140,
+    masse: 10,
+    puissanceDeBase: 12,
+    attaqueFrame: "positiona1"
+  },
+  toucheA: (charge, scene, player) => {
+    attaque(scene, player, charge)
+  },
+  toucheZ: (scene, player) => {
+    invisible(scene, player)
+  },
+  toucheE: (scene, player) => {
+    // interactionTonneau(scene, player)
+    interactionTonneauDrapeau(scene, player)
+  },
+  toucheT: (scene, player) => {
+    interactionTirolienne(scene, player)
+  },
+  toucheR: (scene, player) => {
+    toupie(scene.tweens, player)
+  },
+
+  toucheEspace: (scene, player, chargeSaut, isOnGround, isInAir) => {
+    saut(scene, player, chargeSaut, isOnGround, isInAir)
+  },
+  gestionRecevoirDegat: (scene, player) => {
+    recevoirDegat(scene, player)
+  }
+}
+
+
 const config = {
   type: Phaser.HEADLESS,
   parent: 'phaser-example',
   width: 1500,
   height: 720,
+  plugins: {
+    scene: [{
+      plugin: PhaserMatterCollisionPlugin.default, // The plugin class
+      key: "matterCollision", // Where to store in Scene.Systems, e.g. scene.sys.matterCollision
+      mapping: "matterCollision" // Where to store in the Scene, e.g. scene.matterCollision
+
+      // Note! If you are including the library via the CDN script tag, the plugin
+      // line should be:
+      // plugin: PhaserMatterCollisionPlugin.default
+    }]
+  },
   scene: {
     preload: preload,
     create: create,
@@ -160,7 +154,7 @@ const config = {
       matter: {
         debug: false,
         gravity: {
-          y: 6,
+          y: 9,
         },
       },
       arcade: {
@@ -178,6 +172,11 @@ var CATEGORIE_ENNEMIE = 0b0010
 var CATEGORIE_PLATFORME = 1
 var drapeauBleu;
 var drapeauVert;
+let {
+Body,
+Bodies
+} = Phaser.Physics.Matter.Matter; // Native Matter modules
+
 
 function preload() {
   this.load.atlas('dessinatrice1', 'assets/personnages/dessinatrice1/dessinatrice1.png', 'assets/personnages/dessinatrice1/dessinatrice1_atlas.json');
@@ -185,6 +184,7 @@ function preload() {
 
 
 function create() {
+
 
 
   this.tween = null;
@@ -347,7 +347,7 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
   evenement = new Phaser.Events.EventEmitter()
   evenement.on('changement-vie-equipe', changementVieEquipe, this)
   evenement.on('changement-vie', changementVie, this)
-  evenement.on('fin-de-vie', finDeVie, this)
+  evenement.on('reapparaitre', reapparaitre, this)
   evenement.on('fin-de-partie', finDePartie, this)
 
   //platforme tout en bas
@@ -475,6 +475,14 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
         equipe: socket.equipe,
         mask: mask,
         wall: false,
+        isTouching: {
+          left: false,
+          right: false,
+          ground: false
+        },
+        canJump: true,
+        jumpCounter: 0,
+        jumpCooldownTimer: null,
         attaque: false,
         puissanceBonus: 0,
         alpha: 1,
@@ -574,7 +582,7 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
   * @property {Object} this.players liste des joueurs du Groupe Phaser à ittérer
   * @property {Object} players [Objet des joueurs]{@link module:serveur~players} contenant les nouveaux parametres des joueurs à envoyer au client
   */
-function update(time, delta) {
+  function update(time, delta) {
 
     this.drapeaux.getChildren().forEach((drapeau) => {
       drapeaux[drapeau.id] = {
@@ -596,6 +604,15 @@ function update(time, delta) {
 
     this.players["Naruto"].getChildren().forEach((player) => {
       const input = players[player.arene][player.playerId].input;
+
+      const isOnGround = player.isTouching.ground;
+      const isInAir = !isOnGround;
+      // Adjust the movement so that the player is slower in the air
+      // const moveForce = isOnGround ? 9.28 : 0;
+
+      const moveForce = isOnGround ? 0.31 : 0.305;
+
+
 
       player.ombre.x = player.x
       if (input.escape) {
@@ -642,20 +659,15 @@ function update(time, delta) {
       }
 
 
-      // ESPACE
-      if (input.saut) {
-        parametres[player.atlas].touches.toucheEspace(input.chargeSaut, this, player)
-        // input.saut = false
-      }
 
       if (input.protection) {
-      player.setTint(0x14b2f9)
-      player.protege = true;
-      this.tweens.addCounter({
-        duration: 1000,
-        onComplete: () => (player.protege = false, player.clearTint())
-      })
-      input.protection = false;
+        player.setTint(0x14b2f9)
+        player.protege = true;
+        this.tweens.addCounter({
+          duration: 1000,
+          onComplete: () => (player.protege = false, player.clearTint())
+        })
+        input.protection = false;
       }
 
 
@@ -667,45 +679,38 @@ function update(time, delta) {
         player.etatAttaque.attacked = false;
       }
 
-      /**
-       * DROITE-GAUCHE
-       */
 
-      if (input.right) {
-        player.direction = "droite"
-        // if (input.walk) {
-          player.thrust(0.1)
-          player.play('walk', true)
-          player.setFlipX(false)
-        // } else {
-          // player.thrust(0)
-          // if (player.body.speed < 2) {
-            // player.play("idle_walk", true)
-          // }
-        // }
-      }
 
-      if (input.left) {
+      if (input.left && !input.c) {
+        player.play('walk', true)
         player.direction = "gauche"
-        // if (input.walk) {
-          player.thrustBack(0.1)
-          player.play('walk', true)
-          player.setFlipX(true)
-        // } else {
-          // player.thrust(0)
-          // if (player.body.speed < 2) {
-          // player.play("idle_walk", true)
-          // }
-        // }
+        player.applyForce({ x: -moveForce, y: 0 });
+        player.flipX = true;
       }
 
+      if (input.right && !input.c) {
+        player.play('walk', true)
+        player.direction = "droite"
+        player.applyForce({ x: moveForce, y: 0 });
+        player.flipX = false;
+      }
+
+      // ESPACE
+      if (input.saut) {
+        if (input.chargeSaut) {
+          parametres[player.atlas].toucheEspace(this, player, input.chargeSaut, isOnGround, isInAir)
+        } else {
+          parametres[player.atlas].toucheEspace(this, player, input.chargeSaut, isOnGround, isInAir)
+        }
+        input.saut = false;
+      }
 
       //SE REDRESSER
       if (input.redresser) {
         this.tween = this.tweens.add({
           targets: player,
           angle: 0,
-          duration: 500
+          duration: 200
         })
         input.redresser = false;
       }
@@ -713,74 +718,74 @@ function update(time, delta) {
 
 
       /**
-       * TIROLIENNE
-       * QUAND LE JOUEUR EST PROCHE DE LA TIROLIENNE
-       * LE JOUEUR SUIT LA BALLE DE LA TIROLIENNE
-       * SINON IL S'EN DETACHE
-       *
-       * @param  { Object } constraints attache des joueurs
-       * @param { Object } constraints['bullet'] attache de la balle correspondant au joueur
-       */
+      * TIROLIENNE
+      * QUAND LE JOUEUR EST PROCHE DE LA TIROLIENNE
+      * LE JOUEUR SUIT LA BALLE DE LA TIROLIENNE
+      * SINON IL S'EN DETACHE
+      *
+      * @param  { Object } constraints attache des joueurs
+      * @param { Object } constraints['bullet'] attache de la balle correspondant au joueur
+      */
 
 
 
-    //CANON FEU
-    if (input.canonMaintenu) {
-      var distCanon = Phaser.Math.Distance.BetweenPoints(player, this.canon1);
+      //CANON FEU
+      if (input.canonMaintenu) {
+        var distCanon = Phaser.Math.Distance.BetweenPoints(player, this.canon1);
 
-      if (distCanon < 106 && distCanon < 121) {
-        input.canonMaintenu = false;
-        this.bulletCanon = this.matter.add.image(this.canon1.x, this.canon1.y + 20, 'bullet').setCircle().setIgnoreGravity(true).setBounce(1.6)
-        this.bulletCanon.type = "boulet";
-        this.charge = this.tweens.add({
-          targets: this.bulletCanon,
-          scale: 4,
-          paused: false,
-          duration: 2000,
-          repeat: 0
-        });
+        if (distCanon < 106 && distCanon < 121) {
+          input.canonMaintenu = false;
+          this.bulletCanon = this.matter.add.image(this.canon1.x, this.canon1.y + 20, 'bullet').setCircle().setIgnoreGravity(true).setBounce(1.6)
+          this.bulletCanon.type = "boulet";
+          this.charge = this.tweens.add({
+            targets: this.bulletCanon,
+            scale: 4,
+            paused: false,
+            duration: 2000,
+            repeat: 0
+          });
+        }
+      } else if (input.canonRelache) {
+        if (this.charge) {
+          this.charge.stop()
+
+          this.l = new Phaser.Geom.Line(this.canon1.x, this.canon1.y, this.canon1.x + 5400, this.canon1.y);
+          var rad = Phaser.Math.DegToRad(this.canon1.angle);
+          let line = Phaser.Geom.Line.SetToAngle(this.l, this.canon1.x, this.canon1.y, rad, 4000);
+          this.graph.lineStyle(10, 0xcf0000, 1);
+          this.charge = this.tweens.add({
+            targets: this.bulletCanon,
+            x: this.l.x2,
+            y: this.l.y2,
+            paused: false,
+            duration: 2000,
+            repeat: 0,
+          });
+        }
+        input.canonRelache = false;
+
       }
-    } else if (input.canonRelache) {
-      if (this.charge) {
-      this.charge.stop()
 
-      this.l = new Phaser.Geom.Line(this.canon1.x, this.canon1.y, this.canon1.x + 5400, this.canon1.y);
-      var rad = Phaser.Math.DegToRad(this.canon1.angle);
-      let line = Phaser.Geom.Line.SetToAngle(this.l, this.canon1.x, this.canon1.y, rad, 4000);
-      this.graph.lineStyle(10, 0xcf0000, 1);
-      this.charge = this.tweens.add({
-        targets: this.bulletCanon,
-        x: this.l.x2,
-        y: this.l.y2,
-        paused: false,
-        duration: 2000,
-        repeat: 0,
-      });
+      /**
+      * ROTATION CANON
+      */
+
+      if (input.x) {
+        input.x = false;
+        this.canon1.setAngle(this.canon1.angle + 5)
       }
-      input.canonRelache = false;
 
-    }
+      if (input.v) {
+        input.v = false;
+        this.canon1.setAngle(this.canon1.angle - 5)
+      }
 
-    /*
-    En dehors de la map: respawn
-     */
-     if (player.y > 6000) {
-       evenement.emit('fin-de-vie', player.playerId)
-     }
+      if (player.y > 6000) {
+        evenement.emit('reapparaitre', player.playerId)
+      }
 
-    /**
-     * ROTATION CANON
-     */
-
-    if (input.x) {
-      input.x = false;
-      this.canon1.setAngle(this.canon1.angle + 5)
-    }
-
-    if (input.v) {
-      input.v = false;
-      this.canon1.setAngle(this.canon1.angle - 5)
-    }
+      players[player.arene][player.playerId].zoneAX = player.zoneAttaque.x;
+      players[player.arene][player.playerId].zoneAY = player.zoneAttaque.y;
 
       players[player.arene][player.playerId].x = player.x;
       players[player.arene][player.playerId].y = player.y;
@@ -808,7 +813,7 @@ function update(time, delta) {
     });
     io.to("Naruto").emit("playerUpdates", players["Naruto"], barils, drapeaux);
 
-}
+  }
 
 
  /**
@@ -855,7 +860,7 @@ function changementVie(id, tween, superAttaque, direction) {
   * @param  {String} id id du joueur ciblé
   */
 
-function finDeVie(id) {
+function reapparaitre(id) {
   let joueur = this.players["Naruto"].getMatching("playerId", id)[0]
   joueur.vie = parametres[joueur.atlas].etatInitial.vie
   let x = joueur.equipe == "A" ? -379 : 7000
@@ -919,6 +924,26 @@ function handlePlayerInput(self, playerId, arene, input) {
   });
 }
 
+
+/**
+ * Detection si le joueur touche le sol
+ * Si les sensors du joueur touche quelquechose
+ * @param  {Object} bodyA Joueur
+ * @param  {Object} bodyB Sol
+ * @param  {Object} pair  [description]
+ */
+function onSensorCollide({
+  bodyA,
+  bodyB,
+  pair
+}, joueur) {
+  if (bodyB.isSensor) return; // We only care about collisions with physical objects
+  if (bodyA === joueur.sensors.bottom) {
+    joueur.isTouching.ground = true;
+  }
+  // console.log("OKAAAAAAAAAAAAAAAAAAAAAAAAAAAAY");
+}
+
 /**
  * Ajout du joueur à la scene Phaser
  * @param {Object} self       Phaser.scene
@@ -926,6 +951,7 @@ function handlePlayerInput(self, playerId, arene, input) {
  */
 function addPlayer(self, playerInfo) {
   const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, 'dessinatrice1', 'face0').setDisplaySize(playerInfo.displayWidth, playerInfo.displayHeight).setAlpha(1);
+
   joueur.playerId = playerInfo.playerId;
   joueur.arene = playerInfo.arene;
   joueur.equipe = playerInfo.equipe;
@@ -940,16 +966,82 @@ function addPlayer(self, playerInfo) {
   joueur.direction = playerInfo.direction
   joueur.protege = playerInfo.protege;
   joueur.masse = playerInfo.masse;
+  joueur.isTouching = playerInfo.isTouching;
+  joueur.canJump = playerInfo.canJump;
+  joueur.jumpCounter = playerInfo.jumpCounter;
+  joueur.jumpCooldownTimer = playerInfo.jumpCooldownTimer;
   joueur.puissanceBonus = playerInfo.puissanceBonus;
   joueur.puissanceDeBase = playerInfo.puissanceDeBase;
   joueur.attaqueFrame = playerInfo.attaqueFrame
-  joueur.setFrictionAir(0.05);
+  // joueur.setFrictionAir(0.05);
   joueur.setMass(joueur.masse);
+  joueur.setFriction(1);
 
-  joueur.zoneAttaque = self.add.rectangle(0, 0 ,joueur.displayWidth, joueur.displayHeight, 0x0e88bd, 0.5).setDepth(400);
+  joueur.zoneAttaque = self.add.rectangle(0, 0 ,joueur.displayWidth/2, joueur.displayHeight, 0x0e88bd, 0.5).setDepth(400);
   joueur.zoneAttaque.x = joueur.getRightCenter().x
   joueur.zoneAttaque.y = joueur.getRightCenter().y
 
+
+  let w = joueur.displayWidth;
+  let h = joueur.displayHeight;
+
+  joueur.mainBody = Bodies.rectangle(0, 0, joueur.displayWidth * 0.6, h);
+  joueur.sensors = {
+    bottom: Bodies.rectangle(0, h * 0.5, w * 0.25, 2, {
+      isSensor: true
+    }),
+    left: Bodies.rectangle(-w * 0.35, 0, 2, h * 0.5, {
+      isSensor: true
+    }),
+    right: Bodies.rectangle(w * 0.35, 0, 2, h * 0.5, {
+      isSensor: true
+    })
+  };
+  joueur.compoundBody = Body.create({
+    parts: [joueur.mainBody, joueur.sensors.bottom, joueur.sensors.left, joueur.sensors.right],
+    frictionStatic: 1.4,
+    frictionAir: 0.12,
+    friction: 0.9,
+    // The offset here allows us to control where the sprite is placed relative to the
+    // matter body's x and y - here we want the sprite centered over the matter body.
+    render: {
+      sprite: {
+        xOffset: 0.5,
+        yOffset: 0.5
+      }
+    },
+  });
+
+  joueur.setExistingBody(joueur.compoundBody)
+  joueur.setPosition(playerInfo.x, playerInfo.y);
+
+  // let {
+  //   displayWidth: w,
+  //   displayHeight: h
+  // } = joueur;
+
+  joueur.isTouching = {}
+  self.matter.world.on("beforeupdate", () => {
+    joueur.isTouching.left = false;
+    joueur.isTouching.right = false;
+    joueur.isTouching.ground = false;
+  }, self);
+  //
+  self.matterCollision.addOnCollideStart({
+    objectA: [joueur.sensors.bottom],
+    callback: eventData => {
+      onSensorCollide(eventData, joueur)
+    },
+    context: this
+  });
+  self.matterCollision.addOnCollideActive({
+    objectA: [joueur.sensors.bottom],
+    callback: eventData => {
+      onSensorCollide(eventData, joueur)
+    },
+    context: this
+  });
+  //
   var zoneAttaque = self.matter.add.gameObject(joueur.zoneAttaque);
   zoneAttaque.setCollisionCategory(null);
   zoneAttaque.setIgnoreGravity(true).setStatic(true)
@@ -1058,21 +1150,53 @@ function toupie(tweens, player) {
   player.setAngularVelocity(1)
 }
 
+ /**
+  * Charge puis Effectue un saut ou un double saut sur un joueur
+  * @param  {Object}  scene      Scene Phaser.scene
+  * @param  {Object}  player     joueur qui effectue le saut/double saut
+  * @param  {Boolean}  chargeSaut puissance obtenu par le maintient du bouton espace
+  * @param  {Boolean} isOnGround indique si il touche le sol pour effectuer son premier saut
+  * @param  {Boolean} isInAir    indique si il est dans les aires pour effectuer un double saut
+  */
+function saut(scene, player, chargeSaut, isOnGround, isInAir) {
+  var puissance
+  if (chargeSaut) {
+    if (player.body.speed < 3) {
+      player.play('sautPreparation')
+    }
+    scene.tweenSaut = scene.tweens.addCounter({
+      from: 0,
+      to: 100,
+      duration: 800,
+    })
 
-/**
- * Effectuer un saut sur un joueur
- *
- * @param  {Boolean} chargeSaut indique si le joueur maintient ou relache le bouton
- * @param  {Object} scene      Scene du jeu
- * @param  {Object} player     joueur qui effectue un saut
- */
-function saut(scene, player, chargeSaut) {
-    if (player.body.speed < 2) {
+    chargeSaut = false;
+  } else {
+      puissance = scene.tweenSaut.getValue()
+    if (scene.tweenSaut.isPlaying()) {
+      scene.tweenSaut.stop()
+    }
+    if (player.body.speed < 1) {
       player.play('saut')
     } else {
       player.play('jump')
     }
-    player.setVelocityY(-50)
+
+    if (isOnGround) {
+      player.setVelocity( player.body.speed > 3 ? (player.flipX ? -puissance * 2: puissance * 2) : 0, -puissance * 2)
+      player.jumpCounter = 0;
+    } else if (isInAir) {
+      if (player.jumpCounter == 0) {
+        player.jumpCounter++;
+        player.setVelocityY(-puissance * 2)
+        scene.tweens.add({
+          targets: player,
+          angle: player.direction == "droite" ? 720 : -720,
+          duration: 360
+        })
+      }
+    }
+  }
 }
 
 function multiclonage(scene, player) {
@@ -1086,7 +1210,6 @@ function multiclonage(scene, player) {
  * @param  {Object} player joueur qui recoit les dégats
  */
 function recevoirDegat(scene, player) {
-        // console.log(player.repousser);
         if (!player.protege) {
           player.vie -= 1;
           player.setTint(0xff0000)
@@ -1203,13 +1326,13 @@ function recevoirDegat(scene, player) {
        if (frame.textureFrame == player.attaqueFrame)
        {
          player.flipX ?
-         (player.zoneAttaque.x = player.getLeftCenter().x - 70, player.zoneAttaque.y = player.getLeftCenter().y)
-         : (player.zoneAttaque.x = player.getRightCenter().x + 70, player.zoneAttaque.y = player.getRightCenter().y)
+         (player.zoneAttaque.x = player.getLeftCenter().x - 0, player.zoneAttaque.y = player.getLeftCenter().y)
+         : (player.zoneAttaque.x = player.getRightCenter().x + 0, player.zoneAttaque.y = player.getRightCenter().y)
 
 
          scene.matter.overlap([...scene.players['Naruto'].getChildren(), ...scene.tonneaux.getChildren()], player.zoneAttaque, (objet1, objet2) => {
            if (objet1.gameObject.playerId) {
-             gestionVie(objet1.gameObject.vie, objet1.gameObject.playerId, scene.tweens, puissance, objet1.gameObject.flipX)
+             gestionAttaque(objet1.gameObject.vie, objet1.gameObject.playerId, scene.tweens, puissance, objet1.gameObject.flipX)
            }
 
            if (objet1.gameObject.name == "tonneau") {
@@ -1255,8 +1378,8 @@ function interactionTonneauDrapeau(scene, player) {
 
   //TONNEAU
   player.flipX ?
-  (player.zoneAttaque.x = player.getLeftCenter().x - 70, player.zoneAttaque.y = player.getLeftCenter().y)
-  : (player.zoneAttaque.x = player.getRightCenter().x + 70, player.zoneAttaque.y = player.getRightCenter().y)
+  (player.zoneAttaque.x = player.getLeftCenter().x - 0, player.zoneAttaque.y = player.getLeftCenter().y)
+  : (player.zoneAttaque.x = player.getRightCenter().x + 0, player.zoneAttaque.y = player.getRightCenter().y)
 
     scene.matter.overlap([...scene.tonneaux.getChildren(), ...scene.drapeaux.getChildren()], player.zoneAttaque, (objet1, objet2) => {
   if (Object.keys(constraints[player.playerId]['tonneau']).length == 0) {
@@ -1360,9 +1483,9 @@ function interactionTonneauDrapeau(scene, player) {
   * @param  {String} direction    direction du joueur qui attaque (droite|gauche)
   */
 
- function gestionVie(vie, id, tween, superAttaque, direction) {
+ function gestionAttaque(vie, id, tween, superAttaque, direction) {
    if (vie <= 0) {
-     evenement.emit('fin-de-vie', id)
+     evenement.emit('reapparaitre', id)
    } else {
      evenement.emit('changement-vie', id, tween, superAttaque, direction)
    }

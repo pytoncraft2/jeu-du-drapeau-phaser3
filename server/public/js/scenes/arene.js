@@ -372,6 +372,7 @@ const Arene = new Phaser.Class({
              player.flipX = (players[id].flipX);
              player.setScale(players[id].scale);
              player.setTint(players[id].tint);
+             player.zoneAttaque.setPosition(players[id].zoneAX, players[id].zoneAY)
              // player.setVelocity(players[id].velocityX, players[id].velocityY);
              player.setPosition(players[id].x, players[id].y);
              player.setRotation(players[id].rotation);
@@ -416,13 +417,13 @@ const Arene = new Phaser.Class({
      // g1.fillRectShape(this.maison1Zone);
      // g1.setDepth(200)
      let toit1 = this.add.image(-135, -245, 'plafond').setDepth(2)
-     this.fontaine1 = this.add.image(-4870, -790, 'fontaine').setDepth(2)
+     this.fontaine1 = this.add.image(-4870, -790, 'fontaine').setDepth(0.1)
      this.fontaine1Derriere = this.add.image(-4870, -790, 'fontaineDerriere').setDepth(0)
 
      this.drapeaux = this.add.group()
-     let matDrapeauBleu = this.add.image(-4868.428561331542, -775.2723001427164, 'drapeauBleu').setDepth(1).setOrigin(0, 1)
+     let matDrapeauBleu = this.add.image(-4868.428561331542, -775.2723001427164, 'drapeauBleu').setDepth(0.01).setOrigin(0, 1)
      matDrapeauBleu.id = 1;
-     let matDrapeauVert = this.add.image(8242.130999766403, -1566.8232688524165, 'drapeauVert').setDepth(1).setOrigin(0, 1)
+     let matDrapeauVert = this.add.image(8242.130999766403, -1566.8232688524165, 'drapeauVert').setDepth(0.01).setOrigin(0, 1)
      matDrapeauVert.id = 2;
      this.drapeaux.addMultiple([matDrapeauBleu, matDrapeauVert]);
 
@@ -518,7 +519,7 @@ const Arene = new Phaser.Class({
      this.toucheProtection = this.input.keyboard.addKey('ALT');
 
      //Se redresser
-     this.seRedresser = this.input.keyboard.addKey('F');
+     this.toucheF = this.input.keyboard.addKey('F');
      //DROITE-GAUCHE
      this.toucheGauche = this.input.keyboard.addKey('Q');
      this.toucheDroite = this.input.keyboard.addKey('D');
@@ -541,6 +542,8 @@ const Arene = new Phaser.Class({
      this.upKeyPressed = false;
      this.downKeyPressed = false;
      this.spaceKeyPressed = false;
+     this.charge = false;
+     this.saut = false;
      this.cKey = false;
      this.aKey = false;
      this.zKey = false;
@@ -561,27 +564,61 @@ const Arene = new Phaser.Class({
    */
   update: function() {
 
+
     const left = this.leftKeyPressed,
-      space = this.spaceKeyPressed,
-      right = this.rightKeyPressed;
+    space = this.spaceKeyPressed,
+    chargeSaut = this.charge,
+    saut = this.saut,
+    right = this.rightKeyPressed;
 
-    this.cursors.left.isDown ? this.leftKeyPressed = true :
-      this.cursors.right.isDown ? this.rightKeyPressed = true :
-      (this.leftKeyPressed = false, this.rightKeyPressed = false)
+    this.cursors.space.isDown ? this.spaceKeyPressed = true : this.spaceKeyPressed = false
 
-      this.cursors.space.isDown ? this.spaceKeyPressed = true : this.spaceKeyPressed = false
+    this.toucheGauche.isDown ? this.leftKeyPressed = true :
+  this.toucheDroite.isDown ? this.rightKeyPressed = true :
+  (this.leftKeyPressed = false, this.rightKeyPressed = false)
 
-      //   this.socket.emit('playerInput', {
-//     saut: true,
-//     chargeSaut: true
+
+  // if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
+  //     this.charge = true;
+  //     this.saut = true;
+  // }
+  //
+  // if (Phaser.Input.Keyboard.JustUp(this.cursors.space)) {
+  //     this.charge = false;
+  //     this.saut = true;
+  // }
+
+  if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
+    this.socket.emit('playerInput', {
+      saut: true,
+      chargeSaut: true,
+      left: this.leftKeyPressed,
+      right: this.rightKeyPressed,
+      space: this.spaceKeyPressed
+    });
+  }
+
+  if (Phaser.Input.Keyboard.JustUp(this.cursors.space)) {
+    this.socket.emit('playerInput', {
+      saut: true,
+      chargeSaut: false,
+      left: this.leftKeyPressed,
+      right: this.rightKeyPressed,
+      space: this.spaceKeyPressed,
+    });
+  }
+
+
+//   if (left !== this.leftKeyPressed ||
+//   right !== this.rightKeyPressed ||
+//   space !== this.spaceKeyPressed) {
+//   this.socket.emit('playerInput', {
+//     left: this.leftKeyPressed,
+//     right: this.rightKeyPressed,
+//     space: this.spaceKeyPressed
 //   });
-      if (left !== this.leftKeyPressed || right !== this.rightKeyPressed || space !== this.spaceKeyPressed) {
-        this.socket.emit('playerInput', {
-          saut: this.spaceKeyPressed,
-          left: this.leftKeyPressed,
-          right: this.rightKeyPressed,
-        });
-      }
+// }
+
     /**
      * TIROLIENNE CONTROLE
      */
@@ -616,20 +653,7 @@ const Arene = new Phaser.Class({
     /**
      * SAUT
      */
-
-    // if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
-    //   this.socket.emit('playerInput', {
-    //     saut: true,
-    //     chargeSaut: true
-    //   });
-    // }
-
-    // if (Phaser.Input.Keyboard.JustUp(this.cursors.space)) {
-    //   this.socket.emit('playerInput', {
-    //     saut: true,
-    //     chargeSaut: false
-    //   });
-    // }
+    //
 
     /**
      * SE PROTEGER
@@ -645,7 +669,7 @@ const Arene = new Phaser.Class({
     /**
      * SE REDRESSER
      */
-     if (Phaser.Input.Keyboard.JustDown(this.seRedresser)) {
+     if (Phaser.Input.Keyboard.JustDown(this.toucheF)) {
        this.socket.emit('playerInput', {
          redresser: true
        });
@@ -655,37 +679,41 @@ const Arene = new Phaser.Class({
      * GAUCHE
      */
 
-    // if (Phaser.Input.Keyboard.JustDown(this.toucheGauche)) {
-    //   this.socket.emit('playerInput', {
-    //     left: true,
-    //     walk: true
-    //   });
-    // }
-    //
-    //
-    // if (Phaser.Input.Keyboard.JustUp(this.toucheGauche)) {
-    //   this.socket.emit('playerInput', {
-    //     left: true,
-    //     walk: false
-    //   });
-    // }
+    if (Phaser.Input.Keyboard.JustDown(this.toucheGauche)) {
+      this.socket.emit('playerInput', {
+        left: this.leftKeyPressed,
+        right: this.rightKeyPressed,
+        space: this.spaceKeyPressed,
+      });
+    }
+
+
+    if (Phaser.Input.Keyboard.JustUp(this.toucheGauche)) {
+      this.socket.emit('playerInput', {
+        left: this.leftKeyPressed,
+        right: this.rightKeyPressed,
+        space: this.spaceKeyPressed,
+      });
+    }
 
     /**
      * DROITE
      */
-    // if (Phaser.Input.Keyboard.JustDown(this.toucheDroite)) {
-    //   this.socket.emit('playerInput', {
-    //     right: true,
-    //     walk: true
-    //   });
-    // }
-    //
-    // if (Phaser.Input.Keyboard.JustUp(this.toucheDroite)) {
-    //   this.socket.emit('playerInput', {
-    //     right: true,
-    //     walk: false
-    //   });
-    // }
+    if (Phaser.Input.Keyboard.JustDown(this.toucheDroite)) {
+      this.socket.emit('playerInput', {
+        left: this.leftKeyPressed,
+        right: this.rightKeyPressed,
+        space: this.spaceKeyPressed,
+      });
+    }
+
+    if (Phaser.Input.Keyboard.JustUp(this.toucheDroite)) {
+      this.socket.emit('playerInput', {
+        left: this.leftKeyPressed,
+        right: this.rightKeyPressed,
+        space: this.spaceKeyPressed,
+      });
+    }
 
 
     /**
@@ -790,13 +818,6 @@ const Arene = new Phaser.Class({
       });
     }
 
-    if (Phaser.Input.Keyboard.JustDown(this.canonKeyPressed)) {
-      this.socket.emit('playerInput', {
-        canonMaintenu: false,
-        canonRelache: true
-      });
-    }
-
     /**
      * ZOOM DE LA CAMERA
      */
@@ -889,9 +910,9 @@ const Arene = new Phaser.Class({
 
     joueur.setFrictionAir(0.05);
     joueur.setMass(30);
+    joueur.zoneAttaque = self.add.rectangle(0, 0 ,joueur.displayWidth/2, joueur.displayHeight, 0x0e88bd, 0.5).setDepth(400);
     joueur.body.collisionFilter.group = Phaser.Math.Between(1, 10)
     joueur.body.collisionFilter.mask = 0
-
 
     let couleur = playerInfo.equipe == "A" ? 0x0ea733 : 0x0e88bd
     let position = playerInfo.equipe == "A" ? {
