@@ -611,7 +611,6 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
       const moveForce = isOnGround ? 0.18 : 0.205;
 
 
-
       player.ombre.x = player.x
       if (input.escape) {
         this.matter.world.localWorld.constraints = []
