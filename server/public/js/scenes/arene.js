@@ -541,6 +541,9 @@ const Arene = new Phaser.Class({
      this.upKeyPressed = false;
      this.downKeyPressed = false;
      this.spaceKeyPressed = false;
+     this.charge = false;
+     this.chargeSaut = false;
+     this.saut = false;
      this.cKey = false;
      this.aKey = false;
      this.zKey = false;
@@ -564,6 +567,9 @@ const Arene = new Phaser.Class({
 
     const left = this.leftKeyPressed,
     space = this.spaceKeyPressed,
+    chargeSaut = this.chargeSaut,
+    saut = this.charge,
+    espace = this.saut,
     right = this.rightKeyPressed;
 
     this.cursors.space.isDown ? this.spaceKeyPressed = true : this.spaceKeyPressed = false
@@ -573,13 +579,37 @@ const Arene = new Phaser.Class({
   (this.leftKeyPressed = false, this.rightKeyPressed = false)
 
 
+  // if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
+  //     this.charge = true;
+  //     this.saut = true;
+  // }
+  //
+  // if (Phaser.Input.Keyboard.JustUp(this.cursors.space)) {
+  //     this.charge = false;
+  //     this.saut = true;
+  // }
+
+  if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
+      this.charge = true;
+      this.chargeSaut = true;
+  }
+
+  if (Phaser.Input.Keyboard.JustUp(this.cursors.space)) {
+      this.charge = true;
+      this.chargeSaut = false;
+  }
+
+
   if (left !== this.leftKeyPressed ||
   right !== this.rightKeyPressed ||
-  space !== this.spaceKeyPressed) {
+  space !== this.spaceKeyPressed ||
+  chargeSaut !== this.charge) {
   this.socket.emit('playerInput', {
     left: this.leftKeyPressed,
     right: this.rightKeyPressed,
-    space: this.spaceKeyPressed
+    espace: this.spaceKeyPressed,
+    saut: this.charge,
+    chargeSaut: this.chargeSaut,
   });
 }
 
@@ -618,19 +648,6 @@ const Arene = new Phaser.Class({
      * SAUT
      */
     //
-    // if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
-    //   this.socket.emit('playerInput', {
-    //     saut: true,
-    //     chargeSaut: true
-    //   });
-    // }
-    //
-    // if (Phaser.Input.Keyboard.JustUp(this.cursors.space)) {
-    //   this.socket.emit('playerInput', {
-    //     saut: true,
-    //     chargeSaut: false
-    //   });
-    // }
 
     /**
      * SE PROTEGER

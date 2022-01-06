@@ -52,7 +52,7 @@ parametres['dessinatrice1'] = {
     invisible(scene, player)
   },
   toucheEspace: (scene, player, charge, isOnGround, isInAir) => {
-    sautV3(scene, player, charge, isOnGround, isInAir)
+    saut(scene, player, charge, isOnGround, isInAir)
   },
   gestionRecevoirDegat: (scene, player) => {
     recevoirDegat(scene, player)
@@ -85,7 +85,7 @@ parametres['naruto'] = {
     interactionTirolienne(scene, player)
   },
   toucheEspace: (scene, player, chargeSaut, isOnGround, isInAir) => {
-    sautV3(scene, player, chargeSaut, isOnGround, isInAir)
+    saut(scene, player, chargeSaut, isOnGround, isInAir)
   },
   gestionRecevoirDegat: (scene, player) => {
     recevoirDegat(scene, player)
@@ -121,7 +121,7 @@ parametres['ninja'] = {
   },
 
   toucheEspace: (scene, player, chargeSaut, isOnGround, isInAir) => {
-    sautV3(scene, player, chargeSaut, isOnGround, isInAir)
+    saut(scene, player, chargeSaut, isOnGround, isInAir)
   },
   gestionRecevoirDegat: (scene, player) => {
     recevoirDegat(scene, player)
@@ -686,13 +686,47 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
       }
 
       // ESPACE
-      if (input.space) {
+      // console.log(input.chargeSaut);
 
-        parametres[player.atlas].toucheEspace(this, player, input.chargeSaut, isOnGround, isInAir)
+      // console.log(input.chargeSaut);
+      // console.log(input.space);
+      // console.log(input.saut);
+      // console.log("__");
+      console.log(input.chargeSaut);
+      if (input.espace) {
+
+        // console.log(input.chargeSaut && input.saut);
+        // console.log(input.chargeSaut);
+      //
+
+        // input.chargeSaut = false;
+      //   if (input.chargeSaut) {
+      // //
+      //   parametres[player.atlas].toucheEspace(this, player, input.chargeSaut, isOnGround, isInAir)
+      //
+      // } else {
+      //   input.chargeSaut = false;
+      // }
+    //   if (input.chargeSaut) {
+    //     parametres[player.atlas].toucheEspace(this, player, input.chargeSaut, isOnGround, isInAir)
+    //
+    // } else {
+    //     parametres[player.atlas].toucheEspace(this, player, input.chargeSaut, isOnGround, isInAir)
+    // }
         // parametres[player.atlas].touches.toucheEspace(this, player, isOnGround, isInAir)
 
-        // input.space = false
+        // input.saut = false;
+
       }
+      //
+      //   // input.space = false
+      // } else {
+      //   console.log("NOP");
+      //   if (input.chargeSaut) {
+      //     input.chargeSaut = false;
+      //     parametres[player.atlas].toucheEspace(this, player, input.chargeSaut, isOnGround, isInAir)
+      //   }
+      // }
 
 
       //SE REDRESSER
@@ -1151,7 +1185,8 @@ function toupie(tweens, player) {
 function saut(scene, player, chargeSaut, isOnGround, isInAir) {
   var puissance
   if (chargeSaut) {
-    if (player.body.speed < 2) {
+    // console.log("oui");
+    if (player.body.speed < 3) {
       player.play('sautPreparation')
     }
     scene.tweenSaut = scene.tweens.addCounter({
@@ -1160,9 +1195,14 @@ function saut(scene, player, chargeSaut, isOnGround, isInAir) {
       duration: 800,
     })
 
+    console.log("OK");
     chargeSaut = false;
   } else {
+
+    console.log("DAC");
       puissance = scene.tweenSaut.getValue()
+      console.log("puissance");
+      console.log(puissance);
     if (scene.tweenSaut.isPlaying()) {
       scene.tweenSaut.stop()
     }
@@ -1216,9 +1256,7 @@ function saut(scene, player, chargeSaut, isOnGround, isInAir) {
  * @param  {Boolean} isInAir    detection si le joueur ne touche rien
  */
  function sautV2(scene, player, chargeSaut, isOnGround, isInAir) {
-   console.log("V2");
-   console.log(player.canJump);
-   console.log(isOnGround);
+
    timedEvent = new Phaser.Time.TimerEvent({
      delay: 250,
      callback: () => (player.canJump = true)
@@ -1238,71 +1276,30 @@ function saut(scene, player, chargeSaut, isOnGround, isInAir) {
  }
 
 
-function sautV3(scene, player, chargeSaut, isOnGround, isInAir) {
+ function sautV3(scene, player, chargeSaut, isOnGround, isInAir) {
+   if (isOnGround) {
+     player.setVelocityY(-90)
+     player.canJump = false;
+     scene.tweens.addCounter({
+       duration: 300,
+       onComplete: () => (player.canJump = true)
+     })
 
-  let doubleJump;
-  // timedEvent = new Phaser.Time.TimerEvent({
-  //   delay: 250,
-  //   callback: () => (player.canJump = true)
-  // });
-  // if (player.canJump && isOnGround) {
-  //   // if (player.body.speed < 2) {
-  //     // player.play('saut')
-  //   // } else {
-  //     player.play('jump')
-  //   // }
-  //   player.setVelocityY(-60)
-  //
-  //   player.canJump = false;
-  //   player.jumpCooldownTimer = scene.time.addEvent(timedEvent);
-  // }
+   }
 
-if (isOnGround) {
-  player.setVelocityY(-90)
+   if (isInAir) {
+     if (player.canJump) {
+       player.setVelocityY(-90)
+       player.canJump = false;
 
-console.log("ground");
-player.canJump = false;
-scene.tweens.addCounter({
-  duration: 300,
-  onComplete: () => (player.canJump = true)
-})
-
-}
-
-if (isInAir) {
-if (player.canJump) {
-    player.setVelocityY(-90)
-    player.canJump = false;
-
-    scene.tweens.add({
-      targets: player,
-      angle: player.direction == "droite" ? 720 : -720,
-      duration: 360
-    })
-}
-
-  console.log("aiiire");
-}
-
-  // if (isOnGround && player.canJump) {
-  // player.play('saut')
-  //   player.setVelocityY(-60)
-  //   player.jumpCounter = 0;
-  //     console.log("simple");
-  // } else if (isInAir) {
-  //   if (player.jumpCounter == 0) {
-  //     player.jumpCounter++;
-  //     console.log("double");
-  //     player.setVelocityY(-60)
-  //     scene.tweens.add({
-  //       targets: player,
-  //       angle: player.direction == "droite" ? 720 : -720,
-  //       duration: 360
-  //     })
-  //   }
-  // }
-
-}
+       scene.tweens.add({
+         targets: player,
+         angle: player.direction == "droite" ? 720 : -720,
+         duration: 360
+       })
+     }
+   }
+ }
 
 function multiclonage(scene, player) {
 
