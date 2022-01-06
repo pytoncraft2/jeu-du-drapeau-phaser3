@@ -1200,7 +1200,6 @@ function multiclonage(scene, player) {
  * @param  {Object} player joueur qui recoit les dégats
  */
 function recevoirDegat(scene, player) {
-        // console.log(player.repousser);
         if (!player.protege) {
           player.vie -= 1;
           player.setTint(0xff0000)
