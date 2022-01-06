@@ -692,11 +692,9 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
       // console.log(input.space);
       // console.log(input.saut);
       // console.log("__");
-      console.log(input.chargeSaut);
-      if (input.espace) {
+      if (input.saut) {
 
         // console.log(input.chargeSaut && input.saut);
-        // console.log(input.chargeSaut);
       //
 
         // input.chargeSaut = false;
@@ -707,15 +705,18 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
       // } else {
       //   input.chargeSaut = false;
       // }
-    //   if (input.chargeSaut) {
-    //     parametres[player.atlas].toucheEspace(this, player, input.chargeSaut, isOnGround, isInAir)
-    //
-    // } else {
-    //     parametres[player.atlas].toucheEspace(this, player, input.chargeSaut, isOnGround, isInAir)
-    // }
+      console.log(input.chargeSaut);
+
+      if (input.chargeSaut) {
+        parametres[player.atlas].toucheEspace(this, player, input.chargeSaut, isOnGround, isInAir)
+      // player.play('sautPreparation');
+    } else {
+        parametres[player.atlas].toucheEspace(this, player, input.chargeSaut, isOnGround, isInAir)
+      // player.play('jump');
+    }
         // parametres[player.atlas].touches.toucheEspace(this, player, isOnGround, isInAir)
 
-        // input.saut = false;
+        input.saut = false;
 
       }
       //
