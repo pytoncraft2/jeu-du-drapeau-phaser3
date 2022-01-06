@@ -686,49 +686,14 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
       }
 
       // ESPACE
-      // console.log(input.chargeSaut);
-
-      // console.log(input.chargeSaut);
-      // console.log(input.space);
-      // console.log(input.saut);
-      // console.log("__");
       if (input.saut) {
-
-        // console.log(input.chargeSaut && input.saut);
-      //
-
-        // input.chargeSaut = false;
-      //   if (input.chargeSaut) {
-      // //
-      //   parametres[player.atlas].toucheEspace(this, player, input.chargeSaut, isOnGround, isInAir)
-      //
-      // } else {
-      //   input.chargeSaut = false;
-      // }
-      console.log(input.chargeSaut);
-
-      if (input.chargeSaut) {
-        parametres[player.atlas].toucheEspace(this, player, input.chargeSaut, isOnGround, isInAir)
-      // player.play('sautPreparation');
-    } else {
-        parametres[player.atlas].toucheEspace(this, player, input.chargeSaut, isOnGround, isInAir)
-      // player.play('jump');
-    }
-        // parametres[player.atlas].touches.toucheEspace(this, player, isOnGround, isInAir)
-
+        if (input.chargeSaut) {
+          parametres[player.atlas].toucheEspace(this, player, input.chargeSaut, isOnGround, isInAir)
+        } else {
+          parametres[player.atlas].toucheEspace(this, player, input.chargeSaut, isOnGround, isInAir)
+        }
         input.saut = false;
-
       }
-      //
-      //   // input.space = false
-      // } else {
-      //   console.log("NOP");
-      //   if (input.chargeSaut) {
-      //     input.chargeSaut = false;
-      //     parametres[player.atlas].toucheEspace(this, player, input.chargeSaut, isOnGround, isInAir)
-      //   }
-      // }
-
 
       //SE REDRESSER
       if (input.redresser) {
@@ -1175,18 +1140,17 @@ function toupie(tweens, player) {
   player.setAngularVelocity(1)
 }
 
-
-/**
- * Effectuer un saut sur un joueur
- *
- * @param  {Boolean} chargeSaut indique si le joueur maintient ou relache le bouton
- * @param  {Object} scene      Scene du jeu
- * @param  {Object} player     joueur qui effectue un saut
- */
+ /**
+  * Charge puis Effectue un saut ou un double saut sur un joueur
+  * @param  {Object}  scene      Scene Phaser.scene
+  * @param  {Object}  player     joueur qui effectue le saut/double saut
+  * @param  {Boolean}  chargeSaut puissance obtenu par le maintient du bouton espace
+  * @param  {Boolean} isOnGround indique si il touche le sol pour effectuer son premier saut
+  * @param  {Boolean} isInAir    indique si il est dans les aires pour effectuer un double saut
+  */
 function saut(scene, player, chargeSaut, isOnGround, isInAir) {
   var puissance
   if (chargeSaut) {
-    // console.log("oui");
     if (player.body.speed < 3) {
       player.play('sautPreparation')
     }
@@ -1196,14 +1160,9 @@ function saut(scene, player, chargeSaut, isOnGround, isInAir) {
       duration: 800,
     })
 
-    console.log("OK");
     chargeSaut = false;
   } else {
-
-    console.log("DAC");
       puissance = scene.tweenSaut.getValue()
-      console.log("puissance");
-      console.log(puissance);
     if (scene.tweenSaut.isPlaying()) {
       scene.tweenSaut.stop()
     }
@@ -1227,80 +1186,8 @@ function saut(scene, player, chargeSaut, isOnGround, isInAir) {
         })
       }
     }
-
-    // timedEvent = new Phaser.Time.TimerEvent({
-    //   delay: 250,
-    //   callback: () => (player.canJump = true)
-    // });
-    // if (player.canJump && isOnGround) {
-    //   console.log("oui");
-    //   if (player.body.speed < 2) {
-    //     player.play('saut')
-    //   } else {
-    //     player.play('jump')
-    //   }
-    //   player.setVelocityY(-50)
-    //
-    //   player.canJump = false;
-    //   player.jumpCooldownTimer = scene.time.addEvent(timedEvent);
-    // }
-
   }
 }
-
-/**
- * Effectuer un saut + un double saut
- *
- * @param  {Object}  scene      Scene Phaser
- * @param  {Object}  player     joueur qui effectue un saut
- * @param  {Boolean} isOnGround detection si le joueur touche le sol sur une platforme
- * @param  {Boolean} isInAir    detection si le joueur ne touche rien
- */
- function sautV2(scene, player, chargeSaut, isOnGround, isInAir) {
-
-   timedEvent = new Phaser.Time.TimerEvent({
-     delay: 250,
-     callback: () => (player.canJump = true)
-   });
-   if (player.canJump && isOnGround) {
-     console.log("oui");
-     if (player.body.speed < 1) {
-       player.play('saut')
-     } else {
-       player.play('jump')
-     }
-     player.setVelocityY(-50)
-
-     player.canJump = false;
-     player.jumpCooldownTimer = scene.time.addEvent(timedEvent);
-   }
- }
-
-
- function sautV3(scene, player, chargeSaut, isOnGround, isInAir) {
-   if (isOnGround) {
-     player.setVelocityY(-90)
-     player.canJump = false;
-     scene.tweens.addCounter({
-       duration: 300,
-       onComplete: () => (player.canJump = true)
-     })
-
-   }
-
-   if (isInAir) {
-     if (player.canJump) {
-       player.setVelocityY(-90)
-       player.canJump = false;
-
-       scene.tweens.add({
-         targets: player,
-         angle: player.direction == "droite" ? 720 : -720,
-         duration: 360
-       })
-     }
-   }
- }
 
 function multiclonage(scene, player) {
 
