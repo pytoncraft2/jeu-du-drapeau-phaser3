@@ -82,7 +82,7 @@ const BootScene = new Phaser.Class({
     //   this.load.atlas(item, 'assets0/personnages/' + item + '/' + item + '.png', 'assets/personnages/' + item + '/' + item + '_atlas.json');
     // });
     // this.load.image('bg', 'assets0/fond/streetOfRage.png');
-    // this.load.image('bedroom', 'assets0/fond/bgGrand.png');
+    this.load.image('chambre', 'assets0/fond/bgGrand.png');
     // this.load.image('doors', 'assets0/fond/doors.png');
     // this.load.atlas('ennemy', 'assets0/personnages/dessinatrice1/dessinatrice1.png', 'assets/personnages/dessinatrice1/dessinatrice1_atlas.json');
     // this.load.atlas('dessinatrice1', 'assets0/personnages/dessinatrice1/dessinatrice1.png', 'assets/personnages/dessinatrice1/dessinatrice1_atlas.json');

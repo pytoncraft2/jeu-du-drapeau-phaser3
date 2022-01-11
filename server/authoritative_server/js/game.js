@@ -350,31 +350,11 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
   evenement.on('reapparaitre', reapparaitre, this)
   evenement.on('fin-de-partie', finDePartie, this)
 
-  //platforme tout en bas
-
-
-
-  //tobogan mini socles
-  let microPlatforme = self.add.zone(1916, 235, 210, 210).setSize(200, 40);
-  var socleJoueur = self.matter.add.gameObject(microPlatforme).setIgnoreGravity(true).setStatic(true).setFriction(0);
-
-
-  //mini socles de gauche + min platforme
-  let baseFontaine = self.add.zone(-4820, -490, 210, 210).setSize(1500, 40);
-  let plotFontaine1 = self.add.zone(-3300, -490, 210, 210).setSize(300, 40);
-  let plotFontaine2 = self.add.zone(-2500, -190, 210, 210).setSize(300, 40);
-
   //platforme principal
   let soclePlatformeGauche = self.add.zone(0, 327, 210, 210).setSize(3500, 40);
-  let socleToitGauche = self.add.zone(-120, -253, 210, 210).setSize(1631, 40);
   let soclePlatformeDroit = self.add.zone(7000, -1363, 210, 210).setSize(3500, 40);
-  let socleToitDroit = self.add.zone(7000, -1943, 210, 210).setSize(1631, 40);
 
 
-  //platforme bas
-  let soclePlatformeBas = self.add.zone(-2500, 1800, 210, 210).setSize(3500, 40);
-  var platformeBas = self.matter.add.gameObject(soclePlatformeBas);
-  platformeBas.setIgnoreGravity(true).setStatic(true).setFriction(0)
 
   /**
    * COLISION GROUPE
@@ -384,39 +364,14 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
 
   var socleJoueur = self.matter.add.gameObject(soclePlatformeGauche);
   socleJoueur.setIgnoreGravity(true).setStatic(true).setFriction(0.01).setCollisionGroup(2).setCollidesWith(CATEGORIE_JOUEUR)
-  var socleJoueur2 = self.matter.add.gameObject(socleToitGauche);
-  socleJoueur2.setIgnoreGravity(true).setStatic(true).setFriction(0.01).setCollisionGroup(2).setCollidesWith(CATEGORIE_JOUEUR)
+  // socleJoueur2.setIgnoreGravity(true).setStatic(true).setFriction(0.01).setCollisionGroup(2).setCollidesWith(CATEGORIE_JOUEUR)
 
   var socleJoueur3 = self.matter.add.gameObject(soclePlatformeDroit);
   socleJoueur3.setIgnoreGravity(true).setStatic(true).setFriction(0.01).setCollisionGroup(2).setCollidesWith(CATEGORIE_JOUEUR)
-  var socleJoueur4 = self.matter.add.gameObject(socleToitDroit);
-  socleJoueur4.setIgnoreGravity(true).setStatic(true).setFriction(0.01).setCollisionGroup(2).setCollidesWith(CATEGORIE_JOUEUR)
-
-
-      var socleFontaineJoueur = self.matter.add.gameObject(baseFontaine).setIgnoreGravity(true).setStatic(true).setFriction(0);
-      var plots1 = self.matter.add.gameObject(plotFontaine1).setIgnoreGravity(true).setStatic(true).setFriction(0.01);
-      this.plots2 = self.matter.add.gameObject(plotFontaine2).setIgnoreGravity(true).setStatic(true).setFriction(0.01);
-
-      this.tweens.add({
-        targets: this.plots2,
-        y: this.plots2.y + 2000,
-        yoyo: true,
-        repeat: -1,
-        duration: 3000,
-        ease: 'Sine.easeInOut'
-      });
-
-
-
-this.platformeGaucheCollision.addMultiple([soclePlatformeGauche, socleToitGauche]);
-this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit]);
+  // socleJoueur4.setIgnoreGravity(true).setStatic(true).setFriction(0.01).setCollisionGroup(2).setCollidesWith(CATEGORIE_JOUEUR)
 
 
   self.room = ""
-
-  let tobogan = this.add.zone(3500, -500, 210, 210).setSize(3246, 40)
-  var socleTobogan = self.matter.add.gameObject(tobogan).setStatic(true).setIgnoreGravity(true).setAngle(-26).setFriction(0).setCollisionGroup(2).setCollidesWith([7]);
-
 
   this.bullet = this.matter.add.image(1210, -400, 'bullet', null, { ignoreGravity: true });
   this.bullet.setFixedRotation();
@@ -701,6 +656,10 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
         input.saut = false;
       }
 
+      if (input.up) {
+        player.setScale(player.scale - 0.003);
+      }
+
       //SE REDRESSER
       if (input.redresser) {
         this.tween = this.tweens.add({
@@ -787,7 +746,9 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
       players[player.arene][player.playerId].y = player.y;
       players[player.arene][player.playerId].frame = player.anims.getFrameName();
       players[player.arene][player.playerId].flipX = player.flipX;
-      players[player.arene][player.playerId].scale = player.scale;
+      // players[player.arene][player.playerId].scale = player.scale;
+      players[player.arene][player.playerId].displayWidth = player.displayWidth;
+      players[player.arene][player.playerId].displayHeight = player.displayHeight;
       players[player.arene][player.playerId].tint = player.tintBottomLeft;
       players[player.arene][player.playerId].alpha = player.alpha;
       players[player.arene][player.playerId].ombreX = player.ombre.x;
@@ -796,8 +757,6 @@ this.platformeDroiteCollision.addMultiple([soclePlatformeDroit, socleToitDroit])
       players[player.arene][player.playerId].bulletX = this.bullet.x;
       players[player.arene][player.playerId].bulletY = this.bullet.y;
       players[player.arene][player.playerId].rotation = player.rotation;
-
-      players[player.arene][player.playerId].socleMouventY = this.plots2.y
 
       if (this.bulletCanon) {
         players[player.arene][player.playerId].bulletCanonY = this.bulletCanon.y
@@ -1327,14 +1286,16 @@ function recevoirDegat(scene, player) {
 
 
          scene.matter.overlap([...scene.players['Naruto'].getChildren(), ...scene.tonneaux.getChildren()], player.zoneAttaque, (objet1, objet2) => {
-           if (objet1.gameObject.playerId) {
-             gestionAttaque(objet1.gameObject.vie, objet1.gameObject.playerId, scene.tweens, puissance, objet1.gameObject.flipX)
-           }
+           if(objet1.gameObject.playerId !== player.playerId) {
+             if (objet1.gameObject.playerId) {
+               gestionAttaque(objet1.gameObject.vie, objet1.gameObject.playerId, scene.tweens, puissance, objet1.gameObject.flipX)
+             }
 
-           if (objet1.gameObject.name == "tonneau") {
-             gestionTonneaux(puissance, player.flipX, objet1.gameObject)
-           }
+             if (objet1.gameObject.name == "tonneau") {
+               gestionTonneaux(puissance, player.flipX, objet1.gameObject)
+             }
 
+           }
          })
 
 
