@@ -49,6 +49,21 @@ const Arene = new Phaser.Class({
    */
    create: function() {
 
+     var good = this.add.graphics();
+
+good.lineStyle(20, 0xff00ff, 1);
+
+//  Without this the arc will appear closed when stroked
+good.beginPath();
+
+// arc (x, y, radius, startAngle, endAngle, anticlockwise)
+good.arc(400, 300, 200, Phaser.Math.DegToRad(90), Phaser.Math.DegToRad(180), true);
+
+//  Uncomment this to close the path before stroking
+// graphics.closePath();
+
+good.strokePath();
+
      this.vieEquipeA = 100
      this.vieEquipeB = 100
      this.lastHealthEquipeA = 100;

@@ -899,6 +899,19 @@ function onSensorCollide({
   // console.log("OKAAAAAAAAAAAAAAAAAAAAAAAAAAAAY");
 }
 
+
+/**
+ * Imbrication d'objet et action à executer sur les objets en callback
+ * @param  {Object}   scene    Scene.Phaser
+ * @param  {Object}  elements  Groupe d'élements qui peuvent s'imbriquer
+ * @param  {Object}   cible    Element qui rencontre le groupe
+ * @param  {Function} callback Action a executer sur les objets après imbrication
+ */
+
+function overlap(scene, elements, cible, callback) {
+  scene.matter.overlap(elements, cible, callback)
+}
+
 /**
  * Ajout du joueur à la scene Phaser
  * @param {Object} self       Phaser.scene
@@ -1158,6 +1171,10 @@ function multiclonage(scene, player) {
 
 }
 
+function fusion(scene, player) {
+
+}
+
 /**
  * Recevoir des dégats par un joueur
  *
@@ -1284,17 +1301,14 @@ function recevoirDegat(scene, player) {
          (player.zoneAttaque.x = player.getLeftCenter().x - 0, player.zoneAttaque.y = player.getLeftCenter().y)
          : (player.zoneAttaque.x = player.getRightCenter().x + 0, player.zoneAttaque.y = player.getRightCenter().y)
 
-
-         scene.matter.overlap([...scene.players['Naruto'].getChildren(), ...scene.tonneaux.getChildren()], player.zoneAttaque, (objet1, objet2) => {
+         overlap(scene, [...scene.players['Naruto'].getChildren(), ...scene.tonneaux.getChildren()], player.zoneAttaque, (objet1, objet2) => {
            if(objet1.gameObject.playerId !== player.playerId) {
              if (objet1.gameObject.playerId) {
                gestionAttaque(objet1.gameObject.vie, objet1.gameObject.playerId, scene.tweens, puissance, objet1.gameObject.flipX)
              }
-
              if (objet1.gameObject.name == "tonneau") {
                gestionTonneaux(puissance, player.flipX, objet1.gameObject)
              }
-
            }
          })
 
@@ -1338,7 +1352,7 @@ function interactionTonneauDrapeau(scene, player) {
   (player.zoneAttaque.x = player.getLeftCenter().x - 0, player.zoneAttaque.y = player.getLeftCenter().y)
   : (player.zoneAttaque.x = player.getRightCenter().x + 0, player.zoneAttaque.y = player.getRightCenter().y)
 
-    scene.matter.overlap([...scene.tonneaux.getChildren(), ...scene.drapeaux.getChildren()], player.zoneAttaque, (objet1, objet2) => {
+    overlap(scene, [...scene.tonneaux.getChildren(), ...scene.drapeaux.getChildren()], player.zoneAttaque, (objet1, objet2) => {
   if (Object.keys(constraints[player.playerId]['tonneau']).length == 0) {
 
       if (objet1.gameObject.name == "tonneau") {
