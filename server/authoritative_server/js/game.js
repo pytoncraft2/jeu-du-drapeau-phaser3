@@ -557,10 +557,6 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
     });
 
     this.players["Naruto"].getChildren().forEach((player) => {
-      // console.log(player.socle.x);
-      // console.log(player.x);
-
-
       const input = players[player.arene][player.playerId].input;
 
       const isOnGround = player.isTouching.ground;
@@ -570,9 +566,8 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
 
       const moveForce = isOnGround ? 0.18 : 0.205;
 
-      // if (isInAir) {
-        player.socle.x = player.x
-      // }
+      //socle du joueur qui suit le joueur
+      player.socle.x = player.x
 
       player.ombre.x = player.x
       if (input.escape) {
@@ -646,9 +641,6 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
         player.direction = "gauche"
         player.applyForce({ x: -moveForce, y: 0 });
         player.flipX = true;
-        // player.socle.x = player.x
-        // player.y = player.socle.getTopCenter().y - player.displayHeight / 2
-        // player.socle.x -= 9;
       }
 
       if (input.right && !input.c) {
@@ -656,11 +648,6 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
         player.direction = "droite"
         player.applyForce({ x: moveForce, y: 0 });
         player.flipX = false;
-
-        // player.x = player.socle.getTopCenter().x
-        // player.y = player.socle.getTopCenter().y - player.displayHeight / 2
-        // player.socle.x = player.x;
-
       }
 
       // ESPACE
@@ -674,7 +661,12 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
       }
 
       if (input.up) {
-        player.setScale(player.scale - 0.003);
+        player.socle.y -= 2;
+        console.log("UUPP");
+      }
+
+      if (input.down) {
+        player.socle.y += 2;
       }
 
       //SE REDRESSER

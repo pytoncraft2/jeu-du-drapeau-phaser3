@@ -517,8 +517,8 @@ good.strokePath();
 
     this.cursors.space.isDown ? this.spaceKeyPressed = true : this.spaceKeyPressed = false
 
-    this.cursors.up.isDown ? this.upKeyPressed = true :
-  this.cursors.down.isDown ? this.downKeyPressed = true :
+    this.toucheHaut.isDown ? this.upKeyPressed = true :
+  this.toucheBas.isDown ? this.downKeyPressed = true :
   (this.upKeyPressed = false, this.downKeyPressed = false)
 
 
@@ -527,15 +527,47 @@ good.strokePath();
   (this.leftKeyPressed = false, this.rightKeyPressed = false)
 
 
-  // if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
-  //     this.charge = true;
-  //     this.saut = true;
-  // }
-  //
-  // if (Phaser.Input.Keyboard.JustUp(this.cursors.space)) {
-  //     this.charge = false;
-  //     this.saut = true;
-  // }
+  if (Phaser.Input.Keyboard.JustDown(this.toucheHaut)) {
+    this.socket.emit('playerInput', {
+      left: this.leftKeyPressed,
+      right: this.rightKeyPressed,
+      space: this.spaceKeyPressed,
+      up: this.upKeyPressed,
+      down: this.downKeyPressed
+    });
+  }
+
+  if (Phaser.Input.Keyboard.JustUp(this.toucheHaut)) {
+    this.socket.emit('playerInput', {
+      left: this.leftKeyPressed,
+      right: this.rightKeyPressed,
+      space: this.spaceKeyPressed,
+      up: this.upKeyPressed,
+      down: this.downKeyPressed
+    });
+  }
+
+
+  if (Phaser.Input.Keyboard.JustDown(this.toucheBas)) {
+    this.socket.emit('playerInput', {
+      left: this.leftKeyPressed,
+      right: this.rightKeyPressed,
+      space: this.spaceKeyPressed,
+      up: this.upKeyPressed,
+      down: this.downKeyPressed
+    });
+  }
+
+  if (Phaser.Input.Keyboard.JustUp(this.toucheBas)) {
+    this.socket.emit('playerInput', {
+      left: this.leftKeyPressed,
+      right: this.rightKeyPressed,
+      space: this.spaceKeyPressed,
+      up: this.upKeyPressed,
+      down: this.downKeyPressed
+    });
+  }
+
 
   if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
     this.socket.emit('playerInput', {
@@ -637,6 +669,8 @@ good.strokePath();
         left: this.leftKeyPressed,
         right: this.rightKeyPressed,
         space: this.spaceKeyPressed,
+        up: this.upKeyPressed,
+        down: this.downKeyPressed
       });
     }
 
@@ -646,6 +680,8 @@ good.strokePath();
         left: this.leftKeyPressed,
         right: this.rightKeyPressed,
         space: this.spaceKeyPressed,
+        up: this.upKeyPressed,
+        down: this.downKeyPressed
       });
     }
 
@@ -657,6 +693,8 @@ good.strokePath();
         left: this.leftKeyPressed,
         right: this.rightKeyPressed,
         space: this.spaceKeyPressed,
+        up: this.upKeyPressed,
+        down: this.downKeyPressed
       });
     }
 
@@ -665,6 +703,8 @@ good.strokePath();
         left: this.leftKeyPressed,
         right: this.rightKeyPressed,
         space: this.spaceKeyPressed,
+        up: this.upKeyPressed,
+        down: this.downKeyPressed
       });
     }
 
@@ -736,40 +776,40 @@ good.strokePath();
     /**
      * CANON FEU
      */
-    if (Phaser.Input.Keyboard.JustDown(this.canonKeyPressed)) {
-      this.socket.emit('playerInput', {
-        canonMaintenu: true,
-        canonRelache: false
-      });
-    }
+    // if (Phaser.Input.Keyboard.JustDown(this.canonKeyPressed)) {
+    //   this.socket.emit('playerInput', {
+    //     canonMaintenu: true,
+    //     canonRelache: false
+    //   });
+    // }
 
-    if (Phaser.Input.Keyboard.JustUp(this.specialKeyPressed)) {
-      this.socket.emit('playerInput', {
-        special: true,
-        specialRelache: false,
-      });
-    }
+    // if (Phaser.Input.Keyboard.JustUp(this.specialKeyPressed)) {
+    //   this.socket.emit('playerInput', {
+    //     special: true,
+    //     specialRelache: false,
+    //   });
+    // }
+    //
+    // if (Phaser.Input.Keyboard.JustDown(this.specialKeyPressed)) {
+    //   this.socket.emit('playerInput', {
+    //     special: true,
+    //     specialRelache: true,
+    //   });
+    // }
 
-    if (Phaser.Input.Keyboard.JustDown(this.specialKeyPressed)) {
-      this.socket.emit('playerInput', {
-        special: true,
-        specialRelache: true,
-      });
-    }
 
+    // if (Phaser.Input.Keyboard.JustUp(this.special2KeyPressed)) {
+    //   this.socket.emit('playerInput', {
+    //     special2: true
+    //   });
+    // }
 
-    if (Phaser.Input.Keyboard.JustUp(this.special2KeyPressed)) {
-      this.socket.emit('playerInput', {
-        special2: true
-      });
-    }
-
-    if (Phaser.Input.Keyboard.JustUp(this.canonKeyPressed)) {
-      this.socket.emit('playerInput', {
-        canonMaintenu: false,
-        canonRelache: true
-      });
-    }
+    // if (Phaser.Input.Keyboard.JustUp(this.canonKeyPressed)) {
+    //   this.socket.emit('playerInput', {
+    //     canonMaintenu: false,
+    //     canonRelache: true
+    //   });
+    // }
 
     /**
      * ZOOM DE LA CAMERA
