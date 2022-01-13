@@ -352,7 +352,7 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
 
   //platforme principal
   let soclePlatformeGauche = self.add.zone(0, 327, 210, 210).setSize(3500, 40);
-  let soclePlatformeDroit = self.add.zone(7000, -1363, 210, 210).setSize(3500, 40);
+  let soclePlatformeDroit = self.add.zone(-379, -363, 210, 210).setSize(3500, 40);
 
 
 
@@ -400,8 +400,9 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
     socket.on("nouveau_joueur", (room, equipe, atlas) => {
       equipe == "A"
 
-      let x = equipe == "A" ? -379 : 7000
-      let y = equipe == "A" ? 137 : -1553
+      // let x = equipe == "A" ? -379 : 7000
+      let x = -379
+      let y = equipe == "A" ? 137 : -553
 
       socket.join(room);
       socket.room = room;
