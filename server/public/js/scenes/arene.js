@@ -382,6 +382,9 @@ good.strokePath();
              }
              self.bullet.setPosition(players[id].bulletX, players[id].bulletY)
 
+             player.socle.x = players[id].socleX;
+             player.socle.y = players[id].socleY;
+
              if (self.bulletCanon) {
                self.bulletCanon.x = players[id].bulletCanonX
                self.bulletCanon.y = players[id].bulletCanonY
@@ -882,6 +885,12 @@ good.strokePath();
     joueur.body.collisionFilter.group = Phaser.Math.Between(1, 10)
     joueur.body.collisionFilter.mask = 0
 
+    joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -55, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
+    var socle = self.matter.add.gameObject(joueur.socle);
+    socle.setIgnoreGravity(true).setStatic(true)
+
+
+    // joueur.socle = self.add.rectangle(0, 0 ,joueur.displayWidth/2, joueur.displayHeight, 0x0e88bd, 0.5).setDepth(400);
     let couleur = playerInfo.equipe == "A" ? 0x0ea733 : 0x0e88bd
     let position = playerInfo.equipe == "A" ? {
       x: -79,

@@ -351,7 +351,7 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
   evenement.on('fin-de-partie', finDePartie, this)
 
   //platforme principal
-  let soclePlatformeGauche = self.add.zone(0, 327, 210, 210).setSize(3500, 40);
+  // let soclePlatformeGauche = self.add.zone(0, 327, 210, 210).setSize(3500, 40);
   let soclePlatformeDroit = self.add.zone(-379, -363, 210, 210).setSize(3500, 40);
 
 
@@ -362,8 +362,8 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
    * 2: joueur
    */
 
-  var socleJoueur = self.matter.add.gameObject(soclePlatformeGauche);
-  socleJoueur.setIgnoreGravity(true).setStatic(true).setFriction(0.01).setCollisionGroup(2).setCollidesWith(CATEGORIE_JOUEUR)
+  // var socleJoueur = self.matter.add.gameObject(soclePlatformeGauche);
+  // socleJoueur.setIgnoreGravity(true).setStatic(true).setFriction(0.01).setCollisionGroup(2).setCollidesWith(CATEGORIE_JOUEUR)
   // socleJoueur2.setIgnoreGravity(true).setStatic(true).setFriction(0.01).setCollisionGroup(2).setCollidesWith(CATEGORIE_JOUEUR)
 
   var socleJoueur3 = self.matter.add.gameObject(soclePlatformeDroit);
@@ -557,6 +557,10 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
     });
 
     this.players["Naruto"].getChildren().forEach((player) => {
+      // console.log(player.socle.x);
+      // console.log(player.x);
+
+
       const input = players[player.arene][player.playerId].input;
 
       const isOnGround = player.isTouching.ground;
@@ -565,6 +569,10 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
       // const moveForce = isOnGround ? 9.28 : 0;
 
       const moveForce = isOnGround ? 0.18 : 0.205;
+
+      // if (isInAir) {
+        player.socle.x = player.x
+      // }
 
       player.ombre.x = player.x
       if (input.escape) {
@@ -638,6 +646,9 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
         player.direction = "gauche"
         player.applyForce({ x: -moveForce, y: 0 });
         player.flipX = true;
+        // player.socle.x = player.x
+        // player.y = player.socle.getTopCenter().y - player.displayHeight / 2
+        // player.socle.x -= 9;
       }
 
       if (input.right && !input.c) {
@@ -645,6 +656,11 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
         player.direction = "droite"
         player.applyForce({ x: moveForce, y: 0 });
         player.flipX = false;
+
+        // player.x = player.socle.getTopCenter().x
+        // player.y = player.socle.getTopCenter().y - player.displayHeight / 2
+        // player.socle.x = player.x;
+
       }
 
       // ESPACE
@@ -755,6 +771,10 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
       players[player.arene][player.playerId].ombreX = player.ombre.x;
       players[player.arene][player.playerId].ombreScale = player.ombre.scale;
       players[player.arene][player.playerId].ombreAlpha = player.ombre.alpha;
+
+      players[player.arene][player.playerId].socleX = player.socle.x;
+      players[player.arene][player.playerId].socleY = player.socle.y;
+
       players[player.arene][player.playerId].bulletX = this.bullet.x;
       players[player.arene][player.playerId].bulletY = this.bullet.y;
       players[player.arene][player.playerId].rotation = player.rotation;
@@ -942,6 +962,11 @@ function addPlayer(self, playerInfo) {
   joueur.puissanceBonus = playerInfo.puissanceBonus;
   joueur.puissanceDeBase = playerInfo.puissanceDeBase;
   joueur.attaqueFrame = playerInfo.attaqueFrame
+  joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -55, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
+  var socle = self.matter.add.gameObject(joueur.socle);
+  socle.setIgnoreGravity(true).setStatic(true)
+  // joueur.setCollisionGroup(3).setCollidesWith(joueur.playerId)
+
   // joueur.setFrictionAir(0.05);
   joueur.setMass(joueur.masse);
   joueur.setFriction(1);
