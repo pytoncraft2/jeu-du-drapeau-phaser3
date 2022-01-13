@@ -969,7 +969,7 @@ function addPlayer(self, playerInfo) {
 
   // joueur.setFrictionAir(0.05);
   joueur.setMass(joueur.masse);
-  joueur.setFriction(1);
+  joueur.setFriction(0);
 
   joueur.zoneAttaque = self.add.rectangle(0, 0 ,joueur.displayWidth/2, joueur.displayHeight, 0x0e88bd, 0.5).setDepth(400);
   joueur.zoneAttaque.x = joueur.getRightCenter().x
@@ -995,7 +995,7 @@ function addPlayer(self, playerInfo) {
     parts: [joueur.mainBody, joueur.sensors.bottom, joueur.sensors.left, joueur.sensors.right],
     frictionStatic: 1.4,
     frictionAir: 0.12,
-    friction: 0.9,
+    friction: 0,
     // The offset here allows us to control where the sprite is placed relative to the
     // matter body's x and y - here we want the sprite centered over the matter body.
     render: {
