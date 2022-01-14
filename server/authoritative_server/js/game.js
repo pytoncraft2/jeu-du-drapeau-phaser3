@@ -662,6 +662,7 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
 
       if (input.up) {
         player.socle.y -= 2;
+        if (player.scale > 0.5) player.scale -= 0.5
         console.log("UUPP");
       }
 
@@ -755,7 +756,7 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
       players[player.arene][player.playerId].y = player.y;
       players[player.arene][player.playerId].frame = player.anims.getFrameName();
       players[player.arene][player.playerId].flipX = player.flipX;
-      // players[player.arene][player.playerId].scale = player.scale;
+      players[player.arene][player.playerId].scale = player.scale;
       players[player.arene][player.playerId].displayWidth = player.displayWidth;
       players[player.arene][player.playerId].displayHeight = player.displayHeight;
       players[player.arene][player.playerId].tint = player.tintBottomLeft;

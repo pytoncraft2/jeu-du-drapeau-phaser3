@@ -366,7 +366,7 @@ good.strokePath();
            if (players[id].playerId === player.playerId) {
 
              player.flipX = (players[id].flipX);
-             // player.setDisplaySize(players[id].displayWidth, players[id].displayHeight);
+             player.setScale(players[id].scale);
              player.setTint(players[id].tint);
              player.zoneAttaque.setPosition(players[id].zoneAX, players[id].zoneAY)
              // player.setVelocity(players[id].velocityX, players[id].velocityY);
