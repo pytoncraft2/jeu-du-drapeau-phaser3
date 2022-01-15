@@ -668,30 +668,12 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
 
       if (input.up) {
         player.socle.y -= 2;
-
-        if (player.scaleAugmentation > 0.1) {
-          player.scaleAugmentation -= 0.1
-        }
-        let width = 500;
-const percent = Phaser.Math.Clamp(player.scaleAugmentation, 0, 100)
-
-// Phaser.Math.Clamp(player.scaleAugmentation, 0.1, 1)
-// Phaser.Math.Clamp(player.scaleAugmentation, 0.1, 1)
-console.log("_____________");
-console.log(width * percent)
-
+        player.scaleAugmentation -= 0.001
       }
 
       if (input.down) {
         player.socle.y += 2;
-        // const percent =
-        player.scaleAugmentation += 0.1
-        let width = 500;
-        const percent = Phaser.Math.Clamp(player.scaleAugmentation, 0, 100)
-
-        // Phaser.Math.Clamp(player.scaleAugmentation, 0.1, 1)
-        // Phaser.Math.Clamp(player.scaleAugmentation, 0.1, 1)
-        console.log(width * percent)
+        player.scaleAugmentation += 0.001
       }
 
       //SE REDRESSER
