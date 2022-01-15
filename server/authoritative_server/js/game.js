@@ -35,7 +35,9 @@ parametres['dessinatrice1'] = {
     displayHeight: 302,
     masse: 30,
     puissanceDeBase: 10,
-    attaqueFrame: "positiona3"
+    attaqueFrame: "positiona3",
+    defaultScale: 0.4,
+    scaleAugmentation: 0
   },
   toucheA: (charge, scene, player) => {
     attaque(scene, player, charge)
@@ -67,7 +69,9 @@ parametres['naruto'] = {
     displayHeight: 300,
     masse: 25,
     puissanceDeBase: 8,
-    attaqueFrame: "positiona3"
+    attaqueFrame: "positiona3",
+    defaultScale: 0.4,
+    scaleAugmentation: 0
   },
   toucheA: (charge, scene, player) => {
     attaque(scene, player, charge)
@@ -102,7 +106,9 @@ parametres['ninja'] = {
     displayHeight: 140,
     masse: 10,
     puissanceDeBase: 12,
-    attaqueFrame: "positiona1"
+    attaqueFrame: "positiona1",
+    defaultScale: 0.4,
+    scaleAugmentation: 0
   },
   toucheA: (charge, scene, player) => {
     attaque(scene, player, charge)
@@ -662,12 +668,30 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
 
       if (input.up) {
         player.socle.y -= 2;
-        if (player.scale > 0.5) player.scale -= 0.5
-        console.log("UUPP");
+
+        if (player.scaleAugmentation > 0.1) {
+          player.scaleAugmentation -= 0.1
+        }
+        let width = 500;
+const percent = Phaser.Math.Clamp(player.scaleAugmentation, 0, 100)
+
+// Phaser.Math.Clamp(player.scaleAugmentation, 0.1, 1)
+// Phaser.Math.Clamp(player.scaleAugmentation, 0.1, 1)
+console.log("_____________");
+console.log(width * percent)
+
       }
 
       if (input.down) {
         player.socle.y += 2;
+        // const percent =
+        player.scaleAugmentation += 0.1
+        let width = 500;
+        const percent = Phaser.Math.Clamp(player.scaleAugmentation, 0, 100)
+
+        // Phaser.Math.Clamp(player.scaleAugmentation, 0.1, 1)
+        // Phaser.Math.Clamp(player.scaleAugmentation, 0.1, 1)
+        console.log(width * percent)
       }
 
       //SE REDRESSER
@@ -756,7 +780,8 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
       players[player.arene][player.playerId].y = player.y;
       players[player.arene][player.playerId].frame = player.anims.getFrameName();
       players[player.arene][player.playerId].flipX = player.flipX;
-      players[player.arene][player.playerId].scale = player.scale;
+      // players[player.arene][player.playerId].scale = player.scale;
+      players[player.arene][player.playerId].scale = player.defaultScale + player.scaleAugmentation;
       players[player.arene][player.playerId].displayWidth = player.displayWidth;
       players[player.arene][player.playerId].displayHeight = player.displayHeight;
       players[player.arene][player.playerId].tint = player.tintBottomLeft;
@@ -955,6 +980,9 @@ function addPlayer(self, playerInfo) {
   joueur.puissanceBonus = playerInfo.puissanceBonus;
   joueur.puissanceDeBase = playerInfo.puissanceDeBase;
   joueur.attaqueFrame = playerInfo.attaqueFrame
+  joueur.defaultScale = playerInfo.defaultScale;
+  joueur.scaleAugmentation = playerInfo.scaleAugmentation;
+
   joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -55, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
   var socle = self.matter.add.gameObject(joueur.socle);
   socle.setIgnoreGravity(true).setStatic(true)
