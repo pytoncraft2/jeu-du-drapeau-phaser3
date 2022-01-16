@@ -357,7 +357,7 @@ const Arene = new Phaser.Class({
              player.setScale(players[id].scale);
              player.setTint(players[id].tint);
              player.setDepth(players[id].depth);
-             // player.zoneAttaque.setPosition(players[id].zoneAX, players[id].zoneAY)
+             player.zoneAttaque.setPosition(players[id].zoneAX, players[id].zoneAY)
              player.setPosition(players[id].x, players[id].y);
              player.setRotation(players[id].rotation);
              player.setFlipX(players[id].flipX);
@@ -466,7 +466,6 @@ const Arene = new Phaser.Class({
      this.zoom7 = this.input.keyboard.addKey('THREE');
      this.zoom8 = this.input.keyboard.addKey('TWO');
      this.zoom9 = this.input.keyboard.addKey('ONE');
-     this.ouvrirMap = this.input.keyboard.addKey('TAB');
      this.vKeyPressed = this.input.keyboard.addKey('V');
      this.xKeyPressed = this.input.keyboard.addKey('X');
      this.canonKeyPressed = this.input.keyboard.addKey('C');
@@ -489,8 +488,6 @@ const Arene = new Phaser.Class({
 
      this.cameras.main.setZoom(0.5);
 
-     this.minimap = this.cameras.add(200, 10, 1900, 100).setZoom(0.2).setName('mini');
-     this.minimap.setBackgroundColor(0x000000);
 
    },
 
@@ -837,12 +834,6 @@ const Arene = new Phaser.Class({
     }
 
 
-    if (Phaser.Input.Keyboard.JustDown(this.ouvrirMap)) {
-      this.minimap.setAlpha(this.minimap.alpha == 0 ? 1 : 0)
-    }
-
-
-
 
   },
 
@@ -922,7 +913,7 @@ const Arene = new Phaser.Class({
 
     joueur.setFrictionAir(0.05);
     joueur.setMass(30);
-    // joueur.zoneAttaque = self.add.rectangle(0, 0 ,joueur.displayWidth/2, joueur.displayHeight, 0x0e88bd, 0.5).setDepth(400);
+    joueur.zoneAttaque = self.add.rectangle(0, 0 ,joueur.displayWidth/2, joueur.displayHeight, 0x0e88bd, 0.5).setDepth(400);
     joueur.body.collisionFilter.group = Phaser.Math.Between(1, 100)
     joueur.body.collisionFilter.mask = 0
 

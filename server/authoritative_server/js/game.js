@@ -669,13 +669,14 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
         player.socle.y -= 2;
         player.scaleAugmentation -= 0.001
         player.depth -= 0.001;
-        // player.setDepth(player.depth + 1);
+        player.play('goback', true)
       }
 
       if (input.down) {
         player.socle.y += 2;
         player.scaleAugmentation += 0.001
         player.depth += 0.001;
+        player.play('front', true)
       }
 
       //SE REDRESSER
@@ -1465,7 +1466,6 @@ function interactionTonneauDrapeau(scene, player) {
 
     overlap(scene, [...scene.tonneaux.getChildren(), ...scene.drapeaux.getChildren()], player.zoneAttaque, (objet1, objet2) => {
   if (Object.keys(constraints[player.playerId]['tonneau']).length == 0) {
-
       if (objet1.gameObject.name == "tonneau") {
         objet1.gameObject.body.collisionFilter.mask = 0
         objet1.gameObject.setFixedRotation().setIgnoreGravity(true)
@@ -1479,15 +1479,11 @@ function interactionTonneauDrapeau(scene, player) {
           duration: 500
         })
       }
-
-
   }
   else {
     scene.matter.world.removeConstraint(constraints[player.playerId]['tonneau']);
     constraints[player.playerId]['tonneau'] = {}
   }
-
-
 })
 
 //FONTAINE
