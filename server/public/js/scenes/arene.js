@@ -49,22 +49,6 @@ const Arene = new Phaser.Class({
    */
    create: function() {
 
-var chargeInfoInt = this.add.graphics({ fillStyle: { color: 0xaa0000} });
-var chargeInfoExt = this.add.graphics({ fillStyle: { color: 0xf1c232} });
-var chargeInfoVert = this.add.graphics({ fillStyle: { color: 0x15a815} });
-
-var cercleChargeInterieur = this.add.circle(400, 300, 20, 0xaa0000);
-var cercleChargeExterieur = this.add.circle(400, 300, 20, 0x15a815);
-
-cercleChargeInterieur.setDepth(200);
-cercleChargeExterieur.setDepth(201).setAlpha(0);
-
-this.tween = this.tweens.add({
-  targets: cercleChargeExterieur,
-  alpha: 1,
-  yoyo: true,
-  duration: 3000
-})
 
 
 
@@ -383,11 +367,15 @@ this.tween = this.tweens.add({
              player.ombre.setAlpha(players[id].ombreAlpha);
              player.ombre.setScale(players[id].ombreScale);
 
+
+             player.cercleChargeExterieur.setAlpha(players[id].chargeEnCours)
+             // console.log(player.cercleChargeExterieur);
+
              // if (player.chargeEnCours != 0) {
              // player.chargeEnCours = (players[id].chargeEnCours);
              // console.log(player.chargeEnCours);
              // }
-             console.log(players[id].chargeEnCours);
+             // console.log(players[id].chargeEnCours);
 
              if (players[id].frame != "") {
                player.setFrame(players[id].frame);
@@ -927,6 +915,24 @@ this.tween = this.tweens.add({
     joueur.equipe = playerInfo.equipe;
     joueur.vieEquipe = playerInfo.vieEquipe;
     joueur.vie = playerInfo.vie;
+
+    // var chargeInfoInt = this.add.graphics({ fillStyle: { color: 0xaa0000} });
+// var chargeInfoExt = this.add.graphics({ fillStyle: { color: 0xf1c232} });
+// var chargeInfoVert = this.add.graphics({ fillStyle: { color: 0x15a815} });
+
+// var cercleChargeInterieur = this.add.circle(400, 300, 20, 0xaa0000);
+  joueur.cercleChargeExterieur = self.add.circle(400, 300, 20, 0x15a815);
+
+// joueur.cercleChargeInterieur.setDepth(200);
+joueur.cercleChargeExterieur.setDepth(201).setAlpha(0);
+
+// this.tween = this.tweens.add({
+//   targets: joueur.cercleChargeExterieur,
+//   alpha: 1,
+//   yoyo: true,
+//   duration: 3000
+// })
+
     joueur.chargeEnCours = playerInfo.chargeEnCours,
 
 
