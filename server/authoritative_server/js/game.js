@@ -1405,8 +1405,8 @@ function recevoirDegat(scene, player) {
        if (frame.textureFrame == player.attaqueFrame)
        {
          player.flipX ?
-         (player.zoneAttaque.x = player.getLeftCenter().x - 0, player.zoneAttaque.y = player.getLeftCenter().y)
-         : (player.zoneAttaque.x = player.getRightCenter().x + 0, player.zoneAttaque.y = player.getRightCenter().y)
+         (player.zoneAttaque.x = player.getLeftCenter().x - 28, player.zoneAttaque.y = player.getLeftCenter().y)
+         : (player.zoneAttaque.x = player.getRightCenter().x + 28, player.zoneAttaque.y = player.getRightCenter().y)
 
          overlap(scene, [...scene.players['Naruto'].getChildren(), ...scene.tonneaux.getChildren()], player.zoneAttaque, (objet1, objet2) => {
            if(objet1.gameObject.playerId !== player.playerId) {
