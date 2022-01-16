@@ -572,7 +572,7 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
 
       //socle du joueur qui suit le joueur
       player.socle.x = player.x
-      player.cercleChargeExterieur.setPosition(player.socle.x - 35, player.y - player.displayHeight / 2)
+      player.cercleChargeExterieur.setPosition(player.flipX ? player.socle.x + 45 : player.socle.x - 45, player.y - player.displayHeight / 2)
 
       player.ombre.x = player.x
       if (input.escape) {
@@ -786,6 +786,7 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
       players[player.arene][player.playerId].cercleChargeY = player.cercleChargeExterieur.y;
 
       players[player.arene][player.playerId].cercleChargeScale = player.cercleChargeInterieur.scale;
+      // players[player.arene][player.playerId].cercleChargeDepth = player.depth;
 
       if (this.bulletCanon) {
         players[player.arene][player.playerId].bulletCanonY = this.bulletCanon.y
@@ -962,7 +963,7 @@ function resetChargeCercle(tween, joueur) {
   tween.add({
     targets: joueur.cercleChargeInterieur,
     scale: 0,
-    duration: 600
+    duration: 300
   })
 }
 
