@@ -368,6 +368,7 @@ good.strokePath();
              player.flipX = (players[id].flipX);
              player.setScale(players[id].scale);
              player.setTint(players[id].tint);
+             player.setDepth(players[id].depth);
              player.zoneAttaque.setPosition(players[id].zoneAX, players[id].zoneAY)
              // player.setVelocity(players[id].velocityX, players[id].velocityY);
              player.setPosition(players[id].x, players[id].y);
@@ -922,7 +923,7 @@ good.strokePath();
     joueur.setFrictionAir(0.05);
     joueur.setMass(30);
     joueur.zoneAttaque = self.add.rectangle(0, 0 ,joueur.displayWidth/2, joueur.displayHeight, 0x0e88bd, 0.5).setDepth(400);
-    joueur.body.collisionFilter.group = Phaser.Math.Between(1, 10)
+    joueur.body.collisionFilter.group = Phaser.Math.Between(1, 100)
     joueur.body.collisionFilter.mask = 0
 
     joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -55, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);

@@ -666,11 +666,14 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
       if (input.up) {
         player.socle.y -= 2;
         player.scaleAugmentation -= 0.001
+        player.depth -= 0.001;
+        // player.setDepth(player.depth + 1);
       }
 
       if (input.down) {
         player.socle.y += 2;
         player.scaleAugmentation += 0.001
+        player.depth += 0.001;
       }
 
       //SE REDRESSER
@@ -775,6 +778,7 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
       players[player.arene][player.playerId].bulletX = this.bullet.x;
       players[player.arene][player.playerId].bulletY = this.bullet.y;
       players[player.arene][player.playerId].rotation = player.rotation;
+      players[player.arene][player.playerId].depth = player.depth;
 
       if (this.bulletCanon) {
         players[player.arene][player.playerId].bulletCanonY = this.bulletCanon.y
@@ -940,6 +944,7 @@ function addPlayer(self, playerInfo) {
 
 
   var cat1 = self.matter.world.nextCategory();
+  var cat2 = self.matter.world.nextCategory();
 
   const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, 'dessinatrice1', 'face0').setDisplaySize(playerInfo.displayWidth, playerInfo.displayHeight).setAlpha(1)
 
@@ -986,7 +991,7 @@ function addPlayer(self, playerInfo) {
   if (playerInfo.equipe == "A") {
     socle.setCollisionGroup(group1).setCollisionCategory(cat1).setCollidesWith(cat1);
   } else {
-    socle.setCollisionGroup(group2).setCollisionCategory(cat1).setCollidesWith(cat1);
+    socle.setCollisionGroup(group1).setCollisionCategory(cat2).setCollidesWith(cat1);
   }
 // .setCollisionGroup(group1).setCollisionCategory(cat1).setCollidesWith(cat1)
 
@@ -1040,7 +1045,7 @@ function addPlayer(self, playerInfo) {
   if (playerInfo.equipe == "A") {
   joueur.setCollisionGroup(group1).setCollisionCategory(cat1).setCollidesWith(cat1);
 } else {
-  joueur.setCollisionGroup(group2).setCollisionCategory(cat1).setCollidesWith(cat1);
+  joueur.setCollisionGroup(group1).setCollisionCategory(cat2).setCollidesWith(cat1);
 }
 
 
