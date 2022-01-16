@@ -941,6 +941,21 @@ function overlap(scene, elements, cible, callback) {
 }
 
 /**
+ * Rendre invisible le cercle qui indique la charge du joueur
+ * @param {Object} tween  animation Phaser pour diminuer la taille du cercle
+ * @param {Object} joueur joueur a qui rendre invisible son cercle de charge
+ */
+
+function resetChargeCercle(tween, joueur) {
+  joueur.chargeEnCours = 0
+  tween.add({
+    targets: joueur.cercleChargeInterieur,
+    scale: 0,
+    duration: 600
+  })
+}
+
+/**
  * Ajout du joueur à la scene Phaser
  * @param {Object} self       Phaser.scene
  * @param {Object} playerInfo parametres special du joueur (atlas, equipe ...)
@@ -1214,6 +1229,10 @@ function saut(scene, player, chargeSaut, isOnGround, isInAir) {
       from: 0,
       to: 100,
       duration: 800,
+      onUpdate: tween => {
+        player.chargeEnCours = tween.totalProgress
+        player.cercleChargeInterieur.setScale(player.chargeEnCours)
+      }
     })
 
     chargeSaut = false;
@@ -1397,13 +1416,9 @@ function recevoirDegat(scene, player) {
          if (fontainezone2.contains(player.x, player.y)) {
            evenement.emit('changement-vie-equipe', "A", puissance + player.puissanceBonus, player.puissanceDeBase)
          }
-         player.chargeEnCours = 0
-         // player.cercleChargeInterieur.setScale(0)
-         scene.tweens.add({
-           targets: player.cercleChargeInterieur,
-           scale: 0,
-           duration: 600
-         })
+
+
+         resetChargeCercle(scene.tweens, player)
 
 
          player.off(Phaser.Animations.Events.ANIMATION_UPDATE, startHit)

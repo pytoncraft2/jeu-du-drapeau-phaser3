@@ -365,7 +365,6 @@ const Arene = new Phaser.Class({
              player.ombre.x = players[id].ombreX;
              player.ombre.setAlpha(players[id].ombreAlpha);
              player.ombre.setScale(players[id].ombreScale);
-             console.log(player.depth);
 
              player.cercleChargeExterieur.setAlpha(players[id].chargeEnCours)
              player.cercleChargeExterieur.setPosition(players[id].cercleChargeX, players[id].cercleChargeY)
