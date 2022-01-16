@@ -370,8 +370,6 @@ const Arene = new Phaser.Class({
              player.cercleChargeExterieur.setPosition(players[id].cercleChargeX, players[id].cercleChargeY)
              player.cercleChargeInterieur.setPosition(players[id].cercleChargeX, players[id].cercleChargeY)
              player.cercleChargeInterieur.setScale(players[id].cercleChargeScale)
-             player.cercleChargeInterieur.setDepth(players[id].depth + 0.1)
-             // player.cercleChargeExterieur.setDepth(players[id].cercleChargeDepth)
 
              if (players[id].frame != "") {
                player.setFrame(players[id].frame);

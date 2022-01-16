@@ -786,7 +786,6 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
       players[player.arene][player.playerId].cercleChargeY = player.cercleChargeExterieur.y;
 
       players[player.arene][player.playerId].cercleChargeScale = player.cercleChargeInterieur.scale;
-      // players[player.arene][player.playerId].cercleChargeDepth = player.depth;
 
       if (this.bulletCanon) {
         players[player.arene][player.playerId].bulletCanonY = this.bulletCanon.y
