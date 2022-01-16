@@ -1045,7 +1045,7 @@ function addPlayer(self, playerInfo) {
   if (playerInfo.equipe == "A") {
   joueur.setCollisionGroup(group1).setCollisionCategory(cat1).setCollidesWith(cat1);
 } else {
-  joueur.setCollisionGroup(group1).setCollisionCategory(cat2).setCollidesWith(cat1);
+  joueur.setCollisionGroup(group1).setCollisionCategory(cat2).setCollidesWith(cat2);
 }
 
 
