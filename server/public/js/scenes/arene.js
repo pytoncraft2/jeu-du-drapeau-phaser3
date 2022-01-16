@@ -357,7 +357,7 @@ const Arene = new Phaser.Class({
              player.setScale(players[id].scale);
              player.setTint(players[id].tint);
              player.setDepth(players[id].depth);
-             player.zoneAttaque.setPosition(players[id].zoneAX, players[id].zoneAY)
+             // player.zoneAttaque.setPosition(players[id].zoneAX, players[id].zoneAY)
              // player.setVelocity(players[id].velocityX, players[id].velocityY);
              player.setPosition(players[id].x, players[id].y);
              player.setRotation(players[id].rotation);
@@ -942,7 +942,7 @@ joueur.cercleChargeExterieur.setDepth(201).setAlpha(0);
 
     joueur.setFrictionAir(0.05);
     joueur.setMass(30);
-    joueur.zoneAttaque = self.add.rectangle(0, 0 ,joueur.displayWidth/2, joueur.displayHeight, 0x0e88bd, 0.5).setDepth(400);
+    // joueur.zoneAttaque = self.add.rectangle(0, 0 ,joueur.displayWidth/2, joueur.displayHeight, 0x0e88bd, 0.5).setDepth(400);
     joueur.body.collisionFilter.group = Phaser.Math.Between(1, 100)
     joueur.body.collisionFilter.mask = 0
 
