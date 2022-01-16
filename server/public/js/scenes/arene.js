@@ -53,15 +53,15 @@ var chargeInfoInt = this.add.graphics({ fillStyle: { color: 0xaa0000} });
 var chargeInfoExt = this.add.graphics({ fillStyle: { color: 0xf1c232} });
 var chargeInfoVert = this.add.graphics({ fillStyle: { color: 0x15a815} });
 
-var cercleChargeInterieur = this.add.circle(400, 300, 80, 0x9966ff);
-var cercleChargeExterieur = this.add.circle(400, 300, 1, 0x15a815);
+var cercleChargeInterieur = this.add.circle(400, 300, 20, 0xaa0000);
+var cercleChargeExterieur = this.add.circle(400, 300, 20, 0x15a815);
 
-cercleChargeInterieur.setStrokeStyle(4, 0xefc53f).setDepth(200);
-cercleChargeExterieur.setDepth(201);
+cercleChargeInterieur.setDepth(200);
+cercleChargeExterieur.setDepth(201).setAlpha(0);
 
 this.tween = this.tweens.add({
   targets: cercleChargeExterieur,
-  scale: 90,
+  alpha: 1,
   yoyo: true,
   duration: 3000
 })
