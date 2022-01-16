@@ -466,6 +466,7 @@ const Arene = new Phaser.Class({
      this.zoom7 = this.input.keyboard.addKey('THREE');
      this.zoom8 = this.input.keyboard.addKey('TWO');
      this.zoom9 = this.input.keyboard.addKey('ONE');
+     this.ouvrirMap = this.input.keyboard.addKey('TAB');
      this.vKeyPressed = this.input.keyboard.addKey('V');
      this.xKeyPressed = this.input.keyboard.addKey('X');
      this.canonKeyPressed = this.input.keyboard.addKey('C');
@@ -488,6 +489,8 @@ const Arene = new Phaser.Class({
 
      this.cameras.main.setZoom(0.5);
 
+     this.minimap = this.cameras.add(200, 10, 1900, 100).setZoom(0.2).setName('mini');
+     this.minimap.setBackgroundColor(0x000000);
 
    },
 
@@ -832,6 +835,12 @@ const Arene = new Phaser.Class({
     if (Phaser.Input.Keyboard.JustDown(this.zoom9)) {
       this.cameras.main.zoomTo(0.9, 1000)
     }
+
+
+    if (Phaser.Input.Keyboard.JustDown(this.ouvrirMap)) {
+      this.minimap.setAlpha(this.minimap.alpha == 0 ? 1 : 0)
+    }
+
 
 
 
