@@ -160,7 +160,7 @@ const config = {
       matter: {
         debug: false,
         gravity: {
-          y: 9,
+          y: 12,
         },
       },
       arcade: {
@@ -567,7 +567,8 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
       // Adjust the movement so that the player is slower in the air
       // const moveForce = isOnGround ? 9.28 : 0;
 
-      const moveForce = isOnGround ? 0.18 : 0.205;
+      // const moveForce = isOnGround ? 0.18 : 0.405;
+      const moveForce = isOnGround ? 0.18 : 0.305;
 
       //socle du joueur qui suit le joueur
       player.socle.x = player.x
@@ -1196,7 +1197,7 @@ function toupie(tweens, player) {
 function saut(scene, player, chargeSaut, isOnGround, isInAir) {
   var puissance
   if (chargeSaut) {
-    if (player.body.speed < 3) {
+    if (player.body.speed < 5) {
       player.play('sautPreparation')
     }
     scene.tweenSaut = scene.tweens.addCounter({
@@ -1211,14 +1212,14 @@ function saut(scene, player, chargeSaut, isOnGround, isInAir) {
     if (scene.tweenSaut.isPlaying()) {
       scene.tweenSaut.stop()
     }
-    if (player.body.speed < 1) {
+    if (player.body.speed < 3) {
       player.play('saut')
     } else {
       player.play('jump')
     }
 
     if (isOnGround) {
-      player.setVelocity( player.body.speed > 3 ? (player.flipX ? -puissance * 2: puissance * 2) : 0, -puissance * 2)
+      player.setVelocity( player.body.speed > 5 ? (player.flipX ? -puissance * 2: puissance * 2) : 0, -puissance * 2)
       player.jumpCounter = 0;
     } else if (isInAir) {
       if (player.jumpCounter == 0) {
