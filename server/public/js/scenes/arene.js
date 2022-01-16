@@ -367,7 +367,7 @@ const Arene = new Phaser.Class({
              player.ombre.setAlpha(players[id].ombreAlpha);
              player.ombre.setScale(players[id].ombreScale);
 
-             // player.cercleChargeExterieur.setAlpha(players[id].chargeEnCours)
+             player.cercleChargeExterieur.setAlpha(players[id].chargeEnCours)
              player.cercleChargeExterieur.setPosition(players[id].cercleChargeX, players[id].cercleChargeY)
              player.cercleChargeInterieur.setPosition(players[id].cercleChargeX, players[id].cercleChargeY)
              player.cercleChargeInterieur.setScale(players[id].cercleChargeScale)
@@ -927,7 +927,7 @@ joueur.cercleChargeInterieur = this.add.circle(400, 300, 20, 0xeed510);
   joueur.cercleChargeExterieur = self.add.circle(400, 300, 20, 0x15a815);
 
 joueur.cercleChargeInterieur.setDepth(201);
-joueur.cercleChargeExterieur.setDepth(200).setAlpha(1);
+joueur.cercleChargeExterieur.setDepth(200).setAlpha(0);
 
 // this.tween = this.tweens.add({
 //   targets: joueur.cercleChargeInterieur,
