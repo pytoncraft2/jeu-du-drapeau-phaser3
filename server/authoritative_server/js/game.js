@@ -1241,6 +1241,7 @@ function saut(scene, player, chargeSaut, isOnGround, isInAir) {
     if (player.tweenSaut.isPlaying()) {
       player.tweenSaut.stop()
     }
+      resetChargeCercle(scene.tweens, player)
     if (player.body.speed < 3) {
       player.play('saut')
     } else {
