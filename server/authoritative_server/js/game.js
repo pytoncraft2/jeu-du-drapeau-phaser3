@@ -1027,8 +1027,8 @@ function addPlayer(self, playerInfo) {
   };
   joueur.compoundBody = Body.create({
     parts: [joueur.mainBody, joueur.sensors.bottom, joueur.sensors.left, joueur.sensors.right],
-    frictionStatic: 1.4,
-    frictionAir: 0.12,
+    frictionStatic: 0,
+    frictionAir: 0.25,
     friction: 0,
     // The offset here allows us to control where the sprite is placed relative to the
     // matter body's x and y - here we want the sprite centered over the matter body.
