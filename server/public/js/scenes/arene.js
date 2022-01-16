@@ -922,18 +922,19 @@ const Arene = new Phaser.Class({
 // var chargeInfoExt = this.add.graphics({ fillStyle: { color: 0xf1c232} });
 // var chargeInfoVert = this.add.graphics({ fillStyle: { color: 0x15a815} });
 
-joueur.cercleChargeInterieur = this.add.circle(400, 300, 20, 0xaa0000);
+joueur.cercleChargeInterieur = this.add.circle(400, 300, 20, 0xeed510);
   joueur.cercleChargeExterieur = self.add.circle(400, 300, 20, 0x15a815);
 
-joueur.cercleChargeInterieur.setDepth(200);
-joueur.cercleChargeExterieur.setDepth(201).setAlpha(0);
+joueur.cercleChargeInterieur.setDepth(201);
+joueur.cercleChargeExterieur.setDepth(200).setAlpha(0);
 
-// this.tween = this.tweens.add({
-//   targets: joueur.cercleChargeExterieur,
-//   alpha: 1,
-//   yoyo: true,
-//   duration: 3000
-// })
+this.tween = this.tweens.add({
+  targets: joueur.cercleChargeInterieur,
+  scale: 0,
+  yoyo: true,
+  duration: 3000,
+  repeat: 20,
+})
 
     joueur.chargeEnCours = playerInfo.chargeEnCours,
 
