@@ -958,7 +958,7 @@ function activeIndicationChargeCercle(tween, player) {
  * @param {Object} joueur joueur a qui rendre invisible son cercle de charge
  */
 
-function resetChargeCercle(tween, joueur) {
+function desactiveIndicationChargeCercle(tween, joueur) {
   joueur.chargeEnCours = 0
   tween.add({
     targets: joueur.cercleChargeInterieur,
@@ -1252,7 +1252,7 @@ function saut(scene, player, chargeSaut, isOnGround, isInAir) {
     if (player.tweenSaut.isPlaying()) {
       player.tweenSaut.stop()
     }
-      resetChargeCercle(scene.tweens, player)
+      desactiveIndicationChargeCercle(scene.tweens, player)
     if (player.body.speed < 3) {
       player.play('saut')
     } else {
@@ -1429,7 +1429,7 @@ function recevoirDegat(scene, player) {
          }
 
 
-         resetChargeCercle(scene.tweens, player)
+         desactiveIndicationChargeCercle(scene.tweens, player)
 
 
          player.off(Phaser.Animations.Events.ANIMATION_UPDATE, startHit)
