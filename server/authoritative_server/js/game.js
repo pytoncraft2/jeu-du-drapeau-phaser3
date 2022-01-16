@@ -1296,72 +1296,82 @@ function recevoirDegat(scene, player) {
    console.log("YYY");
    console.log(player.y);
    if (charge) {
-     player.tweenAttaque = scene.tweens.timeline({
-       tweens: [{
-         targets: player,
-         alpha: 0.35,
-         ease: 'Power1',
-         duration: 200
-       },
-       {
-         targets: player,
-         ease: 'Power1',
-         alpha: 0.58,
-         duration: 200
-       },
-       {
-         targets: player,
-         ease: 'Power1',
-         alpha: 0.34,
-         duration: 200
-       },
-       {
-         targets: player,
-         ease: 'Power1',
-         alpha: 0.58,
-         duration: 200
-       },
-       {
-         targets: player,
-         alpha: 0.35,
-         ease: 'Power1',
-         duration: 200,
-       },
-       {
-         targets: player,
-         ease: 'Power1',
-         alpha: 0.58,
-         duration: 200
-       },
-       {
-         targets: player,
-         alpha: 0.30,
-         ease: 'Power1',
-         duration: 200,
-       },
-       {
-         targets: player,
-         alpha: 0.80,
-         ease: 'Power1',
-         duration: 200,
-       },
-       {
-         targets: player,
-         alpha: 0.54,
-         ease: 'Power1',
-         duration: 200,
-       },
-       {
-         targets: player,
-         alpha: 0.80,
-         ease: 'Power1',
-         duration: 200,
-       }],
-       onComplete: () => (player.setTint(0xffa500).setAlpha(1)),
+     player.tweenAttaque = scene.tweens.add({
+       targets: player.cercleChargeExterieur,
+       alpha: 1,
+       onComplete: () => (player.setTint(0xffa500), player.cercleChargeExterieur.setAlpha(0)),
        onUpdate: tween => {
          player.chargeEnCours = tween.totalProgress
        },
-     });
+       duration: 2000
+     })
+
+     // player.tweenAttaque = scene.tweens.timeline({
+     //   tweens: [{
+     //     targets: player,
+     //     alpha: 0.35,
+     //     ease: 'Power1',
+     //     duration: 200
+     //   },
+     //   {
+     //     targets: player,
+     //     ease: 'Power1',
+     //     alpha: 0.58,
+     //     duration: 200
+     //   },
+     //   {
+     //     targets: player,
+     //     ease: 'Power1',
+     //     alpha: 0.34,
+     //     duration: 200
+     //   },
+     //   {
+     //     targets: player,
+     //     ease: 'Power1',
+     //     alpha: 0.58,
+     //     duration: 200
+     //   },
+     //   {
+     //     targets: player,
+     //     alpha: 0.35,
+     //     ease: 'Power1',
+     //     duration: 200,
+     //   },
+     //   {
+     //     targets: player,
+     //     ease: 'Power1',
+     //     alpha: 0.58,
+     //     duration: 200
+     //   },
+     //   {
+     //     targets: player,
+     //     alpha: 0.30,
+     //     ease: 'Power1',
+     //     duration: 200,
+     //   },
+     //   {
+     //     targets: player,
+     //     alpha: 0.80,
+     //     ease: 'Power1',
+     //     duration: 200,
+     //   },
+     //   {
+     //     targets: player,
+     //     alpha: 0.54,
+     //     ease: 'Power1',
+     //     duration: 200,
+     //   },
+     //   {
+     //     targets: player,
+     //     alpha: 0.80,
+     //     ease: 'Power1',
+     //     duration: 200,
+     //   }],
+     //   onComplete: () => (player.setTint(0xffa500).setAlpha(1)),
+     //   onUpdate: tween => {
+     //     player.chargeEnCours = tween.totalProgress
+     //   },
+     // });
 
      player.play('idle_attack', true)
      charge = false;
