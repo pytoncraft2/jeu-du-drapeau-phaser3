@@ -193,7 +193,6 @@ function create() {
 
 
   this.tween = null;
-  this.tweenSaut = null;
   this.graph = this.add.graphics();
 
   this.vieEquipe = {
@@ -1211,7 +1210,7 @@ function saut(scene, player, chargeSaut, isOnGround, isInAir) {
     if (player.body.speed < 5) {
       player.play('sautPreparation')
     }
-    scene.tweenSaut = scene.tweens.addCounter({
+    player.tweenSaut = scene.tweens.addCounter({
       from: 0,
       to: 100,
       duration: 800,
@@ -1219,9 +1218,9 @@ function saut(scene, player, chargeSaut, isOnGround, isInAir) {
 
     chargeSaut = false;
   } else {
-      puissance = scene.tweenSaut.getValue()
-    if (scene.tweenSaut.isPlaying()) {
-      scene.tweenSaut.stop()
+      puissance = player.tweenSaut.getValue()
+    if (player.tweenSaut.isPlaying()) {
+      player.tweenSaut.stop()
     }
     if (player.body.speed < 3) {
       player.play('saut')
@@ -1297,7 +1296,7 @@ function recevoirDegat(scene, player) {
    console.log("YYY");
    console.log(player.y);
    if (charge) {
-     scene.tween = scene.tweens.timeline({
+     player.tweenAttaque = scene.tweens.timeline({
        tweens: [{
          targets: player,
          alpha: 0.35,
@@ -1367,10 +1366,10 @@ function recevoirDegat(scene, player) {
      player.play('idle_attack', true)
      charge = false;
    } else {
-     let puissance = scene.tween.totalProgress;
+     let puissance = player.tweenAttaque.totalProgress;
      player.clearTint()
-     if (scene.tween.isPlaying()) {
-       scene.tween.stop()
+     if (player.tweenAttaque.isPlaying()) {
+       player.tweenAttaque.stop()
        player.setAlpha(1)
      }
      player.play('attack', true)
@@ -1385,7 +1384,7 @@ function recevoirDegat(scene, player) {
          overlap(scene, [...scene.players['Naruto'].getChildren(), ...scene.tonneaux.getChildren()], player.zoneAttaque, (objet1, objet2) => {
            if(objet1.gameObject.playerId !== player.playerId) {
              if (objet1.gameObject.playerId) {
-               gestionAttaque(objet1.gameObject.vie, objet1.gameObject.playerId, scene.tweens, puissance, objet1.gameObject.flipX)
+               gestionAttaque(objet1.gameObject.vie, objet1.gameObject.playerId, player.tweenAttaque, puissance, objet1.gameObject.flipX)
              }
              if (objet1.gameObject.name == "tonneau") {
                gestionTonneaux(puissance, player.flipX, objet1.gameObject)
