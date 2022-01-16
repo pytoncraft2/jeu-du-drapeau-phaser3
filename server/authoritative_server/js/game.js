@@ -572,7 +572,7 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
 
       //socle du joueur qui suit le joueur
       player.socle.x = player.x
-      player.cercleChargeExterieur.setPosition(player.socle.x - 35, player.socle.y - player.displayHeight - 24)
+      player.cercleChargeExterieur.setPosition(player.socle.x - 35, player.y - player.displayHeight / 2)
 
       player.ombre.x = player.x
       if (input.escape) {
