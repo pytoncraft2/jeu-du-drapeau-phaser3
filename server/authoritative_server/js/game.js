@@ -437,6 +437,7 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
           right: false,
           ground: false
         },
+        chargeEnCours: 0,
         canJump: true,
         jumpCounter: 0,
         jumpCooldownTimer: null,
@@ -780,6 +781,7 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
       players[player.arene][player.playerId].bulletY = this.bullet.y;
       players[player.arene][player.playerId].rotation = player.rotation;
       players[player.arene][player.playerId].depth = player.depth;
+      players[player.arene][player.playerId].chargeEnCours = player.chargeEnCours;
 
       if (this.bulletCanon) {
         players[player.arene][player.playerId].bulletCanonY = this.bulletCanon.y
@@ -977,6 +979,8 @@ function addPlayer(self, playerInfo) {
   joueur.attaqueFrame = playerInfo.attaqueFrame
   joueur.defaultScale = playerInfo.defaultScale;
   joueur.scaleAugmentation = playerInfo.scaleAugmentation;
+  joueur.chargeEnCours = playerInfo.chargeEnCours,
+
 
   //  Here we'll create Group 2:
   //  This is a non-colliding group, so objects in this Group never collide:
@@ -1347,8 +1351,10 @@ function recevoirDegat(scene, player) {
          ease: 'Power1',
          duration: 200,
        }],
-       onComplete: () => (player.setTint(0xffa500).setAlpha(1))
-
+       onComplete: () => (player.setTint(0xffa500).setAlpha(1)),
+       onUpdate: tween => {
+         player.chargeEnCours = tween.totalProgress
+       },
      });
 
      player.play('idle_attack', true)

@@ -53,54 +53,19 @@ var chargeInfoInt = this.add.graphics({ fillStyle: { color: 0xaa0000} });
 var chargeInfoExt = this.add.graphics({ fillStyle: { color: 0xf1c232} });
 var chargeInfoVert = this.add.graphics({ fillStyle: { color: 0x15a815} });
 
-
-var circleInt = new Phaser.Geom.Circle(0, 0, 120);
-chargeInfoInt.clear();
-chargeInfoInt.fillCircleShape(circleInt);
-chargeInfoInt.setDepth(200)
-
-this.circleExt = new Phaser.Geom.Circle(0, 0, 70);
-chargeInfoExt.clear();
-chargeInfoExt.fillCircleShape(this.circleExt);
-chargeInfoExt.setDepth(200)
-
-// this.tweens.addCounter({
-//   from: 0,
-//   to: 10,
-//   duration: 3000,
-//   ease: Phaser.Math.Easing.Sine.InOut,
-//   onUpdate: tween => {
-//     const value = tween.getValue()
-//     this.setChargeInfo(value)
-//   },
-// })
-this.tween = this.tweens.add({
-  targets: chargeInfoExt,
-  alpha: 0.4,
-  displayWidth: 300,
-  duration: 3000
-})
-
-
-     // var good = this.add.graphics();
-
-// good.lineStyle(20, 0xff00ff, 1);
-
-//  Without this the arc will appear closed when stroked
-// good.beginPath();
-
-// arc (x, y, radius, startAngle, endAngle, anticlockwise)
-// good.arc(400, 300, 200, Phaser.Math.DegToRad(20), Phaser.Math.DegToRad(180), true);
-//  Uncomment this to close the path before stroking
-// graphics.closePath();
-
-// good.strokePath();
-
 var cercleChargeInterieur = this.add.circle(400, 300, 80, 0x9966ff);
-var cercleChargeExterieur = this.add.circle(400, 300, 20, 0x15a815);
+var cercleChargeExterieur = this.add.circle(400, 300, 1, 0x15a815);
 
 cercleChargeInterieur.setStrokeStyle(4, 0xefc53f).setDepth(200);
 cercleChargeExterieur.setDepth(201);
+
+this.tween = this.tweens.add({
+  targets: cercleChargeExterieur,
+  scale: 90,
+  yoyo: true,
+  duration: 3000
+})
+
 
 
      this.vieEquipeA = 100
@@ -417,6 +382,13 @@ cercleChargeExterieur.setDepth(201);
              player.ombre.x = players[id].ombreX;
              player.ombre.setAlpha(players[id].ombreAlpha);
              player.ombre.setScale(players[id].ombreScale);
+
+             // if (player.chargeEnCours != 0) {
+             // player.chargeEnCours = (players[id].chargeEnCours);
+             // console.log(player.chargeEnCours);
+             // }
+             console.log(players[id].chargeEnCours);
+
              if (players[id].frame != "") {
                player.setFrame(players[id].frame);
              }
@@ -955,7 +927,7 @@ cercleChargeExterieur.setDepth(201);
     joueur.equipe = playerInfo.equipe;
     joueur.vieEquipe = playerInfo.vieEquipe;
     joueur.vie = playerInfo.vie;
-
+    joueur.chargeEnCours = playerInfo.chargeEnCours,
 
 
     self.setVieEquipeA(playerInfo.vieEquipe["A"])
