@@ -573,6 +573,7 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
 
       //socle du joueur qui suit le joueur
       player.socle.x = player.x
+      player.cercleChargeExterieur.setPosition(player.socle.x - 35, player.socle.y - player.displayHeight - 24)
 
       player.ombre.x = player.x
       if (input.escape) {
@@ -782,6 +783,8 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
       players[player.arene][player.playerId].rotation = player.rotation;
       players[player.arene][player.playerId].depth = player.depth;
       players[player.arene][player.playerId].chargeEnCours = player.chargeEnCours;
+      players[player.arene][player.playerId].cercleChargeX = player.cercleChargeExterieur.x;
+      players[player.arene][player.playerId].cercleChargeY = player.cercleChargeExterieur.y;
 
       if (this.bulletCanon) {
         players[player.arene][player.playerId].bulletCanonY = this.bulletCanon.y
@@ -980,6 +983,10 @@ function addPlayer(self, playerInfo) {
   joueur.defaultScale = playerInfo.defaultScale;
   joueur.scaleAugmentation = playerInfo.scaleAugmentation;
   joueur.chargeEnCours = playerInfo.chargeEnCours,
+
+  joueur.cercleChargeExterieur = self.add.circle(400, 300, 20, 0x15a815);
+  joueur.cercleChargeExterieur.setAlpha(0);
+
 
 
   //  Here we'll create Group 2:
