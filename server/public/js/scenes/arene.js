@@ -49,6 +49,39 @@ const Arene = new Phaser.Class({
    */
    create: function() {
 
+var chargeInfoInt = this.add.graphics({ fillStyle: { color: 0xaa0000} });
+var chargeInfoExt = this.add.graphics({ fillStyle: { color: 0xf1c232} });
+var chargeInfoVert = this.add.graphics({ fillStyle: { color: 0x15a815} });
+
+
+var circleInt = new Phaser.Geom.Circle(0, 0, 120);
+chargeInfoInt.clear();
+chargeInfoInt.fillCircleShape(circleInt);
+chargeInfoInt.setDepth(200)
+
+this.circleExt = new Phaser.Geom.Circle(0, 0, 70);
+chargeInfoExt.clear();
+chargeInfoExt.fillCircleShape(this.circleExt);
+chargeInfoExt.setDepth(200)
+
+// this.tweens.addCounter({
+//   from: 0,
+//   to: 10,
+//   duration: 3000,
+//   ease: Phaser.Math.Easing.Sine.InOut,
+//   onUpdate: tween => {
+//     const value = tween.getValue()
+//     this.setChargeInfo(value)
+//   },
+// })
+this.tween = this.tweens.add({
+  targets: chargeInfoExt,
+  alpha: 0.4,
+  displayWidth: 300,
+  duration: 3000
+})
+
+
      var good = this.add.graphics();
 
 good.lineStyle(20, 0xff00ff, 1);
@@ -917,6 +950,8 @@ good.strokePath();
     joueur.vieEquipe = playerInfo.vieEquipe;
     joueur.vie = playerInfo.vie;
 
+
+
     self.setVieEquipeA(playerInfo.vieEquipe["A"])
     self.setVieEquipeB(playerInfo.vieEquipe["B"])
 
@@ -954,8 +989,17 @@ good.strokePath();
       }
     }
   },
-
-
+  setChargeInfo: function(value) {
+   const width = 500
+   const percent = Phaser.Math.Clamp(value, 0, 100) / 100
+   this.barreEquipeA.clear()
+   this.barreEquipeA.fillStyle(0xd00b0b)
+   this.barreEquipeA.fillRoundedRect(1700, -330, width, 20, 5).setScrollFactor(0)
+   if (percent > 0) {
+     this.barreEquipeA.fillStyle(0x0e88bd)
+     this.barreEquipeA.fillRoundedRect(1700, -330, width * percent, 20, 5)
+   }
+ },
 
   /**
    * Change la barre de vie de l'equipe A avec une animation
