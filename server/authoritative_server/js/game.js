@@ -192,7 +192,6 @@ function preload() {
 function create() {
 
 
-
   this.tween = null;
   this.tweenSaut = null;
   this.graph = this.add.graphics();
@@ -300,7 +299,6 @@ function create() {
 
   drapeauBleu = this.matter.add.gameObject(matDrapeauBleu);
   drapeauBleu.setFixedRotation().setIgnoreGravity(true)
-  drapeauBleu.body.collisionFilter.mask = 42
   drapeauBleu.id = 1;
   drapeauBleu.name = "A"
 
@@ -310,7 +308,6 @@ function create() {
   drapeauVert.id = 2;
   drapeauVert.name = "B"
 
-  drapeauVert.body.collisionFilter.mask = 44
   this.drapeaux.addMultiple([drapeauVert, drapeauBleu]);
 
   // matDrapeauBleu = this.matter.add.image(-4848.428561331542, -1043.2723001427164, 'matDrapeauBleu').setDepth(1)
@@ -373,7 +370,7 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
   // socleJoueur2.setIgnoreGravity(true).setStatic(true).setFriction(0.01).setCollisionGroup(2).setCollidesWith(CATEGORIE_JOUEUR)
 
   var socleJoueur3 = self.matter.add.gameObject(soclePlatformeDroit);
-  socleJoueur3.setIgnoreGravity(true).setStatic(true).setFriction(0.01).setCollisionGroup(2).setCollidesWith(CATEGORIE_JOUEUR)
+  socleJoueur3.setIgnoreGravity(true).setStatic(true).setFriction(0.01)
   // socleJoueur4.setIgnoreGravity(true).setStatic(true).setFriction(0.01).setCollisionGroup(2).setCollidesWith(CATEGORIE_JOUEUR)
 
 
@@ -841,7 +838,6 @@ function reapparaitre(id) {
   joueur.vie = parametres[joueur.atlas].etatInitial.vie
   let x = joueur.equipe == "A" ? -379 : 7000
   let y = joueur.equipe == "A" ? 100 : -1600
-  joueur.setCollisionGroup(6).setCollidesWith(4)
 
 
   io.to("Naruto").emit("fin_de_vie", id, joueur.vie);
@@ -852,7 +848,7 @@ function reapparaitre(id) {
       y: { value: y, delay: 1000, duration: 1500, ease: 'Power2' },
       x: { value: x, delay: 1000, duration: 1500, ease: 'Power2'},
     },
-   onComplete: () => joueur.setAlpha(1).setCollisionGroup(CATEGORIE_JOUEUR).setCollidesWith(-1).setRotation(0),
+   onComplete: () => joueur.setAlpha(1).setRotation(0),
     ease: 'Sine.easeInOut'
   });
 }
@@ -939,7 +935,21 @@ function overlap(scene, elements, cible, callback) {
  * @param {Object} playerInfo parametres special du joueur (atlas, equipe ...)
  */
 function addPlayer(self, playerInfo) {
-  const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, 'dessinatrice1', 'face0').setDisplaySize(playerInfo.displayWidth, playerInfo.displayHeight).setAlpha(1);
+  var group1 = self.matter.world.nextGroup();
+
+  var cat1 = self.matter.world.nextCategory();
+
+  const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, 'dessinatrice1', 'face0').setDisplaySize(playerInfo.displayWidth, playerInfo.displayHeight).setAlpha(1)
+  if (playerInfo.equipe == "A") {
+  joueur.setCollisionGroup(group1).setCollisionCategory(cat1).setCollidesWith(cat1);
+  } else {
+  joueur.setCollisionGroup(group2).setCollisionCategory(cat1).setCollidesWith(cat1);
+  }
+
+
+// var block1 = this.matter.add.image(400, 450, 'strip').setStatic(true);
+// var fish1 = this.matter.add.image(100, 100, 'fish', 0).setVelocityY(10);
+
 
   joueur.playerId = playerInfo.playerId;
   joueur.arene = playerInfo.arene;
@@ -965,9 +975,28 @@ function addPlayer(self, playerInfo) {
   joueur.defaultScale = playerInfo.defaultScale;
   joueur.scaleAugmentation = playerInfo.scaleAugmentation;
 
+  //  Here we'll create Group 2:
+  //  This is a non-colliding group, so objects in this Group never collide:
+  // var group2 = self.matter.world.nextGroup(true);
+
+  //  block2 won't collide with fish2 because they share the same non-colliding group id
+  // var block2 = this.matter.add.image(400, 400, 'strip').setStatic(true).setCollisionGroup(group2);
+  // var fish2 = this.matter.add.image(250, 100, 'fish', 1).setBounce(1).setFriction(0, 0, 0).setCollisionGroup(group2).setVelocityY(10);
+
   joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -55, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
   var socle = self.matter.add.gameObject(joueur.socle);
   socle.setIgnoreGravity(true).setStatic(true)
+  if (playerInfo.equipe == "A") {
+socle.setCollisionGroup(group1).setCollisionCategory(cat1).setCollidesWith(cat1);
+} else {
+socle.setCollisionGroup(group2).setCollisionCategory(cat1).setCollidesWith(cat1);
+}
+// .setCollisionGroup(group1).setCollisionCategory(cat1).setCollidesWith(cat1)
+
+
+//  Assign the new category to block3 and fish3 and tell them they should collide:
+// var block3 = this.matter.add.image(400, 500, 'strip').setStatic(true).setCollisionCategory(cat1).setCollidesWith(cat1);
+// var fish3 = this.matter.add.image(450, 100, 'fish', 2).setCollisionCategory(cat1).setCollidesWith(cat1);
   // joueur.setCollisionGroup(3).setCollidesWith(joueur.playerId)
 
   // joueur.setFrictionAir(0.05);
@@ -1011,6 +1040,7 @@ function addPlayer(self, playerInfo) {
 
   joueur.setExistingBody(joueur.compoundBody)
   joueur.setPosition(playerInfo.x, playerInfo.y);
+
 
   // let {
   //   displayWidth: w,
