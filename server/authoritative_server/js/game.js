@@ -1394,6 +1394,8 @@ function recevoirDegat(scene, player) {
          if (fontainezone2.contains(player.x, player.y)) {
            evenement.emit('changement-vie-equipe', "A", puissance + player.puissanceBonus, player.puissanceDeBase)
          }
+         player.chargeEnCours = 0
+
          player.off(Phaser.Animations.Events.ANIMATION_UPDATE, startHit)
        }
      }
