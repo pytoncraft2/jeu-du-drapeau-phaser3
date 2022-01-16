@@ -936,15 +936,12 @@ function overlap(scene, elements, cible, callback) {
  */
 function addPlayer(self, playerInfo) {
   var group1 = self.matter.world.nextGroup();
+  var group2 = self.matter.world.nextGroup(true);
+
 
   var cat1 = self.matter.world.nextCategory();
 
   const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, 'dessinatrice1', 'face0').setDisplaySize(playerInfo.displayWidth, playerInfo.displayHeight).setAlpha(1)
-  if (playerInfo.equipe == "A") {
-  joueur.setCollisionGroup(group1).setCollisionCategory(cat1).setCollidesWith(cat1);
-  } else {
-  joueur.setCollisionGroup(group2).setCollisionCategory(cat1).setCollidesWith(cat1);
-  }
 
 
 // var block1 = this.matter.add.image(400, 450, 'strip').setStatic(true);
@@ -987,10 +984,10 @@ function addPlayer(self, playerInfo) {
   var socle = self.matter.add.gameObject(joueur.socle);
   socle.setIgnoreGravity(true).setStatic(true)
   if (playerInfo.equipe == "A") {
-socle.setCollisionGroup(group1).setCollisionCategory(cat1).setCollidesWith(cat1);
-} else {
-socle.setCollisionGroup(group2).setCollisionCategory(cat1).setCollidesWith(cat1);
-}
+    socle.setCollisionGroup(group1).setCollisionCategory(cat1).setCollidesWith(cat1);
+  } else {
+    socle.setCollisionGroup(group2).setCollisionCategory(cat1).setCollidesWith(cat1);
+  }
 // .setCollisionGroup(group1).setCollisionCategory(cat1).setCollidesWith(cat1)
 
 
@@ -1040,6 +1037,12 @@ socle.setCollisionGroup(group2).setCollisionCategory(cat1).setCollidesWith(cat1)
 
   joueur.setExistingBody(joueur.compoundBody)
   joueur.setPosition(playerInfo.x, playerInfo.y);
+  if (playerInfo.equipe == "A") {
+  joueur.setCollisionGroup(group1).setCollisionCategory(cat1).setCollidesWith(cat1);
+} else {
+  joueur.setCollisionGroup(group2).setCollisionCategory(cat1).setCollidesWith(cat1);
+}
+
 
 
   // let {
