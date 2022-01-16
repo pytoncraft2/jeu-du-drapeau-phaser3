@@ -955,11 +955,6 @@ function addPlayer(self, playerInfo) {
 
   const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, 'dessinatrice1', 'face0').setDisplaySize(playerInfo.displayWidth, playerInfo.displayHeight).setAlpha(1)
 
-
-// var block1 = this.matter.add.image(400, 450, 'strip').setStatic(true);
-// var fish1 = this.matter.add.image(100, 100, 'fish', 0).setVelocityY(10);
-
-
   joueur.playerId = playerInfo.playerId;
   joueur.arene = playerInfo.arene;
   joueur.equipe = playerInfo.equipe;

@@ -358,7 +358,6 @@ const Arene = new Phaser.Class({
              player.setTint(players[id].tint);
              player.setDepth(players[id].depth);
              // player.zoneAttaque.setPosition(players[id].zoneAX, players[id].zoneAY)
-             // player.setVelocity(players[id].velocityX, players[id].velocityY);
              player.setPosition(players[id].x, players[id].y);
              player.setRotation(players[id].rotation);
              player.setFlipX(players[id].flipX);
@@ -366,19 +365,12 @@ const Arene = new Phaser.Class({
              player.ombre.x = players[id].ombreX;
              player.ombre.setAlpha(players[id].ombreAlpha);
              player.ombre.setScale(players[id].ombreScale);
+             console.log(player.depth);
 
              player.cercleChargeExterieur.setAlpha(players[id].chargeEnCours)
              player.cercleChargeExterieur.setPosition(players[id].cercleChargeX, players[id].cercleChargeY)
              player.cercleChargeInterieur.setPosition(players[id].cercleChargeX, players[id].cercleChargeY)
              player.cercleChargeInterieur.setScale(players[id].cercleChargeScale)
-
-             // console.log(player.cercleChargeExterieur);
-
-             // if (player.chargeEnCours != 0) {
-             // player.chargeEnCours = (players[id].chargeEnCours);
-             // console.log(player.chargeEnCours);
-             // }
-             // console.log(players[id].chargeEnCours);
 
              if (players[id].frame != "") {
                player.setFrame(players[id].frame);
@@ -400,7 +392,7 @@ const Arene = new Phaser.Class({
      });
 
 
-     this.add.image(-300, 0, 'chambre').setDepth(0);
+     this.add.image(-300, 0, 'chambre').setDepth(-0.05);
 
      this.canon1 = this.add.image(0, -460, 'canon').setDepth(4)
 
@@ -595,17 +587,6 @@ const Arene = new Phaser.Class({
       down: this.downKeyPressed
     });
   }
-
-
-//   if (left !== this.leftKeyPressed ||
-//   right !== this.rightKeyPressed ||
-//   space !== this.spaceKeyPressed) {
-//   this.socket.emit('playerInput', {
-//     left: this.leftKeyPressed,
-//     right: this.rightKeyPressed,
-//     space: this.spaceKeyPressed
-//   });
-// }
 
     /**
      * TIROLIENNE CONTROLE
@@ -919,23 +900,11 @@ const Arene = new Phaser.Class({
     joueur.vieEquipe = playerInfo.vieEquipe;
     joueur.vie = playerInfo.vie;
 
-    // var chargeInfoInt = this.add.graphics({ fillStyle: { color: 0xaa0000} });
-// var chargeInfoExt = this.add.graphics({ fillStyle: { color: 0xf1c232} });
-// var chargeInfoVert = this.add.graphics({ fillStyle: { color: 0x15a815} });
+    joueur.cercleChargeInterieur = this.add.circle(400, 300, 20, 0xeed510);
+    joueur.cercleChargeExterieur = self.add.circle(400, 300, 20, 0x15a815);
 
-joueur.cercleChargeInterieur = this.add.circle(400, 300, 20, 0xeed510);
-  joueur.cercleChargeExterieur = self.add.circle(400, 300, 20, 0x15a815);
-
-joueur.cercleChargeInterieur.setDepth(201);
-joueur.cercleChargeExterieur.setDepth(200).setAlpha(0);
-
-// this.tween = this.tweens.add({
-//   targets: joueur.cercleChargeInterieur,
-//   scale: 0,
-//   yoyo: true,
-//   duration: 3000,
-//   repeat: 20,
-// })
+    joueur.cercleChargeInterieur.setDepth(201);
+    joueur.cercleChargeExterieur.setDepth(200).setAlpha(0);
 
     joueur.chargeEnCours = playerInfo.chargeEnCours,
 
