@@ -785,6 +785,8 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
       players[player.arene][player.playerId].cercleChargeX = player.cercleChargeExterieur.x;
       players[player.arene][player.playerId].cercleChargeY = player.cercleChargeExterieur.y;
 
+      players[player.arene][player.playerId].cercleChargeScale = player.cercleChargeInterieur.scale;
+
       if (this.bulletCanon) {
         players[player.arene][player.playerId].bulletCanonY = this.bulletCanon.y
         players[player.arene][player.playerId].bulletCanonX = this.bulletCanon.x
@@ -983,8 +985,10 @@ function addPlayer(self, playerInfo) {
   joueur.scaleAugmentation = playerInfo.scaleAugmentation;
   joueur.chargeEnCours = playerInfo.chargeEnCours,
 
+  joueur.cercleChargeInterieur = self.add.circle(400, 300, 20, 0xeed510);
   joueur.cercleChargeExterieur = self.add.circle(400, 300, 20, 0x15a815);
   joueur.cercleChargeExterieur.setAlpha(0);
+
 
 
 
@@ -1356,6 +1360,7 @@ function recevoirDegat(scene, player) {
        onComplete: () => (player.setTint(0xffa500).setAlpha(1)),
        onUpdate: tween => {
          player.chargeEnCours = tween.totalProgress
+         player.cercleChargeInterieur.setScale(player.chargeEnCours)
        },
      });
 
