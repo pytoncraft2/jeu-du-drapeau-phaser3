@@ -941,6 +941,17 @@ function overlap(scene, elements, cible, callback) {
 }
 
 /**
+ * Affiche  le cercle qui indique la charge courante du joueur
+ * @param  {Object} tween  valeur de la progression de l'animation en cours qui permet de definir la taille du cercle
+ * @param  {Object} player joueur auquel on augmente le cercle
+ */
+
+function activeIndicationChargeCercle(tween, player) {
+  player.chargeEnCours = tween.totalProgress
+  player.cercleChargeInterieur.setScale(player.chargeEnCours)
+}
+
+/**
  * Rendre invisible le cercle qui indique la charge du joueur
  * @param {Object} tween  animation Phaser pour diminuer la taille du cercle
  * @param {Object} joueur joueur a qui rendre invisible son cercle de charge
@@ -1230,8 +1241,7 @@ function saut(scene, player, chargeSaut, isOnGround, isInAir) {
       to: 100,
       duration: 800,
       onUpdate: tween => {
-        player.chargeEnCours = tween.totalProgress
-        player.cercleChargeInterieur.setScale(player.chargeEnCours)
+        activeIndicationChargeCercle(tween, player)
       }
     })
 
@@ -1375,8 +1385,7 @@ function recevoirDegat(scene, player) {
        }],
        onComplete: () => (player.setTint(0xffa500).setAlpha(1)),
        onUpdate: tween => {
-         player.chargeEnCours = tween.totalProgress
-         player.cercleChargeInterieur.setScale(player.chargeEnCours)
+         activeIndicationChargeCercle(tween, player)
        },
      });
 
