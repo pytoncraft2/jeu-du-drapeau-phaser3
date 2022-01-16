@@ -987,6 +987,7 @@ function addPlayer(self, playerInfo) {
 
   joueur.cercleChargeInterieur = self.add.circle(400, 300, 20, 0xeed510);
   joueur.cercleChargeExterieur = self.add.circle(400, 300, 20, 0x15a815);
+  joueur.cercleChargeInterieur.setScale(0)
   joueur.cercleChargeExterieur.setAlpha(0);
 
 
@@ -1402,6 +1403,13 @@ function recevoirDegat(scene, player) {
            evenement.emit('changement-vie-equipe', "A", puissance + player.puissanceBonus, player.puissanceDeBase)
          }
          player.chargeEnCours = 0
+         // player.cercleChargeInterieur.setScale(0)
+         scene.tweens.add({
+           targets: player.cercleChargeInterieur,
+           scale: 0,
+           duration: 600
+         })
+
 
          player.off(Phaser.Animations.Events.ANIMATION_UPDATE, startHit)
        }
