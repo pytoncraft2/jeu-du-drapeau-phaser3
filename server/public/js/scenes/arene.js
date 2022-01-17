@@ -337,6 +337,8 @@ const Arene = new Phaser.Class({
 
      this.socket.on('playerUpdates', function(players, tonneaux, drapeaux) {
 
+
+
        Object.keys(drapeaux).forEach((id) => {
          self.drapeaux.getChildren().forEach((drapeau) => {
            if (drapeaux[id].id === drapeau.id) {
@@ -366,7 +368,7 @@ const Arene = new Phaser.Class({
              player.setScale(players[id].scale);
              player.setTint(players[id].tint);
              player.setDepth(players[id].depth);
-             player.zoneAttaque.setPosition(players[id].zoneAX, players[id].zoneAY)
+             // player.zoneAttaque.setPosition(players[id].zoneAX, players[id].zoneAY)
              player.setPosition(players[id].x, players[id].y);
              player.setRotation(players[id].rotation);
              player.setFlipX(players[id].flipX);
@@ -393,7 +395,7 @@ const Arene = new Phaser.Class({
                self.bulletCanon.y = players[id].bulletCanonY
                self.bulletCanon.setScale(players[id].bulletCanonScale)
              }
-             self.canon1.setAngle(players[id].canonAngle)
+             // self.canon1.setAngle(players[id].canonAngle)
            }
          });
        });
@@ -412,6 +414,27 @@ const Arene = new Phaser.Class({
 
      chambre.mask = new Phaser.Display.Masks.BitmapMask(this, spotlight);
 
+     var graphics = this.add.graphics({ fillStyle:{ color: 0xaa0000 } });
+var rect = new Phaser.Geom.Rectangle(chambre.x - chambre.width/2, chambre.y - chambre.height/2, chambre.width, chambre.height);
+
+graphics.fillRectShape(rect);
+
+this.input.on('pointermove', function (pointer) {
+
+    graphics.clear();
+
+    if(rect.contains(pointer.x, pointer.y))
+    {
+        graphics.fillStyle(0x0000aa);
+    }
+    else
+    {
+        graphics.fillStyle(0xaa0000);
+    }
+
+    graphics.fillRectShape(rect);
+
+});
      // this.input.on('pointermove', function (pointer) {
      //
      //     spotlight.x = pointer.x;
@@ -422,9 +445,9 @@ const Arene = new Phaser.Class({
 
 
 
-     this.canon1 = this.add.image(0, -460, 'canon').setDepth(4)
+     // this.canon1 = this.add.image(0, -460, 'canon').setDepth(4)
 
-     let canonSocle1 = this.add.image(0, -340, 'canon-socle').setDepth(3)
+     // let canonSocle1 = this.add.image(0, -340, 'canon-socle').setDepth(3)
      let platforme1 = this.add.image(0, 290, 'platforme').setDepth(-2)
 
      var g1 = this.add.graphics();
@@ -448,7 +471,7 @@ const Arene = new Phaser.Class({
      this.matter.add.mouseSpring();
 
      this.groupeBullets = this.add.group();
-     this.bulletCanon = this.groupeBullets.create(this.canon1.x, this.canon1.y + 20, 'bullet').setScale(0.2).setDepth(100).setTintFill(0xff0000)
+     this.bulletCanon = this.groupeBullets.create(0, 0, 'bullet').setScale(0.2).setDepth(100).setTintFill(0xff0000)
 
      this.bullet = this.add.image(1210, -400, 'bullet').setDepth(2);
 
@@ -942,7 +965,7 @@ const Arene = new Phaser.Class({
 
     joueur.setFrictionAir(0.05);
     joueur.setMass(30);
-    joueur.zoneAttaque = self.add.rectangle(0, 0 ,joueur.displayWidth/2, joueur.displayHeight, 0x0e88bd, 0.5).setDepth(400);
+    // joueur.zoneAttaque = self.add.rectangle(0, 0 ,joueur.displayWidth/2, joueur.displayHeight, 0x0e88bd, 0.5).setDepth(400);
     joueur.body.collisionFilter.group = Phaser.Math.Between(1, 100)
     joueur.body.collisionFilter.mask = 0
 
