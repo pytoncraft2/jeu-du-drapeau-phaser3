@@ -574,7 +574,10 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
       player.socle.x = player.x
       player.cercleChargeExterieur.setPosition(player.flipX ? player.socle.x + 45 : player.socle.x - 45, player.y - player.displayHeight / 2)
 
-      player.ombre.x = player.x
+        player.ombre.x = player.getBottomCenter().x
+      if (isOnGround) {
+        player.ombre.y = player.getBottomCenter().y
+      }
       if (input.escape) {
         this.matter.world.localWorld.constraints = []
         this.matter.world.removeConstraint(constraints[player.playerId]['tonneau']);
@@ -772,6 +775,7 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
       players[player.arene][player.playerId].tint = player.tintBottomLeft;
       players[player.arene][player.playerId].alpha = player.alpha;
       players[player.arene][player.playerId].ombreX = player.ombre.x;
+      players[player.arene][player.playerId].ombreY = player.ombre.y;
       players[player.arene][player.playerId].ombreScale = player.ombre.scale;
       players[player.arene][player.playerId].ombreAlpha = player.ombre.alpha;
 

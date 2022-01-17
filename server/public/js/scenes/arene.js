@@ -380,6 +380,7 @@ const Arene = new Phaser.Class({
              player.setFlipX(players[id].flipX);
              player.setAlpha(players[id].alpha);
              player.ombre.x = players[id].ombreX;
+             player.ombre.y = players[id].ombreY;
              player.ombre.setAlpha(players[id].ombreAlpha);
              player.ombre.setScale(players[id].ombreScale);
 
@@ -985,7 +986,9 @@ this.input.on('pointermove', function (pointer) {
 
 
     // joueur.socle = self.add.rectangle(0, 0 ,joueur.displayWidth/2, joueur.displayHeight, 0x0e88bd, 0.5).setDepth(400);
-    let couleur = playerInfo.equipe == "A" ? 0x0ea733 : 0x0e88bd
+
+    let couleur = 0x00000;
+    // let couleur = playerInfo.equipe == "A" ? 0x0ea733 : 0x0e88bd
     let position = playerInfo.equipe == "A" ? {
       x: -79,
       y: 327
