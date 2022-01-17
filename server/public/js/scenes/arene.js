@@ -998,6 +998,9 @@ this.input.on('pointermove', function (pointer) {
     }
 
     joueur.ombre = self.add.ellipse(position.x, position.y - 30, 100, 20, couleur).setAlpha(0.8).setDepth(-1);
+
+    joueur.mask = new Phaser.Display.Masks.BitmapMask(this, spotlight);
+
     self.players.add(joueur);
     if (iscurrent) {
       self.cameras.main.startFollow(joueur);
