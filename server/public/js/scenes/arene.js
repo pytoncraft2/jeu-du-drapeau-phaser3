@@ -455,7 +455,7 @@ this.input.on('pointermove', function (pointer) {
      // this.canon1 = this.add.image(0, -460, 'canon').setDepth(4)
 
      // let canonSocle1 = this.add.image(0, -340, 'canon-socle').setDepth(3)
-     let platforme1 = this.add.image(0, 290, 'platforme').setDepth(-2)
+     // let platforme1 = this.add.image(0, 290, 'platforme').setDepth(-2)
 
      var g1 = this.add.graphics();
 
