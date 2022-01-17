@@ -14,6 +14,7 @@ import Animations from './elements/liste-animations.js'
 import Maison from './elements/objets/maison.js'
 
 var gfx
+var rect
 var player;
 var spotlight;
 
@@ -338,7 +339,6 @@ const Arene = new Phaser.Class({
      this.socket.on('playerUpdates', function(players, tonneaux, drapeaux) {
 
 
-
        Object.keys(drapeaux).forEach((id) => {
          self.drapeaux.getChildren().forEach((drapeau) => {
            if (drapeaux[id].id === drapeau.id) {
@@ -357,12 +357,18 @@ const Arene = new Phaser.Class({
          });
        })
 
+       if (self.players.getChildren()[0]) {
+         if (rect.contains(self.players.getChildren()[0].getBottomCenter().x, self.players.getChildren()[0].getBottomCenter().y)) {
+           spotlight.x = self.players.getChildren()[0].x;
+           spotlight.y = self.players.getChildren()[0].y;
+         }
+       }
+
+
        Object.keys(players).forEach((id) => {
          self.players.getChildren().forEach(function(player) {
            if (players[id].playerId === player.playerId) {
 
-             spotlight.x = players[id].x;
-             spotlight.y = players[id].y;
 
              player.flipX = (players[id].flipX);
              player.setScale(players[id].scale);
@@ -415,9 +421,9 @@ const Arene = new Phaser.Class({
      chambre.mask = new Phaser.Display.Masks.BitmapMask(this, spotlight);
 
      var graphics = this.add.graphics({ fillStyle:{ color: 0xaa0000 } });
-var rect = new Phaser.Geom.Rectangle(chambre.x - chambre.width/2, chambre.y - chambre.height/2, chambre.width, chambre.height);
+rect = new Phaser.Geom.Rectangle(chambre.x - chambre.width/2, chambre.y - chambre.height/2, chambre.width, chambre.height);
 
-graphics.fillRectShape(rect);
+// graphics.fillRectShape(rect);
 
 this.input.on('pointermove', function (pointer) {
 
@@ -432,7 +438,7 @@ this.input.on('pointermove', function (pointer) {
         graphics.fillStyle(0xaa0000);
     }
 
-    graphics.fillRectShape(rect);
+    // graphics.fillRectShape(rect);
 
 });
      // this.input.on('pointermove', function (pointer) {
@@ -551,6 +557,10 @@ this.input.on('pointermove', function (pointer) {
    * @fires EvenementTouches
    */
   update: function() {
+
+
+
+
 
 
     const left = this.leftKeyPressed,
