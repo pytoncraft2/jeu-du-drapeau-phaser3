@@ -15,6 +15,7 @@ import Maison from './elements/objets/maison.js'
 
 var gfx
 var player;
+var spotlight;
 
 const Arene = new Phaser.Class({
 
@@ -50,6 +51,11 @@ const Arene = new Phaser.Class({
    create: function() {
 
 
+     // this.add.image(100, 60, 'logo');
+
+     // const pic = this.add.image(400, 300, 'pic');
+
+     // this.add.image(100, 260, 'logo');
 
 
      this.vieEquipeA = 100
@@ -353,6 +359,9 @@ const Arene = new Phaser.Class({
          self.players.getChildren().forEach(function(player) {
            if (players[id].playerId === player.playerId) {
 
+             spotlight.x = players[id].x;
+             spotlight.y = players[id].y;
+
              player.flipX = (players[id].flipX);
              player.setScale(players[id].scale);
              player.setTint(players[id].tint);
@@ -391,7 +400,27 @@ const Arene = new Phaser.Class({
      });
 
 
-     this.add.image(-300, 0, 'chambre').setDepth(-0.05);
+     const chambre = this.add.image(-300, 0, 'chambre').setDepth(-0.05);
+
+     spotlight = this.make.sprite({
+         x: 1200,
+         y: 1200,
+         scale: 4,
+         key: 'mask',
+         add: false
+     });
+
+     chambre.mask = new Phaser.Display.Masks.BitmapMask(this, spotlight);
+
+     // this.input.on('pointermove', function (pointer) {
+     //
+     //     spotlight.x = pointer.x;
+     //     spotlight.y = pointer.y;
+     //
+     // });
+
+
+
 
      this.canon1 = this.add.image(0, -460, 'canon').setDepth(4)
 

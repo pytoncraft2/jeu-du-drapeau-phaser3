@@ -87,6 +87,9 @@ const BootScene = new Phaser.Class({
     // this.load.atlas('ennemy', 'assets0/personnages/dessinatrice1/dessinatrice1.png', 'assets/personnages/dessinatrice1/dessinatrice1_atlas.json');
     // this.load.atlas('dessinatrice1', 'assets0/personnages/dessinatrice1/dessinatrice1.png', 'assets/personnages/dessinatrice1/dessinatrice1_atlas.json');
 
+    this.load.image('mask', 'assets0/mask1.png');
+
+
 
     //------------------ATLAS
     //DESSINATRICE

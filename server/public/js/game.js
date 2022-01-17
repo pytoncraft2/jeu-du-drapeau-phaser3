@@ -4,7 +4,7 @@ var config = {
   type: Phaser.AUTO,
   width: 1500,
   height: 720,
-  backgroundColor: '#2d2d2d',
+  backgroundColor: '#000000',
   parent: 'phaser-example',
   scale: {
     mode: Phaser.Scale.CENTER_BOTH,
