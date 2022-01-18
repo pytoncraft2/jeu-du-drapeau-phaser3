@@ -542,17 +542,17 @@ this.input.on('pointermove', function (pointer) {
      this.canonKeyPressed = this.input.keyboard.addKey('C');
      this.specialKeyPressed = this.input.keyboard.addKey('R');
      this.special2KeyPressed = this.input.keyboard.addKey('Z');
-     this.aKeyPressed = this.input.keyboard.addKey('A');
+     this.aKey = this.input.keyboard.addKey('A');
      this.cursors = this.input.keyboard.createCursorKeys();
      this.leftKeyPressed = false;
      this.rightKeyPressed = false;
      this.upKeyPressed = false;
      this.downKeyPressed = false;
      this.spaceKeyPressed = false;
+     this.aKeyPressed = false;
      this.charge = false;
      this.saut = false;
      this.cKey = false;
-     this.aKey = false;
      this.zKey = false;
 
      this.matter.add.mouseSpring();
@@ -570,55 +570,41 @@ this.input.on('pointermove', function (pointer) {
    * @fires EvenementTouches
    */
   update: function() {
+    const left = this.leftKeyPressed;
+    const right = this.rightKeyPressed;
+    const up = this.upKeyPressed;
+    const down = this.upKeyPressed;
+    const a = this.aKeyPressed;
 
+    if (this.cursors.left.isDown) {
+      this.leftKeyPressed = true;
+    } else if (this.cursors.right.isDown) {
+      this.rightKeyPressed = true;
+    } else {
+      this.leftKeyPressed = false;
+      this.rightKeyPressed = false;
+    }
+    if (this.cursors.up.isDown) {
+      this.upKeyPressed = true;
+    } else {
+      this.upKeyPressed = false;
+    }
 
+    if (this.cursors.down.isDown) {
+      this.downKeyPressed = true;
+    } else {
+      this.downKeyPressed = false;
+    }
 
+    if (this.aKey.isDown) {
+      this.aKeyPressed = true;
+    } else {
+      this.aKeyPressed = false;
+    }
 
-
-
-    const left = this.leftKeyPressed,
-    space = this.spaceKeyPressed,
-    chargeSaut = this.charge,
-    saut = this.saut,
-    up = this.upKeyPressed,
-    down = this.downKeyPressed,
-    right = this.rightKeyPressed;
-
-    this.cursors.space.isDown ? this.spaceKeyPressed = true : this.spaceKeyPressed = false
-
-    this.toucheHaut.isDown ? this.upKeyPressed = true :
-  this.toucheBas.isDown ? this.downKeyPressed = true :
-  (this.upKeyPressed = false, this.downKeyPressed = false)
-
-
-    this.toucheGauche.isDown ? this.leftKeyPressed = true :
-  this.toucheDroite.isDown ? this.rightKeyPressed = true :
-  (this.leftKeyPressed = false, this.rightKeyPressed = false)
-
-  // if (this.cursors.left.isDown) {
-  //   this.leftKeyPressed = true;
-  // } else if (this.cursors.right.isDown) {
-  //   this.rightKeyPressed = true;
-  // } else {
-  //   this.leftKeyPressed = false;
-  //   this.rightKeyPressed = false;
-  // }
-  // if (this.cursors.up.isDown) {
-  //   this.upKeyPressed = true;
-  // } else {
-  //   this.upKeyPressed = false;
-  // }
-  if (left !== this.leftKeyPressed ||
-      right !== this.rightKeyPressed ||
-      up !== this.upKeyPressed,
-      down !== this.downKeyPressed) {
-    this.socket.emit('playerInput', {
-      left: this.leftKeyPressed ,
-      right: this.rightKeyPressed,
-      up: this.upKeyPressed,
-      down: this.downKeyPressed
-    });
-  }
+    if (left !== this.leftKeyPressed || right !== this.rightKeyPressed || up !== this.upKeyPressed || down !== this.downKeyPressed || a !== this.aKeyPressed) {
+      this.socket.emit('playerInput', { left: this.leftKeyPressed , right: this.rightKeyPressed, up: this.upKeyPressed, down: this.downKeyPressed, attaque: this.aKeyPressed});
+    }
 
   //
   // if (Phaser.Input.Keyboard.JustDown(this.toucheHaut)) {
