@@ -60,6 +60,19 @@ anims.create({
   repeat: 0
 })
 
+anims.create({
+  key: "straightlead",
+  frames: anims.generateFrameNames('dessinatrice1', { prefix: 'straightlead', start: 0, end: 1 }),
+  frameRate: 3, 
+  repeat: 0
+})
+
+anims.create({
+  key: "cross",
+  frames: anims.generateFrameNames('dessinatrice1', { prefix: 'cross', start: 0, end: 4 }),
+  frameRate: 3, 
+  repeat: 0
+})
 
 }
 

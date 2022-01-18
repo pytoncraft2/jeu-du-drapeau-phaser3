@@ -260,6 +260,20 @@ function create() {
         repeat: 0
       })
 
+      this.anims.create({
+        key: "straightlead",
+        frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'straightlead', start: 0, end: 1 }),
+        frameRate: 3, 
+        repeat: 0
+      })
+      
+      this.anims.create({
+        key: "cross",
+        frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'cross', start: 0, end: 4 }),
+        frameRate: 3, 
+        repeat: 0
+      })
+
 
 
   const self = this;
@@ -588,7 +602,16 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
       // A
       if (input.attaque) {
         console.log("ATTTAQUEEEE");
-        parametres[player.atlas].toucheA(input.charge, this, player)
+        //parametres[player.atlas].toucheA(input.charge, this, player)
+        // CODE A CHANGER ICI
+        player.setFrame()
+        player.play("idle_attack",true)
+        player.play("straightlead",true)
+      
+        player.once(Phaser.Animations.Events.ANIMATION_COMPLETE_KEY + 'straightlead', () => {
+          console.log("FIN ATTACK ANIM");
+          player.play("idle_attack",true)
+        })
         input.attaque = false;
       }
 
@@ -1438,7 +1461,7 @@ function recevoirDegat(scene, player) {
 
          player.off(Phaser.Animations.Events.ANIMATION_UPDATE, startHit)
        }
-     }
+      }
 
      player.on(Phaser.Animations.Events.ANIMATION_UPDATE, startHit)
      player.once(Phaser.Animations.Events.ANIMATION_COMPLETE_KEY + 'attack', () => {

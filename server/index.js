@@ -34,7 +34,7 @@ function setupAuthoritativePhaser() {
     dom.window.URL.revokeObjectURL = (objectURL) => {};
     dom.window.gameLoaded = () => {
       server.listen(8082, function () {
-        console.log(`Listening on ${server.address().port}`);
+        console.log(`Listening on ${server.address().port} http://localhost:${server.address().port}`);
       });
     };
     dom.window.io = io;
