@@ -574,36 +574,29 @@ this.input.on('pointermove', function (pointer) {
     const right = this.rightKeyPressed;
     const up = this.upKeyPressed;
     const down = this.upKeyPressed;
-    const a = this.aKeyPressed;
 
-    if (this.cursors.left.isDown) {
+    if (this.toucheGauche.isDown) {
       this.leftKeyPressed = true;
-    } else if (this.cursors.right.isDown) {
+    } else if (this.toucheDroite.isDown) {
       this.rightKeyPressed = true;
     } else {
       this.leftKeyPressed = false;
       this.rightKeyPressed = false;
     }
-    if (this.cursors.up.isDown) {
+    if (this.toucheHaut.isDown) {
       this.upKeyPressed = true;
     } else {
       this.upKeyPressed = false;
     }
 
-    if (this.cursors.down.isDown) {
+    if (this.toucheBas.isDown) {
       this.downKeyPressed = true;
     } else {
       this.downKeyPressed = false;
     }
 
-    if (this.aKey.isDown) {
-      this.aKeyPressed = true;
-    } else {
-      this.aKeyPressed = false;
-    }
-
-    if (left !== this.leftKeyPressed || right !== this.rightKeyPressed || up !== this.upKeyPressed || down !== this.downKeyPressed || a !== this.aKeyPressed) {
-      this.socket.emit('playerInput', { left: this.leftKeyPressed , right: this.rightKeyPressed, up: this.upKeyPressed, down: this.downKeyPressed, attaque: this.aKeyPressed});
+    if (left !== this.leftKeyPressed || right !== this.rightKeyPressed || up !== this.upKeyPressed || down !== this.downKeyPressed) {
+      this.socket.emit('playerInput', { left: this.leftKeyPressed , right: this.rightKeyPressed, up: this.upKeyPressed, down: this.downKeyPressed});
     }
 
   //
@@ -649,29 +642,29 @@ this.input.on('pointermove', function (pointer) {
   // }
   //
   //
-  // if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
-  //   this.socket.emit('playerInput', {
-  //     saut: true,
-  //     chargeSaut: true,
-  //     left: this.leftKeyPressed,
-  //     right: this.rightKeyPressed,
-  //     space: this.spaceKeyPressed,
-  //     up: this.upKeyPressed,
-  //     down: this.downKeyPressed
-  //   });
-  // }
-  //
-  // if (Phaser.Input.Keyboard.JustUp(this.cursors.space)) {
-  //   this.socket.emit('playerInput', {
-  //     saut: true,
-  //     chargeSaut: false,
-  //     left: this.leftKeyPressed,
-  //     right: this.rightKeyPressed,
-  //     space: this.spaceKeyPressed,
-  //     up: this.upKeyPressed,
-  //     down: this.downKeyPressed
-  //   });
-  // }
+  if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
+    this.socket.emit('playerInput', {
+      saut: true,
+      chargeSaut: true,
+      left: this.leftKeyPressed,
+      right: this.rightKeyPressed,
+      space: this.spaceKeyPressed,
+      up: this.upKeyPressed,
+      down: this.downKeyPressed
+    });
+  }
+
+  if (Phaser.Input.Keyboard.JustUp(this.cursors.space)) {
+    this.socket.emit('playerInput', {
+      saut: true,
+      chargeSaut: false,
+      left: this.leftKeyPressed,
+      right: this.rightKeyPressed,
+      space: this.spaceKeyPressed,
+      up: this.upKeyPressed,
+      down: this.downKeyPressed
+    });
+  }
   //
   //   /**
   //    * TIROLIENNE CONTROLE
@@ -807,25 +800,19 @@ this.input.on('pointermove', function (pointer) {
   //   //   });
   //   // }
   //
-  //   if (Phaser.Input.Keyboard.JustDown(this.aKeyPressed)) {
-  //     // this.players.getChildren()[0].flipX ?
-  //     // (this.players.getChildren()[0].zoneAttaque.x = this.players.getChildren()[0].getLeftCenter().x - 70, this.players.getChildren()[0].zoneAttaque.y = this.players.getChildren()[0].getLeftCenter().y)
-  //     // : (this.players.getChildren()[0].zoneAttaque.x = this.players.getChildren()[0].getRightCenter().x + 70, this.players.getChildren()[0].zoneAttaque.y = this.players.getChildren()[0].getRightCenter().y)
-  //     // joueur.zoneAttaque.x = joueur.getRightCenter().x
-  //     // joueur.zoneAttaque.y = joueur.getRightCenter().y
+    if (Phaser.Input.Keyboard.JustDown(this.aKey)) {
+      this.socket.emit('playerInput', {
+        attaque: true,
+        charge: true,
+      });
+    }
   //
-  //     this.socket.emit('playerInput', {
-  //       attaque: true,
-  //       charge: true,
-  //     });
-  //   }
-  //
-  //   if (Phaser.Input.Keyboard.JustUp(this.aKeyPressed)) {
-  //     this.socket.emit('playerInput', {
-  //       attaque: true,
-  //       charge: false,
-  //     });
-  //   }
+    if (Phaser.Input.Keyboard.JustUp(this.aKey)) {
+      this.socket.emit('playerInput', {
+        attaque: true,
+        charge: false,
+      });
+    }
   //
   //
   //

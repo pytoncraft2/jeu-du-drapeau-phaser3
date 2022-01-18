@@ -588,8 +588,8 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
       // A
       if (input.attaque) {
         console.log("ATTTAQUEEEE");
-        // parametres[player.atlas].toucheA(input.charge, this, player)
-        // input.attaque = false;
+        parametres[player.atlas].toucheA(input.charge, this, player)
+        input.attaque = false;
       }
 
       // z
