@@ -36,7 +36,7 @@ parametres['dessinatrice1'] = {
     masse: 30,
     puissanceDeBase: 10,
     attaqueFrame: "positiona3",
-    defaultScale: 0.4,
+    defaultScale: 0.8,
     scaleAugmentation: 0
   },
   toucheA: (charge, scene, player) => {
@@ -70,7 +70,7 @@ parametres['naruto'] = {
     masse: 25,
     puissanceDeBase: 8,
     attaqueFrame: "positiona3",
-    defaultScale: 0.4,
+    defaultScale: 0.8,
     scaleAugmentation: 0
   },
   toucheA: (charge, scene, player) => {
@@ -107,7 +107,7 @@ parametres['ninja'] = {
     masse: 10,
     puissanceDeBase: 12,
     attaqueFrame: "positiona1",
-    defaultScale: 0.4,
+    defaultScale: 0.8,
     scaleAugmentation: 0
   },
   toucheA: (charge, scene, player) => {
@@ -263,14 +263,14 @@ function create() {
       this.anims.create({
         key: "straightlead",
         frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'straightlead', start: 0, end: 1 }),
-        frameRate: 3, 
+        frameRate: 3,
         repeat: 0
       })
-      
+
       this.anims.create({
         key: "cross",
         frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'cross', start: 0, end: 4 }),
-        frameRate: 3, 
+        frameRate: 3,
         repeat: 0
       })
 
@@ -607,7 +607,7 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
         player.setFrame()
         player.play("idle_attack",true)
         player.play("straightlead",true)
-      
+
         player.once(Phaser.Animations.Events.ANIMATION_COMPLETE_KEY + 'straightlead', () => {
           console.log("FIN ATTACK ANIM");
           player.play("idle_attack",true)

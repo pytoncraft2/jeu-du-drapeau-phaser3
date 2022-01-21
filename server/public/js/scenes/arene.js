@@ -572,10 +572,6 @@ this.input.on('pointermove', function (pointer) {
   update: function() {
 
 
-
-
-
-
     const left = this.leftKeyPressed,
     space = this.spaceKeyPressed,
     chargeSaut = this.charge,
