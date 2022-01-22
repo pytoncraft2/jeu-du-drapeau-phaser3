@@ -52,41 +52,6 @@ const Arene = new Phaser.Class({
    */
    create: function() {
 
-     // var joyStick = this.plugins.get('rexvirtualjoystickplugin').addPlayer(this, config);
-     this.input.on('pointerdown', (pointer) => {
-       // if (pointer.x <= this.cameras.main.width * 0.4) {
-       //   this.movementJoyStick.base.setPosition(pointer.x, pointer.y).setAlpha(0.5)
-       //   this.movementJoyStick.thumb.setPosition(pointer.x, pointer.y).setAlpha(1)
-       // }
-       if (pointer.x >= this.cameras.main.width * 0.6) {
-         console.log("POINTER DOWN SHOOT");
-         // this.shootJoyStick.base.setPosition(pointer.x, pointer.y).setAlpha(0.5)
-         // this.shootJoyStick.thumb.setPosition(pointer.x, pointer.y).setAlpha(1)
-       }
-     })
-
-     // Add transparency to joysticks on pointer-up
-     this.input.on('pointerup', (pointer) => {
-         console.log("POINTER UP SHOOT");
-       // if (!this.movementJoyStick.force) {
-       //   this.movementJoyStick.base.setAlpha(0.25)
-       //   this.movementJoyStick.thumb.setAlpha(0.5)
-       // }
-       // if (!this.shootJoyStick.force) {
-       //   this.shootJoyStick.base.setAlpha(0.25)
-       //   this.shootJoyStick.thumb.setAlpha(0.5)
-       // }
-     })
-
-
-
-     // this.add.image(100, 60, 'logo');
-
-     // const pic = this.add.image(400, 300, 'pic');
-
-     // this.add.image(100, 260, 'logo');
-
-
      this.vieEquipeA = 100
      this.vieEquipeB = 100
      this.lastHealthEquipeA = 100;
@@ -583,27 +548,7 @@ this.input.on('pointermove', function (pointer) {
 
      this.matter.add.mouseSpring();
 
-     this.cameras.main.setZoom(0.9);
-
-     this.gauche = false;
-     let gauche = this.add.circle(0, 650, 80, 0x888888).setDepth(100).setAlpha(0.25).setScrollFactor(0)
-     .setInteractive()
-     .on('pointerdown', () => (this.gauche = true))
-     .on('pointerup', () => (this.gauche = false))
-
-     this.droite = false;
-     let droite = this.add.circle(170, 650, 80, 0x888888).setDepth(100).setAlpha(0.25).setScrollFactor(0)
-     .setInteractive()
-     .on('pointerdown', () => (this.droite = true))
-     .on('pointerup', () => (this.droite = false))
-
-     this.saut = false;
-     let saut = this.add.circle(970, 650, 80, 0x888888).setDepth(100).setAlpha(0.25).setScrollFactor(0)
-     .setInteractive()
-     .on('pointerdown', () => (this.saut = true, this.saut = false))
-     .on('pointerup', () => (this.saut = false))
-
-     // this.add.circle(0, 0, 70, 0x239442).setDepth(100).setAlpha(0.25)
+     this.cameras.main.setZoom(0.1);
 
 
    },
@@ -620,11 +565,9 @@ this.input.on('pointermove', function (pointer) {
 const left = this.leftKeyPressed;
 const right = this.rightKeyPressed;
 const up = this.upKeyPressed;
-console.log(this.gauche);
-
-if (this.toucheGauche.isDown || this.gauche) {
+if (this.toucheGauche.isDown) {
   this.leftKeyPressed = true;
-} else if (this.toucheDroite.isDown || this.droite) {
+} else if (this.toucheDroite.isDown) {
   this.rightKeyPressed = true;
 } else {
   this.leftKeyPressed = false;
@@ -703,31 +646,29 @@ if (left !== this.leftKeyPressed || right !== this.rightKeyPressed || up !== thi
   // }
   //
   //
-  if (Phaser.Input.Keyboard.JustDown(this.cursors.space) || this.saut) {
-    this.saut = false;
-    this.socket.emit('playerInput', {
-      saut: true,
-      chargeSaut: true,
-      left: this.leftKeyPressed,
-      right: this.rightKeyPressed,
-      space: this.spaceKeyPressed,
-      up: this.upKeyPressed,
-      down: this.downKeyPressed
-    });
-  }
-
-  if (Phaser.Input.Keyboard.JustUp(this.cursors.space) || this.saut) {
-    this.saut = false;
-    this.socket.emit('playerInput', {
-      saut: true,
-      chargeSaut: false,
-      left: this.leftKeyPressed,
-      right: this.rightKeyPressed,
-      space: this.spaceKeyPressed,
-      up: this.upKeyPressed,
-      down: this.downKeyPressed
-    });
-  }
+  // if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
+  //   this.socket.emit('playerInput', {
+  //     saut: true,
+  //     chargeSaut: true,
+  //     left: this.leftKeyPressed,
+  //     right: this.rightKeyPressed,
+  //     space: this.spaceKeyPressed,
+  //     up: this.upKeyPressed,
+  //     down: this.downKeyPressed
+  //   });
+  // }
+  //
+  // if (Phaser.Input.Keyboard.JustUp(this.cursors.space)) {
+  //   this.socket.emit('playerInput', {
+  //     saut: true,
+  //     chargeSaut: false,
+  //     left: this.leftKeyPressed,
+  //     right: this.rightKeyPressed,
+  //     space: this.spaceKeyPressed,
+  //     up: this.upKeyPressed,
+  //     down: this.downKeyPressed
+  //   });
+  // }
   //
   //   /**
   //    * TIROLIENNE CONTROLE
