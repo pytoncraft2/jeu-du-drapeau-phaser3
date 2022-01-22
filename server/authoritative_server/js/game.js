@@ -602,17 +602,17 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
       // A
       if (input.attaque) {
         console.log("ATTTAQUEEEE");
-        //parametres[player.atlas].toucheA(input.charge, this, player)
+        parametres[player.atlas].toucheA(input.charge, this, player)
         // CODE A CHANGER ICI
-        player.setFrame()
-        player.play("idle_attack",true)
-        player.play("straightlead",true)
-
-        player.once(Phaser.Animations.Events.ANIMATION_COMPLETE_KEY + 'straightlead', () => {
-          console.log("FIN ATTACK ANIM");
-          player.play("idle_attack",true)
-        })
-        input.attaque = false;
+        // player.setFrame()
+        // player.play("idle_attack",true)
+        // player.play("straightlead",true)
+        //
+        // player.once(Phaser.Animations.Events.ANIMATION_COMPLETE_KEY + 'straightlead', () => {
+        //   console.log("FIN ATTACK ANIM");
+        //   player.play("idle_attack",true)
+        // })
+        // input.attaque = false;
       }
 
       // z
@@ -647,13 +647,13 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
 
 
       if (input.protection) {
+        console.log("PROTECTION");
         player.setTint(0x14b2f9)
         player.protege = true;
         this.tweens.addCounter({
           duration: 1000,
           onComplete: () => (player.protege = false, player.clearTint())
         })
-        input.protection = false;
       }
 
 
@@ -684,14 +684,14 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
       // ESPACE
       if (input.saut) {
         console.log("SAUT");
-        // if (input.chargeSaut) {
-          // console.log("CHARGE h");
-          // parametres[player.atlas].toucheEspace(this, player, input.chargeSaut, isOnGround, isInAir)
-        // } else {
-          // console.log("CHARGE b");
-          // parametres[player.atlas].toucheEspace(this, player, input.chargeSaut, isOnGround, isInAir)
-        // }
-        // input.saut = false;
+        if (input.chargeSaut) {
+          console.log("CHARGE h");
+          parametres[player.atlas].toucheEspace(this, player, input.chargeSaut, isOnGround, isInAir)
+        } else {
+          console.log("CHARGE b");
+          parametres[player.atlas].toucheEspace(this, player, input.chargeSaut, isOnGround, isInAir)
+        }
+        input.saut = false;
       }
 
       if (input.up) {
