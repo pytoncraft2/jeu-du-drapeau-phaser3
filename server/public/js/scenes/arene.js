@@ -10,7 +10,6 @@
 
 
 import PanelViewer from './elements/panel-viewer.js'
-import Animations from './elements/liste-animations.js'
 import Maison from './elements/objets/maison.js'
 
 
@@ -55,13 +54,36 @@ const Arene = new Phaser.Class({
 
      // var joyStick = this.plugins.get('rexvirtualjoystickplugin').addPlayer(this, config);
      this.movementJoyStick = this.plugins.get('rexvirtualjoystickplugin').add(this.scene, {
-x: 100,
-y: this.cameras.main.height - 125,
-radius: 40,
-forceMin: 0,
-base: this.add.circle(0, 0, 60, 0x888888).setDepth(100).setAlpha(0.25),
-thumb: this.add.image(0, 0, 'joystick').setDisplaySize(80, 80).setDepth(100).setAlpha(0.5),
-}).on('update', () => {}, this)
+       x: 100,
+       y: this.cameras.main.height - 125,
+       radius: 40,
+       forceMin: 0,
+       base: this.add.circle(0, 0, 60, 0x888888).setDepth(100).setAlpha(0.25),
+       thumb: this.add.circle(0, 0, 30, 0x239442).setDepth(100).setAlpha(0.25),
+     }).on('update', () => {}, this)
+
+     this.input.on('pointerdown', (pointer) => {
+       if (pointer.x <= this.cameras.main.width * 0.4) {
+         this.movementJoyStick.base.setPosition(pointer.x, pointer.y).setAlpha(0.5)
+         this.movementJoyStick.thumb.setPosition(pointer.x, pointer.y).setAlpha(1)
+       }
+       if (pointer.x >= this.cameras.main.width * 0.6) {
+         // this.shootJoyStick.base.setPosition(pointer.x, pointer.y).setAlpha(0.5)
+         // this.shootJoyStick.thumb.setPosition(pointer.x, pointer.y).setAlpha(1)
+       }
+     })
+
+     // Add transparency to joysticks on pointer-up
+     this.input.on('pointerup', (pointer) => {
+       if (!this.movementJoyStick.force) {
+         this.movementJoyStick.base.setAlpha(0.25)
+         this.movementJoyStick.thumb.setAlpha(0.5)
+       }
+       // if (!this.shootJoyStick.force) {
+       //   this.shootJoyStick.base.setAlpha(0.25)
+       //   this.shootJoyStick.thumb.setAlpha(0.5)
+       // }
+     })
 
 
 
@@ -122,8 +144,6 @@ thumb: this.add.image(0, 0, 'joystick').setDisplaySize(80, 80).setDepth(100).set
      this.graph = this.add.graphics();
 
      var self = this;
-
-     new Animations(this.anims)
 
      this.socket = io();
      this.matter.world.disableGravity();
@@ -570,7 +590,7 @@ this.input.on('pointermove', function (pointer) {
 
      this.matter.add.mouseSpring();
 
-     this.cameras.main.setZoom(0.5);
+     this.cameras.main.setZoom(0.1);
 
 
    },
