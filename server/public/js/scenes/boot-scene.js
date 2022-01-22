@@ -18,6 +18,12 @@ const BootScene = new Phaser.Class({
     },
 
   preload: function() {
+    this.load.plugin('rexvirtualjoystickplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexvirtualjoystickplugin.min.js', true);
+
+    // this.load.plugin('rexvirtualjoystickplugin', rexvirtualjoystickplugin, true)
+    // console.log(this.plugins.get('rexvirtualjoystickplugin').add);
+    // alert("ok");
+
     const halfWidth = 1500 / 2;
     const halfHeight = 720 / 2;
 

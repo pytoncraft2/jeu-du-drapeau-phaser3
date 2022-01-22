@@ -13,6 +13,7 @@ import PanelViewer from './elements/panel-viewer.js'
 import Animations from './elements/liste-animations.js'
 import Maison from './elements/objets/maison.js'
 
+
 var gfx
 var rect
 var player;
@@ -51,6 +52,17 @@ const Arene = new Phaser.Class({
    * Création des objets du jeu + connexion a socket.io
    */
    create: function() {
+
+     // var joyStick = this.plugins.get('rexvirtualjoystickplugin').addPlayer(this, config);
+     this.movementJoyStick = this.plugins.get('rexvirtualjoystickplugin').add(this.scene, {
+x: 100,
+y: this.cameras.main.height - 125,
+radius: 40,
+forceMin: 0,
+base: this.add.circle(0, 0, 60, 0x888888).setDepth(100).setAlpha(0.25),
+thumb: this.add.image(0, 0, 'joystick').setDisplaySize(80, 80).setDepth(100).setAlpha(0.5),
+}).on('update', () => {}, this)
+
 
 
      // this.add.image(100, 60, 'logo');
@@ -110,6 +122,7 @@ const Arene = new Phaser.Class({
      this.graph = this.add.graphics();
 
      var self = this;
+
      new Animations(this.anims)
 
      this.socket = io();
