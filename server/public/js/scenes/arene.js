@@ -548,7 +548,7 @@ this.input.on('pointermove', function (pointer) {
 
      this.matter.add.mouseSpring();
 
-     this.cameras.main.setZoom(0.1);
+     this.cameras.main.setZoom(0.9);
 
 
    },
@@ -564,6 +564,8 @@ this.input.on('pointermove', function (pointer) {
 
 const left = this.leftKeyPressed;
 const right = this.rightKeyPressed;
+const down = this.downKeyPressed;
+const space = this.spaceKeyPressed;
 const up = this.upKeyPressed;
 if (this.toucheGauche.isDown) {
   this.leftKeyPressed = true;
@@ -578,8 +580,27 @@ if (this.toucheHaut.isDown) {
 } else {
   this.upKeyPressed = false;
 }
-if (left !== this.leftKeyPressed || right !== this.rightKeyPressed || up !== this.upKeyPressed) {
-  this.socket.emit('playerInput', { left: this.leftKeyPressed , right: this.rightKeyPressed, up: this.upKeyPressed });
+
+if (this.toucheBas.isDown) {
+  this.downKeyPressed = true;
+} else {
+  this.downKeyPressed = false;
+}
+
+if (this.cursors.space.isDown) {
+  this.spaceKeyPressed = true;
+} else {
+  this.spaceKeyPressed = false;
+}
+
+if (left !== this.leftKeyPressed || right !== this.rightKeyPressed || up !== this.upKeyPressed || down !== this.downKeyPressed) {
+  this.socket.emit('playerInput', { left: this.leftKeyPressed , right: this.rightKeyPressed, up: this.upKeyPressed, down: this.downKeyPressed});
+} else if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
+  this.spaceKeyPressed = true;
+  // this.socket.emit('playerInput', { left: this.leftKeyPressed , right: this.rightKeyPressed, up: this.upKeyPressed, down: this.downKeyPressed, saut: this.spaceKeyPressed});
+} else if (Phaser.Input.Keyboard.JustUp(this.cursors.space)) {
+  this.spaceKeyPressed = false;
+
 }
 
   //

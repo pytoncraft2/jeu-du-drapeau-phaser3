@@ -683,12 +683,15 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
 
       // ESPACE
       if (input.saut) {
-        if (input.chargeSaut) {
-          parametres[player.atlas].toucheEspace(this, player, input.chargeSaut, isOnGround, isInAir)
-        } else {
-          parametres[player.atlas].toucheEspace(this, player, input.chargeSaut, isOnGround, isInAir)
-        }
-        input.saut = false;
+        console.log("SAUT");
+        // if (input.chargeSaut) {
+          // console.log("CHARGE h");
+          // parametres[player.atlas].toucheEspace(this, player, input.chargeSaut, isOnGround, isInAir)
+        // } else {
+          // console.log("CHARGE b");
+          // parametres[player.atlas].toucheEspace(this, player, input.chargeSaut, isOnGround, isInAir)
+        // }
+        // input.saut = false;
       }
 
       if (input.up) {
