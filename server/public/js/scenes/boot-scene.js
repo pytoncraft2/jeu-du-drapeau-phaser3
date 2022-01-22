@@ -98,10 +98,10 @@ const BootScene = new Phaser.Class({
     this.load.atlas('dessinatrice1', 'assets/personnages/dessinatrice1/dessinatrice1.png', 'assets/personnages/dessinatrice1/dessinatrice1_atlas.json');
 
     //NARUTO
-    this.load.atlas('naruto', 'assets/personnages/naruto/naruto.png', 'assets/personnages/naruto/naruto_atlas.json');
+    // this.load.atlas('naruto', 'assets/personnages/naruto/naruto.png', 'assets/personnages/naruto/naruto_atlas.json');
 
     //NINJA
-    this.load.atlas('ninja', 'assets/personnages/ninja/ninja.png', 'assets/personnages/ninja/ninja_atlas.json');
+    // this.load.atlas('ninja', 'assets/personnages/ninja/ninja.png', 'assets/personnages/ninja/ninja_atlas.json');
 
     //FILLE NINJA
     // this.load.atlas('ninja2', 'assets/personnages/ninja2/ninja2.png', 'assets/personnages/ninja2/ninja2_atlas.json');
@@ -112,20 +112,20 @@ const BootScene = new Phaser.Class({
     //CHEVALIER
     // this.load.atlas('chevalier', 'assets/personnages/chevalier/chevalier.png', 'assets/personnages/chevalier/chevalier_atlas.json');
 
-    this.load.image('tonneau', 'assets0/barrel.png')
+    // this.load.image('tonneau', 'assets0/barrel.png')
     // this.load.image('profilPanel', 'assets0/liveProfilPanel.png');
-    this.load.image('portal', 'assets0/portal.png');
-    this.load.image('bullet', 'assets0/bullet.png');
-    this.load.image('bulletVerte', 'assets0/bulletVerte.png');
-    this.load.image('bulletBleu', 'assets0/bulletBleu.png');
+    // this.load.image('portal', 'assets0/portal.png');
+    // this.load.image('bullet', 'assets0/bullet.png');
+    // this.load.image('bulletVerte', 'assets0/bulletVerte.png');
+    // this.load.image('bulletBleu', 'assets0/bulletBleu.png');
 
-    this.load.image('drapeauBleu', 'assets0/drapeauBleu.png');
-    this.load.image('matDrapeauBleu', 'assets0/matDrapeauBleu.png');
-    this.load.image('drapeauVert', 'assets0/drapeauVert.png');
+    // this.load.image('drapeauBleu', 'assets0/drapeauBleu.png');
+    // this.load.image('matDrapeauBleu', 'assets0/matDrapeauBleu.png');
+    // this.load.image('drapeauVert', 'assets0/drapeauVert.png');
 
 
-    this.load.image('mini', 'assets0/miniJoueur.png');
-    this.load.atlas('saut', 'assets0/sautest/saut.png', 'assets0/sautest/saut_atlas.json');
+    // this.load.image('mini', 'assets0/miniJoueur.png');
+    // this.load.atlas('saut', 'assets0/sautest/saut.png', 'assets0/sautest/saut_atlas.json');
 
     this.load.image('fullscreen', 'assets0/fullscreen.png');
     // this.load.image('bgMenu', 'assets/fond/bgMenu.png');
