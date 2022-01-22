@@ -570,7 +570,7 @@ const right = this.rightKeyPressed;
 const down = this.downKeyPressed;
 const space = this.spaceKeyPressed;
 const up = this.upKeyPressed;
-const charge = this.chargeSaut;
+const chargeSaut = this.chargeSaut;
 const chargeAttaque = this.chargeAttaque;
 const attaque = this.attaque;
 const protection = this.protection;
@@ -611,11 +611,10 @@ if (Phaser.Input.Keyboard.JustUp(this.cursors.space)) {
 if (Phaser.Input.Keyboard.JustDown(this.aKeyPressed)) {
   this.attaque = true;
   this.chargeAttaque = true;
-} else if (Phaser.Input.Keyboard.JustUp(this.aKeyPressed)) {
+}
+
+if (Phaser.Input.Keyboard.JustUp(this.aKeyPressed)) {
   this.attaque = true;
-  this.chargeAttaque = false;
-} else {
-  this.attaque = false;
   this.chargeAttaque = false;
 }
 
@@ -630,7 +629,15 @@ if (Phaser.Input.Keyboard.JustDown(this.toucheProtection)) {
   this.protection = false;
 }
 
-if (left !== this.leftKeyPressed || right !== this.rightKeyPressed || up !== this.upKeyPressed || down !== this.downKeyPressed || space !== this.spaceKeyPressed || charge !== this.chargeSaut || protection !== this.protection || chargeAttaque !== this.chargeAttaque || attaque !== this.attaque) {
+if (left !== this.leftKeyPressed ||
+    right !== this.rightKeyPressed ||
+    up !== this.upKeyPressed ||
+    down !== this.downKeyPressed ||
+    space !== this.spaceKeyPressed ||
+    chargeSaut !== this.chargeSaut ||
+    protection !== this.protection ||
+    chargeAttaque !== this.chargeAttaque ||
+    attaque !== this.attaque) {
   this.socket.emit('playerInput', {
     left: this.leftKeyPressed ,
     right: this.rightKeyPressed,
