@@ -52,6 +52,7 @@ const Arene = new Phaser.Class({
    */
    create: function() {
 
+
      this.vieEquipeA = 100
      this.vieEquipeB = 100
      this.lastHealthEquipeA = 100;
@@ -540,10 +541,7 @@ this.input.on('pointermove', function (pointer) {
      this.upKeyPressed = false;
      this.downKeyPressed = false;
      this.spaceKeyPressed = false;
-     this.chargeSaut = false;
-     this.chargeAttaque = false;
-     this.attaque = false;
-     this.protection = false;
+     this.charge = false;
      this.saut = false;
      this.cKey = false;
      this.aKey = false;
@@ -564,266 +562,184 @@ this.input.on('pointermove', function (pointer) {
    * @fires EvenementTouches
    */
   update: function() {
-
-const left = this.leftKeyPressed;
-const right = this.rightKeyPressed;
-const down = this.downKeyPressed;
-const space = this.spaceKeyPressed;
-const up = this.upKeyPressed;
-const chargeSaut = this.chargeSaut;
-const chargeAttaque = this.chargeAttaque;
-const attaque = this.attaque;
-const protection = this.protection;
-if (this.toucheGauche.isDown) {
-  this.leftKeyPressed = true;
-} else if (this.toucheDroite.isDown) {
-  this.rightKeyPressed = true;
-} else {
-  this.leftKeyPressed = false;
-  this.rightKeyPressed = false;
-}
-if (this.toucheHaut.isDown) {
-  this.upKeyPressed = true;
-} else {
-  this.upKeyPressed = false;
-}
-
-if (this.toucheBas.isDown) {
-  this.downKeyPressed = true;
-} else {
-  this.downKeyPressed = false;
-}
-
-if (this.cursors.space.isDown) {
-  this.spaceKeyPressed = true;
-} else {
-  this.spaceKeyPressed = false;
-}
-if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
-  this.spaceKeyPressed = true;
-  this.chargeSaut = true;
-}
-if (Phaser.Input.Keyboard.JustUp(this.cursors.space)) {
-  this.spaceKeyPressed = true;
-  this.chargeSaut = false;
-}
-
-if (Phaser.Input.Keyboard.JustDown(this.aKeyPressed)) {
-  this.attaque = true;
-  this.chargeAttaque = true;
-}
-
-if (Phaser.Input.Keyboard.JustUp(this.aKeyPressed)) {
-  this.attaque = true;
-  this.chargeAttaque = false;
-}
-
-// if (Phaser.Input.Keyboard.JustUp(this.aKeyPressed)) {
-//     this.attaque = true;
-//     this.chargeAttaque = false;
+    // if (this.shootJoyStick.force) {
+  // Rotate according to joystick
+  // this.player.setAngle(this.shootJoyStick.angle)
+  // console.log(this.movementJoyStick.angle)
 // }
 
-if (Phaser.Input.Keyboard.JustDown(this.toucheProtection)) {
-  this.protection = true;
-} else {
-  this.protection = false;
-}
 
-if (left !== this.leftKeyPressed ||
-    right !== this.rightKeyPressed ||
-    up !== this.upKeyPressed ||
-    down !== this.downKeyPressed ||
-    space !== this.spaceKeyPressed ||
-    chargeSaut !== this.chargeSaut ||
-    protection !== this.protection ||
-    chargeAttaque !== this.chargeAttaque ||
-    attaque !== this.attaque) {
-  this.socket.emit('playerInput', {
-    left: this.leftKeyPressed ,
-    right: this.rightKeyPressed,
-    up: this.upKeyPressed,
-    down: this.downKeyPressed,
-    saut: this.spaceKeyPressed,
-    chargeSaut: this.chargeSaut,
-    protection: this.protection,
-    attaque: this.attaque,
-    charge: this.chargeAttaque
-  });
-}
+    const left = this.leftKeyPressed,
+    space = this.spaceKeyPressed,
+    chargeSaut = this.charge,
+    saut = this.saut,
+    up = this.upKeyPressed,
+    down = this.downKeyPressed,
+    right = this.rightKeyPressed;
 
-  //
-  //   const left = this.leftKeyPressed,
-  //   space = this.spaceKeyPressed,
-  //   chargeSaut = this.charge,
-  //   saut = this.saut,
-  //   up = this.upKeyPressed,
-  //   down = this.downKeyPressed,
-  //   right = this.rightKeyPressed;
-  //
-  //   this.cursors.space.isDown ? this.spaceKeyPressed = true : this.spaceKeyPressed = false
-  //
-  //   this.toucheHaut.isDown ? this.upKeyPressed = true :
-  // this.toucheBas.isDown ? this.downKeyPressed = true :
-  // (this.upKeyPressed = false, this.downKeyPressed = false)
-  //
-  //
-  //   this.toucheGauche.isDown ? this.leftKeyPressed = true :
-  // this.toucheDroite.isDown ? this.rightKeyPressed = true :
-  // (this.leftKeyPressed = false, this.rightKeyPressed = false)
+    this.cursors.space.isDown ? this.spaceKeyPressed = true : this.spaceKeyPressed = false
+
+    this.toucheHaut.isDown ? this.upKeyPressed = true :
+  this.toucheBas.isDown ? this.downKeyPressed = true :
+  (this.upKeyPressed = false, this.downKeyPressed = false)
 
 
+    this.toucheGauche.isDown ? this.leftKeyPressed = true :
+  this.toucheDroite.isDown ? this.rightKeyPressed = true :
+  (this.leftKeyPressed = false, this.rightKeyPressed = false)
 
-  // if (Phaser.Input.Keyboard.JustDown(this.toucheHaut)) {
-  //   this.socket.emit('playerInput', {
-  //     left: this.leftKeyPressed,
-  //     right: this.rightKeyPressed,
-  //     space: this.spaceKeyPressed,
-  //     up: this.upKeyPressed,
-  //     down: this.downKeyPressed
-  //   });
-  // }
-  //
-  // if (Phaser.Input.Keyboard.JustUp(this.toucheHaut)) {
-  //   this.socket.emit('playerInput', {
-  //     left: this.leftKeyPressed,
-  //     right: this.rightKeyPressed,
-  //     space: this.spaceKeyPressed,
-  //     up: this.upKeyPressed,
-  //     down: this.downKeyPressed
-  //   });
-  // }
-  //
-  //
-  // if (Phaser.Input.Keyboard.JustDown(this.toucheBas)) {
-  //   this.socket.emit('playerInput', {
-  //     left: this.leftKeyPressed,
-  //     right: this.rightKeyPressed,
-  //     space: this.spaceKeyPressed,
-  //     up: this.upKeyPressed,
-  //     down: this.downKeyPressed
-  //   });
-  // }
-  //
-  // if (Phaser.Input.Keyboard.JustUp(this.toucheBas)) {
-  //   this.socket.emit('playerInput', {
-  //     left: this.leftKeyPressed,
-  //     right: this.rightKeyPressed,
-  //     space: this.spaceKeyPressed,
-  //     up: this.upKeyPressed,
-  //     down: this.downKeyPressed
-  //   });
-  // }
-  //
-  //
-  // if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
-  //   this.socket.emit('playerInput', {
-  //     saut: true,
-  //     chargeSaut: true,
-  //     left: this.leftKeyPressed,
-  //     right: this.rightKeyPressed,
-  //     space: this.spaceKeyPressed,
-  //     up: this.upKeyPressed,
-  //     down: this.downKeyPressed
-  //   });
-  // }
-  //
-  // if (Phaser.Input.Keyboard.JustUp(this.cursors.space)) {
-  //   this.socket.emit('playerInput', {
-  //     saut: true,
-  //     chargeSaut: false,
-  //     left: this.leftKeyPressed,
-  //     right: this.rightKeyPressed,
-  //     space: this.spaceKeyPressed,
-  //     up: this.upKeyPressed,
-  //     down: this.downKeyPressed
-  //   });
-  // }
-  //
-  //   /**
-  //    * TIROLIENNE CONTROLE
-  //    */
-  //   /**
-  //    * SE PROTEGER
-  //    *
-  //    */
-  //    if (Phaser.Input.Keyboard.JustDown(this.toucheProtection)) {
-  //      this.socket.emit('playerInput', {
-  //        protection: true
-  //      });
-  //    }
-  //
-  //
-  //   /**
-  //    * SE REDRESSER
-  //    */
-  //    if (Phaser.Input.Keyboard.JustDown(this.toucheF)) {
-  //      this.socket.emit('playerInput', {
-  //        redresser: true
-  //      });
-  //    }
-  //
-  //   /**
-  //    * GAUCHE
-  //    */
-  //
-  //   if (Phaser.Input.Keyboard.JustDown(this.toucheGauche)) {
-  //     this.socket.emit('playerInput', {
-  //       left: this.leftKeyPressed,
-  //       right: this.rightKeyPressed,
-  //       space: this.spaceKeyPressed,
-  //       up: this.upKeyPressed,
-  //       down: this.downKeyPressed
-  //     });
-  //   }
-  //
-  //
-  //   if (Phaser.Input.Keyboard.JustUp(this.toucheGauche)) {
-  //     this.socket.emit('playerInput', {
-  //       left: this.leftKeyPressed,
-  //       right: this.rightKeyPressed,
-  //       space: this.spaceKeyPressed,
-  //       up: this.upKeyPressed,
-  //       down: this.downKeyPressed
-  //     });
-  //   }
-  //
-  //   /**
-  //    * DROITE
-  //    */
-  //   if (Phaser.Input.Keyboard.JustDown(this.toucheDroite)) {
-  //     this.socket.emit('playerInput', {
-  //       left: this.leftKeyPressed,
-  //       right: this.rightKeyPressed,
-  //       space: this.spaceKeyPressed,
-  //       up: this.upKeyPressed,
-  //       down: this.downKeyPressed
-  //     });
-  //   }
-  //
-  //   if (Phaser.Input.Keyboard.JustUp(this.toucheDroite)) {
-  //     this.socket.emit('playerInput', {
-  //       left: this.leftKeyPressed,
-  //       right: this.rightKeyPressed,
-  //       space: this.spaceKeyPressed,
-  //       up: this.upKeyPressed,
-  //       down: this.downKeyPressed
-  //     });
-  //   }
-  //
-  //
-  //   if (Phaser.Input.Keyboard.JustDown(this.aKeyPressed)) {
-  //     this.socket.emit('playerInput', {
-  //       attaque: true,
-  //       charge: true,
-  //     });
-  //   }
-  //
-  //   if (Phaser.Input.Keyboard.JustUp(this.aKeyPressed)) {
-  //     this.socket.emit('playerInput', {
-  //       attaque: true,
-  //       charge: false,
-  //     });
-  //   }
+
+  if (Phaser.Input.Keyboard.JustDown(this.toucheHaut)) {
+    this.socket.emit('playerInput', {
+      left: this.leftKeyPressed,
+      right: this.rightKeyPressed,
+      space: this.spaceKeyPressed,
+      up: this.upKeyPressed,
+      down: this.downKeyPressed
+    });
+  }
+
+  if (Phaser.Input.Keyboard.JustUp(this.toucheHaut)) {
+    this.socket.emit('playerInput', {
+      left: this.leftKeyPressed,
+      right: this.rightKeyPressed,
+      space: this.spaceKeyPressed,
+      up: this.upKeyPressed,
+      down: this.downKeyPressed
+    });
+  }
+
+
+  if (Phaser.Input.Keyboard.JustDown(this.toucheBas)) {
+    this.socket.emit('playerInput', {
+      left: this.leftKeyPressed,
+      right: this.rightKeyPressed,
+      space: this.spaceKeyPressed,
+      up: this.upKeyPressed,
+      down: this.downKeyPressed
+    });
+  }
+
+  if (Phaser.Input.Keyboard.JustUp(this.toucheBas)) {
+    this.socket.emit('playerInput', {
+      left: this.leftKeyPressed,
+      right: this.rightKeyPressed,
+      space: this.spaceKeyPressed,
+      up: this.upKeyPressed,
+      down: this.downKeyPressed
+    });
+  }
+
+
+  if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
+    this.socket.emit('playerInput', {
+      saut: true,
+      chargeSaut: true,
+      left: this.leftKeyPressed,
+      right: this.rightKeyPressed,
+      space: this.spaceKeyPressed,
+      up: this.upKeyPressed,
+      down: this.downKeyPressed
+    });
+  }
+
+  if (Phaser.Input.Keyboard.JustUp(this.cursors.space)) {
+    this.socket.emit('playerInput', {
+      saut: true,
+      chargeSaut: false,
+      left: this.leftKeyPressed,
+      right: this.rightKeyPressed,
+      space: this.spaceKeyPressed,
+      up: this.upKeyPressed,
+      down: this.downKeyPressed
+    });
+  }
+
+    /**
+     * TIROLIENNE CONTROLE
+     */
+    /**
+     * SE PROTEGER
+     *
+     */
+     if (Phaser.Input.Keyboard.JustDown(this.toucheProtection)) {
+       this.socket.emit('playerInput', {
+         protection: true
+       });
+     }
+
+
+    /**
+     * SE REDRESSER
+     */
+     if (Phaser.Input.Keyboard.JustDown(this.toucheF)) {
+       this.socket.emit('playerInput', {
+         redresser: true
+       });
+     }
+
+    /**
+     * GAUCHE
+     */
+
+    if (Phaser.Input.Keyboard.JustDown(this.toucheGauche)) {
+      this.socket.emit('playerInput', {
+        left: this.leftKeyPressed,
+        right: this.rightKeyPressed,
+        space: this.spaceKeyPressed,
+        up: this.upKeyPressed,
+        down: this.downKeyPressed
+      });
+    }
+
+
+    if (Phaser.Input.Keyboard.JustUp(this.toucheGauche)) {
+      this.socket.emit('playerInput', {
+        left: this.leftKeyPressed,
+        right: this.rightKeyPressed,
+        space: this.spaceKeyPressed,
+        up: this.upKeyPressed,
+        down: this.downKeyPressed
+      });
+    }
+
+    /**
+     * DROITE
+     */
+    if (Phaser.Input.Keyboard.JustDown(this.toucheDroite)) {
+      this.socket.emit('playerInput', {
+        left: this.leftKeyPressed,
+        right: this.rightKeyPressed,
+        space: this.spaceKeyPressed,
+        up: this.upKeyPressed,
+        down: this.downKeyPressed
+      });
+    }
+
+    if (Phaser.Input.Keyboard.JustUp(this.toucheDroite)) {
+      this.socket.emit('playerInput', {
+        left: this.leftKeyPressed,
+        right: this.rightKeyPressed,
+        space: this.spaceKeyPressed,
+        up: this.upKeyPressed,
+        down: this.downKeyPressed
+      });
+    }
+
+
+    if (Phaser.Input.Keyboard.JustDown(this.aKeyPressed)) {
+      this.socket.emit('playerInput', {
+        attaque: true,
+        charge: true,
+      });
+    }
+
+    if (Phaser.Input.Keyboard.JustUp(this.aKeyPressed)) {
+      this.socket.emit('playerInput', {
+        attaque: true,
+        charge: false,
+      });
+    }
 
     if (Phaser.Input.Keyboard.JustDown(this.zoom1)) {
       this.cameras.main.zoomTo(0.1, 1500)

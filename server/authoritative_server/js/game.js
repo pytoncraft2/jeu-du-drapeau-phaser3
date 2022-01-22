@@ -602,7 +602,6 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
       // A
       if (input.attaque) {
         console.log("ATTTAQUEEEE");
-        input.attaque = false;
         parametres[player.atlas].toucheA(input.charge, this, player)
         // CODE A CHANGER ICI
         // player.setFrame()
@@ -613,6 +612,7 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
         //   console.log("FIN ATTACK ANIM");
         //   player.play("idle_attack",true)
         // })
+        input.attaque = false;
       }
 
       // z
