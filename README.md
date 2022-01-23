@@ -13,6 +13,9 @@ https://gammafp.com/tool/atlas-packer/ ATLAS PACKER
 https://www.codeandweb.com/free-sprite-sheet-packer SPRITE SHEET PACKER
 
 
+https://www.iloveimg.com/resize-image#resize-options,pixels
+il faut mettre 2 et 2 en px  et 30 images max a chaque fois
+et cette image il faut la mettre dans server/authoritavie_server/assets/personnages/dessinatrice1/et l image
 
 
 ## pour cree des animations
