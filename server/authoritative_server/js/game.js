@@ -263,7 +263,7 @@ function create() {
       this.anims.create({
         key: "straightlead",
         frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'straightlead', start: 0, end: 3 }),
-        frameRate: 3,
+        frameRate: 8,
         repeat: 0
       })
 
@@ -603,6 +603,8 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
       if (input.attaque) {
         console.log("ATTTAQUEEEE");
         player.play("straightlead",true)
+        player.flipX ? player.setVelocityX(-50) : player.setVelocityX(50)
+        
         input.attaque = false;
       }
 
