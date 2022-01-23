@@ -262,7 +262,7 @@ function create() {
 
       this.anims.create({
         key: "straightlead",
-        frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'straightlead', start: 0, end: 1 }),
+        frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'straightlead', start: 0, end: 3 }),
         frameRate: 3,
         repeat: 0
       })
@@ -602,16 +602,7 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
       // A
       if (input.attaque) {
         console.log("ATTTAQUEEEE");
-        // parametres[player.atlas].toucheA(input.charge, this, player)
-        // CODE A CHANGER ICI
-        // player.setFrame()
-        player.play("idle_attack",true)
         player.play("straightlead",true)
-        //
-        player.once(Phaser.Animations.Events.ANIMATION_COMPLETE_KEY + 'straightlead', () => {
-          console.log("FIN ATTACK ANIM");
-          player.play("idle_attack",true)
-        })
         input.attaque = false;
       }
 
