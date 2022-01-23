@@ -17,15 +17,8 @@ https://www.codeandweb.com/free-sprite-sheet-packer SPRITE SHEET PACKER
 
 ## pour cree des animations
 
-scenes/elements/liste-animation
 
-
-la function animation se fait instancier dans le fichier scene/arene.js
-et donc ça lance direct
-
-
-
-ensuite pour lancer lanimation je dois aller dans le fichier 
+pour lancer lanimation je dois aller dans le fichier 
 server/authoriative_server/js/game.js
 
 ensuite aller dans la function update()
