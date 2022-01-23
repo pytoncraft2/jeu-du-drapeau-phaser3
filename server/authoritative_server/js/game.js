@@ -39,8 +39,8 @@ parametres['dessinatrice1'] = {
     defaultScale: 0.8,
     scaleAugmentation: 0
   },
-  toucheA: (charge, scene, player) => {
-    attaque(scene, player, charge)
+  toucheA: (scene, player,attaqueSuivant) => {
+    combo(scene, player, attaqueSuivant)
   },
   toucheZ: (scene, player) => {
     toupie(scene.tweens, player)
@@ -600,11 +600,8 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
       }
 
       // A
-      if (input.attaque) {
-        console.log("ATTTAQUEEEE");
-        player.play("straightlead",true)
-        player.flipX ? player.setVelocityX(-50) : player.setVelocityX(50)
-        
+      if (input.attaque) {   
+        parametres[player.atlas].toucheA(this, player,input.charge)    
         input.attaque = false;
       }
 
@@ -1465,6 +1462,27 @@ function recevoirDegat(scene, player) {
      })
    }
  }
+/**
+ * 
+ * @param {Object} scene Scene du jeu
+ * @param {Object} player joueur qui effectue le combo
+ * @param {Object} attaqueSuivant deuxieme coup 
+ */
+function combo(scene,player,attaqueSuivant){
+  console.log("ATTTAQUEEEE");
+  player.play("straightlead",true)
+  player.flipX ? player.setVelocityX(-50) : player.setVelocityX(50)
+  let dateNow=new Date(minutes,seconds);
+  if (attaqueSuivant==true && dateNow.getSeconds()+1  ){
+    let dateNowTouch=new Date(minutes,seconds)
+        scene.tweens.addCounter({
+        duration: 500,
+        onComplete: () => (player.play("cross",true))
+    
+    })
+  }
+}
+
 
 /**
  * Interactions avec un tonneau|drapeau le plus proche du joueur<br>
