@@ -40,7 +40,8 @@ parametres['dessinatrice1'] = {
     scaleAugmentation: 0
   },
   toucheA: (scene, player,attaqueSuivant) => {
-    combo(scene, player, attaqueSuivant)
+    // combo(scene, player, attaqueSuivant)
+    attaque(scene, player, attaqueSuivant)
   },
   toucheZ: (scene, player) => {
     toupie(scene.tweens, player)
@@ -600,8 +601,12 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
       }
 
       // A
-      if (input.attaque) {   
-        parametres[player.atlas].toucheA(this, player,input.charge)    
+      if (input.attaque) {
+        parametres[player.atlas].toucheA(this, player,input.charge)
+        // console.log("ATTAQUE");
+        // if (input.charge) {
+          // console.log("CHARGE");
+        // }
         input.attaque = false;
       }
 
@@ -674,13 +679,13 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
       // ESPACE
       if (input.saut) {
         console.log("SAUT");
-        if (input.chargeSaut) {
-          console.log("CHARGE h");
+        // if (input.chargeSaut) {
+          // console.log("CHARGE h");
           parametres[player.atlas].toucheEspace(this, player, input.chargeSaut, isOnGround, isInAir)
-        } else {
-          console.log("CHARGE b");
-          parametres[player.atlas].toucheEspace(this, player, input.chargeSaut, isOnGround, isInAir)
-        }
+        // } else {
+        //   console.log("CHARGE b");
+        //   parametres[player.atlas].toucheEspace(this, player, input.chargeSaut, isOnGround, isInAir)
+        // }
         input.saut = false;
       }
 
@@ -1463,23 +1468,34 @@ function recevoirDegat(scene, player) {
    }
  }
 /**
- * 
+ *
  * @param {Object} scene Scene du jeu
  * @param {Object} player joueur qui effectue le combo
- * @param {Object} attaqueSuivant deuxieme coup 
+ * @param {Object} attaqueSuivant deuxieme coup
  */
-function combo(scene,player,attaqueSuivant){
-  console.log("ATTTAQUEEEE");
-  player.play("straightlead",true)
-  player.flipX ? player.setVelocityX(-50) : player.setVelocityX(50)
-  let dateNow=new Date(minutes,seconds);
-  if (attaqueSuivant==true && dateNow.getSeconds()+1  ){
-    let dateNowTouch=new Date(minutes,seconds)
-        scene.tweens.addCounter({
-        duration: 500,
-        onComplete: () => (player.play("cross",true))
-    
+function combo(scene,player,chargeSaut){
+  var puissance
+  console.log("CHARGE");
+  console.log(chargeSaut);
+  console.log("PUISSANCE");
+  console.log(puissance);
+  if (chargeSaut) {
+    player.tweenCombo = scene.tweens.addCounter({
+      from: 0,
+      to: 100,
+      duration: 800
     })
+  player.play("straightlead",true)
+    chargeSaut = false;
+  } else {
+      puissance = player.tweenCombo.getValue()
+      if (player.tweenCombo.isPlaying()) {
+        player.tweenCombo.stop()
+      }
+
+      if (puissance > 0.5) {
+        player.play("straightlead",true)
+      }
   }
 }
 
