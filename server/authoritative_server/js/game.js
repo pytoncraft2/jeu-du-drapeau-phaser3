@@ -40,8 +40,8 @@ parametres['dessinatrice1'] = {
     scaleAugmentation: 0
   },
   toucheA: (scene, player,attaqueSuivant) => {
-    // combo(scene, player, attaqueSuivant)
-    attaque(scene, player, attaqueSuivant)
+    combo(scene, player, attaqueSuivant)
+    // attaque(scene, player, attaqueSuivant)
   },
   toucheZ: (scene, player) => {
     toupie(scene.tweens, player)
@@ -271,7 +271,7 @@ function create() {
       this.anims.create({
         key: "cross",
         frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'cross', start: 0, end: 4 }),
-        frameRate: 3,
+        frameRate: 19,
         repeat: 0
       })
 
@@ -1473,31 +1473,59 @@ function recevoirDegat(scene, player) {
  * @param {Object} player joueur qui effectue le combo
  * @param {Object} attaqueSuivant deuxieme coup
  */
-function combo(scene,player,chargeSaut){
-  var puissance
-  console.log("CHARGE");
-  console.log(chargeSaut);
-  console.log("PUISSANCE");
-  console.log(puissance);
-  if (chargeSaut) {
-    player.tweenCombo = scene.tweens.addCounter({
-      from: 0,
-      to: 100,
-      duration: 800
-    })
-  player.play("straightlead",true)
-    chargeSaut = false;
-  } else {
-      puissance = player.tweenCombo.getValue()
-      if (player.tweenCombo.isPlaying()) {
-        player.tweenCombo.stop()
-      }
 
-      if (puissance > 0.5) {
-        player.play("straightlead",true)
-      }
-  }
-}
+ function combo(scene,player,charge) {
+   // console.log("CHARGE");
+   if (charge) {
+     player.play("straightlead",true)
+     player.tweenCombo = scene.tweens.addCounter({
+       from: 0,
+       to: 100,
+       onUpdate: tween => {
+         // tween.getValue()
+        player.anims.getFrameName() === 'straightlead1' ? player.setVelocityX(player.flipX ? -30 : 30) : null;
+        activeIndicationChargeCercle(tween, player)
+
+       },
+       onComplete: () => (player.play('cross', true)),
+       duration: 500
+     })
+   } else {
+     puissance = player.tweenCombo.getValue()
+     console.log(player.anims.getName());
+     if (player.tweenCombo.isPlaying()) {
+       player.tweenCombo.stop()
+       console.log("Tween stoped");
+     }
+   }
+
+   console.log(charge);
+ }
+// function combo(scene,player,chargeSaut){
+//   var puissance
+//   console.log("CHARGE");
+//   console.log(chargeSaut);
+//   console.log("PUISSANCE");
+//   console.log(puissance);
+//   if (chargeSaut) {
+//     player.tweenCombo = scene.tweens.addCounter({
+//       from: 0,
+//       to: 100,
+//       duration: 800
+//     })
+//   player.play("straightlead",true)
+//     chargeSaut = false;
+//   } else {
+//       puissance = player.tweenCombo.getValue()
+//       if (player.tweenCombo.isPlaying()) {
+//         player.tweenCombo.stop()
+//       }
+//
+//       if (puissance > 0.5) {
+//         player.play("straightlead",true)
+//       }
+//   }
+// }
 
 
 /**
