@@ -595,33 +595,37 @@ this.input.on('pointermove', function (pointer) {
     }
 
     if (Phaser.Input.Keyboard.JustDown(this.attaque)) {
-      this.attaqueKeyPressed = true;
-      this.charge = true;
-    } else {
-      this.attaqueKeyPressed = false;
-      this.charge = false;
+      this.socket.emit('playerInput', {
+        left: this.leftKeyPressed ,
+        right: this.rightKeyPressed,
+        up: this.upKeyPressed,
+        down: this.downKeyPressed,
+        attaque: true,
+        charge: true
+      });
     }
-
     if (Phaser.Input.Keyboard.JustUp(this.attaque)) {
-      this.attaqueKeyPressed = true;
-      this.charge = false;
+      this.socket.emit('playerInput', {
+        left: this.leftKeyPressed ,
+        right: this.rightKeyPressed,
+        up: this.upKeyPressed,
+        down: this.downKeyPressed,
+        attaque: true,
+        charge: false
+      });
     }
 
     if (
         left !== this.leftKeyPressed ||
         right !== this.rightKeyPressed ||
         up !== this.upKeyPressed ||
-        down !== this.downKeyPressed ||
-        attaque !== this.attaqueKeyPressed ||
-        charge !== this.charge
+        down !== this.downKeyPressed
       ) {
       this.socket.emit('playerInput', {
         left: this.leftKeyPressed ,
         right: this.rightKeyPressed,
         up: this.upKeyPressed,
-        down: this.downKeyPressed,
-        attaque: this.attaqueKeyPressed,
-        charge: this.charge
+        down: this.downKeyPressed
       });
     }
     // if (this.shootJoyStick.force) {
