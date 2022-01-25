@@ -544,6 +544,7 @@ this.input.on('pointermove', function (pointer) {
      this.attaqueKeyPressed = false;
      this.spaceKeyPressed = false;
      this.attaqueCharge = false;
+     this.comboKeyPressed = false;
      this.charge = false;
      this.saut = false;
      this.cKey = false;
@@ -573,6 +574,7 @@ this.input.on('pointermove', function (pointer) {
     const down = this.downKeyPressed;
     const attaque = this.attaqueKeyPressed;
     const charge = this.attaqueCharge;
+    const combo = this.comboKeyPressed;
 
     if (this.cursors.left.isDown) {
       this.leftKeyPressed = true;
@@ -594,38 +596,46 @@ this.input.on('pointermove', function (pointer) {
       this.downKeyPressed = false;
     }
 
-    if (Phaser.Input.Keyboard.JustDown(this.attaque)) {
-      this.socket.emit('playerInput', {
-        left: this.leftKeyPressed ,
-        right: this.rightKeyPressed,
-        up: this.upKeyPressed,
-        down: this.downKeyPressed,
-        attaque: true,
-        charge: true
-      });
+    if (this.attaque.isDown) {
+      this.comboKeyPressed = true;
+    } else {
+      this.comboKeyPressed = false;
     }
-    if (Phaser.Input.Keyboard.JustUp(this.attaque)) {
-      this.socket.emit('playerInput', {
-        left: this.leftKeyPressed ,
-        right: this.rightKeyPressed,
-        up: this.upKeyPressed,
-        down: this.downKeyPressed,
-        attaque: true,
-        charge: false
-      });
-    }
+
+    // if (Phaser.Input.Keyboard.JustDown(this.attaque)) {
+    //   this.socket.emit('playerInput', {
+    //     left: this.leftKeyPressed ,
+    //     right: this.rightKeyPressed,
+    //     up: this.upKeyPressed,
+    //     down: this.downKeyPressed,
+    //     attaque: true,
+    //     charge: true
+    //   });
+    // }
+    // if (Phaser.Input.Keyboard.JustUp(this.attaque)) {
+    //   this.socket.emit('playerInput', {
+    //     left: this.leftKeyPressed ,
+    //     right: this.rightKeyPressed,
+    //     up: this.upKeyPressed,
+    //     down: this.downKeyPressed,
+    //     attaque: true,
+    //     charge: false
+    //   });
+    // }
 
     if (
         left !== this.leftKeyPressed ||
         right !== this.rightKeyPressed ||
         up !== this.upKeyPressed ||
-        down !== this.downKeyPressed
+        down !== this.downKeyPressed ||
+        combo !== this.comboKeyPressed
       ) {
       this.socket.emit('playerInput', {
         left: this.leftKeyPressed ,
         right: this.rightKeyPressed,
         up: this.upKeyPressed,
-        down: this.downKeyPressed
+        down: this.downKeyPressed,
+        combo: this.comboKeyPressed
       });
     }
     // if (this.shootJoyStick.force) {

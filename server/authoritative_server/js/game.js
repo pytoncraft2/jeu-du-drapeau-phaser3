@@ -439,6 +439,7 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
 
       players[socket.room][socket.id] = {
         ...parametres[socket.atlas]['etatInitial'],
+        timedEvent: new Phaser.Time.TimerEvent({ delay: 900 }),
         protege: false,
         direction: "gauche",
         atlas: socket.atlas,
@@ -601,13 +602,14 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
       }
 
       // A
-      if (input.attaque) {
+      // if (input.attaque) {
+      //   parametres[player.atlas].toucheA(this, player,input.charge)
+      //   input.attaque = false;
+      // }
+
+      if (input.combo) {
         parametres[player.atlas].toucheA(this, player,input.charge)
-        // console.log("ATTAQUE");
-        // if (input.charge) {
-          // console.log("CHARGE");
-        // }
-        input.attaque = false;
+        input.combo = false;
       }
 
       // z
@@ -1031,6 +1033,7 @@ function addPlayer(self, playerInfo) {
   joueur.defaultScale = playerInfo.defaultScale;
   joueur.scaleAugmentation = playerInfo.scaleAugmentation;
   joueur.chargeEnCours = playerInfo.chargeEnCours,
+  joueur.timedEvent = playerInfo.timedEvent
 
   joueur.cercleChargeInterieur = self.add.circle(400, 300, 20, 0xeed510);
   joueur.cercleChargeExterieur = self.add.circle(400, 300, 20, 0x15a815);
@@ -1474,7 +1477,7 @@ function recevoirDegat(scene, player) {
  * @param {Object} attaqueSuivant deuxieme coup
  */
 
- function combo(scene,player,charge) {
+ function comboV2(scene,player,charge) {
    // console.log("CHARGE");
    if (charge) {
      player.play("straightlead",true)
@@ -1501,6 +1504,87 @@ function recevoirDegat(scene, player) {
 
    console.log(charge);
  }
+
+
+ function combo(scene,player,charge) {
+  // console.log("CHARGE");
+
+console.log("COMBO");
+
+// console.log(player.timedEvent.paused);
+// player.timedEvent.paused = !player.timedEvent.paused;
+
+
+// console.log(player.timedEvent.getProgress().toString().substr(0, 4));
+
+
+console.log(player.timedEvent.getProgress());
+if (player.timedEvent.getProgress() < 0.47) {
+  player.anims.play('cross')
+} else {
+  player.anims.play('straightlead')
+  player.tweenCombo = scene.tweens.addCounter({
+    from: 0,
+    to: 100,
+    onUpdate: tween => {
+      // tween.getValue()
+      player.anims.getFrameName() === 'straightlead1' ? player.setVelocityX(player.flipX ? -30 : 30) : null;
+      activeIndicationChargeCercle(tween, player)
+
+    },
+    duration: 900
+  })
+
+  // player.setVelocityX(player.flipX ? -30 : 30)
+}
+  // if (charge) {
+  //
+  //   player.reAttaquer = false;
+  //   player.timedEvent = scene.time.addEvent({ delay: 500, callback: () => {player.reAttaquer = true}, callbackScope: this, repeat: 0 });
+    scene.time.addEvent(player.timedEvent);
+  //
+  //   player.play("straightlead",true)
+  //   // scene.time.addEvent(timedEvent);
+  //
+  //
+  //   if (player.reAttaquer) {
+  //     player.setVelocityY(-300)
+  //     console.log("OUI");
+  //   }
+  //
+  //
+  //   // player.tweenCombo = scene.tweens.addCounter({
+  //   //   from: 0,
+  //   //   to: 100,
+  //   //   onUpdate: tween => {
+  //   //     // tween.getValue()
+  //   //    player.anims.getFrameName() === 'straightlead1' ? player.setVelocityX(player.flipX ? -30 : 30) : null;
+  //   //    activeIndicationChargeCercle(tween, player)
+  //   //
+  //   //   },
+  //   //   onComplete: () => (player.play('cross', true)),
+  //   //   duration: 500
+  //   // })
+  // } else {
+  //   // puissance = player.tweenCombo.getValue()
+  //   // console.log(player.anims.getName());
+  //   // if (player.tweenCombo.isPlaying()) {
+  //     // player.tweenCombo.stop()
+  //     // console.log("Tween stoped");
+  //
+  //   // }
+  // }
+
+
+
+  // console.log(charge);
+}
+
+function onEvent(player) {
+  console.log("PEUT RE ATTAQUER");
+  player.reAttaquer = true;
+}
+
 // function combo(scene,player,chargeSaut){
 //   var puissance
 //   console.log("CHARGE");
