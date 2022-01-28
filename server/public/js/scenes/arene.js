@@ -375,7 +375,9 @@ const Arene = new Phaser.Class({
 
              player.flipX = (players[id].flipX);
              player.setScale(players[id].scale);
-             player.setTint(players[id].tint);
+             if (players[id].equipe == self.equipe) {
+               player.setTint(players[id].tint);
+             }
              player.setDepth(players[id].depth);
              // player.zoneAttaque.setPosition(players[id].zoneAX, players[id].zoneAY)
              player.setPosition(players[id].x, players[id].y);
@@ -952,6 +954,13 @@ this.input.on('pointermove', function (pointer) {
     } : {
       x: 7300,
       y: -1363
+    }
+
+    // si les joueur sont de la meme equipe que moi je n'ajoute pas de tint
+    // sinon ajoute un tint
+
+    if (self.equipe !== playerInfo.equipe) {
+      joueur.setTint(0.1)
     }
 
     joueur.ombre = self.add.ellipse(position.x, position.y - 30, 100, 20, couleur).setAlpha(0.8).setDepth(-1);

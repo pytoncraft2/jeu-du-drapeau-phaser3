@@ -847,6 +847,8 @@ blockAmouvant.setVelocityX(25);
 
       players[player.arene][player.playerId].cercleChargeScale = player.cercleChargeInterieur.scale;
 
+      players[player.arene][player.playerId].equipe = player.equipe;
+
       if (this.bulletCanon) {
         players[player.arene][player.playerId].bulletCanonY = this.bulletCanon.y
         players[player.arene][player.playerId].bulletCanonX = this.bulletCanon.x
@@ -1144,7 +1146,6 @@ function addPlayer(self, playerInfo) {
     joueur.setCollisionGroup(group1).setCollisionCategory(cat1).setCollidesWith(cat1);
   } else {
     joueur.setCollisionGroup(group2).setCollisionCategory(cat1).setCollidesWith(cat2);
-    joueur.setTint(0.1)
   }
 
 
