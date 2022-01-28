@@ -749,11 +749,11 @@ this.input.on('pointermove', function (pointer) {
   //   /**
   //    * SE REDRESSER
   //    */
-  //    if (Phaser.Input.Keyboard.JustDown(this.toucheF)) {
-  //      this.socket.emit('playerInput', {
-  //        redresser: true
-  //      });
-  //    }
+     if (Phaser.Input.Keyboard.JustDown(this.toucheF)) {
+       this.socket.emit('playerInput', {
+         redresser: true
+       });
+     }
   //
   //   /**
   //    * GAUCHE
