@@ -538,6 +538,36 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
 
   })
 
+
+/*
+  var blockAmouvant = this.matter.add.image(200, 300, 'block').setBounce(1).setFriction(0);
+var blockBMillieu = this.matter.add.image(400, 300, 'block');
+
+var blockCVert = this.matter.add.image(750, 300, 'block').setStatic(true);
+var blockDVert = this.matter.add.image(50, 300, 'block').setStatic(true);
+
+var cat1 = this.matter.world.nextCategory();
+
+blockAmouvant.setCollisionCategory(cat1);
+blockCVert.setCollisionCategory(cat1);
+
+var cat2 = this.matter.world.nextCategory();
+
+blockDVert.setCollisionCategory(cat2);
+
+blockAmouvant.setCollidesWith([ cat1, cat2 ]);
+// blockA.setCollidesWith(cat1);
+
+blockAmouvant.setVelocityX(25);
+*/
+
+// this.matter.world.on('collisionstart', function (event) {
+
+    // event.pairs[0].bodyA.gameObject.setAlpha(0.4);
+    // event.pairs[0].bodyB.gameObject.setTint(0.1);
+
+// });
+
 }
 
  /**
@@ -1006,8 +1036,8 @@ function addPlayer(self, playerInfo) {
   var group2 = self.matter.world.nextGroup(true);
 
 
-  // var cat1 = self.matter.world.nextCategory();
-  // var cat2 = self.matter.world.nextCategory();
+  var cat1 = self.matter.world.nextCategory();
+  var cat2 = self.matter.world.nextCategory();
 
   const joueur = self.matter.add.sprite(playerInfo.x, playerInfo.y, 'dessinatrice1', 'face0').setDisplaySize(playerInfo.displayWidth, playerInfo.displayHeight).setAlpha(1)
 
@@ -1056,11 +1086,11 @@ function addPlayer(self, playerInfo) {
   joueur.socle = self.add.zone(playerInfo.x, joueur.displayHeight -55, 210, 210).setSize(150, 40).setOrigin(0.5, 0.5);
   var socle = self.matter.add.gameObject(joueur.socle);
   socle.setIgnoreGravity(true).setStatic(true)
-  // if (playerInfo.equipe == "A") {
-  //   socle.setCollisionGroup(group1).setCollisionCategory(cat1).setCollidesWith(cat1);
-  // } else {
-  //   socle.setCollisionGroup(group1).setCollisionCategory(cat2).setCollidesWith(cat1);
-  // }
+  if (playerInfo.equipe == "A") {
+    socle.setCollisionGroup(group1).setCollisionCategory(cat1).setCollidesWith(cat1);
+  } else {
+    socle.setCollisionGroup(group1).setCollisionCategory(cat2).setCollidesWith(cat1);
+  }
 // .setCollisionGroup(group1).setCollisionCategory(cat1).setCollidesWith(cat1)
 
 
@@ -1110,11 +1140,12 @@ function addPlayer(self, playerInfo) {
 
   joueur.setExistingBody(joueur.compoundBody)
   joueur.setPosition(playerInfo.x, playerInfo.y);
-//   if (playerInfo.equipe == "A") {
-//   joueur.setCollisionGroup(group1).setCollisionCategory(cat1).setCollidesWith(cat1);
-// } else {
-//   joueur.setCollisionGroup(group2).setCollisionCategory(cat1).setCollidesWith(cat2);
-// }
+  if (playerInfo.equipe == "A") {
+    joueur.setCollisionGroup(group1).setCollisionCategory(cat1).setCollidesWith(cat1);
+  } else {
+    joueur.setCollisionGroup(group2).setCollisionCategory(cat1).setCollidesWith(cat2);
+    joueur.setTint(0.1)
+  }
 
 
 
@@ -1516,6 +1547,8 @@ function recevoirDegat(scene, player) {
 
    // console.log("STRIG");
      player.anims.play('straightlead')
+     player.setCollidesWith(-80)
+
 
      // console.log(player.anims.getName());
      // console.log(player.timedEvent.getProgress());
