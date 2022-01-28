@@ -635,7 +635,8 @@ this.input.on('pointermove', function (pointer) {
         right: this.rightKeyPressed,
         up: this.upKeyPressed,
         down: this.downKeyPressed,
-        combo: this.comboKeyPressed
+        combo: this.comboKeyPressed,
+        duree: this.attaque.getDuration()
       });
     }
     // if (this.shootJoyStick.force) {

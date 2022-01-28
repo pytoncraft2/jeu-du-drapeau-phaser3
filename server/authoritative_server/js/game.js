@@ -204,7 +204,7 @@ function create() {
       this.anims.create({
         key: 'attack',
         frames: this.anims.generateFrameNames('dessinatrice1', { prefix: 'positiona', start: 0, end: 5 }),
-        frameRate: 6,
+        frameRate: 8,
         repeat: 0
       });
       this.anims.create({
@@ -439,7 +439,7 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
 
       players[socket.room][socket.id] = {
         ...parametres[socket.atlas]['etatInitial'],
-        timedEvent: new Phaser.Time.TimerEvent({ delay: 900 }),
+        timedEvent: new Phaser.Time.TimerEvent({ delay: 900 , paused: true}),
         protege: false,
         direction: "gauche",
         atlas: socket.atlas,
@@ -608,6 +608,8 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
       // }
 
       if (input.combo) {
+        console.log("DUREE");
+        console.log(input.duree);
         parametres[player.atlas].toucheA(this, player,input.charge)
         input.combo = false;
       }
@@ -1505,11 +1507,77 @@ function recevoirDegat(scene, player) {
    console.log(charge);
  }
 
+ function animationSuivanteCombo() {
+   return ['straightlead', 'cross', 'attaque'];
+ }
+
 
  function combo(scene,player,charge) {
+
+   // console.log("STRIG");
+     player.anims.play('straightlead')
+
+     // console.log(player.anims.getName());
+     // console.log(player.timedEvent.getProgress());
+     let c = 0;
+     player.tweenCombo = scene.tweens.addCounter({
+       from: 0,
+       to: 100,
+       onUpdate: tween => {
+         // tween.getValue()
+         if (player.anims.getFrameName() === 'straightlead1') {
+           player.setVelocityX(player.flipX ? -40 : 40)
+         }
+
+
+         if (c == 0) {
+           if (player.anims.getName() === 'straightlead')
+           {
+             //  When the current animation repeat ends, we'll play the 'turn' animation
+             player.anims.playAfterRepeat('cross');
+
+             console.log("ONE--------");
+
+             //  And after that, the 'walk' look
+             player.anims.chain('attack');
+           }
+           else
+           {
+             console.log("TWO--------");
+             player.anims.play('idle_attack');
+           }
+
+           c++;
+         }
+        //  if (player.anims.getName() == 'straightlead' && c == 0) {
+        //    console.log("SHIFT");
+        //   console.log("11111");
+        //   console.log(animationSuivanteCombo()[1]);
+        //   c++;
+        // } else if (player.anims.getName() == 'cross' && c == 0) {
+        //   console.log("222222");
+        //   console.log(animationSuivanteCombo()[2]);
+        // }
+         // if (player.anims.getFrameName() === 'straightlead1') {
+         //   player.setVelocityX(player.flipX ? -30 : 30)
+         //   activeIndicationChargeCercle(tween, player)
+         // }
+         //
+         // if (player.anims.getFrameName() === 'cross1') {
+         //   player.setVelocityX(player.flipX ? -10 : 10)
+         //   activeIndicationChargeCercle(tween, player)
+         // }
+       },
+       duration: 900
+     })
+
+
+
+
   // console.log("CHARGE");
 
-console.log("COMBO");
+
+// console.log("COMBO");
 
 // console.log(player.timedEvent.paused);
 // player.timedEvent.paused = !player.timedEvent.paused;
@@ -1518,30 +1586,40 @@ console.log("COMBO");
 // console.log(player.timedEvent.getProgress().toString().substr(0, 4));
 
 
-console.log(player.timedEvent.getProgress());
-if (player.timedEvent.getProgress() < 0.47) {
-  player.anims.play('cross')
-} else {
-  player.anims.play('straightlead')
-  player.tweenCombo = scene.tweens.addCounter({
-    from: 0,
-    to: 100,
-    onUpdate: tween => {
-      // tween.getValue()
-      player.anims.getFrameName() === 'straightlead1' ? player.setVelocityX(player.flipX ? -30 : 30) : null;
-      activeIndicationChargeCercle(tween, player)
-
-    },
-    duration: 900
-  })
-
-  // player.setVelocityX(player.flipX ? -30 : 30)
-}
+// console.log(player.timedEvent.getProgress());
+// if (player.timedEvent.getProgress() < 0.47) {
+//   player.anims.play('cross')
+//   console.log("NAAAME");
+//   console.log(player.anims.getName());
+// } else if (player.timedEvent.getProgress() < 0.87 && player.timedEvent.getProgress() > 0.48) {
+//   player.anims.play('attack')
+// } else {
+//   player.anims.play('straightlead')
+//   player.tweenCombo = scene.tweens.addCounter({
+//     from: 0,
+//     to: 100,
+//     onUpdate: tween => {
+//       // tween.getValue()
+//       if (player.anims.getFrameName() === 'straightlead1') {
+//         player.setVelocityX(player.flipX ? -30 : 30)
+//         activeIndicationChargeCercle(tween, player)
+//       }
+//
+//       if (player.anims.getFrameName() === 'cross1') {
+//         player.setVelocityX(player.flipX ? -10 : 10)
+//         activeIndicationChargeCercle(tween, player)
+//       }
+//     },
+//     duration: 900
+//   })
+//
+//   // player.setVelocityX(player.flipX ? -30 : 30)
+// }
   // if (charge) {
   //
   //   player.reAttaquer = false;
   //   player.timedEvent = scene.time.addEvent({ delay: 500, callback: () => {player.reAttaquer = true}, callbackScope: this, repeat: 0 });
-    scene.time.addEvent(player.timedEvent);
+    // scene.time.addEvent(player.timedEvent);
   //
   //   player.play("straightlead",true)
   //   // scene.time.addEvent(timedEvent);
