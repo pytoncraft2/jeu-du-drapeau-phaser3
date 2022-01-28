@@ -350,22 +350,22 @@ const Arene = new Phaser.Class({
          });
        })
 
-       if (self.players.getChildren()[0]) {
-         if (rect.contains(self.players.getChildren()[0].getBottomCenter().x, self.players.getChildren()[0].getBottomCenter().y)) {
-           spotlight.x = self.players.getChildren()[0].x;
-           spotlight.y = self.players.getChildren()[0].y;
-           if (platforme1.alpha != 0) {
-             platforme1.setAlpha(0)
-             console.log("GO 0");
-           }
-         } else {
-           if (platforme1.alpha != 1) {
-             platforme1.setAlpha(1)
-             self.players.getChildren()[0].clearMask()
-             console.log("GO 1");
-           }
-         }
-       }
+       // if (self.players.getChildren()[0]) {
+       //   if (rect.contains(self.players.getChildren()[0].getBottomCenter().x, self.players.getChildren()[0].getBottomCenter().y)) {
+       //     spotlight.x = self.players.getChildren()[0].x;
+       //     spotlight.y = self.players.getChildren()[0].y;
+       //     if (platforme1.alpha != 0) {
+       //       platforme1.setAlpha(0)
+       //       console.log("GO 0");
+       //     }
+       //   } else {
+       //     if (platforme1.alpha != 1) {
+       //       platforme1.setAlpha(1)
+       //       self.players.getChildren()[0].clearMask()
+       //       console.log("GO 1");
+       //     }
+       //   }
+       // }
 
 
        Object.keys(players).forEach((id) => {
@@ -414,16 +414,16 @@ const Arene = new Phaser.Class({
 
      const chambre = this.add.image(-300, 0, 'chambre').setDepth(-0.05);
 
-     spotlight = this.make.sprite({
-         x: 1200,
-         y: 1200,
-         scale: 4,
-         key: 'mask',
-         add: false
-     });
+     // spotlight = this.make.sprite({
+     //     x: 1200,
+     //     y: 1200,
+     //     scale: 4,
+     //     key: 'mask',
+     //     add: false
+     // });
 
-     chambre.mask = new Phaser.Display.Masks.BitmapMask(this, spotlight);
-     console.log(chambre.mask);
+     // chambre.mask = new Phaser.Display.Masks.BitmapMask(this, spotlight);
+     // console.log(chambre.mask);
 
      var graphics = this.add.graphics({ fillStyle:{ color: 0xaa0000 } });
 rect = new Phaser.Geom.Rectangle(chambre.x - chambre.width/2, chambre.y - chambre.height/2, chambre.width, chambre.height);
@@ -956,7 +956,7 @@ this.input.on('pointermove', function (pointer) {
 
     joueur.ombre = self.add.ellipse(position.x, position.y - 30, 100, 20, couleur).setAlpha(0.8).setDepth(-1);
 
-    joueur.mask = new Phaser.Display.Masks.BitmapMask(this, spotlight);
+    // joueur.mask = new Phaser.Display.Masks.BitmapMask(this, spotlight);
 
     self.players.add(joueur);
     if (iscurrent) {
