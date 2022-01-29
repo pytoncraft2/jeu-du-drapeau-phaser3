@@ -446,6 +446,8 @@ this.tonneaux.addMultiple([t1, t2, t3, t4])
         arene: socket.room,
         equipe: socket.equipe,
         mask: mask,
+        indexAttaque: ['straightlead', 'cross', 'attack'],
+        indexAttaqueCourant: 0,
         wall: false,
         isTouching: {
           left: false,
@@ -638,8 +640,7 @@ blockAmouvant.setVelocityX(25);
       // }
 
       if (input.combo) {
-        console.log("DUREE");
-        console.log(input.duree);
+        console.log('TOUCHE A');
         parametres[player.atlas].toucheA(this, player,input.charge)
         input.combo = false;
       }
@@ -1551,6 +1552,7 @@ function recevoirDegat(scene, player) {
      player.setCollidesWith(-80)
 
 
+
      // console.log(player.anims.getName());
      // console.log(player.timedEvent.getProgress());
      let c = 0;
@@ -1559,25 +1561,68 @@ function recevoirDegat(scene, player) {
        to: 100,
        onUpdate: tween => {
          // tween.getValue()
-         if (player.anims.getFrameName() === 'straightlead1') {
-           player.setVelocityX(player.flipX ? -40 : 40)
+         // if (player.anims.getFrameName() === 'straightlead1') {
+         //   player.setVelocityX(player.flipX ? -40 : 40)
+         //   player.premierAnimation = tween.totalElapsed
+         // }
+         //
+
+
+
+         // tempDapuis = 0
+
+         // ancienneDate = 0
+         player.indexAttaque
+         si (appuuie) {
+           tempDapuis = dateMaintenant
+
+           AncienneDate = tempDapuis
+
+           si (ancienneDate + 1s > tempDapuis) {
+             si (player.indexAttaqueCourant == 0) {
+              play('cross')
+              player.indexAttaque++
+             }
+
+             sinon si (player.indexAttaque == 1) {
+              play('coupDePied')
+                player.indexAttaque = 0;
+             }
+             tempDapuis = dateMaintenant
+           } sinon {
+             player.indexAttaqueCourant = 0;
+           }
+           tempDapuis = 0
          }
+
+
+
+
+
+
+
+
+
+
+
 
 
          if (c == 0) {
            if (player.anims.getName() === 'straightlead')
            {
-             //  When the current animation repeat ends, we'll play the 'turn' animation
+             player.premierAnimation = tween.totalElapsed
+             if (player.premierAnimation + 900s < tween.totalElapsed) {
+               player.deuxiemeAnimation = tween.totalElapsed
+               player.anims.play('cross');
+               if () {
+
+               }
+             }
              player.anims.playAfterRepeat('cross');
-
-             console.log("ONE--------");
-
-             //  And after that, the 'walk' look
              player.anims.chain('attack');
            }
            else
            {
-             console.log("TWO--------");
              player.anims.play('idle_attack');
            }
 
