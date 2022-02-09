@@ -42,3 +42,6 @@ this.anims.create({
         frameRate: 3, 
         repeat: 0
       })
+
+
+Idée: Tournoi
