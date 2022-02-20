@@ -40,8 +40,8 @@ const gameServer = new Server({
 
 // Register room handlers
 gameServer.define("lobby", LobbyRooms).filterBy(['salon'])
-gameServer.define("game_instance", GameRooms)
-.enableRealtimeListing();
+gameServer.define("game_instance", GameRooms).filterBy(['salon'])
+// .enableRealtimeListing();
 
 
 // Start game server

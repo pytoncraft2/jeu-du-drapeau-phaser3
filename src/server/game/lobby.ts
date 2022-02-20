@@ -5,7 +5,7 @@ import config from "./config"
 
 import { RoomState, Player, Input } from "./RoomState"
 
-export default class GameRooms extends Room {
+export default class LobbyRooms extends Room {
   Game!: Phaser.Game
   scene!: Phaser.Scene
 

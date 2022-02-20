@@ -8,6 +8,7 @@ export default class Demo extends Phaser.Scene {
   players: Phaser.GameObjects.Group
   session: string
   playersRef: any
+  salon: any
   keyboard!: any
   room: Colyseus.Room<unknown>
   prevInputs: { up: boolean; right: boolean; left: boolean; down: boolean }
@@ -72,25 +73,27 @@ element.on('click', async function (event) {
                     element.setVisible(false);
 
                     const salon = inputUsername.value;
-                    client
-                      .joinOrCreate("lobby", { salon })
-                      .then((room) => {
-                        self.room = room
-                        self.session = room.sessionId
-                        room.onStateChange((changes: any) => {
-                          let presences = {}
-                          changes.presences.forEach((value, key) => {
-                            presences[key] = value
-                          })
-                          self.patchPlayer({
-                            presences: presences,
-                            presenceList: Object.keys(presences),
-                          })
-                        })
-                      })
-                      .catch((err) => {
-                        console.error(err)
-                      })
+                    self.scene.start('Lobby', {salon: salon});
+                    // const salon = inputUsername.value;
+                    // client
+                    //   .joinOrCreate("lobby", { salon })
+                    //   .then((room) => {
+                    //     self.room = room
+                    //     self.session = room.sessionId
+                    //     room.onStateChange((changes: any) => {
+                    //       let presences = {}
+                    //       changes.presences.forEach((value, key) => {
+                    //         presences[key] = value
+                    //       })
+                    //       self.patchPlayer({
+                    //         presences: presences,
+                    //         presenceList: Object.keys(presences),
+                    //       })
+                    //     })
+                    //   })
+                    //   .catch((err) => {
+                    //     console.error(err)
+                    //   })
 
 
                     // let res = await this.client.getAvailableRooms("lobby").then(rooms => {
@@ -179,6 +182,7 @@ element.setDepth(900)
 
   update() {
     if (this.room) {
+
       const { up, right, left, down } = this.keyboard
 
       const inputs = {
