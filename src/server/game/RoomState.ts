@@ -18,6 +18,7 @@ export class Input extends Schema {
   @type("boolean") right: boolean = false
   @type("boolean") up: boolean = false
   @type("boolean") down: boolean = false
+  @type("boolean") space: boolean = false
 }
 
 export class RoomState extends Schema {

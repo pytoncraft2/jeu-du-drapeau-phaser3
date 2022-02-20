@@ -36,6 +36,7 @@ export default class LobbyRooms extends Room {
       right: false,
       down: false,
       left: false,
+      space: false,
     }
     const presences = this.scene.createPlayer(client.id)
     for (const [key, value] of Object.entries(presences.presences)) {

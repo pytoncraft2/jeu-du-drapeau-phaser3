@@ -5,8 +5,8 @@ export default {
   parent: "game",
   backgroundColor: "#33A5E7",
   scale: {
-    width: 640,
-    height: 320,
+    width: window.innerWidth,
+    height: window.innerHeight,
     mode: Phaser.Scale.NONE,
     autoCenter: Phaser.Scale.CENTER_BOTH,
   },
@@ -15,3 +15,5 @@ export default {
   },
   pixelArt: true,
 }
+
+

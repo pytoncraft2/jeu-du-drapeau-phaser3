@@ -11,7 +11,7 @@ export default class Jeu_01 extends Phaser.Scene {
   salon: any
   keyboard!: any
   room: Colyseus.Room<unknown>
-  prevInputs: { up: boolean; right: boolean; left: boolean; down: boolean }
+  prevInputs: { up: boolean; right: boolean; left: boolean; down: boolean, space: boolean }
   private playersMessage: Phaser.GameObjects.Text;
 
   constructor() {
@@ -31,7 +31,7 @@ export default class Jeu_01 extends Phaser.Scene {
     const self = this;
     this.players = this.add.group()
     this.playersRef = {}
-    this.keyboard = this.input.keyboard.addKeys("up,right,left,down")
+    this.keyboard = this.input.keyboard.addKeys("up,right,left,down,space")
     this.playersMessage = this.add
   .text(400, 300, `Players connected: 123`)
   .setOrigin(0.5);
@@ -153,6 +153,7 @@ export default class Jeu_01 extends Phaser.Scene {
       right: false,
       left: false,
       down: false,
+      space: false,
     }
   }
 
@@ -186,13 +187,15 @@ export default class Jeu_01 extends Phaser.Scene {
 
   update() {
     if (this.room) {
-      const { up, right, left, down } = this.keyboard
+      const { up, right, left, down, space } = this.keyboard
 
       const inputs = {
         up: up.isDown ? true : false,
         right: right.isDown ? true : false,
         left: left.isDown ? true : false,
         down: down.isDown ? true : false,
+        space: space.isDown ? true : false,
+        
       }
 
       if (!deepEqual(inputs, this.prevInputs)) {

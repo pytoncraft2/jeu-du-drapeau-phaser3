@@ -21,7 +21,7 @@ export default class PlayerClass extends Phaser.Physics.Arcade.Sprite {
 
   update(time: number, deltaTime: number) {
     const input = this.scene.room.userInputs[this.ClientID]
-    const { up, right, down, left } = input
+    const { up, right, down, left, space } = input
 
     let dir = 0
 
@@ -30,6 +30,10 @@ export default class PlayerClass extends Phaser.Physics.Arcade.Sprite {
     }
     if (right) {
       dir += 1
+    }
+
+    if (space) {
+      this.setVelocityY(-900)
     }
 
     if (up) {

@@ -77,8 +77,6 @@ export default class Lobby extends Phaser.Scene {
     const salon = this.salon
     const client = this.client
 
-    this.goSelectionM = this.add.text(halfWidth - 90, halfHeight - 10, ['JOUER']).setFontSize(47).setFontFamily('Trebuchet MS').setColor('#6badce').setShadow(2, 2, "white", 2, true, true);
-
     this.playersMessage.setInteractive().on('pointerdown', function() {
       self.scene.start('Jeu_01',{salon: salon});
     });
