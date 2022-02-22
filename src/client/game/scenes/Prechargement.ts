@@ -34,14 +34,14 @@ export default class Prechargement extends Phaser.Scene {
     const percentText = this.add.text(halfWidth - 25, halfHeight, '0%').setFontSize(24);
     const assetText = this.add.text(halfWidth - 25, halfHeight + 100, '').setFontSize(24);
 
-    this.load.on('progress', (value) => {
+    this.load.on('progress', (value: number) => {
       progressBar.width = (progressBarWidth - 30) * value;
 
       const percent = value * 100;
       percentText.setText(`${percent}%`);
     });
 
-    this.load.on('fileprogress', (file) => {
+    this.load.on('fileprogress', (file: Phaser.Loader.File) => {
       assetText.setText(file.key);
     });
 
