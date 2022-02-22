@@ -3,11 +3,11 @@
   "version": "0.0.1",
   "description": "Example of using `https://www.colyseus.io/` with `@geckos.io/phaser-on-nodejs`",
   "scripts": {
-    "build:client": "vite build --base=/src/client/public/",
+    "build:client": "vite build --base=/src/client/",
     "build:server": "tsc -p src/server/tsconfig.json",
     "build": "concurrently \"npm:build:*\"",
     "clean": "rm -rf ./build ./dist",
-    "serve:client": "vite",
+    "serve:client": "vite --base=/src/client/",
     "serve:server": "nodemon src/server/server.ts",
     "serve": "concurrently \"npm:serve:*\"",
     "start": "node build/server/server.js",
