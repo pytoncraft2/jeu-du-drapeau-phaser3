@@ -1,4 +1,4 @@
-export function deepEqual(x, y) {
+export function deepEqual(x:any, y:any) {
   const ok = Object.keys,
     tx = typeof x,
     ty = typeof y

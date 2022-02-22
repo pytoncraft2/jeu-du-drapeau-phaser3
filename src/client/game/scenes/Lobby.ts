@@ -1,46 +1,6 @@
-// const Lobby = new Phaser.Class({
-//
-//     Extends: Phaser.Scene,
-//
-//     initialize:
-//
-//     function Menu ()
-//     {
-//         Phaser.Scene.call(this, { key: 'Lobby' });
-//     },
-//
-//     create: function ()
-//     {
-//       var liste = ['dessinatrice1_', 'naruto_', 'ninja_'];
-//
-//         // var sceneB = this.scene.get('sceneB');
-//
-//         const self = this;
-//         const halfWidth = 1500 / 2;
-//         const halfHeight = 720 / 2;
-//
-//         this.goSelectionM = this.add.text(halfWidth - 90, halfHeight - 10, ['JOUER']).setFontSize(47).setFontFamily('Trebuchet MS').setColor('#6badce').setShadow(2, 2, "white", 2, true, true);
-//         this.fullscreen = this.add.image(40,40, 'fullscreen')
-//
-//         this.goSelectionM.setInteractive().on('pointerdown', function() {
-//           self.scene.start('selectionJoueur',{liste: liste});
-//         });
-//
-//         this.fullscreen.setInteractive().on('pointerdown', function() {
-//         this.scale.isFullscreen ? this.scale.stopFullscreen() : this.scale.startFullscreen()
-//       },this);
-//
-//
-//       }
-// });
-
-// export default Lobby
-
-
 import Phaser from "phaser"
 
 import * as Colyseus from "colyseus.js"
-// import { deepEqual } from "../utils/index"
 
 export default class Lobby extends Phaser.Scene {
   private playersMessage: Phaser.GameObjects.Text;
@@ -53,7 +13,7 @@ export default class Lobby extends Phaser.Scene {
     super("Lobby")
   }
 
-  init(salon) {
+  init(salon: any) {
     this.salon = salon.salon
   }
 
@@ -69,10 +29,6 @@ export default class Lobby extends Phaser.Scene {
     .setOrigin(0.5)
     .setInteractive();
 
-    const halfWidth = 1500 / 2;
-    const halfHeight = 720 / 2;
-
-
     this.client = new Colyseus.Client("ws://localhost:3000")
     const salon = this.salon
     const client = this.client
@@ -81,30 +37,27 @@ export default class Lobby extends Phaser.Scene {
       self.scene.start('Jeu_01',{salon: salon});
     });
 
-    // const salon = inputUsername.value;
-client
-  .joinOrCreate("lobby", { salon })
-  .then((room) => {
-    self.room = room
-    self.session = room.sessionId
-    console.log("SALON LOBBY REJOINT & CONNECTÉ OK");
+    client
+    .joinOrCreate("lobby", { salon })
+    .then((room) => {
+      self.room = room
+      self.session = room.sessionId
+      console.log("SALON LOBBY REJOINT & CONNECTÉ OK");
 
-    // room.onStateChange((changes: any) => {
-    //   let presences = {}
-    //   changes.presences.forEach((value, key) => {
-    //     presences[key] = value
-    //   })
-    //   self.patchPlayer({
-    //     presences: presences,
-    //     presenceList: Object.keys(presences),
-    //   })
-    // })
-  })
-  .catch((err) => {
-    console.error(err)
-  })
-
-
+      // room.onStateChange((changes: any) => {
+      //   let presences = {}
+      //   changes.presences.forEach((value, key) => {
+      //     presences[key] = value
+      //   })
+      //   self.patchPlayer({
+      //     presences: presences,
+      //     presenceList: Object.keys(presences),
+      //   })
+      // })
+    })
+    .catch((err) => {
+      console.error(err)
+    })
   }
 
   update() {}

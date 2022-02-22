@@ -10,7 +10,8 @@
     "serve:client": "parcel watch src/client/public/game.html && parcel watch src/client/public/loginform.html",
     "serve:server": "nodemon src/server/server.ts",
     "serve": "concurrently \"npm:serve:*\"",
-    "start": "node build/server/server.js"
+    "start": "node build/server/server.js",
+    "go": "npm run clean && npm run build"
   },
   "repository": {
     "type": "git",

@@ -165,7 +165,7 @@ export default class Jeu_01 extends Phaser.Scene {
         const x = list.presences[item].x
         const y = list.presences[item].y
         const player = this.add
-          .sprite(x, y, "")
+          .sprite(x, y, "fakhear")
           .setData({ ClientId: list.presenceList[idx] })
         this.players.add(player)
         this.playersRef[item] = player
@@ -195,7 +195,7 @@ export default class Jeu_01 extends Phaser.Scene {
         left: left.isDown ? true : false,
         down: down.isDown ? true : false,
         space: space.isDown ? true : false,
-        
+
       }
 
       if (!deepEqual(inputs, this.prevInputs)) {
