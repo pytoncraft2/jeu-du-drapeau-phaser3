@@ -8,7 +8,7 @@ import cors from "cors"
 
 import GameRooms from "./game/rooms"
 import LobbyRooms from "./game/lobby"
-
+console.log("bonsoir")
 // Get environment variables
 dotenv.config()
 const HOST = process.env.HOST || "0.0.0.0"

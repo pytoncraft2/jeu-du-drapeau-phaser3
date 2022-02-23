@@ -17,7 +17,7 @@ export default class Acceuil extends Phaser.Scene {
 
   create() {
     const self = this;
-
+console.log('okjfmdlkq')
     var element = this.add.dom(400, 600).createFromCache('nameform');
 
     element.addListener('click');

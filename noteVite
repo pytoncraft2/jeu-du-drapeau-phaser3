@@ -1,3 +1,0 @@
-parcel build src/client/public/game.html && parcel build src/client/public/loginform.html
-
-parcel watch src/client/public/game.html && parcel watch src/client/public/loginform.html
