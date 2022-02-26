@@ -4,13 +4,11 @@ import dotenv from "dotenv"
 import express from "express"
 import http from "http"
 import path from "path"
-import cors from "cors"
 import { monitor } from "@colyseus/monitor";
 
 
 import GameRooms from "./game/rooms"
 import LobbyRooms from "./game/lobby"
-console.log("bonsoir")
 // Get environment variables
 dotenv.config()
 const HOST = process.env.HOST || "0.0.0.0"
@@ -41,13 +39,10 @@ const gameServer = new Server({
   }),
 })
 
-//gameServer.simulateLatency(200)
-
 // Register room handlers
 gameServer.define("lobby", LobbyRooms).filterBy(['salon'])
 gameServer.define("game_instance", GameRooms).filterBy(['salon'])
 // .enableRealtimeListing();
-
 
 // Start game server
 void gameServer.listen(PORT, HOST)
