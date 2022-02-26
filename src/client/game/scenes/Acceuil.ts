@@ -16,6 +16,8 @@ export default class Acceuil extends Phaser.Scene {
   }
 
   create() {
+    var div = document.getElementById('game');
+    div.style.background = "radial-gradient(circle, rgba(101,9,121,1) 0%, rgba(114,1,151,1) 35%, rgba(52,2,89,1) 100%)"
     const self = this;
     var element = this.add.dom(window.innerWidth / 2, window.innerHeight / 2).createFromCache('nameform');
 
