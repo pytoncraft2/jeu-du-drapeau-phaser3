@@ -5,6 +5,8 @@ import express from "express"
 import http from "http"
 import path from "path"
 import cors from "cors"
+import { monitor } from "@colyseus/monitor";
+
 
 import GameRooms from "./game/rooms"
 import LobbyRooms from "./game/lobby"
@@ -25,6 +27,9 @@ app.use(express.static(distPath))
 app.get("/", (_request, response) => {
   response.sendFile(distPath + "/game.html")
 })
+
+app.use('/colyseus', monitor());
+
 
 // Define game server
 const server = http.createServer(app)

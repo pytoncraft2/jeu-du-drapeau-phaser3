@@ -23,10 +23,15 @@ export default class Jeu_01 extends Phaser.Scene {
   }
 
   preload() {
-    this.load.html('nameform', './loginform.html');
+    this.load.tilemapTiledJSON('map', '/assets/simple-map.json');
+    this.load.image('tiles', '/assets/gridtiles.png');
   }
 
   create() {
+
+    const map = this.make.tilemap({ key: 'map', tileWidth: 32, tileHeight: 32 });
+const tileset = map.addTilesetImage('tiles');
+const layer = map.createLayer('Level1', tileset);
 
     const self = this;
     this.players = this.add.group()
