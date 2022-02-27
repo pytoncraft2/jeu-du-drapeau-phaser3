@@ -9,6 +9,7 @@ export default class Jeu_01 extends Phaser.Scene {
   session: string
   playersRef: any
   salon: any
+  id: any
   keyboard!: any
   room: Colyseus.Room<unknown>
   prevInputs: { up: boolean; right: boolean; left: boolean; down: boolean, space: boolean }
@@ -20,17 +21,20 @@ export default class Jeu_01 extends Phaser.Scene {
 
   init(salon): void {
     this.salon = salon.salon
+    this.id = salon.id
   }
 
-  preload() {
+  preload(): void {
   }
 
-  create() {
+  async create(): Promise<void> {
 
     const map = this.make.tilemap({ key: 'map', tileWidth: 802, tileHeight: 802 });
     const tileset = map.addTilesetImage('tiles');
     const layer = map.createLayer('Level1', tileset);
     map.setCollision([ 20, 48 ]);
+
+
 
 
     const self = this;
@@ -47,26 +51,61 @@ export default class Jeu_01 extends Phaser.Scene {
 
 
 
-                    const salon = this.salon;
-                    client
-                      .joinOrCreate("game_instance", { salon })
-                      .then((room) => {
-                        self.room = room
-                        self.session = room.sessionId
-                        room.onStateChange((changes: any) => {
-                          let presences = {}
-                          changes.presences.forEach((value, key) => {
-                            presences[key] = value
-                          })
-                          self.patchPlayer({
-                            presences: presences,
-                            presenceList: Object.keys(presences),
-                          })
-                        })
-                      })
-                      .catch((err) => {
-                        console.error(err)
-                      })
+    const salon = this.salon;
+
+
+    if (this.id == true) {
+      console.log("TRUUUE")
+      const room = await client.joinById(salon)
+      .then((room) => {
+        self.room = room
+        self.session = room.sessionId
+        room.onStateChange((changes: any) => {
+          let presences = {}
+          changes.presences.forEach((value, key) => {
+            presences[key] = value
+          })
+          self.patchPlayer({
+            presences: presences,
+            presenceList: Object.keys(presences),
+          })
+        })
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+
+      console.log("joined by id Jeu_01 successfully", room);
+
+
+    } else if (this.id == false) {
+      console.log("FAAAALSE")
+
+      client
+      .joinOrCreate("game_instance", { salon })
+      .then((room) => {
+        self.room = room
+        self.session = room.sessionId
+        room.onStateChange((changes: any) => {
+          let presences = {}
+          changes.presences.forEach((value, key) => {
+            presences[key] = value
+          })
+          self.patchPlayer({
+            presences: presences,
+            presenceList: Object.keys(presences),
+          })
+        })
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+
+
+    }
+
+
+
 
 
     this.prevInputs = {

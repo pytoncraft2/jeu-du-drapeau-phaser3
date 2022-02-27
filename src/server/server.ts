@@ -9,6 +9,7 @@ import { monitor } from "@colyseus/monitor";
 
 import GameRooms from "./game/rooms"
 import LobbyRooms from "./game/lobby"
+import AcceuilRooms from "./game/acceuil"
 // Get environment variables
 dotenv.config()
 const HOST = process.env.HOST || "0.0.0.0"
@@ -42,7 +43,7 @@ const gameServer = new Server({
 // Register room handlers
 gameServer.define("lobby", LobbyRooms).filterBy(['salon'])
 gameServer.define("game_instance", GameRooms).filterBy(['salon'])
-// .enableRealtimeListing();
+gameServer.define("acceuil", AcceuilRooms).enableRealtimeListing();
 
 // Start game server
 void gameServer.listen(PORT, HOST)
