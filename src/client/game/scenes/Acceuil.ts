@@ -86,16 +86,27 @@ var text = this.add.text(160, 280, content, { fontFamily: 'Arial', color: 'white
 
 
 var afficheListeRooms = setInterval(() => {
-
-  client.getAvailableRooms("game_instance").then(rooms => {
+  // client.getAvailableRooms("lobby").then(rooms => {
+  //   rooms.forEach((room) => {
+  //     console.log(room.roomId);
+  //     console.log(room.clients);
+  //     console.log(room.maxClients);
+  //     console.log(room.metadata);
+  //   });
+  // }).catch(e => {
+  //   console.error(e);
+  // });
+  client.getAvailableRooms("lobby").then(rooms => {
     console.log(rooms);
     if (rooms.length !== this.listeRoom) {
       content = [];
       for (var i=0; i<rooms.length; i++) {
+        console.log(rooms[i])
         console.log(rooms[i].roomId)
-        content.push(rooms[i].roomId)
-        let r = rooms[i].roomId
-        text.setText(content).setDepth(3).setInteractive().on('pointerdown', () => self.scene.start('Lobby', {salon: `${r}`, id: true}));
+        content.push(rooms[i].metadata.nomRoom)
+        let r = rooms[i].metadata.nomRoom
+        text.setText(content).setDepth(3).setInteractive().on('pointerdown', () => self.scene.start('Lobby', {salon: `${r}`}));
+// self.scene.scene.events.off();
       }
       this.listeRoom++
     }
@@ -114,7 +125,7 @@ var afficheListeRooms = setInterval(() => {
   });
   console.log('ok')
 
-}, 1000);
+}, 3000);
 
 
     var div = document.getElementById('game');

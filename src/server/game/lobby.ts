@@ -11,13 +11,21 @@ export default class LobbyRooms extends Room {
 
   constructor() {
     super()
-    this.autoDispose = false
+    this.autoDispose = true
     this.setPatchRate(17)
     this.maxClients = 4
   }
 
   onCreate(options: any) {
+
+    console.log("OOOOOOOOOOOOOOPPPPPPPTION")
+    console.log(options)
     this.setState(new RoomState())
+
+    if (!this.metadata) {
+      this.setMetadata({ nomRoom: options.salon });
+    }
+
     this.userInputs = {}
 
     this.Game = new Phaser.Game(config)
@@ -37,6 +45,13 @@ export default class LobbyRooms extends Room {
       down: false,
       left: false,
       space: false,
+    }
+
+    if (this.metadata.nomRoom == false) {
+      // console.log("DIIFFFERENT DE FALSE")
+      this.setMetadata({ nomRoom: `Salon ${Math.floor(Math.random() * 10000000000000)}`})
+    } else {
+      console.log("PPPPPPPPPPPPPPPPPAS DIFFERENT")
     }
     const presences = this.scene.createPlayer(client.id)
     for (const [key, value] of Object.entries(presences.presences)) {

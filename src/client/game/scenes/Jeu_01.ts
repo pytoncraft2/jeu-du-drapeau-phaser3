@@ -21,7 +21,6 @@ export default class Jeu_01 extends Phaser.Scene {
 
   init(salon): void {
     this.salon = salon.salon
-    this.id = salon.id
   }
 
   preload(): void {
@@ -54,33 +53,6 @@ export default class Jeu_01 extends Phaser.Scene {
     const salon = this.salon;
 
 
-    if (this.id == true) {
-      console.log("TRUUUE")
-      const room = await client.joinById(salon)
-      .then((room) => {
-        self.room = room
-        self.session = room.sessionId
-        room.onStateChange((changes: any) => {
-          let presences = {}
-          changes.presences.forEach((value, key) => {
-            presences[key] = value
-          })
-          self.patchPlayer({
-            presences: presences,
-            presenceList: Object.keys(presences),
-          })
-        })
-      })
-      .catch((err) => {
-        console.error(err)
-      })
-
-      console.log("joined by id Jeu_01 successfully", room);
-
-
-    } else if (this.id == false) {
-      console.log("FAAAALSE")
-
       client
       .joinOrCreate("game_instance", { salon })
       .then((room) => {
@@ -102,7 +74,6 @@ export default class Jeu_01 extends Phaser.Scene {
       })
 
 
-    }
 
 
 

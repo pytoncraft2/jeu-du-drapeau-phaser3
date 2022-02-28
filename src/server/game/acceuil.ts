@@ -11,6 +11,7 @@ export default class AcceuilRooms extends Room {
 
   constructor() {
     super()
+    //autoDispose = garde la room meme après sa destruction
     this.autoDispose = false
     this.setPatchRate(17)
     this.maxClients = 4
