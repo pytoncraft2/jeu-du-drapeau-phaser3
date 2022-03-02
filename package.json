@@ -7,7 +7,7 @@
     "serve:server": "nodemon src/server/server.ts",
 		"start": "parcel src/client/public/game.html -p 8000",
 		"build": "parcel build src/client/public/game.html --out-dir dist",
-		"test": "echo \"Error: no test specified\" && exit 1",
+		"test": "mocha test/**_test.js --exit --timeout 15000",
 		"lint": "eslint ./src --ext .js,.jsx,.ts,.tsx"
 	},
 	"author": "supertommy",
@@ -32,7 +32,8 @@
 		"nodemon": "^2.0.12",
 		"parcel": "^2.0.0-rc.0",
 		"prettier": "^2.4.0",
-		"ts-node": "^10.2.1"
+		"ts-node": "^10.2.1",
+		"mocha": "^9.0.2"
 	},
 	"dependencies": {
 		"colyseus.js": "^0.14.13",

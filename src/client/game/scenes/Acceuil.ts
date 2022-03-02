@@ -51,7 +51,7 @@ export default class Acceuil extends Phaser.Scene {
     })
 
     var content = [
-      "0 salon créer"
+      "Chargement des manoirs..."
     ];
 
     this.listeRoom = 0;
@@ -98,7 +98,7 @@ var afficheListeRooms = setInterval(() => {
   // });
   client.getAvailableRooms("lobby").then(rooms => {
     console.log(rooms);
-    if (rooms.length !== this.listeRoom) {
+    if (rooms.length !== this.listeRoom && rooms.length !== 0) {
       content = [];
       for (var i=0; i<rooms.length; i++) {
         console.log(rooms[i])
@@ -123,7 +123,10 @@ var afficheListeRooms = setInterval(() => {
 
 
   });
-  console.log('ok')
+
+  if (this.listeRoom == 0) {
+    text.setText("Aucun manoirs créer")
+  }
 
 }, 3000);
 
