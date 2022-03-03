@@ -23,7 +23,7 @@ export default class Acceuil extends Phaser.Scene {
     // this.load.atlas('fakhear', '/assets/personnages/fakhear/fakhear.png', 'assets/personnages/fakhear/fakhear_atlas.json');
   }
 
-  create() {
+  async create() {
     this.client = new Colyseus.Client("ws://localhost:3000")
     const salon = this.salon
     const client = this.client
@@ -35,15 +35,19 @@ export default class Acceuil extends Phaser.Scene {
       self.session = room.sessionId
       console.log("SALON ACCEUIL REJOINT & CONNECTÉ OK");
 
-      // room.onStateChange((changes: any) => {
+      // room.onStateChange((state: any) => {
+      //   console.log("CCCCCCCCCCCCCHANGEMENT")
+      //   console.log(state)
       //   let presences = {}
-      //   changes.presences.forEach((value, key) => {
+      //   state.presences.forEach((value, key) => {
       //     presences[key] = value
       //   })
-      //   self.patchPlayer({
-      //     presences: presences,
-      //     presenceList: Object.keys(presences),
-      //   })
+      //
+      //   console.log(Object.keys(presences).length);
+      //   // self.patchPlayer({
+      //   //   presences: presences,
+      //   //   presenceList: Object.keys(presences),
+      //   // })
       // })
     })
     .catch((err) => {
@@ -97,8 +101,12 @@ var afficheListeRooms = setInterval(() => {
   //   console.error(e);
   // });
   client.getAvailableRooms("lobby").then(rooms => {
-    console.log(rooms);
-    if (rooms.length !== this.listeRoom && rooms.length !== 0) {
+    console.log(rooms.length);
+    if (rooms.length !== this.listeRoom ) {
+
+      if (rooms.length === 0) {
+        text.setText("Aucun manoirs créer")
+      }
       content = [];
       for (var i=0; i<rooms.length; i++) {
         console.log(rooms[i])
@@ -110,17 +118,6 @@ var afficheListeRooms = setInterval(() => {
       }
       this.listeRoom++
     }
-    // for (var i=0; i<rooms.length; i++) {
-    //   // if (room.metadata && room.metadata.friendlyFire) {
-    //     //
-    //     // join the room with `friendlyFire` by id:
-    //     //
-    //     // var room = client.join(room.roomId);
-    //     // return;
-    //   // }
-    //   console.log(rooms)
-    // }
-
 
   });
 
@@ -128,7 +125,7 @@ var afficheListeRooms = setInterval(() => {
     text.setText("Aucun manoirs créer")
   }
 
-}, 3000);
+}, 1000);
 
 
     var div = document.getElementById('game');
@@ -152,13 +149,13 @@ var afficheListeRooms = setInterval(() => {
           //  Turn off the click events
           this.removeListener('click');
 
-          this.scene.tweens.add({ targets: element.rotate3d, x: 1, w: 90, duration: 3000, ease: 'Power3' });
-          this.scene.tweens.add({ targets: element, scaleX: 2, scaleY: 2, y: 700, duration: 3000, ease: 'Power3',
+          this.scene.tweens.add({ targets: element.rotate3d, x: 1, w: 90, duration: 1000, ease: 'Power3' });
+          this.scene.tweens.add({ targets: element, scaleX: 2, scaleY: 2, y: 700, duration: 1000, ease: 'Power3',
           onComplete: async function ()
           {
             element.setVisible(false);
             const salon = inputUsername.value;
-            clearInterval(afficheListeRooms);
+            // clearInterval(afficheListeRooms);
 
             self.scene.start('Lobby', {salon: salon, id: false});
           }

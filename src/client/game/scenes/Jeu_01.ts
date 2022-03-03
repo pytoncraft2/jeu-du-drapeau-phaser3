@@ -111,11 +111,8 @@ export default class Jeu_01 extends Phaser.Scene {
     this.players.children.iterate((child) => {
       if (list.presences[child.data.values.ClientId] === undefined) {
         console.log("QQQQQQQQQQUELQU'UN VIEN DE QUITER")
-        console.log(this.playersRef)
-        console.log("YYYYYYYYYYYYYYYYYYYYYYYYYYAHOU")
-        console.log(child.data.values)
-        // this.playersRef[child.data.values.ClientId].destroy(true)
-        // delete this.playersRef[child.data.values.ClientId]
+        this.playersRef[child.data.values.ClientId].destroy(true)
+        delete this.playersRef[child.data.values.ClientId]
       }
     })
   }

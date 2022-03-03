@@ -1,6 +1,6 @@
 //@ts-nocheck
 import "@geckos.io/phaser-on-nodejs"
-import { Room, Client } from "colyseus"
+import { Room, Client, updateLobby } from "colyseus"
 import config from "./config"
 
 import { RoomState, Player, Input } from "./RoomState"
@@ -18,6 +18,15 @@ export default class AcceuilRooms extends Room {
   }
 
   onCreate(options: any) {
+
+    // this.clock.setTimeout(() => {
+    //
+    //   this.setMetadata({
+    //     customData: "Hello world!"
+    //   }).then(() => updateLobby(this));
+    //
+    // }, 5000);
+
     this.setState(new RoomState())
     this.userInputs = {}
 
