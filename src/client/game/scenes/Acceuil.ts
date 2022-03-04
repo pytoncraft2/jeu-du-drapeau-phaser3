@@ -25,7 +25,6 @@ export default class Acceuil extends Phaser.Scene {
 
   async create() {
     this.client = new Colyseus.Client("ws://localhost:3000")
-    const salon = this.salon
     const client = this.client
 
     client
@@ -34,21 +33,6 @@ export default class Acceuil extends Phaser.Scene {
       self.room = room
       self.session = room.sessionId
       console.log("SALON ACCEUIL REJOINT & CONNECTÉ OK");
-
-      // room.onStateChange((state: any) => {
-      //   console.log("CCCCCCCCCCCCCHANGEMENT")
-      //   console.log(state)
-      //   let presences = {}
-      //   state.presences.forEach((value, key) => {
-      //     presences[key] = value
-      //   })
-      //
-      //   console.log(Object.keys(presences).length);
-      //   // self.patchPlayer({
-      //   //   presences: presences,
-      //   //   presenceList: Object.keys(presences),
-      //   // })
-      // })
     })
     .catch((err) => {
       console.error(err)
@@ -60,46 +44,14 @@ export default class Acceuil extends Phaser.Scene {
 
     this.listeRoom = 0;
 
-// this.add.image(0, 0, 'tv').setOrigin(0);
-
 var graphics = this.make.graphics();
 
-// graphics.fillStyle(0xffffff);
+graphics.fillStyle(0xffffff);
 graphics.fillRect(152, 133, 320, 250);
-
-var mask = new Phaser.Display.Masks.GeometryMask(this, graphics);
 
 var text = this.add.text(160, 280, content, { fontFamily: 'Arial', color: 'white', wordWrap: { width: 310 } }).setOrigin(0);
 
-// text.setMask(mask);
-
-//  The rectangle they can 'drag' within
-// var zone = this.add.zone(152, 130, 320, 256).setOrigin(0).setInteractive();
-//
-// zone.on('pointermove', function (pointer) {
-//
-//     if (pointer.isDown)
-//     {
-//         text.y += (pointer.velocity.y / 10);
-//
-//         text.y = Phaser.Math.Clamp(text.y, -400, 300);
-//     }
-//
-// });
-
-
-
 var afficheListeRooms = setInterval(() => {
-  // client.getAvailableRooms("lobby").then(rooms => {
-  //   rooms.forEach((room) => {
-  //     console.log(room.roomId);
-  //     console.log(room.clients);
-  //     console.log(room.maxClients);
-  //     console.log(room.metadata);
-  //   });
-  // }).catch(e => {
-  //   console.error(e);
-  // });
   client.getAvailableRooms("lobby").then(rooms => {
     console.log(rooms.length);
     if (rooms.length !== this.listeRoom ) {
@@ -113,8 +65,10 @@ var afficheListeRooms = setInterval(() => {
         console.log(rooms[i].roomId)
         content.push(rooms[i].metadata.nomRoom)
         let r = rooms[i].metadata.nomRoom
-        text.setText(content).setDepth(3).setInteractive().on('pointerdown', () => self.scene.start('Lobby', {salon: `${r}`}));
-// self.scene.scene.events.off();
+        // if (!content.length) {
+          text.setText(content).setDepth(3).setInteractive().on('pointerdown', () => (self.scene.start('Lobby', {salon: `${r}`}), clearInterval(afficheListeRooms)));
+        // }
+        // self.scene.scene.events.off();
       }
       this.listeRoom++
     }
@@ -124,7 +78,6 @@ var afficheListeRooms = setInterval(() => {
   if (this.listeRoom == 0) {
     text.setText("Aucun manoirs créer")
   }
-
 }, 1000);
 
 
@@ -155,7 +108,7 @@ var afficheListeRooms = setInterval(() => {
           {
             element.setVisible(false);
             const salon = inputUsername.value;
-            // clearInterval(afficheListeRooms);
+            clearInterval(afficheListeRooms);
 
             self.scene.start('Lobby', {salon: salon, id: false});
           }

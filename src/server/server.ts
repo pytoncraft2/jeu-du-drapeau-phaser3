@@ -27,7 +27,11 @@ app.get("/", (_request, response) => {
   response.sendFile(distPath + "/game.html")
 })
 
-app.use('/colyseus', monitor());
+app.get('/:id', (request, response) => {
+  response.sendFile(distPath + "/game.html")
+})
+
+// app.use('/colyseus', monitor());
 
 
 // Define game server
