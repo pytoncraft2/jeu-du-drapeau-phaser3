@@ -15,16 +15,17 @@ export default class Acceuil extends Phaser.Scene {
   listeRoom: number
   allRooms: any
 
-
-
   constructor() {
     super("Acceuil")
   }
 
-  preload() {
-    this.load.html('nameform', './loginform.html');
-    // this.load.atlas('fakhear', '/assets/personnages/fakhear/fakhear.png', 'assets/personnages/fakhear/fakhear_atlas.json');
-  }
+  /**
+  * Ajoute la couleur violette au canvas
+  *
+  * Si l'url contient du texte:
+  * Redirection sur la page de lobby avec le nom passé en parametre de l'url
+  * Sinon affiche directement la page d'acceuil
+  */
 
   async create() {
 
@@ -37,69 +38,18 @@ export default class Acceuil extends Phaser.Scene {
     } else {
       this.afficheAcceuil()
     }
-}
+  }
 
-async afficheAcceuil() {
+  /**
+   * Connexion au serveur
+   * Affiche la modal de creationo/connexion à un lobby/salon
+   * Mes à jour et affiche toute les secondes le tableau contenant la liste des lobby disponible
+   */
+
+  async afficheAcceuil() {
 
     this.client = new Colyseus.Client("ws://localhost:3000")
     const client = this.client
-
-    // client
-    // .joinOrCreate("acceuil")
-    // .then((room) => {
-    //   self.room = room
-    //   self.session = room.sessionId
-    //   this.onjoin()
-    //
-    //   console.log("SALON ACCEUIL REJOINT & CONNECTÉ OK");
-    // })
-    // .catch((err) => {
-    //   console.error(err)
-    // })
-
-    // alert(window.location.pathname.slice(1));
-
-
-
-const lobby = await client.joinOrCreate("acceuil");
-
-let allRooms: RoomAvailable[] = [];
-
-lobby.onMessage("rooms", (rooms) => {
-  allRooms = rooms;
-});
-
-lobby.onMessage("+", ([roomId, room]) => {
-  console.log('+++++++++++++++++')
-  const roomIndex = allRooms.findIndex((room) => room.roomId === roomId);
-  if (roomIndex !== -1) {
-    allRooms[roomIndex] = room;
-
-  } else {
-    allRooms.push(room);
-  }
-});
-
-lobby.onMessage("-", (roomId) => {
-  allRooms = allRooms.filter((room) => room.roomId !== roomId);
-});
-
-// lobby.send("+", { name: "fireball" })
-lobby.send("+", { angle: 270 });
-// lobby.send('+', 'coucou');
-
-    // function join () {
-    // Logged into your app and Facebook.
-    // client.joinOrCreate("lobby").then(room_instance => {
-    //     lobby = room_instance;
-    //     onjoin();
-    //     console.log("Joined lobby room!");
-    //
-    // }).catch(e => {
-    //     console.error("Error", e);
-    // });
-    // }
-
 
     var content = [
       "Chargement des manoirs..."
@@ -114,34 +64,34 @@ lobby.send("+", { angle: 270 });
 
     var text = this.add.text(160, 280, content, { fontFamily: 'Arial', color: 'white', wordWrap: { width: 310 } }).setOrigin(0);
 
-    // var afficheListeRooms = setInterval(() => {
-    //   client.getAvailableRooms("lobby").then(rooms => {
-    //     console.log(rooms.length);
-    //     if (rooms.length !== this.listeRoom ) {
-    //
-    //       if (rooms.length === 0) {
-    //         text.setText("Aucun manoirs créer")
-    //       }
-    //       content = [];
-    //       for (var i=0; i<rooms.length; i++) {
-    //         console.log(rooms[i])
-    //         console.log(rooms[i].roomId)
-    //         content.push(rooms[i].metadata.nomRoom)
-    //         let r = rooms[i].metadata.nomRoom
-    //         // if (!content.length) {
-    //           text.setText(content).setDepth(3).setInteractive().on('pointerdown', () => (self.scene.start('Lobby', {salon: `${r}`}), clearInterval(afficheListeRooms)));
-    //         // }
-    //         // self.scene.scene.events.off();
-    //       }
-    //       this.listeRoom++
-    //     }
-    //
-    //   });
-    //
-    //   if (this.listeRoom == 0) {
-    //     text.setText("Aucun manoirs créer")
-    //   }
-    // }, 1000);
+    var afficheListeRooms = setInterval(() => {
+      client.getAvailableRooms("lobby").then(rooms => {
+        console.log(rooms.length);
+        if (rooms.length !== this.listeRoom ) {
+
+          if (rooms.length === 0) {
+            text.setText("Aucun manoirs créer")
+          }
+          content = [];
+          for (var i=0; i<rooms.length; i++) {
+            console.log(rooms[i])
+            console.log(rooms[i].roomId)
+            content.push(rooms[i].metadata.nomRoom)
+            let r = rooms[i].metadata.nomRoom
+            // if (!content.length) {
+            text.setText(content).setDepth(3).setInteractive().on('pointerdown', () => (self.scene.start('Lobby', {salon: `${r}`}), clearInterval(afficheListeRooms)));
+            // }
+            // self.scene.scene.events.off();
+          }
+          this.listeRoom++
+        }
+
+      });
+
+      if (this.listeRoom == 0) {
+        text.setText("Aucun manoirs créer")
+      }
+    }, 1000);
 
 
     var div = document.getElementById('game');
@@ -171,7 +121,7 @@ lobby.send("+", { angle: 270 });
           {
             element.setVisible(false);
             const salon = inputUsername.value;
-            // clearInterval(afficheListeRooms);
+            clearInterval(afficheListeRooms);
 
             self.scene.start('Lobby', {salon: salon, id: false});
           }
@@ -202,68 +152,7 @@ lobby.send("+", { angle: 270 });
     ease: 'Power3'
   });
 
-
 }
 
-onjoin() {
-
-  console.log("ONJOIN!")
-  this.room.onMessage("rooms", (rooms) => {
-    this.allRooms = rooms;
-    this.update_full_list();
-
-    console.log("Received full list of rooms:", this.allRooms);
-  });
-
-  this.room.onMessage("+", ([roomId, room]) => {
-    const roomIndex = this.allRooms.findIndex((room) => room.roomId === roomId);
-    if (roomIndex !== -1) {
-      console.log("Room update:", room);
-      this.allRooms[roomIndex] = room;
-
-    } else {
-      console.log("New room", room);
-      this.allRooms.push(room);
-    }
-    this.update_full_list();
-  });
-
-  this.room.onMessage("-", (roomId) => {
-    console.log("Room removed", roomId);
-    this.allRooms = this.allRooms.filter((room) => room.roomId !== roomId);
-    this.update_full_list();
-  });
-
-  this.room.onLeave(() => {
-    this.allRooms = [];
-    this.update_full_list();
-    console.log("Bye, bye!");
-  });
-}
-
-update_full_list() {
-
-  var el = document.getElementById('all_rooms');
-  console.log("LISTE ROOOM update liste")
-  this.allRooms.map(function(room) {
-    console.log(room)
-  })
-  // el.innerHTML = this.allRooms.map(function(room) {
-  //   return "<li><code>" + JSON.stringify(room) + "</code></li>";
-  // }).join("\n");
-
-}
-
-leave() {
-  if (this.room) {
-    this.room.leave();
-
-  } else {
-    console.warn("Not connected.");
-  }
-}
-
-
-
-update() {}
+update(sal, lol) {}
 }

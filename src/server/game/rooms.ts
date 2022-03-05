@@ -6,6 +6,11 @@ import config from "./config"
 
 import { RoomState, Player, Input } from "./RoomState"
 
+
+/**
+ * Epreuve n°1 serveur
+ */
+
 export default class GameRooms extends Room {
   Game!: Phaser.Game
   scene!: Phaser.Scene

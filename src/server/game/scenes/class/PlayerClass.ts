@@ -2,6 +2,11 @@
 
 import { Player } from "../../RoomState"
 
+
+/**
+ * Joueur et interaction
+ */
+
 export default class PlayerClass extends Phaser.Physics.Arcade.Sprite {
   constructor(
     scene: Phaser.Scene,

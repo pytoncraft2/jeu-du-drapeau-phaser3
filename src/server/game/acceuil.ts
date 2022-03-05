@@ -28,6 +28,9 @@
 //   }
 // }
 
+/**
+ * Lobby serveur
+ */
 
 import { Schema, type } from "@colyseus/schema";
 import { Client, LobbyRoom } from "colyseus";

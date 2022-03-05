@@ -1,3 +1,8 @@
+
+/**
+ * Interfaces Colyseus
+ */
+
 export interface PlayerState {
   id: string;
 }

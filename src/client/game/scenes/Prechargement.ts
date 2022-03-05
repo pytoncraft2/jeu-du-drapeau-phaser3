@@ -1,5 +1,9 @@
 import Phaser from "phaser"
 
+
+/**
+ * Prechargement des images et documents
+ */
 export default class Prechargement extends Phaser.Scene {
 
   constructor() {
@@ -63,6 +67,8 @@ export default class Prechargement extends Phaser.Scene {
     this.load.atlas('fakhear', '/assets/personnages/fakhear/fakhear.png', 'assets/personnages/fakhear/fakhear_atlas.json');
     this.load.tilemapTiledJSON('map', '/assets/simple-map.json');
     this.load.image('tiles', '/assets/gridtiles.png');
+    this.load.html('nameform', './loginform.html');
+
     // this.load.image('tiles', '/assets/paysages/tilemap/tiles.png')
     // this.load.tilemapTiledJSON('dungeon', '/assets/paysages/tilemap/mytest.json')
   }

@@ -5,6 +5,10 @@ import config from "./config"
 
 import { RoomState, Player, Input } from "./RoomState"
 
+
+/**
+ * Lobby colyseus
+ */
 export default class LobbyRooms extends Room {
   Game!: Phaser.Game
   scene!: Phaser.Scene

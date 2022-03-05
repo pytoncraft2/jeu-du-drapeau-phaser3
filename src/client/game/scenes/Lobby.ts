@@ -2,6 +2,12 @@ import Phaser from "phaser"
 
 import * as Colyseus from "colyseus.js"
 
+
+/**
+ * Equipe de 4 joueurs max qui REJOINT le lobby
+ *
+ */
+
 export default class Lobby extends Phaser.Scene {
   private playersMessage: Phaser.GameObjects.Text;
   client!: Colyseus.Client

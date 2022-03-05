@@ -3,6 +3,9 @@ import Phaser from "phaser"
 import * as Colyseus from "colyseus.js"
 import { deepEqual } from "../utils/index"
 
+/**
+ * Epreuve n°1 
+ */
 export default class Jeu_01 extends Phaser.Scene {
   client!: Colyseus.Client
   players: Phaser.GameObjects.Group

@@ -1,4 +1,12 @@
-export function deepEqual(x:any, y:any) {
+
+/**
+ * deepEqual - verifie les boutons à l'appuie
+ *
+ * @param  {Object} x:any x
+ * @param  {Object} y:any y
+ * @return {Object}       Valide la verification
+ */
+export function deepEqual(x:any, y:any): Object {
   const ok = Object.keys,
     tx = typeof x,
     ty = typeof y

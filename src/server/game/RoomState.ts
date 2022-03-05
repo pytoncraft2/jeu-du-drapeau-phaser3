@@ -1,5 +1,8 @@
 //@ts-nocheck
 
+/**
+ * Schema Colyseus
+ */
 import {
   Schema,
   MapSchema,

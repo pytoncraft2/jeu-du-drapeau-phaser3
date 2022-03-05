@@ -3,6 +3,10 @@ import { Player } from "../RoomState"
 
 import PlayerClass from "./class/PlayerClass"
 
+
+/**
+ * Lobby serveur Phaser 3
+ */
 export default class Game extends Phaser.Scene {
   players: Phaser.GameObjects.Group
   room: any
