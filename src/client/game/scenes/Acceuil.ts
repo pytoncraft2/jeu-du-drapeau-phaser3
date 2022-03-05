@@ -28,6 +28,19 @@ export default class Acceuil extends Phaser.Scene {
 
   async create() {
 
+    var div = document.getElementById('game');
+    div.style.background = "radial-gradient(circle, rgba(101,9,121,1) 0%, rgba(114,1,151,1) 35%, rgba(52,2,89,1) 100%)"
+
+    let salonURL = window.location.pathname.slice(1)
+    if (salonURL != '') {
+      this.scene.start('Lobby', {salon: `${salonURL}`})
+    } else {
+      this.afficheAcceuil()
+    }
+}
+
+async afficheAcceuil() {
+
     this.client = new Colyseus.Client("ws://localhost:3000")
     const client = this.client
 
@@ -188,6 +201,7 @@ lobby.send("+", { angle: 270 });
     duration: 3000,
     ease: 'Power3'
   });
+
 
 }
 
