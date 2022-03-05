@@ -22,6 +22,7 @@ const app = express()
 const distPath = path.join(__dirname, "../../dist/")
 app.use(express.static(distPath))
 
+app.use('/colyseus', monitor());
 // Register frontend pages
 app.get("/", (_request, response) => {
   response.sendFile(distPath + "/game.html")
@@ -31,7 +32,6 @@ app.get('/:id', (request, response) => {
   response.sendFile(distPath + "/game.html")
 })
 
-// app.use('/colyseus', monitor());
 
 
 // Define game server
