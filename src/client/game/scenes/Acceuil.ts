@@ -13,7 +13,7 @@ export default class Acceuil extends Phaser.Scene {
   client!: Colyseus.Client
   room: Colyseus.Room<unknown>
   listeRoom: number
-  allRooms: any
+  listeLobby: string[]
 
   constructor() {
     super("Acceuil")
@@ -56,43 +56,157 @@ export default class Acceuil extends Phaser.Scene {
     ];
 
     this.listeRoom = 0;
+    this.listeLobby = []
 
-    var graphics = this.make.graphics();
+    var graphics = this.make.graphics(this);
 
-    graphics.fillStyle(0xffffff);
-    graphics.fillRect(152, 133, 320, 250);
+    graphics.fillStyle(0x000000);
+    graphics.setAlpha(0.1)
+    graphics.fillRect(0, 0, 320, window.innerHeight);
 
-    var text = this.add.text(160, 280, content, { fontFamily: 'CustomFont' }).setOrigin(0);
+    var text = this.add.text(40, 100, content, { fontFamily: 'CustomFont' }).setOrigin(0);
     var titre = this.add.text(window.innerWidth/2, 100, 'Resident Streamer', { fontFamily: 'CustomFont' }).setOrigin(0.5).setFontSize(35);
 
-    var afficheListeRooms = setInterval(() => {
-      client.getAvailableRooms("lobby").then(rooms => {
-        console.log(rooms.length);
-        if (rooms.length !== this.listeRoom ) {
 
-          if (rooms.length === 0) {
-            text.setText("Aucun manoirs créer")
-          }
-          content = [];
-          for (var i=0; i<rooms.length; i++) {
-            console.log(rooms[i])
-            console.log(rooms[i].roomId)
-            content.push(rooms[i].metadata.nomRoom)
-            let r = rooms[i].metadata.nomRoom
-            // if (!content.length) {
-            text.setText(content).setDepth(3).setInteractive().on('pointerdown', () => (self.scene.start('Lobby', {salon: `${r}`}), clearInterval(afficheListeRooms)));
-            // }
-            // self.scene.scene.events.off();
-          }
-          this.listeRoom++
-        }
 
-      });
+// const client = new Client("ws://localhost:2567");
+const lobby = await client.joinOrCreate("acceuil");
 
-      if (this.listeRoom == 0) {
-        text.setText("Aucun manoirs créer")
-      }
-    }, 1000);
+let allRooms: RoomAvailable[] = [];
+
+lobby.onMessage("rooms", (rooms) => {
+  allRooms = rooms;
+  self.listeLobby = []
+
+  allRooms.map(val => {
+    self.listeLobby.push(`${val.metadata.nomRoom} (${val.clients} / ${val.maxClients})`)
+  })
+
+  text.setText(self.listeLobby)
+  // self.listeLobby.
+  // self.listeLobby = rooms
+
+  // text.setText(self.listeLobby)
+
+  console.log("tttttttttttouut")
+  console.log(rooms)
+
+// rooms.map(val => {
+  // text.setText(`${val.metadata.nomRoom} (${val.clients} / ${val.maxClients})`).setDepth(3).setInteractive().on('pointerdown', () => (self.scene.start('Lobby', {salon: val.metadata.nomRoom})));
+// })
+
+// text.setText(rooms.map(val => [val.metadata.nomRoom]))
+
+
+  // content.push(`${rooms[i].metadata.nomRoom} (${rooms[i].clients} / ${rooms[i].maxClients})`)
+  // text.setText(rooms)
+
+        // content = [];
+
+        // for (var i=0; i<rooms.length; i++) {
+          // console.log(rooms[i])
+          // console.log(rooms[i].roomId)
+          // content.push(`${rooms[i].metadata.nomRoom} (${rooms[i].clients} / ${rooms[i].maxClients})`)
+          // let r = rooms[i].metadata.nomRoom
+          // if (!content.length) {
+            // text.setText(rooms).setDepth(3).setInteractive().on('pointerdown', () => (self.scene.start('Lobby', {salon: `yes`})));
+          // }
+          // self.scene.scene.events.off();
+        // }
+
+
+});
+
+lobby.onMessage("+", ([roomId, room]) => {
+  const roomIndex = allRooms.findIndex((room) => room.roomId === roomId);
+  if (roomIndex !== -1) {
+    allRooms[roomIndex] = room;
+
+  } else {
+    allRooms.push(room);
+    // text.setText([room])
+
+  }
+  console.log("+++++++++")
+  console.log(allRooms)
+
+
+  self.listeLobby = []
+  allRooms.map(val => {
+  self.listeLobby.push(`${val.metadata.nomRoom} (${val.clients} / ${val.maxClients})`)
+})
+
+text.setText(self.listeLobby)
+
+
+    // self.listeLobby.push(val.metadata.nomRoom)
+
+  // text.setText(['+++', 'plus'])
+
+  // allRooms.map(val => {
+  //   content.push(`${val.metadata.nomRoom} (${val.clients} / ${val.maxClients})`).setDepth(3).setInteractive().on('pointerdown', () => (self.scene.start('Lobby', {salon: val.metadata.nomRoom})));
+  // })
+  // text.setText(content)
+
+  // content = [];
+  //
+  // for (var i=0; i<allRooms.length; i++) {
+  //   content.push(`${allRooms[i].metadata.nomRoom} (${allRooms[i].clients} / ${allRooms[i].maxClients})`)
+  //   let r = allRooms[i].metadata.nomRoom
+  //   if (!content.length) {
+  //     text.setText(content).setDepth(3).setInteractive().on('pointerdown', () => (self.scene.start('Lobby', {salon: `yes`})));
+  //   }
+  //   // self.scene.scene.events.off();
+  // }
+
+
+});
+
+lobby.onMessage("-", (roomId) => {
+  allRooms = allRooms.filter((room) => room.roomId !== roomId);
+  console.log("------------")
+  console.log(allRooms)
+
+  self.listeLobby = []
+  allRooms.map(val => {
+    self.listeLobby.push(`${val.metadata.nomRoom} (${val.clients} / ${val.maxClients})`)
+  })
+
+text.setText(self.listeLobby)
+  // text.setText(['--------- ', 'moins'])
+  // allRooms.map(val => {
+  //   text.setText([`${val.metadata.nomRoom} (${val.clients} / ${val.maxClients})`]).setDepth(3).setInteractive().on('pointerdown', () => (self.scene.start('Lobby', {salon: val.metadata.nomRoom})));
+  // })
+});
+
+    // var afficheListeRooms = setInterval(() => {
+    //   client.getAvailableRooms("lobby").then(rooms => {
+    //     console.log(rooms.length);
+    //     if (rooms.length !== this.listeRoom ) {
+    //
+    //       if (rooms.length === 0) {
+    //         text.setText("Aucun manoirs créer")
+    //       }
+    //       content = [];
+    //       for (var i=0; i<rooms.length; i++) {
+    //         console.log(rooms[i])
+    //         console.log(rooms[i].roomId)
+    //         content.push(`${rooms[i].metadata.nomRoom} (${rooms[i].clients} / ${rooms[i].maxClients})`)
+    //         let r = rooms[i].metadata.nomRoom
+    //         // if (!content.length) {
+    //         text.setText(content).setDepth(3).setInteractive().on('pointerdown', () => (self.scene.start('Lobby', {salon: `${r}`}), clearInterval(afficheListeRooms)));
+    //         // }
+    //         // self.scene.scene.events.off();
+    //       }
+    //       this.listeRoom++
+    //     }
+    //
+    //   });
+    //
+    //   if (this.listeRoom == 0) {
+    //     text.setText(["Aucun manoirs créer", "Créer en un !"])
+    //   }
+    // }, 1000);
 
 
     var div = document.getElementById('game');
@@ -122,7 +236,7 @@ export default class Acceuil extends Phaser.Scene {
           {
             element.setVisible(false);
             const salon = inputUsername.value;
-            clearInterval(afficheListeRooms);
+            // clearInterval(afficheListeRooms);
 
             self.scene.start('Lobby', {salon: salon, id: false});
           }

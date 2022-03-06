@@ -5,10 +5,10 @@ export default {
   parent: "game",
   transparent: true,
   scale: {
-    width: window.innerWidth,
-    height: window.innerHeight,
-    mode: Phaser.Scale.NONE,
+    mode: Phaser.Scale.CENTER_BOTH,
     autoCenter: Phaser.Scale.CENTER_BOTH,
+    width: window.innerWidth,
+    height: window.innerHeight
   },
   dom: {
     createContainer: true
