@@ -62,7 +62,8 @@ export default class Acceuil extends Phaser.Scene {
     graphics.fillStyle(0xffffff);
     graphics.fillRect(152, 133, 320, 250);
 
-    var text = this.add.text(160, 280, content, { fontFamily: 'Arial', color: 'white', wordWrap: { width: 310 } }).setOrigin(0);
+    var text = this.add.text(160, 280, content, { fontFamily: 'CustomFont' }).setOrigin(0);
+    var titre = this.add.text(window.innerWidth/2, 100, 'Resident Streamer', { fontFamily: 'CustomFont' }).setOrigin(0.5).setFontSize(35);
 
     var afficheListeRooms = setInterval(() => {
       client.getAvailableRooms("lobby").then(rooms => {

@@ -3,14 +3,21 @@
   <head>
     <title>👻 Resident streamer 🧟</title>
     <meta charset="utf-8" />
+    <link rel="preload" as="font" href="SpeedRushItalic-GOYoa.ttf" type="font/ttf" />
+
     <style>
-      html,
-      body,
-      canvas {
-          margin: 0 !important;
-          padding: 0 !important;
-          overflow: hidden !important;
-      }
+    @font-face {
+      font-family: CustomFont;
+      src: url('./SpeedRushItalic-GOYoa.ttf');
+    }
+    html,
+    body,
+    canvas {
+      font-family: CustomFont;
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow: hidden !important;
+    }
     </style>
     <script type="module" src="../game/index.ts"></script>
   </head>
