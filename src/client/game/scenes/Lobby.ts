@@ -42,8 +42,8 @@ export default class Lobby extends Phaser.Scene {
 
     var titre = this.add.text(window.innerWidth/2, 100, `Lobby : ${this.salon} `, { fontFamily: 'CustomFont' }).setOrigin(0.5).setFontSize(35);
 
-    const button = new Button(window.innerWidth / 2, window.innerHeight - 100, 'Commencer !', this, () => console.log('game is started'));
-
+    const button = new Button(window.innerWidth / 2, window.innerHeight - 100, 'Choisissez un personnage !', this, () => button.setText('Confirmer Fakhear ?') );
+    // button.setText('')
     var container = this.add.container(window.innerWidth /5, window.innerHeight /9);
 
     var content = [
@@ -66,9 +66,17 @@ export default class Lobby extends Phaser.Scene {
       up += 200;
 
       this.player.setInteractive().on('pointerdown', function() {
-        self.scene.start('areneEquipes', {
-          personnage: this.frame.texture.key
-        });
+        this.setAlpha(0.6)
+        button.setText(`Confirmer ${this.frame.texture.key} ?`)
+
+        console.log(this)
+        const ok = this.scene.add.text(this.getBottomCenter().x + 310, this.getBottomCenter().y - 100, 'OK', { fontFamily: 'CustomFont' })
+        // .setOrigin(0.5)
+        .setPadding(10)
+        .setStyle({ backgroundColor: '#111' })
+        // .setPosition(x, y)
+        // self.add.text(this.getTopCenter().x + 350, this.getTopCenter().y, `${self.session}`)
+        // const confirme = new Button(this.player.x , this.player.y, 'Prêt !', this, () => button.setText('Confirmer Fakhear ?') )
       });
 
       container.add(this.player);
@@ -93,7 +101,10 @@ export default class Lobby extends Phaser.Scene {
       client
       .joinOrCreate("lobby", { salon })
       .then((room) => {
+
         self.room = room
+        console.log("RRRRRRRRRRRRRROOOOM")
+        console.log(room)
         self.session = room.sessionId
         console.log("SALON LOBBY REJOINT & CONNECTÉ OK");
 
@@ -111,7 +122,7 @@ export default class Lobby extends Phaser.Scene {
           console.log(Object.keys(presences).length)
 
           const ancientext = text.text
-          console.log(text.text)
+          // console.log(text.text)
           if (`${Object.keys(presences).length}` != text.text) {
             // nouveautext = text.text
 
@@ -119,7 +130,7 @@ export default class Lobby extends Phaser.Scene {
               var newContent = [Object.keys(presences)].map(val => textListe.setText(val))
               text.setText(`Joueurs : ${Object.keys(presences).length} / 4`)
               // textListe.setText(liste)
-              console.log('mise a jjjouuur')
+              // console.log('mise a jjjouuur')
             }
           }
 
