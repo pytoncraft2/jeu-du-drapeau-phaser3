@@ -44,4 +44,13 @@ this.anims.create({
       })
 
 
-Idée: Tournoi
+
+
+## Boss
+1er boss fusion entre le micro, chaise roulant + nosferatu resident evil 
+pour le battre il faut lattaquer dans son dos
+
+2eme boss
+batman +manette
+pour le battre il faut taper sur son projectile
+parfois ecran noir et fait tomber des manettes du ciels il faut esquiver
