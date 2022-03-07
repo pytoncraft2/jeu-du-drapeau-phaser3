@@ -6,6 +6,7 @@ export default class Button {
             .setPadding(10)
             .setStyle({ backgroundColor: '#111' })
             .setInteractive({ useHandCursor: true })
+            .setFontSize(33)
             .on('pointerdown', () => callback())
             .on('pointerover', () => this.button.setStyle({ fill: '#f39c12' }))
             .on('pointerout', () => this.button.setStyle({ fill: '#FFF' }));
@@ -18,6 +19,10 @@ export default class Button {
 
     setPosition(x, y) {
       this.button.setPosition(x, y)
+    }
+
+    pointerdown(callback) {
+      this.button.on('pointerdown', () => callback())
     }
 }
 

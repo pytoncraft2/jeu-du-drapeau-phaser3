@@ -1,7 +1,7 @@
 import Phaser from "phaser"
 
 import * as Colyseus from "colyseus.js"
-import { Client, RoomAvailable } from "colyseus.js";
+import { RoomAvailable } from "colyseus.js";
 
 
 
@@ -65,149 +65,33 @@ export default class Acceuil extends Phaser.Scene {
     graphics.fillRect(0, 0, 320, window.innerHeight);
 
     var text = this.add.text(40, 100, content, { fontFamily: 'CustomFont' }).setOrigin(0);
-    var titre = this.add.text(window.innerWidth/2, 100, 'Resident Streamer', { fontFamily: 'CustomFont' }).setOrigin(0.5).setFontSize(35);
 
+    //titre Resident Streamer
+    this.add.text(window.innerWidth/2, 100, 'Resident Streamer', { fontFamily: 'CustomFont' }).setOrigin(0.5).setFontSize(35);
 
-
-// const client = new Client("ws://localhost:2567");
 const lobby = await client.joinOrCreate("acceuil");
 
 let allRooms: RoomAvailable[] = [];
 
 lobby.onMessage("rooms", (rooms) => {
   allRooms = rooms;
-  self.listeLobby = []
-
-  allRooms.map(val => {
-    self.listeLobby.push(`${val.metadata.nomRoom} (${val.clients} / ${val.maxClients})`)
-  })
-
-  text.setText(self.listeLobby)
-  // self.listeLobby.
-  // self.listeLobby = rooms
-
-  // text.setText(self.listeLobby)
-
-  console.log("tttttttttttouut")
-  console.log(rooms)
-
-// rooms.map(val => {
-  // text.setText(`${val.metadata.nomRoom} (${val.clients} / ${val.maxClients})`).setDepth(3).setInteractive().on('pointerdown', () => (self.scene.start('Lobby', {salon: val.metadata.nomRoom})));
-// })
-
-// text.setText(rooms.map(val => [val.metadata.nomRoom]))
-
-
-  // content.push(`${rooms[i].metadata.nomRoom} (${rooms[i].clients} / ${rooms[i].maxClients})`)
-  // text.setText(rooms)
-
-        // content = [];
-
-        // for (var i=0; i<rooms.length; i++) {
-          // console.log(rooms[i])
-          // console.log(rooms[i].roomId)
-          // content.push(`${rooms[i].metadata.nomRoom} (${rooms[i].clients} / ${rooms[i].maxClients})`)
-          // let r = rooms[i].metadata.nomRoom
-          // if (!content.length) {
-            // text.setText(rooms).setDepth(3).setInteractive().on('pointerdown', () => (self.scene.start('Lobby', {salon: `yes`})));
-          // }
-          // self.scene.scene.events.off();
-        // }
-
-
+  this.miseAjourListe(self, allRooms, text)
 });
 
 lobby.onMessage("+", ([roomId, room]) => {
   const roomIndex = allRooms.findIndex((room) => room.roomId === roomId);
   if (roomIndex !== -1) {
     allRooms[roomIndex] = room;
-
   } else {
     allRooms.push(room);
-    // text.setText([room])
-
   }
-  console.log("+++++++++")
-  console.log(allRooms)
-
-
-  self.listeLobby = []
-  allRooms.map(val => {
-  self.listeLobby.push(`${val.metadata.nomRoom} (${val.clients} / ${val.maxClients})`)
-})
-
-text.setText(self.listeLobby)
-
-
-    // self.listeLobby.push(val.metadata.nomRoom)
-
-  // text.setText(['+++', 'plus'])
-
-  // allRooms.map(val => {
-  //   content.push(`${val.metadata.nomRoom} (${val.clients} / ${val.maxClients})`).setDepth(3).setInteractive().on('pointerdown', () => (self.scene.start('Lobby', {salon: val.metadata.nomRoom})));
-  // })
-  // text.setText(content)
-
-  // content = [];
-  //
-  // for (var i=0; i<allRooms.length; i++) {
-  //   content.push(`${allRooms[i].metadata.nomRoom} (${allRooms[i].clients} / ${allRooms[i].maxClients})`)
-  //   let r = allRooms[i].metadata.nomRoom
-  //   if (!content.length) {
-  //     text.setText(content).setDepth(3).setInteractive().on('pointerdown', () => (self.scene.start('Lobby', {salon: `yes`})));
-  //   }
-  //   // self.scene.scene.events.off();
-  // }
-
-
+  this.miseAjourListe(self, allRooms, text)
 });
 
 lobby.onMessage("-", (roomId) => {
   allRooms = allRooms.filter((room) => room.roomId !== roomId);
-  console.log("------------")
-  console.log(allRooms)
-
-  self.listeLobby = []
-  allRooms.map(val => {
-    self.listeLobby.push(`${val.metadata.nomRoom} (${val.clients} / ${val.maxClients})`)
-  })
-
-text.setText(self.listeLobby)
-  // text.setText(['--------- ', 'moins'])
-  // allRooms.map(val => {
-  //   text.setText([`${val.metadata.nomRoom} (${val.clients} / ${val.maxClients})`]).setDepth(3).setInteractive().on('pointerdown', () => (self.scene.start('Lobby', {salon: val.metadata.nomRoom})));
-  // })
+  this.miseAjourListe(self, allRooms, text)
 });
-
-    // var afficheListeRooms = setInterval(() => {
-    //   client.getAvailableRooms("lobby").then(rooms => {
-    //     console.log(rooms.length);
-    //     if (rooms.length !== this.listeRoom ) {
-    //
-    //       if (rooms.length === 0) {
-    //         text.setText("Aucun manoirs créer")
-    //       }
-    //       content = [];
-    //       for (var i=0; i<rooms.length; i++) {
-    //         console.log(rooms[i])
-    //         console.log(rooms[i].roomId)
-    //         content.push(`${rooms[i].metadata.nomRoom} (${rooms[i].clients} / ${rooms[i].maxClients})`)
-    //         let r = rooms[i].metadata.nomRoom
-    //         // if (!content.length) {
-    //         text.setText(content).setDepth(3).setInteractive().on('pointerdown', () => (self.scene.start('Lobby', {salon: `${r}`}), clearInterval(afficheListeRooms)));
-    //         // }
-    //         // self.scene.scene.events.off();
-    //       }
-    //       this.listeRoom++
-    //     }
-    //
-    //   });
-    //
-    //   if (this.listeRoom == 0) {
-    //     text.setText(["Aucun manoirs créer", "Créer en un !"])
-    //   }
-    // }, 1000);
-
 
     var div = document.getElementById('game');
     // div.style.background = "radial-gradient(circle, rgba(101,9,121,1) 0%, rgba(114,1,151,1) 35%, rgba(52,2,89,1) 100%)"
@@ -236,8 +120,6 @@ text.setText(self.listeLobby)
           {
             element.setVisible(false);
             const salon = inputUsername.value;
-            // clearInterval(afficheListeRooms);
-
             self.scene.start('Lobby', {salon: salon, id: false});
           }
         });
@@ -269,5 +151,13 @@ text.setText(self.listeLobby)
 
 }
 
-update(sal, lol) {}
+miseAjourListe(self: any, allRooms: Object[]|string[], text: Phaser.GameObjects.Text) {
+  self.listeLobby = []
+  allRooms.map((val: any) => {
+    self.listeLobby.push(`${val.metadata.nomRoom} (${val.clients} / ${val.maxClients})`)
+  })
+  text.setText(self.listeLobby)
+}
+
+update() {}
 }

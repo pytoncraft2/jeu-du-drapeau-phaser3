@@ -30,15 +30,6 @@ export default class LobbyRooms extends Room {
       this.setMetadata({ nomRoom: options.salon });
     }
 
-    this.clock.setTimeout(() => {
-
-      this.setMetadata({
-        nomRoom: options.salon
-      }).then(() => updateLobby(this));
-
-    }, 5000);
-
-
     this.userInputs = {}
 
     this.Game = new Phaser.Game(config)
