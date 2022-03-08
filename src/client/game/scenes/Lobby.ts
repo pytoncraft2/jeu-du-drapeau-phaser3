@@ -59,6 +59,7 @@ export default class Lobby extends Phaser.Scene {
     .then((room) => {
       self.room = room
       self.session = room.sessionId
+
     })
     .catch((err) => {
       console.error(err)

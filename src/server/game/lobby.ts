@@ -22,41 +22,29 @@ export default class LobbyRooms extends Room {
 
   onCreate(options: any) {
 
-    console.log("OOOOOOOOOOOOOOPPPPPPPTION")
-    console.log(options)
     this.setState(new RoomState())
 
     if (!this.metadata) {
       this.setMetadata({ nomRoom: options.salon });
     }
 
-    this.userInputs = {}
-
+    this.etatJoueur = {}
     this.Game = new Phaser.Game(config)
     this.scene = this.Game.scene.scenes[0]
     this.scene.setRoom(this)
 
     this.onMessage("inputs", (client, message) => {
-      this.userInputs[client.id] = message
+      // this.etatJoueur[client.id] = message
+      console.log("CHANGEMENT INPUTS")
     })
   }
 
   onJoin(client: Client, options: any, auth: any) {
-    console.log(`${client.id} a rejoind le lobby !!!!!!!!!!`)
-    this.userInputs[client.id] = {
-      up: false,
-      right: false,
-      down: false,
-      left: false,
-      space: false,
+    this.etatJoueur[client.id] = {
+      pret: false,
+      indexConfirmer: -1
     }
 
-    if (this.metadata.nomRoom == false) {
-      // console.log("DIIFFFERENT DE FALSE")
-      this.setMetadata({ nomRoom: `Salon ${Math.floor(Math.random() * 10000000000000)}`})
-    } else {
-      console.log("PPPPPPPPPPPPPPPPPAS DIFFERENT")
-    }
     const presences = this.scene.createPlayer(client.id)
     for (const [key, value] of Object.entries(presences.presences)) {
       this.state.presences.set(key, new Player(value))
@@ -67,7 +55,7 @@ export default class LobbyRooms extends Room {
     console.log(`${client.id} left !! `)
     const presences = this.scene.removePlayer(client.id)
     this.state.presences.delete(client.id)
-    delete this.userInputs[client.id]
+    delete this.etatJoueur[client.id]
   }
 
   onDispose() {
