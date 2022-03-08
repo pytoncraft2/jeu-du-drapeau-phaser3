@@ -29,13 +29,15 @@ export default class LobbyRooms extends Room {
     }
 
     this.etatJoueur = {}
-    this.Game = new Phaser.Game(config)
-    this.scene = this.Game.scene.scenes[0]
-    this.scene.setRoom(this)
+    // this.Game = new Phaser.Game(config)
+    // this.scene = this.Game.scene.scenes[0]
+    // this.scene.setRoom(this)
 
-    this.onMessage("inputs", (client, message) => {
-      // this.etatJoueur[client.id] = message
-      console.log("CHANGEMENT INPUTS")
+    this.onMessage("etat", (client, message) => {
+      this.etatJoueur[client.id] = message
+      console.log(this.etatJoueur)
+      console.log(`JOUEUR ${client.id} PRET`)
+      this.broadcast("miseAjourListePret", client.id);
     })
   }
 
@@ -44,18 +46,19 @@ export default class LobbyRooms extends Room {
       pret: false,
       indexConfirmer: -1
     }
-
-    const presences = this.scene.createPlayer(client.id)
-    for (const [key, value] of Object.entries(presences.presences)) {
-      this.state.presences.set(key, new Player(value))
-    }
+    console.log("__________________")
+    console.log(this.etatJoueur)
+    // const presences = this.scene.createPlayer(client.id)
+    // for (const [key, value] of Object.entries(presences.presences)) {
+    //   this.state.presences.set(key, new Player(value))
+    // }
   }
 
   onLeave(client: Client, consented: boolean) {
     console.log(`${client.id} left !! `)
-    const presences = this.scene.removePlayer(client.id)
-    this.state.presences.delete(client.id)
-    delete this.etatJoueur[client.id]
+    // const presences = this.scene.removePlayer(client.id)
+    // this.state.presences.delete(client.id)
+    // delete this.etatJoueur[client.id]
   }
 
   onDispose() {

@@ -34,12 +34,16 @@ export default class Lobby extends Phaser.Scene {
   async create() {
     const self = this;
 
-    let panelGauche = new Panel("JOUEURS",['lalal', 'lololo', 'lilil'], this, () => {})
+    let panelGauche = new Panel("JOUEURS",['Alex32 - PRET', 'Jamie - choix en cours', 'lili - PRET'], this, () => {})
 
     var container = this.add.container(645, 0);
 
     this.personnages.forEach((element, idx) => {
-      const img = self.add.image(0 + idx * 200, this.cameras.main.centerY, element).setData('actif', false)
+      const img = self.add.image(0 + idx * 200, this.cameras.main.centerY, element).setData('actif', false).setInteractive().on('pointerdown', function() {
+        self.room.send('etat', {pret: true, })
+        console.log(`INDEX ${idx}`)
+        console.log(this)
+      })
       container.add([img])
     });
 
@@ -59,7 +63,11 @@ export default class Lobby extends Phaser.Scene {
     .then((room) => {
       self.room = room
       self.session = room.sessionId
-
+      console.log(`Salon lobby ${salon} rejoint !`)
+      room.onMessage('miseAjourListePret', (id) => {
+        console.log('liste')
+        console.log(id)
+      })
     })
     .catch((err) => {
       console.error(err)
