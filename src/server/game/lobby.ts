@@ -37,14 +37,14 @@ export default class LobbyRooms extends Room {
       this.etatJoueur[client.id] = message
       console.log(this.etatJoueur)
       console.log(`JOUEUR ${client.id} PRET`)
-      this.broadcast("miseAjourListePret", client.id);
+      this.broadcast("miseAjourListePret", {id: client.id, index: message.indexConfirmation});
     })
   }
 
   onJoin(client: Client, options: any, auth: any) {
     this.etatJoueur[client.id] = {
       pret: false,
-      indexConfirmer: -1
+      indexConfirmation: -1
     }
     console.log("__________________")
     console.log(this.etatJoueur)

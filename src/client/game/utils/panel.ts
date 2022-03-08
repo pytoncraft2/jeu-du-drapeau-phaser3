@@ -14,4 +14,8 @@ export default class Panel {
   setContenu(texte: string[]|String) {
     this.contenu.setText(texte)
   }
+
+  addContenu(texte) {
+    // return this.contenu.concat(texte)
+  }
 }

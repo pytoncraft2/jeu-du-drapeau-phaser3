@@ -17,6 +17,8 @@ export default class Lobby extends Phaser.Scene {
   personnages: string[]
   player: any
   joueursPresents: string
+  container: Phaser.GameObjects.Container
+  panelGauche: any
 
   constructor() {
     super("Lobby")
@@ -34,17 +36,18 @@ export default class Lobby extends Phaser.Scene {
   async create() {
     const self = this;
 
-    let panelGauche = new Panel("JOUEURS",['Alex32 - PRET', 'Jamie - choix en cours', 'lili - PRET'], this, () => {})
+    this.panelGauche = new Panel("JOUEURS",['Alex32 - PRET', 'Jamie - choix en cours', 'lili - PRET'], this, () => {})
 
-    var container = this.add.container(645, 0);
+    this.container = this.add.container(645, 0);
 
     this.personnages.forEach((element, idx) => {
       const img = self.add.image(0 + idx * 200, this.cameras.main.centerY, element).setData('actif', false).setInteractive().on('pointerdown', function() {
-        self.room.send('etat', {pret: true, })
+        self.room.send('etat', {pret: true, indexConfirmation: idx})
         console.log(`INDEX ${idx}`)
         console.log(this)
+        this.setAlpha(0.4)
       })
-      container.add([img])
+      this.container.add([img])
     });
 
     this.connexion()
@@ -64,9 +67,15 @@ export default class Lobby extends Phaser.Scene {
       self.room = room
       self.session = room.sessionId
       console.log(`Salon lobby ${salon} rejoint !`)
-      room.onMessage('miseAjourListePret', (id) => {
-        console.log('liste')
-        console.log(id)
+      room.onMessage('miseAjourListePret', (infos) => {
+        console.log("AAAAAAALL")
+        console.log(self.container.getAll()[infos.index]);
+        self.container.getAll()[infos.index].setAlpha(0.5)
+        // self.panelGauche.addContenu([`${infos.id} Prêt !`])
+        console.log(infos)
+        console.log(infos.id)
+        console.log(infos.index)
+
       })
     })
     .catch((err) => {
