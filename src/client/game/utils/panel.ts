@@ -7,15 +7,20 @@ export default class Panel {
     graphics.setAlpha(0.1)
     graphics.fillRect(0, 0, 320, window.innerHeight);
 
-    titre = scene.add.text(40, 50, titre, { fontFamily: 'CustomFont' }).setOrigin(0).setFontSize(29);
-    this.contenu = scene.add.text(40, 100, contenu, { fontFamily: 'CustomFont' }).setOrigin(0).setFontSize(20);
+    titre = scene.add.text(40, 50, titre, { fontFamily: 'CustomFont' }).setOrigin(0).setFontSize(39);
+    this.contenu = scene.add.text(40, 100, contenu, { fontFamily: 'CustomFont' }).setOrigin(0).setFontSize(24);
   }
 
   setContenu(texte: string[]|String) {
     this.contenu.setText(texte)
   }
 
-  addContenu(texte) {
+  addContenu(texte: string[]|String) {
     // return this.contenu.concat(texte)
+    this.setContenu(texte.concat(this.contenu.text))
+  }
+
+  getContenu() {
+    return this.contenu;
   }
 }

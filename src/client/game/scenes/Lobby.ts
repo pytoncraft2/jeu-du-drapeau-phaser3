@@ -36,16 +36,25 @@ export default class Lobby extends Phaser.Scene {
   async create() {
     const self = this;
 
-    this.panelGauche = new Panel("JOUEURS",['Alex32 - PRET', 'Jamie - choix en cours', 'lili - PRET'], this, () => {})
+    this.panelGauche = new Panel("JOUEURS",['Choix en cours ! 0/4'], this, () => {})
 
     this.container = this.add.container(645, 0);
 
     this.personnages.forEach((element, idx) => {
-      const img = self.add.image(0 + idx * 200, this.cameras.main.centerY, element).setData('actif', false).setInteractive().on('pointerdown', function() {
+      const img = self.add.image(0 + idx * 200, this.cameras.main.centerY, element).setData('actif', false).setAlpha(0.8).setInteractive().on('pointerdown', function() {
         self.room.send('etat', {pret: true, indexConfirmation: idx})
         console.log(`INDEX ${idx}`)
         console.log(this)
-        this.setAlpha(0.4)
+        this.setData('actif', true)
+        this.setAlpha(1)
+      }).on('pointerover', function(x, y) {
+        if (!this.getData('actif')) {
+          this.setAlpha(1)
+        }
+      }).on('pointerout', function() {
+        if (!this.getData('actif')) {
+          this.setAlpha(0.8)
+        }
       })
       this.container.add([img])
     });
@@ -70,13 +79,17 @@ export default class Lobby extends Phaser.Scene {
       room.onMessage('miseAjourListePret', (infos) => {
         console.log("AAAAAAALL")
         console.log(self.container.getAll()[infos.index]);
-        self.container.getAll()[infos.index].setAlpha(0.5)
-        // self.panelGauche.addContenu([`${infos.id} Prêt !`])
+        self.container.getAll()[infos.index].setAlpha(1).setData('actif', true)
+        self.panelGauche.setContenu([`${infos.id} Prêt !`])
         console.log(infos)
         console.log(infos.id)
         console.log(infos.index)
-
       })
+
+      room.onStateChange((changes: any) => {
+        console.log(changes)
+      })
+
     })
     .catch((err) => {
       console.error(err)
