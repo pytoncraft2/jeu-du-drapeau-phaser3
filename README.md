@@ -54,3 +54,8 @@ pour le battre il faut lattaquer dans son dos
 batman +manette
 pour le battre il faut taper sur son projectile
 parfois ecran noir et fait tomber des manettes du ciels il faut esquiver
+
+
+
+## map
+background 2D technologie game  ==> google
