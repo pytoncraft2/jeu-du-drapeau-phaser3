@@ -76,15 +76,9 @@ export default class Lobby extends Phaser.Scene {
       self.room = room
       self.session = room.sessionId
       console.log(`Salon lobby ${salon} rejoint !`)
-      room.onMessage('miseAjourListePret', (infos) => {
-        console.log("AAAAAAALL")
-        console.log(self.container.getAll()[infos.index]);
-        self.container.getAll()[infos.index].setAlpha(1).setData('actif', true)
-        self.panelGauche.setContenu([`${infos.id} Prêt !`])
-        console.log(infos)
-        console.log(infos.id)
-        console.log(infos.index)
-      })
+      // room.onMessage('miseAjourListePret', (infos) => {
+      //   self.container.getAll()[infos.index].setAlpha(1).setData('actif', true)
+      // })
 
       room.onStateChange((changes: any) => {
         console.log(changes)
