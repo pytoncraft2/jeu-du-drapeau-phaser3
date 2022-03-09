@@ -3,7 +3,7 @@ import "@geckos.io/phaser-on-nodejs"
 import { Room, Client } from "colyseus"
 import config from "./config"
 
-import { RoomState, Player, Input } from "./RoomState"
+import { LobbyState, Joueur } from "./LobbyState"
 
 
 /**
@@ -22,7 +22,7 @@ export default class LobbyRooms extends Room {
 
   onCreate(options: any) {
 
-    this.setState(new RoomState())
+    this.setState(new LobbyState())
 
     if (!this.metadata) {
       this.setMetadata({ nomRoom: options.salon });
@@ -48,17 +48,31 @@ export default class LobbyRooms extends Room {
     }
     console.log("__________________")
     console.log(this.etatJoueur)
-    // const presences = this.scene.createPlayer(client.id)
-    // for (const [key, value] of Object.entries(presences.presences)) {
-    //   this.state.presences.set(key, new Player(value))
+    console.log(this.state)
+    console.log(this.state.joueurs)
+
+    // const map = new Joueur<string>();
+    // map.set("key", "value");
+    // map.set("key", "value");
+    // const presences = {
+    //   presences: { KzYyr8OA8: { x: 100, y: 100 } },
+    //   presenceList: [ 'KzYyr8OA8' ],
+    //   total: 1
     // }
+    for (const [key, value] of Object.entries(this.etatJoueur)) {
+      this.state.joueurs.set(key, new Joueur(value))
+    }
+
+    console.log("LLLLLLLLLLENGTH")
+    // console.log(Object.entries(this.etatJoueur).length)
+    console.log(this.state.joueurs)
   }
 
   onLeave(client: Client, consented: boolean) {
     console.log(`${client.id} left !! `)
     // const presences = this.scene.removePlayer(client.id)
-    // this.state.presences.delete(client.id)
-    // delete this.etatJoueur[client.id]
+    this.state.joueurs.delete(client.id)
+    delete this.etatJoueur[client.id]
   }
 
   onDispose() {

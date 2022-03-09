@@ -1,5 +1,6 @@
 export default class Panel {
   private contenu: any;
+  private titre: Phaser.GameObjects.Text;
 
   constructor(titre = '', contenu: string[], scene, callback) {
     var graphics = scene.make.graphics(scene);
@@ -7,7 +8,7 @@ export default class Panel {
     graphics.setAlpha(0.1)
     graphics.fillRect(0, 0, 320, window.innerHeight);
 
-    titre = scene.add.text(40, 50, titre, { fontFamily: 'CustomFont' }).setOrigin(0).setFontSize(39);
+    this.titre = scene.add.text(35, 50, titre, { fontFamily: 'CustomFont' }).setOrigin(0).setFontSize(39);
     this.contenu = scene.add.text(40, 100, contenu, { fontFamily: 'CustomFont' }).setOrigin(0).setFontSize(24);
   }
 
@@ -18,6 +19,10 @@ export default class Panel {
   addContenu(texte: string[]|String) {
     // return this.contenu.concat(texte)
     this.setContenu(texte.concat(this.contenu.text))
+  }
+
+  setTitre(texte) {
+    this.titre.setText(texte)
   }
 
   getContenu() {
