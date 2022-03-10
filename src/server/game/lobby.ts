@@ -31,17 +31,15 @@ export default class LobbyRooms extends Room {
 
     this.onMessage("etatJoueur", (client, message) => {
       this.etatJoueur[client.id] = message
-      console.log('ETTTAT')
-      console.log(this.etatJoueur)
       this.state.joueurs.set(client.id, new Joueur(message));
-      console.log(this.state.joueurs)
     })
   }
 
   onJoin(client: Client, options: any, auth: any) {
     this.etatJoueur[client.id] = {
       pret: false,
-      indexConfirmation: -1
+      indexConfirmation: -1,
+      ancienIndexConfirmation: -1
     }
 
     for (const [key, value] of Object.entries(this.etatJoueur)) {

@@ -14,6 +14,7 @@ import {
 export class Joueur extends Schema {
   @type("boolean") pret: boolean
   @type("number") indexConfirmation: number
+  @type("number") ancienIndexConfirmation: number
 }
 
 export class JoueurPret extends Schema {

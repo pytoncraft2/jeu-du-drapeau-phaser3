@@ -53,14 +53,19 @@ export default class Lobby extends Phaser.Scene {
 
     const button = new Button(window.innerWidth / 2, window.innerHeight - 100, 'Choisissez un personnage !', this, () => null );
 
+    const listeIndex = []
+
     this.container = this.add.container(645, 0);
 
     this.personnages.forEach((element, idx) => {
       const img = self.add.image(0 + idx * 200, this.cameras.main.centerY, element)
       .setData('actif', false)
+      .setData('ancienIndex', listeIndex[listeIndex.length - 2])
       .setAlpha(0.8)
       .setInteractive(({ useHandCursor: true }))
       .on('pointerdown', function() {
+        listeIndex.push(idx)
+
         self.container.iterate(function(el) {
               el.setAlpha(0.3)
               el.setData('actif', false)
@@ -68,11 +73,15 @@ export default class Lobby extends Phaser.Scene {
 
         self.room.send('etatJoueur', {
           pret: true,
-          indexConfirmation: idx
+          indexConfirmation: idx,
+          ancienIndexConfirmation: listeIndex[listeIndex.length - 2]
         })
         button.setText(`JOUER !`)
         this.setData('actif', true)
         this.setAlpha(1)
+        console.log('LIIIIIIIIIIIIIISTE')
+        console.log(listeIndex)
+        console.log(listeIndex[listeIndex.length - 2])
         // ellipse.setAlpha(0.6)
         // ellipse.setData('actif', true)
       }).on('pointerover', function(x, y) {
@@ -119,17 +128,30 @@ export default class Lobby extends Phaser.Scene {
         Object.keys(joueursPresents).map(val => {
           contenu.push(val.concat(`${joueursPresents[val].pret ? '  ✅ PRET !' : ' 🔴 CHOIX EN COURS...'}`))
 
-          const imgs = self.container.getAll()[joueursPresents[val].indexConfirmation] as any;
-          console.log(imgs)
+          // const imgs = self.container.getAll()[joueursPresents[val].indexConfirmation] as any;
+          const nouveau = self.container.getAll()[joueursPresents[val].indexConfirmation] as any;
+          const ancien = self.container.getAll()[joueursPresents[val].ancienIndexConfirmation] as any;
 
-          if (imgs) {
-            if (!imgs.texte) {
-              imgs.texte = self.add.text(imgs.x, imgs.y + imgs.displayHeight / 2 + 30, [val], { fontFamily: 'CustomFontNormal' }).setFontSize(20).setAlpha(0.5).setOrigin(0.5)
-              self.container.add([imgs.texte])
-            } else {
-              imgs.texte.setText([imgs.texte])
+          // console.log(numbers[numbers.length - 2]);
+          console.log('ancien ->>')
+          console.log(ancien)
+          console.log('nouveau ->>')
+          console.log(nouveau)
+          // console.log(imgs)
+          //image ou l'on clique
+
+            if (nouveau) {
+              if (!nouveau.texte) {
+                nouveau.texte = self.add.text(nouveau.x, nouveau.y + nouveau.displayHeight / 2 + 30, [val], { fontFamily: 'CustomFontNormal' }).setFontSize(20).setAlpha(0.5).setOrigin(0.5)
+                self.container.add([nouveau.texte])
+              } else {
+                // imgs.texte.setText(['OK'])
+              }
             }
-          }
+
+            if (ancien) {
+              ancien.texte.setText('')
+            }
 
           // if (joueursPresents[val].indexConfirmation !== -1) {
             // self.container.add([imgs.texte])
