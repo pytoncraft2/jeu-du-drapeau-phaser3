@@ -31,7 +31,10 @@ export default class LobbyRooms extends Room {
 
     this.onMessage("etatJoueur", (client, message) => {
       this.etatJoueur[client.id] = message
+      console.log('ETTTAT')
+      console.log(this.etatJoueur)
       this.state.joueurs.set(client.id, new Joueur(message));
+      console.log(this.state.joueurs)
     })
   }
 

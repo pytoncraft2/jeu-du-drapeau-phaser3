@@ -43,10 +43,10 @@ export default class Acceuil extends Phaser.Scene {
   }
 
   /**
-   * Connexion au serveur
-   * Affiche la modal de creationo/connexion à un lobby/salon
-   * Mes à jour et affiche toute les secondes le tableau contenant la liste des lobby disponible
-   */
+  * Connexion au serveur
+  * Affiche la modal de creationo/connexion à un lobby/salon
+  * Mes à jour et affiche toute les secondes le tableau contenant la liste des lobby disponible
+  */
 
   async afficheAcceuil() {
 
@@ -56,47 +56,38 @@ export default class Acceuil extends Phaser.Scene {
     this.listeRoom = 0;
     this.listeLobby = []
 
+    this.add.text(window.innerWidth/2, 100, 'Resident Streamer', { fontFamily: 'CustomFontItalic' }).setOrigin(0.5).setFontSize(35);
+
     let intro = ["Combatter le plus rapidement possible les 5 Boss du manoirs.", "De 1 à 4 joueurs !", "__________________", "Lobby disponible", "__________________"];
 
     var text = new Panel("Bienvenue !",intro , this, () => {
       console.log('bonsoir')
     })
 
-    //titre Resident Streamer
-    // this.add.text(window.innerWidth/2, 100, 'Resident Streamer', { fontFamily: 'CustomFontItalic' }).setOrigin(0.5).setFontSize(35);
-    // let titre = new Titre(window.innerWidth/2, 100, 'Resident Streamer', this, () => {
-    //   let url = document.location.href
-    //
-    //   navigator.clipboard.writeText(url).then(function() {
-    //     console.log('Copied!');
-    //   }, function() {
-    //     console.log('Copy error')
-    //   });
-    // })
 
-const lobby = await client.joinOrCreate("acceuil");
+    const lobby = await client.joinOrCreate("acceuil");
 
-let allRooms: RoomAvailable[] = [];
+    let allRooms: RoomAvailable[] = [];
 
-lobby.onMessage("rooms", (rooms) => {
-  allRooms = rooms;
-  this.miseAjourListe(self, allRooms, text, intro)
-});
+    lobby.onMessage("rooms", (rooms) => {
+      allRooms = rooms;
+      this.miseAjourListe(self, allRooms, text, intro)
+    });
 
-lobby.onMessage("+", ([roomId, room]) => {
-  const roomIndex = allRooms.findIndex((room) => room.roomId === roomId);
-  if (roomIndex !== -1) {
-    allRooms[roomIndex] = room;
-  } else {
-    allRooms.push(room);
-  }
-  this.miseAjourListe(self, allRooms, text, intro)
-});
+    lobby.onMessage("+", ([roomId, room]) => {
+      const roomIndex = allRooms.findIndex((room) => room.roomId === roomId);
+      if (roomIndex !== -1) {
+        allRooms[roomIndex] = room;
+      } else {
+        allRooms.push(room);
+      }
+      this.miseAjourListe(self, allRooms, text, intro)
+    });
 
-lobby.onMessage("-", (roomId) => {
-  allRooms = allRooms.filter((room) => room.roomId !== roomId);
-  this.miseAjourListe(self, allRooms, text, intro)
-});
+    lobby.onMessage("-", (roomId) => {
+      allRooms = allRooms.filter((room) => room.roomId !== roomId);
+      this.miseAjourListe(self, allRooms, text, intro)
+    });
 
     var div = document.getElementById('game');
     // div.style.background = "radial-gradient(circle, rgba(101,9,121,1) 0%, rgba(114,1,151,1) 35%, rgba(52,2,89,1) 100%)"
@@ -125,6 +116,7 @@ lobby.onMessage("-", (roomId) => {
           {
             element.setVisible(false);
             const salon = inputUsername.value;
+            lobby.leave()
             self.scene.start('Lobby', {salon: salon, id: false});
           }
         });

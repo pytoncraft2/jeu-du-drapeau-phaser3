@@ -107,50 +107,38 @@ export default class Lobby extends Phaser.Scene {
     .then((room) => {
       self.room = room
       self.session = room.sessionId
-      console.log(`Salon lobby ${salon} rejoint !`)
 
       room.onStateChange((changes: any) => {
         let joueursPresents = {}
+        let contenu = []
+
         changes.joueurs.forEach((value, key) => {
           joueursPresents[key] = value
         })
-        self.panelGauche.setTitre(`Joueurs : ${Object.keys(joueursPresents).length} / 4`)
-        let contenu = []
+
         Object.keys(joueursPresents).map(val => {
           contenu.push(val.concat(`${joueursPresents[val].pret ? '  ✅ PRET !' : ' 🔴 CHOIX EN COURS...'}`))
-        })
-        self.panelGauche.setContenu(contenu)
-        // self.container.iterate(function() {
-          // this.texte.setText('coucou')
-          console.log(Object.keys(joueursPresents))
-          Object.keys(joueursPresents).map(val => {
-            if (joueursPresents[val].indexConfirmation !== -1) {
-            // var children = self.container.getAll()[joueursPresents[val].indexConfirmation].setAlpha(0);
-            var imgs = self.container.getAll()[joueursPresents[val].indexConfirmation] as any;
 
+          const imgs = self.container.getAll()[joueursPresents[val].indexConfirmation] as any;
+          console.log(imgs)
+
+          if (imgs) {
             if (!imgs.texte) {
               imgs.texte = self.add.text(imgs.x, imgs.y + imgs.displayHeight / 2 + 30, [val], { fontFamily: 'CustomFontNormal' }).setFontSize(20).setAlpha(0.5).setOrigin(0.5)
+              self.container.add([imgs.texte])
             } else {
-              imgs.texte.setText([imgs.texte.text])
-              // [val.concat(imgs.texte ? 'oui' : 'non')]
-              // imgs.
+              imgs.texte.setText([imgs.texte])
             }
-            // console.log(val.length == 1 ? val : (val.push()))
-            // val.forEach(element => {
-            //
-            // });
-
-            console.log('teexxxte')
-            console.log(imgs.texte)
-            console.log('valll')
-            console.log(val)
-            self.container.add([imgs.texte])
           }
-            // console.log(children)
-            // contenu.push(val.concat(`${joueursPresents[val].indexConfirmation ? '  ✅ PRET !' : ' 🔴 CHOIX EN COURS...'}`))
-            // console.log(joueursPresents[val].indexConfirmation)
-          })
-        // })
+
+          // if (joueursPresents[val].indexConfirmation !== -1) {
+            // self.container.add([imgs.texte])
+          // }
+
+        })
+
+        self.panelGauche.setTitre(`Joueurs : ${Object.keys(joueursPresents).length} / 4`)
+        self.panelGauche.setContenu(contenu)
       })
     })
     .catch((err) => {
