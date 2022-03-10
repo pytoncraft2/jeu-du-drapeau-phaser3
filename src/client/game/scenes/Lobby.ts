@@ -77,79 +77,19 @@ export default class Lobby extends Phaser.Scene {
       self.room = room
       self.session = room.sessionId
       console.log(`Salon lobby ${salon} rejoint !`)
-      // room.onMessage('miseAjourListePret', (infos) => {
-      //   self.container.getAll()[infos.index].setAlpha(1).setData('actif', true)
-      // })
-
 
       room.onStateChange((changes: any) => {
         let joueursPresents = {}
         changes.joueurs.forEach((value, key) => {
           joueursPresents[key] = value
         })
-        console.log(Object.keys(joueursPresents).length)
-        // console.log(joueursPresents['bb'].pret)
-
-        console.log(Object.keys(joueursPresents))
         self.panelGauche.setTitre(`Joueurs : ${Object.keys(joueursPresents).length} / 4`)
         let contenu = []
-        // Object.keys(joueursPresents).map(val => (contenu.push(val), console.log(val.concat(' PRET'))))
-        Object.keys(joueursPresents).map(val => (contenu.push(val.concat(`${joueursPresents[val].pret ? ' PRET ✅' : ' CHOIX EN COURS 🔴'}`)), console.log(joueursPresents[val])))
-        // console.log(joueursPresents)
-        // texte.concat(this.contenu.text)
-        // [Object.keys(joueursPresents)].map(val => [`${val}`]);
+        Object.keys(joueursPresents).map(val => {
+          contenu.push(val.concat(`${joueursPresents[val].pret ? ' PRET ✅' : ' CHOIX EN COURS 🔴'}`))
+        })
         self.panelGauche.setContenu(contenu)
-
-        // const ancientext = text.text
-        // // console.log(text.text)
-        // if (`${Object.keys(presences).length}` != text.text) {
-        //   // nouveautext = text.text
-        //
-        //   if (nouveautext != ancientext) {
-        //     var newContent = [Object.keys(presences)].map(val => textListe.setText(val))
-        //     text.setText(`Joueurs : ${Object.keys(presences).length} / 4`)
-        //     // textListe.setText(liste)
-        //     // console.log('mise a jjjouuur')
-        //   }
-        // }
       })
-
-
-
-
-
-      // room.state.players.onAdd = (player, key) => {
-      //     console.log(player, "has been added at", key);
-      //
-      //     // add your player entity to the game world!
-      //
-      //     // If you want to track changes on a child object inside a map, this is a common pattern:
-      //     player.onChange = function(changes) {
-      //         changes.forEach(change => {
-      //             console.log(change.field);
-      //             console.log(change.value);
-      //             console.log(change.previousValue);
-      //         })
-      //     };
-      //
-      //     // force "onChange" to be called immediatelly
-      //     player.triggerAll();
-      // };
-      //
-      // room.state.players.onRemove = (player, key) => {
-      //   console.log(player, "has been removed at", key);
-      //
-      //   // remove your player entity from the game world!
-      // };
-
-
-
-
-
-
-
-
-
     })
     .catch((err) => {
       console.error(err)
