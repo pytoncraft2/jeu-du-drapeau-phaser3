@@ -76,7 +76,7 @@ export default class Lobby extends Phaser.Scene {
           pret: true,
           indexConfirmation: idx,
           ancienIndexConfirmation: listeIndex[listeIndex.length - 2],
-          ancienTexte: []
+          ancienTexte: 'vroom'
         })
         button.setText(`JOUER !`)
         this.setData('actif', true)
@@ -130,6 +130,12 @@ export default class Lobby extends Phaser.Scene {
         Object.keys(joueursPresents).map(val => {
           contenu.push(val.concat(`${joueursPresents[val].pret ? '  ✅ PRET !' : ' 🔴 CHOIX EN COURS...'}`))
           console.log(joueursPresents[val].indexConfirmation)
+          console.log('gimps')
+          console.log(joueursPresents[val].ancienTexte)
+          // console.log(joueursPresents[val].ancienTexte.map(e => console.log(e)))
+          // joueursPresents[val].ancienTexte.forEach(element => {
+          //   console.log(element);
+          // })
 
           self.container.getAll().forEach((img, l) => {
           })
@@ -160,6 +166,9 @@ export default class Lobby extends Phaser.Scene {
 
           console.log('ANNNNCIEEEN TEEXTE')
           console.log(joueursPresents[val].ancienTexte)
+          // joueursPresents[val].ancienTexte.forEach(element => {
+          //   console.log(element);
+          // });
           if (joueursPresents[val].indexConfirmation !== -1) {
             self.container.add([imgs.texte])
           }

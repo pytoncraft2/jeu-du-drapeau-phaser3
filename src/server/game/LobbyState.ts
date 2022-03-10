@@ -15,7 +15,7 @@ export class Joueur extends Schema {
   @type("boolean") pret: boolean
   @type("number") indexConfirmation: number
   @type("number") ancienIndexConfirmation: number
-  @type([ "string" ]) ancienTexte = new ArraySchema<string>();
+  @type("string") ancienTexte : string;
 }
 
 export class JoueurPret extends Schema {

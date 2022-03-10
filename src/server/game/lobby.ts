@@ -62,11 +62,11 @@ export default class LobbyRooms extends Room {
         pret: message.pret,
         indexConfirmation: message.indexConfirmation,
         ancienIndexConfirmation: message.indexConfirmation,
-        ancienTexte: this.listeIndex[message.ancienIndexConfirmation]
+        ancienTexte: 'coucouc hibou'
       }
       // console.log(this.listeIndex[message.ancienIndexConfirmation])
 
-      this.state.joueurs.set(client.id, new Joueur(message));
+      this.state.joueurs.set(client.id, new Joueur(this.etatJoueur[client.id]));
     })
   }
 
@@ -75,7 +75,7 @@ export default class LobbyRooms extends Room {
       pret: false,
       indexConfirmation: -1,
       ancienIndexConfirmation: -1,
-      ancienTexte: []
+      ancienTexte:'anciiiiiii'
     }
 
     for (const [key, value] of Object.entries(this.etatJoueur)) {
