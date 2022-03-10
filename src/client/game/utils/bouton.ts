@@ -1,7 +1,7 @@
 export default class Button {
   private button: any;
     constructor(x, y, label, scene, callback) {
-        this.button = scene.add.text(x, y, label, { fontFamily: 'CustomFont' })
+        this.button = scene.add.text(x, y, label, { fontFamily: 'CustomFontItalic' })
             .setOrigin(0.5)
             .setPadding(10)
             .setStyle({ backgroundColor: '#111' })
@@ -29,7 +29,7 @@ export default class Button {
 class ConfirmButton {
   private button: any;
   constructor(x, y, label, scene, callback) {
-    this.button = scene.add.text(x, y, label, { fontFamily: 'CustomFont' })
+    this.button = scene.add.text(x, y, label, { fontFamily: 'CustomFontItalic' })
     .setOrigin(0.5)
     .setPadding(10)
     .setStyle({ backgroundColor: '#111' })

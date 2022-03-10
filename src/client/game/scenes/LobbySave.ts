@@ -128,15 +128,8 @@ export default class Lobby extends Phaser.Scene {
             if (nouveautext != ancientext) {
               var newContent = [Object.keys(presences)].map(val => textListe.setText(val))
               text.setText(`Joueurs : ${Object.keys(presences).length} / 4`)
-              // textListe.setText(liste)
-              // console.log('mise a jjjouuur')
             }
           }
-
-        //   self.patchPlayer({
-        //     presences: presences,
-        //     presenceList: Object.keys(presences),
-        //   })
         })
       })
       .catch((err) => {

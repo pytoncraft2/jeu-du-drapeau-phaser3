@@ -2,6 +2,8 @@ import Phaser from "phaser"
 
 import * as Colyseus from "colyseus.js"
 import { RoomAvailable } from "colyseus.js";
+import Panel from "../utils/panel";
+import Titre from "../utils/titre";
 
 
 
@@ -51,23 +53,26 @@ export default class Acceuil extends Phaser.Scene {
     this.client = new Colyseus.Client("ws://localhost:3000")
     const client = this.client
 
-    var content = [
-      "Chargement des manoirs..."
-    ];
-
     this.listeRoom = 0;
     this.listeLobby = []
 
-    var graphics = this.make.graphics(this);
+    let intro = ["Combatter le plus rapidement possible les 5 Boss du manoirs.", "De 1 à 4 joueurs !", "__________________", "Lobby disponible", "__________________"];
 
-    graphics.fillStyle(0x000000);
-    graphics.setAlpha(0.1)
-    graphics.fillRect(0, 0, 320, window.innerHeight);
-
-    var text = this.add.text(40, 100, content, { fontFamily: 'CustomFont' }).setOrigin(0);
+    var text = new Panel("Bienvenue !",intro , this, () => {
+      console.log('bonsoir')
+    })
 
     //titre Resident Streamer
-    this.add.text(window.innerWidth/2, 100, 'Resident Streamer', { fontFamily: 'CustomFont' }).setOrigin(0.5).setFontSize(35);
+    // this.add.text(window.innerWidth/2, 100, 'Resident Streamer', { fontFamily: 'CustomFontItalic' }).setOrigin(0.5).setFontSize(35);
+    // let titre = new Titre(window.innerWidth/2, 100, 'Resident Streamer', this, () => {
+    //   let url = document.location.href
+    //
+    //   navigator.clipboard.writeText(url).then(function() {
+    //     console.log('Copied!');
+    //   }, function() {
+    //     console.log('Copy error')
+    //   });
+    // })
 
 const lobby = await client.joinOrCreate("acceuil");
 
@@ -75,7 +80,7 @@ let allRooms: RoomAvailable[] = [];
 
 lobby.onMessage("rooms", (rooms) => {
   allRooms = rooms;
-  this.miseAjourListe(self, allRooms, text)
+  this.miseAjourListe(self, allRooms, text, intro)
 });
 
 lobby.onMessage("+", ([roomId, room]) => {
@@ -85,12 +90,12 @@ lobby.onMessage("+", ([roomId, room]) => {
   } else {
     allRooms.push(room);
   }
-  this.miseAjourListe(self, allRooms, text)
+  this.miseAjourListe(self, allRooms, text, intro)
 });
 
 lobby.onMessage("-", (roomId) => {
   allRooms = allRooms.filter((room) => room.roomId !== roomId);
-  this.miseAjourListe(self, allRooms, text)
+  this.miseAjourListe(self, allRooms, text, intro)
 });
 
     var div = document.getElementById('game');
@@ -151,12 +156,12 @@ lobby.onMessage("-", (roomId) => {
 
 }
 
-miseAjourListe(self: any, allRooms: Object[]|string[], text: Phaser.GameObjects.Text) {
+miseAjourListe(self: any, allRooms: Object[]|string[], text: any, intro) {
   self.listeLobby = []
   allRooms.map((val: any) => {
     self.listeLobby.push(`${val.metadata.nomRoom} (${val.clients} / ${val.maxClients})`)
   })
-  text.setText(self.listeLobby)
+  text.setContenu(intro.concat(self.listeLobby))
 }
 
 update() {}
