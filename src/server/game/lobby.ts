@@ -33,11 +33,37 @@ export default class LobbyRooms extends Room {
     // this.scene = this.Game.scene.scenes[0]
     // this.scene.setRoom(this)
 
-    this.onMessage("etat", (client, message) => {
+    this.onMessage("etatJoueur", (client, message) => {
       this.etatJoueur[client.id] = message
-      console.log(this.etatJoueur)
-      console.log(`JOUEUR ${client.id} PRET`)
-      this.broadcast("miseAjourListePret", {id: client.id, index: message.indexConfirmation});
+
+
+
+      // const map = new Joueur<string>();
+      const item = this.state.joueurs.get(client.id).pret;
+      this.state.joueurs.set(client.id, new Joueur(message));
+
+      console.log("IIIIIITEMM")
+      console.log(item)
+
+      console.log("my item message")
+      console.log(message.pret)
+
+console.log("FIIIIIIIIIIIIINALL")
+
+// this.state.joueurs.forEach((value, key) => {
+//   console.log("key =>", key)
+//   console.log("value =>", value)
+// });
+      // this.state.joueurs.set('pret', message.pret)
+      // console.log("ETTTAT")
+      // console.log(this.etatJoueur)
+      // console.log('Message')
+      // console.log(message)
+      this.state.joueurs.get(client.id).pret
+      // console.log(this.state.joueurs)
+      // console.log(this.etatJoueur)
+      // console.log(`JOUEUR ${client.id} etat mise a jour`)
+      // this.broadcast("etatJoueurMAJ", {id: client.id, index: message.indexConfirmation});
     })
   }
 
@@ -46,10 +72,15 @@ export default class LobbyRooms extends Room {
       pret: false,
       indexConfirmation: -1
     }
-    console.log("__________________")
-    console.log(this.etatJoueur)
-    console.log(this.state)
-    console.log(this.state.joueurs)
+    // console.log("__________________")
+    // console.log(this.etatJoueur)
+    // console.log(this.state)
+    // console.log(this.state.joueurs)
+
+
+    // this.state.joueurs.forEach(element => {
+    //   console.log(element);
+    // });
 
     // const map = new Joueur<string>();
     // map.set("key", "value");
@@ -63,9 +94,9 @@ export default class LobbyRooms extends Room {
       this.state.joueurs.set(key, new Joueur(value))
     }
 
-    console.log("LLLLLLLLLLENGTH")
+    // console.log("LLLLLLLLLLENGTH")
     // console.log(Object.entries(this.etatJoueur).length)
-    console.log(this.state.joueurs)
+    // console.log(this.state.joueurs)
   }
 
   onLeave(client: Client, consented: boolean) {

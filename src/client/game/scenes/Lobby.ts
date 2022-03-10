@@ -36,15 +36,16 @@ export default class Lobby extends Phaser.Scene {
   async create() {
     const self = this;
 
-    this.panelGauche = new Panel("JOUEURS",['Choix en cours ! 0/4'], this, () => {})
+    this.panelGauche = new Panel("JOUEURS: 0/4",['Choisissez un personnage !'], this, () => {})
 
     this.container = this.add.container(645, 0);
 
     this.personnages.forEach((element, idx) => {
       const img = self.add.image(0 + idx * 200, this.cameras.main.centerY, element).setData('actif', false).setAlpha(0.8).setInteractive().on('pointerdown', function() {
-        self.room.send('etat', {pret: true, indexConfirmation: idx})
-        console.log(`INDEX ${idx}`)
-        console.log(this)
+        self.room.send('etatJoueur', {
+          pret: true,
+          indexConfirmation: idx
+        })
         this.setData('actif', true)
         this.setAlpha(1)
       }).on('pointerover', function(x, y) {
@@ -89,10 +90,11 @@ export default class Lobby extends Phaser.Scene {
         console.log(Object.keys(joueursPresents).length)
         // console.log(joueursPresents['bb'].pret)
 
+        console.log(Object.keys(joueursPresents))
         self.panelGauche.setTitre(`Joueurs : ${Object.keys(joueursPresents).length} / 4`)
         let contenu = []
         // Object.keys(joueursPresents).map(val => (contenu.push(val), console.log(val.concat(' PRET'))))
-        Object.keys(joueursPresents).map(val => (contenu.push(val.concat(`${joueursPresents[val].pret ? ' PRET' : ' CHOIX EN COURS...'}`))))
+        Object.keys(joueursPresents).map(val => (contenu.push(val.concat(`${joueursPresents[val].pret ? ' PRET ✅' : ' CHOIX EN COURS 🔴'}`)), console.log(joueursPresents[val])))
         // console.log(joueursPresents)
         // texte.concat(this.contenu.text)
         // [Object.keys(joueursPresents)].map(val => [`${val}`]);

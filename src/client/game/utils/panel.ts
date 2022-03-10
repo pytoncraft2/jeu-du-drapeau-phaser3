@@ -8,8 +8,8 @@ export default class Panel {
     graphics.setAlpha(0.1)
     graphics.fillRect(0, 0, 320, window.innerHeight);
 
-    this.titre = scene.add.text(35, 50, titre, { fontFamily: 'CustomFont' }).setOrigin(0).setFontSize(39);
-    this.contenu = scene.add.text(40, 100, contenu, { fontFamily: 'CustomFont' }).setOrigin(0).setFontSize(24);
+    this.titre = scene.add.text(20, 50, titre, { fontFamily: 'CustomFont' }).setOrigin(0).setFontSize(39);
+    this.contenu = scene.add.text(20, 100, contenu, { fontFamily: 'CustomFont' }).setOrigin(0).setFontSize(24);
   }
 
   setContenu(texte: string[]|String) {
