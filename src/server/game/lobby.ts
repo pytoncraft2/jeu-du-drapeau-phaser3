@@ -43,12 +43,8 @@ export default class LobbyRooms extends Room {
 
       if (this.listeIndex[message.ancienIndexConfirmation]) {
         if (this.listeIndex[message.ancienIndexConfirmation] !== this.listeIndex[message.indexConfirmation]) {
-          //si different par rapport au nouveau
-          //  suppression
           let arr = this.listeIndex[message.ancienIndexConfirmation]
-
           for( var i = 0; i < arr.length; i++){
-
             if ( arr[i] === client.id) {
               arr.splice(i, 1);
               i--;
@@ -56,15 +52,11 @@ export default class LobbyRooms extends Room {
           }
         }
       }
-      console.log("llllllllllllllllliste")
-      console.log(this.listeIndex)
-      console.log("anncien index")
-      console.log(this.listeIndex[message.ancienIndexConfirmation])
       this.state.joueurs.set(client.id, new Joueur(message));
     })
   }
 
-  onJoin(client: Client, options: any, auth: any) {
+  onJoin(client: Client) {
     this.etatJoueur[client.id] = {
       pret: false,
       indexConfirmation: -1,

@@ -36,7 +36,7 @@ export default class Lobby extends Phaser.Scene {
   }
 
   copieUrl() {
-    let url = document.location.href
+    let url = `${window.location.protocol}//${document.location.hostname}:${document.location.port}/${this.salon}` 
     navigator.clipboard.writeText(url).then(function() {
       console.log(`${url} copié!`);
     }, function() {
