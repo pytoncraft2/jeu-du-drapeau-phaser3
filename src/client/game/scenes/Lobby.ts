@@ -75,7 +75,8 @@ export default class Lobby extends Phaser.Scene {
         self.room.send('etatJoueur', {
           pret: true,
           indexConfirmation: idx,
-          ancienIndexConfirmation: listeIndex[listeIndex.length - 2]
+          ancienIndexConfirmation: listeIndex[listeIndex.length - 2],
+          ancienTexte: []
         })
         button.setText(`JOUER !`)
         this.setData('actif', true)
@@ -157,6 +158,8 @@ export default class Lobby extends Phaser.Scene {
           //   ancien.texte.setText('coucou')
           // }
 
+          console.log('ANNNNCIEEEN TEEXTE')
+          console.log(joueursPresents[val].ancienTexte)
           if (joueursPresents[val].indexConfirmation !== -1) {
             self.container.add([imgs.texte])
           }

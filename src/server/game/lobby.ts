@@ -36,6 +36,7 @@ export default class LobbyRooms extends Room {
     }
 
     this.onMessage("etatJoueur", (client, message) => {
+      let arr;
       this.etatJoueur[client.id] = message
       if (!this.listeIndex[message.indexConfirmation].includes(client.id)) {
         this.listeIndex[message.indexConfirmation].push(client.id)
@@ -43,7 +44,7 @@ export default class LobbyRooms extends Room {
 
       if (this.listeIndex[message.ancienIndexConfirmation]) {
         if (this.listeIndex[message.ancienIndexConfirmation] !== this.listeIndex[message.indexConfirmation]) {
-          let arr = this.listeIndex[message.ancienIndexConfirmation]
+          arr = this.listeIndex[message.ancienIndexConfirmation]
           for( var i = 0; i < arr.length; i++){
             if ( arr[i] === client.id) {
               arr.splice(i, 1);
@@ -52,6 +53,19 @@ export default class LobbyRooms extends Room {
           }
         }
       }
+
+      console.log('aaaarr')
+      console.log(arr)
+      console.log('ouiii')
+      console.log(this.listeIndex[message.ancienIndexConfirmation])
+      this.etatJoueur[client.id] = {
+        pret: message.pret,
+        indexConfirmation: message.indexConfirmation,
+        ancienIndexConfirmation: message.indexConfirmation,
+        ancienTexte: this.listeIndex[message.ancienIndexConfirmation]
+      }
+      // console.log(this.listeIndex[message.ancienIndexConfirmation])
+
       this.state.joueurs.set(client.id, new Joueur(message));
     })
   }
@@ -60,7 +74,8 @@ export default class LobbyRooms extends Room {
     this.etatJoueur[client.id] = {
       pret: false,
       indexConfirmation: -1,
-      ancienIndexConfirmation: -1
+      ancienIndexConfirmation: -1,
+      ancienTexte: []
     }
 
     for (const [key, value] of Object.entries(this.etatJoueur)) {
