@@ -4,7 +4,7 @@ import * as Colyseus from "colyseus.js"
 import { deepEqual } from "../utils/index"
 
 /**
- * Epreuve n°1 
+ * Epreuve n°1
  */
 export default class Jeu_01 extends Phaser.Scene {
   client!: Colyseus.Client
@@ -75,12 +75,6 @@ export default class Jeu_01 extends Phaser.Scene {
       .catch((err) => {
         console.error(err)
       })
-
-
-
-
-
-
 
     this.prevInputs = {
       up: false,

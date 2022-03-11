@@ -61,7 +61,6 @@ export default class Acceuil extends Phaser.Scene {
     let intro = ["Combatter le plus rapidement possible les 5 Boss du manoirs.", "De 1 à 4 joueurs !", "__________________", "Lobby disponible", "__________________"];
 
     var text = new Panel("Bienvenue !",intro , this, () => {
-      console.log('bonsoir')
     })
 
 

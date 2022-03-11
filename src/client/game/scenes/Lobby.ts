@@ -51,10 +51,10 @@ export default class Lobby extends Phaser.Scene {
     this.panelGauche = new Panel("JOUEURS: 0/4",['Choisissez un personnage !'], this, () => {})
 
     this.listeJoueur = {
-      0: self.add.text(650, 689 , ['LISTE JOUEURS'], { fontFamily: 'CustomFontNormal' }).setFontSize(20).setAlpha(0.5).setOrigin(0.5),
-      1: self.add.text(850, 689 , ['LISTE JOUEURS'], { fontFamily: 'CustomFontNormal' }).setFontSize(20).setAlpha(0.5).setOrigin(0.5),
-      2: self.add.text(1050, 689 , ['LISTE JOUEURS'], { fontFamily: 'CustomFontNormal' }).setFontSize(20).setAlpha(0.5).setOrigin(0.5),
-      3: self.add.text(1250, 689, ['LISTE JOUEURS'], { fontFamily: 'CustomFontNormal' }).setFontSize(20).setAlpha(0.5).setOrigin(0.5)
+      0: self.add.text(650, 689 , [''], { fontFamily: 'CustomFontNormal' }).setFontSize(20).setAlpha(0.5).setOrigin(0.5),
+      1: self.add.text(850, 689 , [''], { fontFamily: 'CustomFontNormal' }).setFontSize(20).setAlpha(0.5).setOrigin(0.5),
+      2: self.add.text(1050, 689 , [''], { fontFamily: 'CustomFontNormal' }).setFontSize(20).setAlpha(0.5).setOrigin(0.5),
+      3: self.add.text(1250, 689, [''], { fontFamily: 'CustomFontNormal' }).setFontSize(20).setAlpha(0.5).setOrigin(0.5)
     }
 
     let titre = new Titre(window.innerWidth/2, 100, `Lobby : ${this.salon}`, this, () => this.copieUrl())
@@ -84,6 +84,9 @@ export default class Lobby extends Phaser.Scene {
           ancienIndexConfirmation: listeIndex[listeIndex.length - 2]
         })
         button.setText(`JOUER !`)
+        button.pointerdown(() => {
+          self.scene.start('Jeu_01', {salon: self.salon, id: false});
+        })
         this.setData('actif', true)
         this.setAlpha(1)
         ellipse.setAlpha(0.6)
@@ -101,8 +104,6 @@ export default class Lobby extends Phaser.Scene {
       })
       const ellipse = self.add.ellipse(img.x, img.y + img.displayHeight / 2 - 10, 200, 35, 0x00000).setAlpha(0.3).setDepth(-1);
       this.container.add([img, ellipse])
-      console.log("_______")
-      console.log(img.y - img.displayWidth /2)
     });
 
     this.connexion()
