@@ -96,6 +96,7 @@ export default class Lobby extends Phaser.Scene {
           // ellipse.setAlpha(0.3)
         }
       })
+      img.texte = self.add.text(img.x + 400, img.y + img.displayHeight / 2 + 30, [''], { fontFamily: 'CustomFontNormal' }).setFontSize(20).setAlpha(0.5).setOrigin(0.5)
       // const ellipse = self.add.ellipse(img.x, img.y + img.displayHeight / 2 - 10, 200, 35, 0x00000).setAlpha(0.3).setDepth(-1);
       // const texte = self.add.text(img.x, img.y + img.displayHeight / 2 + 30, [''], { fontFamily: 'CustomFontNormal' }).setFontSize(20).setAlpha(0.5).setOrigin(0.5)
       this.container.add([img/*, ellipse, texte*/])
@@ -127,28 +128,35 @@ export default class Lobby extends Phaser.Scene {
           joueursPresents[key] = value
         })
 
-        changes.listeJoueurIndex.forEach((value, key) => {
-          console.log(value)
-          console.log(key)
+        changes.listeJoueurIndex.forEach((listeID, idx) => {
+          let obj = JSON.parse(listeID)
+          console.log(obj)
+          console.log("final Object")
+          for (const [key, value] of Object.entries(obj[idx])) {
+            console.log(`${key}: ${value}`);
+            self.container.getAll()[idx].texte.setText([value])
+            // const nouveau = self.container.getAll().forEach((e, i) => {
+            //   // console.log(e)
+            //   if (e.texte) {
+            //     e.texte.setText(value)
+                // self.container.add(self.container.getAll()[key].texte)
+            //   }
+            // });
+            // if (nouveau.texte) {
+            //   // nouveau.texte = self.add.text(nouveau.x, nouveau.y + nouveau.displayHeight / 2 + 30, [value], { fontFamily: 'CustomFontNormal' }).setFontSize(20).setAlpha(0.5).setOrigin(0.5)
+            //   self.container.add([nouveau.texte])
+            //   console.log('NOUVEAU')
+            // } else {
+            //   console.log('PAS NOUVEAU')
+            //   nouveau.texte.setText([value])
+            // }
+
+          }
         })
         console.log(changes.listeJoueurIndex)
 
-        // console.log('iiiiiiiiiiiiiiindex')
-        // console.log(joueurIndexs)
-        // console.log('MAAAAPPING')
-        // Object.keys(joueurIndexs).map(val => {
-        //   // console.log(joueurIndexs[val].joueurIndex)
-        //   // joueurIndexs[val].joueurIndex.map(e => console.log(e))
-        //   // joueurIndexs[val].joueurIndex
-        //   // console.log(Array.from(joueurIndexs[val].joueurIndex))
-        //   console.log('ouiii')
-        // })
-
         Object.keys(joueursPresents).map(val => {
           contenu.push(val.concat(`${joueursPresents[val].pret ? '  ✅ PRET !' : ' 🔴 CHOIX EN COURS...'}`))
-          if (joueursPresents[val].indexConfirmation !== -1) {
-            // self.container.add([imgs.texte])
-          }
         })
 
         self.panelGauche.setTitre(`Joueurs : ${Object.keys(joueursPresents).length} / 4`)
