@@ -1,0 +1,255 @@
+{
+    "frames": [
+        {
+            "filename": "huzounet_face0",
+            "frame": {
+                "w": 131,
+                "h": 379,
+                "x": 0,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "huzounet_jump0",
+            "frame": {
+                "w": 96,
+                "h": 379,
+                "x": 131,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "huzounet_jump1",
+            "frame": {
+                "w": 156,
+                "h": 379,
+                "x": 227,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "huzounet_jump2",
+            "frame": {
+                "w": 144,
+                "h": 416,
+                "x": 383,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "huzounet_jump3",
+            "frame": {
+                "w": 155,
+                "h": 448,
+                "x": 527,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "huzounet_jump4",
+            "frame": {
+                "w": 146,
+                "h": 421,
+                "x": 682,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "huzounet_jump5",
+            "frame": {
+                "w": 156,
+                "h": 379,
+                "x": 828,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "huzounet_jump6",
+            "frame": {
+                "w": 96,
+                "h": 379,
+                "x": 0,
+                "y": 448
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "huzounet_kunai0",
+            "frame": {
+                "w": 162,
+                "h": 379,
+                "x": 96,
+                "y": 448
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "huzounet_kunai1",
+            "frame": {
+                "w": 227,
+                "h": 376,
+                "x": 258,
+                "y": 448
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "huzounet_profil0",
+            "frame": {
+                "w": 96,
+                "h": 379,
+                "x": 485,
+                "y": 448
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "huzounet_profil1",
+            "frame": {
+                "w": 99,
+                "h": 379,
+                "x": 581,
+                "y": 448
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "huzounet_profil4",
+            "frame": {
+                "w": 168,
+                "h": 379,
+                "x": 680,
+                "y": 448
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "huzounet_profil5",
+            "frame": {
+                "w": 99,
+                "h": 379,
+                "x": 848,
+                "y": 448
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "huzounet_profil6",
+            "frame": {
+                "w": 167,
+                "h": 379,
+                "x": 0,
+                "y": 827
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "huzounet_profil7",
+            "frame": {
+                "w": 108,
+                "h": 379,
+                "x": 167,
+                "y": 827
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "huzounet_profil8",
+            "frame": {
+                "w": 96,
+                "h": 379,
+                "x": 275,
+                "y": 827
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "huzounet_profil2",
+            "frame": {
+                "w": 167,
+                "h": 379,
+                "x": 371,
+                "y": 827
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "huzounet_profil3",
+            "frame": {
+                "w": 108,
+                "h": 379,
+                "x": 538,
+                "y": 827
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        }
+    ],
+    "meta": {
+        "description": "Atlas generado con Atlas Packer Gamma V2",
+        "web": "https://gammafp.github.io/atlas-packer-phaser/"
+    }
+}

@@ -66,6 +66,7 @@ export default class Prechargement extends Phaser.Scene {
   loadAssets() {
     this.load.atlas('fakhear', 'assets/personnages/fakhear/fakhear.png', 'assets/personnages/fakhear/fakhear_atlas.json');
     this.load.atlas('akhizonah', 'assets/personnages/akhizonah/akhizonah.png', 'assets/personnages/akhizonah/akhizonah_atlas.json');
+    this.load.atlas('huzounet', 'assets/personnages/huzounet/huzounet.png', 'assets/personnages/huzounet/huzounet_atlas.json');
     this.load.tilemapTiledJSON('map', '/assets/simple-map.json');
     this.load.image('tiles', '/assets/gridtiles.png');
     this.load.html('nameform', './loginform.html');
