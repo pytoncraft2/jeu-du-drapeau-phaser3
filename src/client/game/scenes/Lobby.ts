@@ -88,7 +88,7 @@ export default class Lobby extends Phaser.Scene {
           self.room.leave()
           self.scene.start('Jeu_01', {
             salon: self.salon,
-            id: false
+            personnage: `${this.frame.texture.key}`
           });
         })
         this.setData('actif', true)

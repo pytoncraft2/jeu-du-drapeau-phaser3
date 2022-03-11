@@ -3,6 +3,11 @@ import Phaser from "phaser"
 import * as Colyseus from "colyseus.js"
 import { deepEqual } from "../utils/index"
 
+interface Initialisation {
+    salon: string;
+    personnage: string;
+};
+
 /**
  * Epreuve n°1
  */
@@ -11,10 +16,10 @@ export default class Jeu_01 extends Phaser.Scene {
   players: Phaser.GameObjects.Group
   session: string
   playersRef: any
-  salon: any
-  id: any
+  salon: string
   keyboard!: any
   room: Colyseus.Room<unknown>
+  personnage: string
   prevInputs: { up: boolean; right: boolean; left: boolean; down: boolean, space: boolean }
   private playersMessage: Phaser.GameObjects.Text;
 
@@ -22,8 +27,9 @@ export default class Jeu_01 extends Phaser.Scene {
     super("Jeu_01")
   }
 
-  init(salon): void {
-    this.salon = salon.salon
+  init(info: Initialisation)  {
+    this.salon = info.salon
+    this.personnage = info.personnage
   }
 
   preload(): void {
@@ -57,7 +63,7 @@ export default class Jeu_01 extends Phaser.Scene {
 
 
       client
-      .joinOrCreate("game_instance", { salon })
+      .joinOrCreate("game_instance", { salon: salon })
       .then((room) => {
         self.room = room
         self.session = room.sessionId
@@ -93,7 +99,7 @@ export default class Jeu_01 extends Phaser.Scene {
         const x = list.presences[item].x
         const y = list.presences[item].y
         const player = this.add
-          .sprite(x, y, "fakhear")
+          .sprite(x, y, `fakhear`)
           .setData({ ClientId: list.presenceList[idx] })
         this.players.add(player)
         this.playersRef[item] = player
