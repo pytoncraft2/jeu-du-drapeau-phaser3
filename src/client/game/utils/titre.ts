@@ -2,8 +2,11 @@ export default class Titre {
   private titre: any;
   private miniTitre: any
     constructor(x, y, label, scene, callback) {
-      this.miniTitre = scene.add.text(x, y + 40, 'Cliquez pour Copier et partager !', { fontFamily: 'CustomFontNormal' })
-      .setFontSize(20)
+      this.miniTitre = scene.add.text(x, y + 50,
+        'Cliquez pour Copier et partager !', {
+        fontFamily: 'CustomFontItalic',
+      })
+      .setFontSize(25)
       .setAlpha(0.5)
       .setOrigin(0.5)
       .setInteractive({ useHandCursor: true })
@@ -13,7 +16,7 @@ export default class Titre {
 
       this.titre = scene.add.text(x, y, label, { fontFamily: 'CustomFontNormal' })
       .setOrigin(0.5)
-      .setFontSize(35)
+      .setFontSize(55)
       .setDepth(100)
       .setInteractive({ useHandCursor: true })
       .on('pointerdown', () => (this.miniTitre.setText('Lien copié !'), callback()))

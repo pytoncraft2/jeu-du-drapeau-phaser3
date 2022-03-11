@@ -56,7 +56,7 @@ export default class Acceuil extends Phaser.Scene {
     this.listeRoom = 0;
     this.listeLobby = []
 
-    this.add.text(window.innerWidth/2, 100, 'Resident Streamer', { fontFamily: 'CustomFontItalic' }).setOrigin(0.5).setFontSize(35);
+    this.add.text(window.innerWidth/2, 100, 'RESIDENT STREAMER', { fontFamily: 'CustomFontNormal' }).setOrigin(0.5).setFontSize(45);
 
     let intro = ["Combatter le plus rapidement possible les 5 Boss du manoirs.", "De 1 à 4 joueurs !", "__________________", "Lobby disponible", "__________________"];
 

@@ -51,10 +51,10 @@ export default class Lobby extends Phaser.Scene {
     this.panelGauche = new Panel("JOUEURS: 0/4",['Choisissez un personnage !'], this, () => {})
 
     this.listeJoueur = {
-      0: self.add.text(650, 689 , [''], { fontFamily: 'CustomFontNormal' }).setFontSize(20).setAlpha(0.5).setOrigin(0.5),
-      1: self.add.text(850, 689 , [''], { fontFamily: 'CustomFontNormal' }).setFontSize(20).setAlpha(0.5).setOrigin(0.5),
-      2: self.add.text(1050, 689 , [''], { fontFamily: 'CustomFontNormal' }).setFontSize(20).setAlpha(0.5).setOrigin(0.5),
-      3: self.add.text(1250, 689, [''], { fontFamily: 'CustomFontNormal' }).setFontSize(20).setAlpha(0.5).setOrigin(0.5)
+      0: self.add.text(645, 689 , [''], { fontFamily: 'CustomFontNormal' }).setFontSize(25).setAlpha(0.5).setOrigin(0.5).setDepth(3),
+      1: self.add.text(845, 689 , [''], { fontFamily: 'CustomFontNormal' }).setFontSize(25).setAlpha(0.5).setOrigin(0.5).setDepth(3),
+      2: self.add.text(1045, 689 , [''], { fontFamily: 'CustomFontNormal' }).setFontSize(25).setAlpha(0.5).setOrigin(0.5).setDepth(3),
+      3: self.add.text(1245, 689, [''], { fontFamily: 'CustomFontNormal' }).setFontSize(25).setAlpha(0.5).setOrigin(0.5).setDepth(3)
     }
 
     let titre = new Titre(window.innerWidth/2, 100, `Lobby : ${this.salon}`, this, () => this.copieUrl())
@@ -85,7 +85,11 @@ export default class Lobby extends Phaser.Scene {
         })
         button.setText(`JOUER !`)
         button.pointerdown(() => {
-          self.scene.start('Jeu_01', {salon: self.salon, id: false});
+          self.room.leave()
+          self.scene.start('Jeu_01', {
+            salon: self.salon,
+            id: false
+          });
         })
         this.setData('actif', true)
         this.setAlpha(1)
