@@ -120,56 +120,34 @@ export default class Lobby extends Phaser.Scene {
 
       room.onStateChange((changes: any) => {
         let joueursPresents = {}
+        let joueurIndexs = {}
         let contenu = []
 
         changes.joueurs.forEach((value, key) => {
           joueursPresents[key] = value
         })
 
+        changes.listeJoueurIndex.forEach((value, key) => {
+          console.log(value)
+          console.log(key)
+        })
+        console.log(changes.listeJoueurIndex)
+
+        // console.log('iiiiiiiiiiiiiiindex')
+        // console.log(joueurIndexs)
+        // console.log('MAAAAPPING')
+        // Object.keys(joueurIndexs).map(val => {
+        //   // console.log(joueurIndexs[val].joueurIndex)
+        //   // joueurIndexs[val].joueurIndex.map(e => console.log(e))
+        //   // joueurIndexs[val].joueurIndex
+        //   // console.log(Array.from(joueurIndexs[val].joueurIndex))
+        //   console.log('ouiii')
+        // })
+
         Object.keys(joueursPresents).map(val => {
           contenu.push(val.concat(`${joueursPresents[val].pret ? '  ✅ PRET !' : ' 🔴 CHOIX EN COURS...'}`))
-          console.log(joueursPresents[val].indexConfirmation)
-          console.log('gimps')
-          // console.log(joueursPresents[val].ancienTexte)
-          // console.log(joueursPresents[val].ancienTexte.map(e => console.log(e)))
-          // joueursPresents[val].ancienTexte.forEach(element => {
-          //   console.log(element);
-          // })
-
-          self.container.getAll().forEach((img, l) => {
-          })
-          const imgs = self.container.getAll()[joueursPresents[val].indexConfirmation] as any;
-          const nouveau = self.container.getAll()[joueursPresents[val].indexConfirmation] as any;
-          const ancien = self.container.getAll()[joueursPresents[val].ancienIndexConfirmation] as any;
-
-          // console.log(numbers[numbers.length - 2]);
-          // console.log('ancien ->>')
-          // console.log(ancien)
-          // console.log('nouveau ->>')
-          // console.log(nouveau)
-          // console.log(imgs)
-          //image ou l'on clique
-
-          if (nouveau) {
-            if (!nouveau.texte) {
-              nouveau.texte = self.add.text(nouveau.x, nouveau.y + nouveau.displayHeight / 2 + 30, [val], { fontFamily: 'CustomFontNormal' }).setFontSize(20).setAlpha(0.5).setOrigin(0.5)
-              self.container.add([nouveau.texte])
-            } else {
-              // imgs.texte.setText(['OK'])
-            }
-          }
-
-          // if (ancien) {
-            // ancien.texte.setText(joueursPresents[val].ancienTexte)
-          // }
-
-          // console.log('ANNNNCIEEEN TEEXTE')
-          // console.log(joueursPresents[val].ancienTexte)
-          // joueursPresents[val].ancienTexte.forEach(element => {
-          //   console.log(element);
-          // });
           if (joueursPresents[val].indexConfirmation !== -1) {
-            self.container.add([imgs.texte])
+            // self.container.add([imgs.texte])
           }
         })
 

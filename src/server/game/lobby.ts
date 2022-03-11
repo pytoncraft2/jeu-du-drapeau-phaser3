@@ -2,7 +2,7 @@
 import "@geckos.io/phaser-on-nodejs"
 import { Room, Client } from "colyseus"
 
-import { LobbyState, Joueur } from "./LobbyState"
+import { LobbyState, Joueur, JoueurIndex, ListeJoueurIndex } from "./LobbyState"
 
 
 /**
@@ -52,6 +52,26 @@ export default class LobbyRooms extends Room {
           }
         }
       }
+
+      console.log('ssstate')
+      // this.state.joueurIndexs.set(new JoueurIndex(this.listeIndex));
+      // this.state.joueurs.set(client.id, new Joueur(message));
+      // this.state.joueurIndexs.push([this.listeIndex])
+      // console.log(this.state.joueurIndexs)
+      // this.state.joueurIndexs.forEach(element => {
+    // console.log(element);
+// });
+this.state.listeJoueurIndex.shift()
+this.state.listeJoueurIndex.push(JSON.stringify([this.listeIndex]))
+// console.log(this.state.joueurIndexs)
+      console.log('liiiste')
+      console.log(this.listeIndex)
+      // console.log(this.state.joueurIndexs)
+      console.log("________________________")
+      console.log(this.etatJoueur)
+      // console.log(this.state.joueurIndexs)
+      console.log("sssssssssstate")
+      console.log(this.state)
       this.state.joueurs.set(client.id, new Joueur(message));
     })
   }
