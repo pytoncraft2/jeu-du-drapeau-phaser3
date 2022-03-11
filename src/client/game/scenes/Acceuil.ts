@@ -150,7 +150,9 @@ export default class Acceuil extends Phaser.Scene {
 miseAjourListe(self: any, allRooms: Object[]|string[], text: any, intro) {
   self.listeLobby = []
   allRooms.map((val: any) => {
-    self.listeLobby.push(`${val.metadata.nomRoom} (${val.clients} / ${val.maxClients})`)
+    if (val.metadata) {
+      self.listeLobby.push(`${val.metadata.nomRoom} (${val.clients} / ${val.maxClients})`)
+    }
   })
   text.setContenu(intro.concat(self.listeLobby))
 }
