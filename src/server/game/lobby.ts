@@ -53,25 +53,8 @@ export default class LobbyRooms extends Room {
         }
       }
 
-      console.log('ssstate')
-      // this.state.joueurIndexs.set(new JoueurIndex(this.listeIndex));
-      // this.state.joueurs.set(client.id, new Joueur(message));
-      // this.state.joueurIndexs.push([this.listeIndex])
-      // console.log(this.state.joueurIndexs)
-      // this.state.joueurIndexs.forEach(element => {
-    // console.log(element);
-// });
-this.state.listeJoueurIndex.shift()
-this.state.listeJoueurIndex.push(JSON.stringify([this.listeIndex]))
-// console.log(this.state.joueurIndexs)
-      console.log('liiiste')
-      console.log(this.listeIndex)
-      // console.log(this.state.joueurIndexs)
-      console.log("________________________")
-      console.log(this.etatJoueur)
-      // console.log(this.state.joueurIndexs)
-      console.log("sssssssssstate")
-      console.log(this.state)
+      this.state.listeJoueurIndex.shift()
+      this.state.listeJoueurIndex.push(JSON.stringify([this.listeIndex]))
       this.state.joueurs.set(client.id, new Joueur(message));
     })
   }
@@ -94,6 +77,10 @@ this.state.listeJoueurIndex.push(JSON.stringify([this.listeIndex]))
     for (const [key] of Object.entries(this.listeIndex)) {
       this.listeIndex[key] = this.listeIndex[key].filter((a: any) => a !== client.id)
     }
+
+    this.state.listeJoueurIndex.shift()
+    this.state.listeJoueurIndex.push(JSON.stringify([this.listeIndex]))
+
     delete this.etatJoueur[client.id]
   }
 

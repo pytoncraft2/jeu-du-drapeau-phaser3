@@ -135,6 +135,8 @@ export default class Lobby extends Phaser.Scene {
           for (const [key, value] of Object.entries(obj[idx])) {
             if (value) {
               this.listeJoueur[key].setText(value)
+            } else {
+              this.listeJoueur[key].setText('')
             }
           }
         })
