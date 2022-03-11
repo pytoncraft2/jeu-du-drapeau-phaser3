@@ -15,11 +15,6 @@ export class Joueur extends Schema {
   @type("boolean") pret: boolean
   @type("number") indexConfirmation: number
   @type("number") ancienIndexConfirmation: number
-  @type("string") ancienTexte : string;
-}
-
-export class JoueurPret extends Schema {
-  @type("boolean") pret: boolean = false
 }
 
 export class LobbyState extends Schema {

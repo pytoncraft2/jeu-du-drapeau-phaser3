@@ -75,8 +75,7 @@ export default class Lobby extends Phaser.Scene {
         self.room.send('etatJoueur', {
           pret: true,
           indexConfirmation: idx,
-          ancienIndexConfirmation: listeIndex[listeIndex.length - 2],
-          ancienTexte: 'vroom'
+          ancienIndexConfirmation: listeIndex[listeIndex.length - 2]
         })
         button.setText(`JOUER !`)
         this.setData('actif', true)
@@ -131,7 +130,7 @@ export default class Lobby extends Phaser.Scene {
           contenu.push(val.concat(`${joueursPresents[val].pret ? '  ✅ PRET !' : ' 🔴 CHOIX EN COURS...'}`))
           console.log(joueursPresents[val].indexConfirmation)
           console.log('gimps')
-          console.log(joueursPresents[val].ancienTexte)
+          // console.log(joueursPresents[val].ancienTexte)
           // console.log(joueursPresents[val].ancienTexte.map(e => console.log(e)))
           // joueursPresents[val].ancienTexte.forEach(element => {
           //   console.log(element);
@@ -161,11 +160,11 @@ export default class Lobby extends Phaser.Scene {
           }
 
           // if (ancien) {
-          //   ancien.texte.setText('coucou')
+            // ancien.texte.setText(joueursPresents[val].ancienTexte)
           // }
 
-          console.log('ANNNNCIEEEN TEEXTE')
-          console.log(joueursPresents[val].ancienTexte)
+          // console.log('ANNNNCIEEEN TEEXTE')
+          // console.log(joueursPresents[val].ancienTexte)
           // joueursPresents[val].ancienTexte.forEach(element => {
           //   console.log(element);
           // });
