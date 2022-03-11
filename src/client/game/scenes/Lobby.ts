@@ -29,7 +29,7 @@ export default class Lobby extends Phaser.Scene {
 
   init(salon: any) {
     this.salon = salon.salon
-    this.personnages = ['fakhear', 'fakhear', 'fakhear', 'fakhear'];
+    this.personnages = ['fakhear', 'akhizonah', 'fakhear', 'fakhear'];
   }
 
   preload() {

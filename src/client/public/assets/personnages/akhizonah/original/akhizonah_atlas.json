@@ -1,0 +1,268 @@
+{
+    "frames": [
+        {
+            "filename": "akhizonahjump0",
+            "frame": {
+                "w": 96,
+                "h": 379,
+                "x": 0,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "akhizonahjump1",
+            "frame": {
+                "w": 156,
+                "h": 379,
+                "x": 96,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "akhizonahjump2",
+            "frame": {
+                "w": 144,
+                "h": 416,
+                "x": 252,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "akhizonahjump3",
+            "frame": {
+                "w": 155,
+                "h": 448,
+                "x": 396,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "akhizonahjump4",
+            "frame": {
+                "w": 146,
+                "h": 421,
+                "x": 551,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "akhizonahjump5",
+            "frame": {
+                "w": 156,
+                "h": 379,
+                "x": 697,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "akhizonahjump6",
+            "frame": {
+                "w": 96,
+                "h": 379,
+                "x": 853,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "akhizonah_knife0",
+            "frame": {
+                "w": 174,
+                "h": 379,
+                "x": 0,
+                "y": 448
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "akhizonah_knife1",
+            "frame": {
+                "w": 173,
+                "h": 371,
+                "x": 174,
+                "y": 448
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "akhizonah_knife2",
+            "frame": {
+                "w": 229,
+                "h": 371,
+                "x": 347,
+                "y": 448
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "akhizonah_marche0",
+            "frame": {
+                "w": 96,
+                "h": 379,
+                "x": 576,
+                "y": 448
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "akhizonah_marche1",
+            "frame": {
+                "w": 99,
+                "h": 379,
+                "x": 672,
+                "y": 448
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "akhizonah_marche2",
+            "frame": {
+                "w": 167,
+                "h": 379,
+                "x": 771,
+                "y": 448
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "akhizonah_marche3",
+            "frame": {
+                "w": 99,
+                "h": 379,
+                "x": 938,
+                "y": 448
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "akhizonah_marche4",
+            "frame": {
+                "w": 167,
+                "h": 379,
+                "x": 0,
+                "y": 827
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "akhizonah_marche5",
+            "frame": {
+                "w": 99,
+                "h": 379,
+                "x": 167,
+                "y": 827
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "akhizonah_marche6",
+            "frame": {
+                "w": 167,
+                "h": 379,
+                "x": 266,
+                "y": 827
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "akhizonah_marche8",
+            "frame": {
+                "w": 96,
+                "h": 379,
+                "x": 433,
+                "y": 827
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "akhizonah_marche7",
+            "frame": {
+                "w": 99,
+                "h": 379,
+                "x": 529,
+                "y": 827
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "positionface0",
+            "frame": {
+                "w": 131,
+                "h": 379,
+                "x": 628,
+                "y": 827
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        }
+    ],
+    "meta": {
+        "description": "Atlas generado con Atlas Packer Gamma V2",
+        "web": "https://gammafp.github.io/atlas-packer-phaser/"
+    }
+}
