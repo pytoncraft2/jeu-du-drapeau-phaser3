@@ -51,10 +51,10 @@ export default class Lobby extends Phaser.Scene {
     this.panelGauche = new Panel("JOUEURS: 0/4",['Choisissez un personnage !'], this, () => {})
 
     this.listeJoueur = {
-      0: self.add.text(650, 200 , ['LISTE JOUEURS'], { fontFamily: 'CustomFontNormal' }).setFontSize(20).setAlpha(0.5).setOrigin(0.5),
-      1: self.add.text(850, 200 , ['LISTE JOUEURS'], { fontFamily: 'CustomFontNormal' }).setFontSize(20).setAlpha(0.5).setOrigin(0.5),
-      2: self.add.text(1050, 200 , ['LISTE JOUEURS'], { fontFamily: 'CustomFontNormal' }).setFontSize(20).setAlpha(0.5).setOrigin(0.5),
-      3: self.add.text(1250, 200 , ['LISTE JOUEURS'], { fontFamily: 'CustomFontNormal' }).setFontSize(20).setAlpha(0.5).setOrigin(0.5)
+      0: self.add.text(650, 689 , ['LISTE JOUEURS'], { fontFamily: 'CustomFontNormal' }).setFontSize(20).setAlpha(0.5).setOrigin(0.5),
+      1: self.add.text(850, 689 , ['LISTE JOUEURS'], { fontFamily: 'CustomFontNormal' }).setFontSize(20).setAlpha(0.5).setOrigin(0.5),
+      2: self.add.text(1050, 689 , ['LISTE JOUEURS'], { fontFamily: 'CustomFontNormal' }).setFontSize(20).setAlpha(0.5).setOrigin(0.5),
+      3: self.add.text(1250, 689, ['LISTE JOUEURS'], { fontFamily: 'CustomFontNormal' }).setFontSize(20).setAlpha(0.5).setOrigin(0.5)
     }
 
     let titre = new Titre(window.innerWidth/2, 100, `Lobby : ${this.salon}`, this, () => this.copieUrl())
@@ -73,8 +73,6 @@ export default class Lobby extends Phaser.Scene {
       .setInteractive(({ useHandCursor: true }))
       .on('pointerdown', function() {
         listeIndex.push(idx)
-        // this.setData().push(idx)
-
         self.container.iterate(function(el) {
               el.setAlpha(0.3)
               el.setData('actif', false)
@@ -88,26 +86,23 @@ export default class Lobby extends Phaser.Scene {
         button.setText(`JOUER !`)
         this.setData('actif', true)
         this.setAlpha(1)
-        console.log('LIIIIIIIIIIIIIISTE')
-        console.log(listeIndex)
-        console.log(listeIndex[listeIndex.length - 2])
-        // ellipse.setAlpha(0.6)
-        // ellipse.setData('actif', true)
+        ellipse.setAlpha(0.6)
+        ellipse.setData('actif', true)
       }).on('pointerover', function(x, y) {
         if (!this.getData('actif')) {
           this.setAlpha(1)
-          // ellipse.setAlpha(0.6)
+          ellipse.setAlpha(0.6)
         }
       }).on('pointerout', function() {
         if (!this.getData('actif')) {
           this.setAlpha(0.6)
-          // ellipse.setAlpha(0.3)
+          ellipse.setAlpha(0.3)
         }
       })
-      // img.texte = self.add.text(img.x, img.y + img.displayHeight / 2 + 30, [''], { fontFamily: 'CustomFontNormal' }).setFontSize(20).setAlpha(0.5).setOrigin(0.5)
-      // const ellipse = self.add.ellipse(img.x, img.y + img.displayHeight / 2 - 10, 200, 35, 0x00000).setAlpha(0.3).setDepth(-1);
-      // const texte = self.add.text(img.x, img.y + img.displayHeight / 2 + 30, [''], { fontFamily: 'CustomFontNormal' }).setFontSize(20).setAlpha(0.5).setOrigin(0.5)
-      this.container.add([img/*, ellipse, texte*/])
+      const ellipse = self.add.ellipse(img.x, img.y + img.displayHeight / 2 - 10, 200, 35, 0x00000).setAlpha(0.3).setDepth(-1);
+      this.container.add([img, ellipse])
+      console.log("_______")
+      console.log(img.y - img.displayWidth /2)
     });
 
     this.connexion()
@@ -129,7 +124,6 @@ export default class Lobby extends Phaser.Scene {
 
       room.onStateChange((changes: any) => {
         let joueursPresents = {}
-        let joueurIndexs = {}
         let contenu = []
 
         changes.joueurs.forEach((value, key) => {
@@ -138,35 +132,12 @@ export default class Lobby extends Phaser.Scene {
 
         changes.listeJoueurIndex.forEach((listeID, idx) => {
           let obj = JSON.parse(listeID)
-          console.log(obj)
-          console.log("final Object")
-          // let listeContenu;
-          console.log('loop')
           for (const [key, value] of Object.entries(obj[idx])) {
-            console.log(`${key}: ${value}`);
             if (value) {
               this.listeJoueur[key].setText(value)
             }
-          //   // self.container.getAll()[idx].setText('yo')
-          //   // const nouveau = self.container.getAll().forEach((e, i) => {
-          //   //   // console.log(e)
-          //   //   if (e.texte) {
-          //   //     e.texte.setText(value)
-          //   //     self.container.add(e.texte)
-          //   //   }
-          //   // });
-          //   // if (nouveau.texte) {
-          //   //   // nouveau.texte = self.add.text(nouveau.x, nouveau.y + nouveau.displayHeight / 2 + 30, [value], { fontFamily: 'CustomFontNormal' }).setFontSize(20).setAlpha(0.5).setOrigin(0.5)
-          //   //   self.container.add([nouveau.texte])
-          //   //   console.log('NOUVEAU')
-          //   // } else {
-          //   //   console.log('PAS NOUVEAU')
-          //   //   nouveau.texte.setText([value])
-          //   // }
-          //
           }
         })
-        console.log(changes.listeJoueurIndex)
 
         Object.keys(joueursPresents).map(val => {
           contenu.push(val.concat(`${joueursPresents[val].pret ? '  ✅ PRET !' : ' 🔴 CHOIX EN COURS...'}`))
