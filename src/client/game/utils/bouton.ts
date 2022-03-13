@@ -3,12 +3,12 @@ export default class Button {
     constructor(x, y, label, scene, callback) {
         this.button = scene.add.text(x, y, label, { fontFamily: 'CustomFontItalic' })
             .setOrigin(0.5)
-            .setPadding(10)
-            .setStyle({ backgroundColor: '#111' })
+            .setPadding(15)
+            .setStyle({ backgroundColor: '#00000059' })
             .setInteractive({ useHandCursor: true })
             .setFontSize(33)
             .on('pointerdown', () => callback())
-            .on('pointerover', () => this.button.setStyle({ fill: '#f39c12' }))
+            .on('pointerover', () => this.button.setText('         JOUER !          '))
             .on('pointerout', () => this.button.setStyle({ fill: '#FFF' }));
     }
 

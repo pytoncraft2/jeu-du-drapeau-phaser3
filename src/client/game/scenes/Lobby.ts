@@ -22,7 +22,7 @@ export default class Lobby extends Phaser.Scene {
   container: Phaser.GameObjects.Container
   panelGauche: any
   listeJoueur: Object
-  personnageChoisie: string
+  personnageChoisie: string = "fakhear"
 
   constructor() {
     super("Lobby")
@@ -62,7 +62,9 @@ export default class Lobby extends Phaser.Scene {
 
     let titre = new Titre(window.innerWidth/2, 100, `Lobby : ${this.salon}`, this, () => this.copieUrl())
 
-    const button = new Button(window.innerWidth / 2, window.innerHeight - 100, 'Choisissez un personnage !', this, () => null );
+    const button = new Button(window.innerWidth / 2, window.innerHeight - 100, 'Choisissez un personnage !', this, () => {
+      this.commencerJeu()
+    });
 
     const listeIndex = []
 
@@ -88,20 +90,7 @@ export default class Lobby extends Phaser.Scene {
           indexConfirmation: idx,
           ancienIndexConfirmation: listeIndex[listeIndex.length - 2]
         })
-
-        //   self.scene.start('Jeu_01', {
-        //     salon: self.salon,
-        //     personnage: `${this.frame.texture.key}`
-        //   });
-        //   self.room.leave()
-        // button.setText(`JOUER !`)
-        // button.pointerdown(() => {
-        //   self.scene.start('Jeu_01', {
-        //     salon: self.salon,
-        //     personnage: `${this.frame.texture.key}`
-        //   });
-        //   self.room.leave()
-        // })
+        button.setText(`JOUER !`)
         this.setData('actif', true)
         this.setAlpha(1)
         ellipse.setAlpha(0.6)
@@ -120,14 +109,6 @@ export default class Lobby extends Phaser.Scene {
       const ellipse = self.add.ellipse(img.x, img.y + img.displayHeight / 2 - 10, 200, 35, 0x00000).setAlpha(0.3).setDepth(-1);
       this.container.add([img, ellipse])
     });
-
-    button.pointerdown(() => {
-      self.scene.start('Jeu_01', {
-        salon: self.salon,
-        personnage: self.personnageChoisie
-      });
-      // self.room.leave()
-    })
 
   }
 
@@ -175,6 +156,14 @@ export default class Lobby extends Phaser.Scene {
     .catch((err) => {
       console.error(err)
     })
+  }
+
+  commencerJeu() {
+    this.room.leave()
+    this.scene.start('Jeu_01', {
+      salon: this.salon,
+      personnage: this.personnageChoisie
+    });
   }
 
   update() {}
