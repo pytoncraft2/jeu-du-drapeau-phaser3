@@ -46,6 +46,9 @@ export default class Lobby extends Phaser.Scene {
   }
 
   async create() {
+
+    this.connexion()
+
     const self = this;
 
     this.panelGauche = new Panel("JOUEURS: 0/4",['Choisissez un personnage !'], this, () => {})
@@ -110,7 +113,6 @@ export default class Lobby extends Phaser.Scene {
       this.container.add([img, ellipse])
     });
 
-    this.connexion()
 
   }
 

@@ -24,26 +24,29 @@ export default class GameRooms extends Room {
 
   onCreate(options: any) {
     this.setState(new RoomState())
-    this.userInputs = {}
+    this.donnes = {}
 
     this.Game = new Phaser.Game(config)
     this.scene = this.Game.scene.scenes[0]
     this.scene.setRoom(this)
 
     this.onMessage("inputs", (client, message) => {
-      this.userInputs[client.id] = message
+      this.donnes[client.id].clavier = message
     })
   }
 
   onJoin(client: Client, options: any, auth: any) {
     console.log(`${client.id} has joined!`)
-    this.userInputs[client.id] = {
-      up: false,
-      right: false,
-      down: false,
-      left: false,
+    this.donnes[client.id] = {
+      clavier: {
+        up: false,
+        right: false,
+        down: false,
+        left: false,
+      },
+      sprite: `${options.sprite}`
     }
-    const presences = this.scene.createPlayer(client.id)
+    const presences = this.scene.createPlayer(client.id, options.sprite)
     for (const [key, value] of Object.entries(presences.presences)) {
       this.state.presences.set(key, new Player(value))
     }
@@ -53,7 +56,7 @@ export default class GameRooms extends Room {
     console.log(`${client.id} left !! `)
     const presences = this.scene.removePlayer(client.id)
     this.state.presences.delete(client.id)
-    delete this.userInputs[client.id]
+    delete this.donnes[client.id].clavier
   }
 
   onDispose() {

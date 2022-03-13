@@ -21,49 +21,32 @@ export default class Jeu_01 extends Phaser.Scene {
   room: Colyseus.Room<unknown>
   personnage: string
   prevInputs: { up: boolean; right: boolean; left: boolean; down: boolean, space: boolean }
-  private playersMessage: Phaser.GameObjects.Text;
 
   constructor() {
     super("Jeu_01")
   }
 
-  init(info: Initialisation)  {
+  async init(info: Initialisation)  {
     this.salon = info.salon
     this.personnage = info.personnage
   }
 
-  preload(): void {
-  }
-
   async create(): Promise<void> {
-
-    const map = this.make.tilemap({ key: 'map', tileWidth: 802, tileHeight: 802 });
-    const tileset = map.addTilesetImage('tiles');
-    const layer = map.createLayer('Level1', tileset);
-    map.setCollision([ 20, 48 ]);
-
-
-
 
     const self = this;
     this.players = this.add.group()
     this.playersRef = {}
     this.keyboard = this.input.keyboard.addKeys("up,right,left,down,space")
-    this.playersMessage = this.add
-  .text(400, 300, `Players connected: 123`)
-  .setOrigin(0.5);
 
     this.client = new Colyseus.Client("ws://localhost:3000")
     const client = this.client
     console.log("JEU 01 CONNECTÉ");
-
-
-
     const salon = this.salon;
+    const sprite = this.personnage;
 
-
+    // alert(this.personnage)
       client
-      .joinOrCreate("game_instance", { salon: salon })
+      .joinOrCreate("game_instance", { salon: salon, sprite: sprite })
       .then((room) => {
         self.room = room
         self.session = room.sessionId
@@ -91,15 +74,16 @@ export default class Jeu_01 extends Phaser.Scene {
     }
   }
 
-  patchPlayer(list: any) {
+  async patchPlayer(list: any) {
     // create instance of all presence
 
     list.presenceList.map((item, idx) => {
       if (this.playersRef[item] === undefined) {
         const x = list.presences[item].x
         const y = list.presences[item].y
+        const sprite = list.presences[item].sprite
         const player = this.add
-          .sprite(x, y, `fakhear`)
+          .sprite(x, y, `${sprite}`)
           .setData({ ClientId: list.presenceList[idx] })
         this.players.add(player)
         this.playersRef[item] = player
@@ -113,7 +97,6 @@ export default class Jeu_01 extends Phaser.Scene {
 
     this.players.children.iterate((child) => {
       if (list.presences[child.data.values.ClientId] === undefined) {
-        console.log("QQQQQQQQQQUELQU'UN VIEN DE QUITER")
         this.playersRef[child.data.values.ClientId].destroy(true)
         delete this.playersRef[child.data.values.ClientId]
       }

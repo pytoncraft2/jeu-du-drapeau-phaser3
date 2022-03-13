@@ -22,10 +22,11 @@ export default class PlayerClass extends Phaser.Physics.Arcade.Sprite {
   init(scene: Phaser.Scene, ClientID: string) {
     this.scene = scene
     this.ClientID = ClientID
+    this.sprite = this.scene.room.donnes[this.ClientID].sprite
   }
 
   update(time: number, deltaTime: number) {
-    const input = this.scene.room.userInputs[this.ClientID]
+    const input = this.scene.room.donnes[this.ClientID].clavier
     const { up, right, down, left, space } = input
 
     let dir = 0
@@ -49,7 +50,7 @@ export default class PlayerClass extends Phaser.Physics.Arcade.Sprite {
 
     this.scene.room.state.presences.set(
       this.ClientID,
-      new Player({ x: this.x, y: this.y })
+      new Player({ x: this.x, y: this.y, sprite: this.sprite})
     )
   }
 }

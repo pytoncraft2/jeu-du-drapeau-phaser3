@@ -14,7 +14,7 @@ import {
 export class Player extends Schema {
   @type("number") x?: number
   @type("number") y?: number
-  @type("string") personnage?: string
+  @type("string") sprite?: string
 }
 
 export class Input extends Schema {

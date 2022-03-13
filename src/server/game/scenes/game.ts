@@ -39,7 +39,7 @@ export default class Game extends Phaser.Scene {
 
     this.players.children.iterate((child) => {
       if (child.data.values.ClientId) {
-        response[child.data.values.ClientId] = { x: child.x, y: child.y }
+        response[child.data.values.ClientId] = { x: child.x, y: child.y, sprite: child.sprite}
       }
     })
 
@@ -50,7 +50,7 @@ export default class Game extends Phaser.Scene {
     }
   }
 
-  createPlayer(ClientId: any) {
+  createPlayer(ClientId: any, sprite) {
     const player = this.add.existing(
       new PlayerClass(this, 100, 100, "", ClientId).setData({ ClientId })
     )
