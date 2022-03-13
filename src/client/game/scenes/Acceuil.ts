@@ -3,8 +3,6 @@ import Phaser from "phaser"
 import * as Colyseus from "colyseus.js"
 import { RoomAvailable } from "colyseus.js";
 import Panel from "../utils/panel";
-import Titre from "../utils/titre";
-
 
 
 export default class Acceuil extends Phaser.Scene {
@@ -147,7 +145,7 @@ export default class Acceuil extends Phaser.Scene {
 
 }
 
-miseAjourListe(self: any, allRooms: Object[]|string[], text: any, intro) {
+miseAjourListe(self: any, allRooms: Object[]|string[], text: any, intro: string[]) {
   self.listeLobby = []
   allRooms.map((val: any) => {
     if (val.metadata) {

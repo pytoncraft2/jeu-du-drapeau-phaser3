@@ -11,7 +11,6 @@ import * as Colyseus from "colyseus.js"
  */
 
 export default class Lobby extends Phaser.Scene {
-  private playersMessage: Phaser.GameObjects.Text;
   client!: Colyseus.Client
   session: string
   room: Colyseus.Room<unknown>
@@ -60,7 +59,7 @@ export default class Lobby extends Phaser.Scene {
       3: self.add.text(1245, 689, [''], { fontFamily: 'CustomFontNormal' }).setFontSize(25).setAlpha(0.5).setOrigin(0.5).setDepth(3)
     }
 
-    let titre = new Titre(window.innerWidth/2, 100, `Lobby : ${this.salon}`, this, () => this.copieUrl())
+    new Titre(window.innerWidth/2, 100, `Lobby : ${this.salon}`, this, () => this.copieUrl())
 
     const button = new Button(window.innerWidth / 2, window.innerHeight - 100, 'Choisissez un personnage !', this, () => {
       this.commencerJeu()
@@ -78,15 +77,14 @@ export default class Lobby extends Phaser.Scene {
       .setInteractive(({ useHandCursor: true }))
       .on('pointerdown', function() {
         listeIndex.push(idx)
-        console.log(listeIndex)
         self.personnageChoisie = `${this.frame.texture.key}`
-        self.container.iterate(function(el) {
+        self.container.iterate(function(el: any) {
               el.setAlpha(0.3)
               el.setData('actif', false)
         });
 
         self.room.send('etatJoueur', {
-          pret: false,
+          pret: true,
           indexConfirmation: idx,
           ancienIndexConfirmation: listeIndex[listeIndex.length - 2]
         })
@@ -95,7 +93,7 @@ export default class Lobby extends Phaser.Scene {
         this.setAlpha(1)
         ellipse.setAlpha(0.6)
         ellipse.setData('actif', true)
-      }).on('pointerover', function(x, y) {
+      }).on('pointerover', function() {
         if (!this.getData('actif')) {
           this.setAlpha(1)
           ellipse.setAlpha(0.6)
@@ -130,11 +128,11 @@ export default class Lobby extends Phaser.Scene {
         let joueursPresents = {}
         let contenu = []
 
-        changes.joueurs.forEach((value, key) => {
+        changes.joueurs.forEach((value: any, key: any) => {
           joueursPresents[key] = value
         })
 
-        changes.listeJoueurIndex.forEach((listeID, idx) => {
+        changes.listeJoueurIndex.forEach((listeID: string, idx: any) => {
           let obj = JSON.parse(listeID)
           for (const [key, value] of Object.entries(obj[idx])) {
             if (value) {

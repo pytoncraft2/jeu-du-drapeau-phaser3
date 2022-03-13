@@ -1,6 +1,6 @@
 export default class Button {
   private button: any;
-    constructor(x, y, label, scene, callback) {
+    constructor(x: number, y: number, label: string, scene: Phaser.Scene, callback: CallableFunction) {
         this.button = scene.add.text(x, y, label, { fontFamily: 'CustomFontItalic' })
             .setOrigin(0.5)
             .setPadding(15)
@@ -12,30 +12,16 @@ export default class Button {
             .on('pointerout', () => this.button.setStyle({ fill: '#FFF' }));
     }
 
-    setText(text) {
+    setText(text: string[]|string) {
       this.button.setText(text).setOrigin(0.5)
       console.log("zzzzzzzzzzz")
     }
 
-    setPosition(x, y) {
+    setPosition(x: number, y: number) {
       this.button.setPosition(x, y)
     }
 
-    pointerdown(callback) {
+    pointerdown(callback: CallableFunction) {
       this.button.on('pointerdown', () => callback())
     }
-}
-
-class ConfirmButton {
-  private button: any;
-  constructor(x, y, label, scene, callback) {
-    this.button = scene.add.text(x, y, label, { fontFamily: 'CustomFontItalic' })
-    .setOrigin(0.5)
-    .setPadding(10)
-    .setStyle({ backgroundColor: '#111' })
-    .setInteractive({ useHandCursor: true })
-    .on('pointerdown', () => callback())
-    .on('pointerover', () => this.button.setStyle({ fill: '#008000' }))
-    .on('pointerout', () => this.button.setStyle({ fill: '#FFF' }));
-  }
 }

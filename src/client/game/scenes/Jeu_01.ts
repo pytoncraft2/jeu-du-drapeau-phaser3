@@ -26,12 +26,6 @@ export default class Jeu_01 extends Phaser.Scene {
     super("Jeu_01")
   }
 
-  preload() {
-    this.load.atlas('fakhear', 'assets/personnages/fakhear/fakhear.png', 'assets/personnages/fakhear/fakhear_atlas.json');
-    this.load.atlas('akhizonah', 'assets/personnages/akhizonah/akhizonah.png', 'assets/personnages/akhizonah/akhizonah_atlas.json');
-    this.load.atlas('huzounet', 'assets/personnages/huzounet/huzounet.png', 'assets/personnages/huzounet/huzounet_atlas.json');
-  }
-
   init(info: Initialisation)  {
     this.salon = info.salon
     this.personnage = info.personnage
@@ -58,7 +52,7 @@ export default class Jeu_01 extends Phaser.Scene {
         self.session = room.sessionId
         room.onStateChange((changes: any) => {
           let presences = {}
-          changes.presences.forEach((value, key) => {
+          changes.presences.forEach((value: any, key: any) => {
             presences[key] = value
           })
           self.patchPlayer({
@@ -83,7 +77,7 @@ export default class Jeu_01 extends Phaser.Scene {
   async patchPlayer(list: any) {
     // create instance of all presence
 
-    list.presenceList.map((item, idx) => {
+    list.presenceList.map((item: string, idx: number) => {
       if (this.playersRef[item] === undefined) {
         const x = list.presences[item].x
         const y = list.presences[item].y
