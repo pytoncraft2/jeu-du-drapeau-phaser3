@@ -22,6 +22,7 @@ export default class Lobby extends Phaser.Scene {
   container: Phaser.GameObjects.Container
   panelGauche: any
   listeJoueur: Object
+  personnageChoisie: string
 
   constructor() {
     super("Lobby")
@@ -47,7 +48,6 @@ export default class Lobby extends Phaser.Scene {
 
   async create() {
 
-    this.connexion()
 
     const self = this;
 
@@ -67,33 +67,41 @@ export default class Lobby extends Phaser.Scene {
     const listeIndex = []
 
     this.container = this.add.container(645, 0);
+    await this.connexion()
 
     this.personnages.forEach((element, idx) => {
       const img = self.add.image(0 + idx * 200, this.cameras.main.centerY, element)
       .setData('actif', false)
-      .setData('ancienIndex', listeIndex[listeIndex.length - 2])
       .setAlpha(0.8)
       .setInteractive(({ useHandCursor: true }))
       .on('pointerdown', function() {
         listeIndex.push(idx)
+        console.log(listeIndex)
+        self.personnageChoisie = `${this.frame.texture.key}`
         self.container.iterate(function(el) {
               el.setAlpha(0.3)
               el.setData('actif', false)
         });
 
         self.room.send('etatJoueur', {
-          pret: true,
+          pret: false,
           indexConfirmation: idx,
           ancienIndexConfirmation: listeIndex[listeIndex.length - 2]
         })
-        button.setText(`JOUER !`)
-        button.pointerdown(() => {
-          self.room.leave()
-          self.scene.start('Jeu_01', {
-            salon: self.salon,
-            personnage: `${this.frame.texture.key}`
-          });
-        })
+
+        //   self.scene.start('Jeu_01', {
+        //     salon: self.salon,
+        //     personnage: `${this.frame.texture.key}`
+        //   });
+        //   self.room.leave()
+        // button.setText(`JOUER !`)
+        // button.pointerdown(() => {
+        //   self.scene.start('Jeu_01', {
+        //     salon: self.salon,
+        //     personnage: `${this.frame.texture.key}`
+        //   });
+        //   self.room.leave()
+        // })
         this.setData('actif', true)
         this.setAlpha(1)
         ellipse.setAlpha(0.6)
@@ -113,6 +121,13 @@ export default class Lobby extends Phaser.Scene {
       this.container.add([img, ellipse])
     });
 
+    button.pointerdown(() => {
+      self.scene.start('Jeu_01', {
+        salon: self.salon,
+        personnage: self.personnageChoisie
+      });
+      // self.room.leave()
+    })
 
   }
 
@@ -123,7 +138,8 @@ export default class Lobby extends Phaser.Scene {
     const salon = this.salon
     const client = this.client
 
-    client
+
+    await client
     .joinOrCreate("lobby", { salon })
     .then((room) => {
       self.room = room

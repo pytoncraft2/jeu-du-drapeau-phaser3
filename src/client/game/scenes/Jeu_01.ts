@@ -26,7 +26,7 @@ export default class Jeu_01 extends Phaser.Scene {
     super("Jeu_01")
   }
 
-  async init(info: Initialisation)  {
+  init(info: Initialisation)  {
     this.salon = info.salon
     this.personnage = info.personnage
   }
@@ -38,14 +38,14 @@ export default class Jeu_01 extends Phaser.Scene {
     this.playersRef = {}
     this.keyboard = this.input.keyboard.addKeys("up,right,left,down,space")
 
-    this.client = new Colyseus.Client("ws://localhost:3000")
-    const client = this.client
+
+    const client = new Colyseus.Client("ws://localhost:3000")
     console.log("JEU 01 CONNECTÉ");
     const salon = this.salon;
     const sprite = this.personnage;
 
     // alert(this.personnage)
-      client
+      await client
       .joinOrCreate("game_instance", { salon: salon, sprite: sprite })
       .then((room) => {
         self.room = room
