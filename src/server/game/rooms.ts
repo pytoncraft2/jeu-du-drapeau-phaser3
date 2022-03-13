@@ -46,7 +46,6 @@ export default class GameRooms extends Room {
       },
       sprite: `${options.sprite}`
     }
-    console.log(this.donnes[client.id])
     const presences = this.scene.createPlayer(client.id, options.sprite)
     for (const [key, value] of Object.entries(presences.presences)) {
       this.state.presences.set(key, new Player(value))
