@@ -19,6 +19,17 @@ export default class LobbyRooms extends Room {
     this.maxClients = 4
   }
 
+
+  /**
+   * onCreate - Initialisation des parametres de base du Lobby
+   * Le premier joueur définis le nom du lobby à travers le metadata
+   * Ecoute les evenements quand le joueur se connecte, change d'index ou de proprietaire
+   * Puis effectue les changements qu'il faut
+   *
+   * @param  {Object} options: Object liste des options passé par le client
+   * @param  {Object} options.salon nom du salon creer par le premier joueur
+   * @return {void}
+   */
   onCreate(options: any) {
 
     this.setState(new LobbyState())
@@ -59,6 +70,14 @@ export default class LobbyRooms extends Room {
     })
   }
 
+
+  /**
+   * onJoin - Creation et Ajout d'un objet contenant les état de base du joueur
+   * Le Joueur devient Proprietaire du Lobby si il est seul et est ajouté au tablau proprietaire
+   *
+   * @param  {Object} client: Client
+   * @return {void}
+   */
   onJoin(client: Client) {
     this.etatJoueur[client.id] = {
       pret: false,
@@ -75,6 +94,22 @@ export default class LobbyRooms extends Room {
     }
   }
 
+
+  /**
+   * Suppression du joueur
+   *  - dans la liste des joueurs
+   *  - dans l'objet listeJoueurIndex
+   *  - dans l'objet proprietaire (si il est present)
+   *      - assignation d'un nouveaau proprietaire qui sera le premier de la liste des joueurs
+   */
+
+
+  /**
+   * onLeave - description
+   *
+   * @param  {Object} client: Client
+   * @return {void}
+   */
   onLeave(client: Client) {
 
     this.state.joueurs.delete(client.id)
@@ -82,10 +117,9 @@ export default class LobbyRooms extends Room {
       this.listeIndex[key] = this.listeIndex[key].filter((a: any) => a !== client.id)
     }
 
-
-
     this.state.listeJoueurIndex.shift()
     this.state.listeJoueurIndex.push(JSON.stringify([this.listeIndex]))
+
     if (this.state.proprietaire.includes(client.id) && Object.entries(this.etatJoueur).length > 1) {
       delete this.etatJoueur[client.id]
       this.state.proprietaire.shift()
