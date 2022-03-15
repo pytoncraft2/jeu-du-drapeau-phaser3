@@ -28,7 +28,7 @@ app.get("/", (_request, response) => {
   response.sendFile(distPath + "/game.html")
 })
 
-app.get('/:id', (request, response) => {
+app.get('/:id', (_request, response) => {
   response.sendFile(distPath + "/game.html")
 })
 
