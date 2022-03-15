@@ -43,7 +43,7 @@ export default class Acceuil extends Phaser.Scene {
   /**
   * Connexion au serveur
   * Affiche la modal de creationo/connexion à un lobby/salon
-  * Mes à jour et affiche toute les secondes le tableau contenant la liste des lobby disponible
+  * Mes à jour et affiche le tableau contenant la liste des lobby disponible
   */
 
   async afficheAcceuil() {
@@ -145,6 +145,17 @@ export default class Acceuil extends Phaser.Scene {
 
 }
 
+
+
+/**
+ * miseAjourListe - Met à jour la liste des lobby disponible
+ *
+ * @param  {Phaser.Scene} self: Phaser.Scene    Scene Phaser
+ * @param  {Object} allRooms: Object[]|string[] liste des rooms disponible
+ * @param  {String} text: any                   texte phaser et contenu à mettre à jour
+ * @param  {String} intro: string[]             texte de bienvenue
+ * @return {void}                             description
+ */
 miseAjourListe(self: any, allRooms: Object[]|string[], text: any, intro: string[]) {
   self.listeLobby = []
   allRooms.map((val: any) => {
