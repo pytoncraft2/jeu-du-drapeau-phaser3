@@ -6,8 +6,6 @@
 import {
   Schema,
   MapSchema,
-  ArraySchema,
-  CollectionSchema,
   type,
 } from "@colyseus/schema"
 

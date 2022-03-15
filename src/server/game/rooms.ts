@@ -4,7 +4,7 @@ import "@geckos.io/phaser-on-nodejs"
 import { Room, Client } from "colyseus"
 import config from "./config"
 
-import { RoomState, Player, Input } from "./RoomState"
+import { RoomState, Player } from "./RoomState"
 
 
 /**
@@ -22,7 +22,7 @@ export default class GameRooms extends Room {
     this.maxClients = 4
   }
 
-  onCreate(options: any) {
+  onCreate() {
     this.setState(new RoomState())
     this.donnes = {}
 
@@ -35,7 +35,7 @@ export default class GameRooms extends Room {
     })
   }
 
-  onJoin(client: Client, options: any, auth: any) {
+  onJoin(client: Client, options: any) {
     console.log(`${client.id} has joined!`)
     this.donnes[client.id] = {
       clavier: {
@@ -52,9 +52,9 @@ export default class GameRooms extends Room {
     }
   }
 
-  onLeave(client: Client, consented: boolean) {
+  onLeave(client: Client) {
     console.log(`${client.id} left !! `)
-    const presences = this.scene.removePlayer(client.id)
+    this.scene.removePlayer(client.id)
     this.state.presences.delete(client.id)
     delete this.donnes[client.id].clavier
   }

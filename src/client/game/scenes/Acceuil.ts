@@ -154,7 +154,6 @@ export default class Acceuil extends Phaser.Scene {
  * @param  {Object} allRooms: Object[]|string[] liste des rooms disponible
  * @param  {String} text: any                   texte phaser et contenu à mettre à jour
  * @param  {String} intro: string[]             texte de bienvenue
- * @return {void}                             description
  */
 miseAjourListe(self: any, allRooms: Object[]|string[], text: any, intro: string[]) {
   self.listeLobby = []

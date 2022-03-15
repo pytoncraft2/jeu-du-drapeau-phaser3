@@ -37,6 +37,10 @@ export default class Lobby extends Phaser.Scene {
     this.load.html('nameform', './loginform.html');
   }
 
+
+  /**
+   * copieUrl - Copie l'url dans le presse papier
+   */
   copieUrl() {
     let url = `${window.location.protocol}//${document.location.hostname}:${document.location.port}/${this.salon}`
     navigator.clipboard.writeText(url).then(function() {
@@ -46,6 +50,12 @@ export default class Lobby extends Phaser.Scene {
     });
   }
 
+
+
+  /**
+   * async create - Creation et Initialisation des textes, liste d'images de personnages
+   * et activation de l'ineraction avec Phaser
+   */
   async create() {
 
 
@@ -112,6 +122,10 @@ export default class Lobby extends Phaser.Scene {
   }
 
 
+
+  /**
+   * async connexion - Connexion au Lobby et mise à jour des donnes selon les changement du serveur
+   */
   async connexion() {
     const self = this
     this.client = new Colyseus.Client("ws://localhost:3000")

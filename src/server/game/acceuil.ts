@@ -11,18 +11,18 @@ class LobbyState extends Schema {
 }
 
 export default class CustomLobbyRoom extends LobbyRoom {
-    async onCreate(options) {
+    async onCreate(options: any) {
         await super.onCreate(options);
 
         this.setState(new LobbyState());
     }
 
-    onJoin(client: Client, options) {
+    onJoin(client: Client, options: any) {
         super.onJoin(client, options);
         this.state.custom = client.sessionId;
     }
 
-    onLeave(client) {
+    onLeave(client: any) {
         super.onLeave(client);
     }
 }
