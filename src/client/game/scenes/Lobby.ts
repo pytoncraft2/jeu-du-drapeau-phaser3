@@ -133,9 +133,6 @@ export default class Lobby extends Phaser.Scene {
           joueursPresents[key] = value
         })
 
-        console.log("PROPIETAIRE")
-        console.log(changes.proprietaire[0])
-
         changes.listeJoueurIndex.forEach((listeID: string, idx: any) => {
           let obj = JSON.parse(listeID)
           for (const [key, value] of Object.entries(obj[idx])) {
@@ -149,9 +146,6 @@ export default class Lobby extends Phaser.Scene {
 
         Object.keys(joueursPresents).map(val => {
           contenu.push(val.concat(`${joueursPresents[val].pret ? '  ✅ PRET !' : ' 🔴 CHOIX EN COURS...'} ${changes.proprietaire[0] == val ? '👑' : ''}`))
-          console.log("VALLLL----DEBUT")
-          console.log(val)
-          console.log("VALLLL----FIN")
         })
 
         self.panelGauche.setTitre(`Joueurs : ${Object.keys(joueursPresents).length} / 4`)
