@@ -21,8 +21,13 @@ export class ListeJoueurIndex extends Schema {
   @type("string") liste: string
 }
 
+export class Proprietaire extends Schema {
+  @type("string") proprietaire: string
+}
+
 export class LobbyState extends Schema {
   //@ts-ignore
   @type({ map: Joueur }) joueurs = new MapSchema<Joueur>()
-  @type([ "string" ]) listeJoueurIndex = new ArraySchema<string>();
+  @type([ "string" ]) listeJoueurIndex = new ArraySchema<string>()
+  @type([ "string" ]) proprietaire = new ArraySchema<string>()
 }

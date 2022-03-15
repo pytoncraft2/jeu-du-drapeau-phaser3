@@ -22,6 +22,7 @@ export default class Lobby extends Phaser.Scene {
   panelGauche: any
   listeJoueur: Object
   personnageChoisie: string = "fakhear"
+  bouton: any
 
   constructor() {
     super("Lobby")
@@ -61,7 +62,7 @@ export default class Lobby extends Phaser.Scene {
 
     new Titre(window.innerWidth/2, 100, `Lobby : ${this.salon}`, this, () => this.copieUrl())
 
-    const button = new Button(window.innerWidth / 2, window.innerHeight - 100, 'Choisissez un personnage !', this, () => {
+    this.bouton = new Button(window.innerWidth / 2, window.innerHeight - 100, 'Choisissez un personnage !', this, () => {
       this.commencerJeu()
     });
 
@@ -88,7 +89,7 @@ export default class Lobby extends Phaser.Scene {
           indexConfirmation: idx,
           ancienIndexConfirmation: listeIndex[listeIndex.length - 2]
         })
-        button.setText(`JOUER !`)
+        self.bouton.setText(`JOUER !`)
         this.setData('actif', true)
         this.setAlpha(1)
         ellipse.setAlpha(0.6)
@@ -132,6 +133,9 @@ export default class Lobby extends Phaser.Scene {
           joueursPresents[key] = value
         })
 
+        console.log("PROPIETAIRE")
+        console.log(changes.proprietaire[0])
+
         changes.listeJoueurIndex.forEach((listeID: string, idx: any) => {
           let obj = JSON.parse(listeID)
           for (const [key, value] of Object.entries(obj[idx])) {
@@ -144,10 +148,20 @@ export default class Lobby extends Phaser.Scene {
         })
 
         Object.keys(joueursPresents).map(val => {
-          contenu.push(val.concat(`${joueursPresents[val].pret ? '  ✅ PRET !' : ' 🔴 CHOIX EN COURS...'}`))
+          contenu.push(val.concat(`${joueursPresents[val].pret ? '  ✅ PRET !' : ' 🔴 CHOIX EN COURS...'} ${changes.proprietaire[0] == val ? '👑' : ''}`))
+          console.log("VALLLL----DEBUT")
+          console.log(val)
+          console.log("VALLLL----FIN")
         })
 
         self.panelGauche.setTitre(`Joueurs : ${Object.keys(joueursPresents).length} / 4`)
+        const tout_le_monde_est_pret = Object.keys(joueursPresents).filter((item: any) => joueursPresents[item].pret == true).length == Object.keys(joueursPresents).length; // 6
+
+        if (tout_le_monde_est_pret)  {
+          self.bouton.setText(`JOUER !`)
+        } else {
+          self.bouton.setText(`Des joueurs ne sont pas prêt !`)
+        }
         self.panelGauche.setContenu(contenu)
       })
     })
