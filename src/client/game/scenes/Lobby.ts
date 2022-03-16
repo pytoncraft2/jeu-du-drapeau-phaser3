@@ -22,6 +22,7 @@ export default class Lobby extends Phaser.Scene {
   panelGauche: any
   listeJoueur: Object
   personnageChoisie: string = "fakhear"
+  boutonActivable: boolean = false
   bouton: any
 
   constructor() {
@@ -73,7 +74,9 @@ export default class Lobby extends Phaser.Scene {
     new Titre(window.innerWidth/2, 100, `Lobby : ${this.salon}`, this, () => this.copieUrl())
 
     this.bouton = new Button(window.innerWidth / 2, window.innerHeight - 100, 'Selectionner votre personnage !', this, () => {
+      if (self.boutonActivable) {
         self.demandeCommencerJeu()
+      }
     });
 
     const listeIndex = []
@@ -99,7 +102,6 @@ export default class Lobby extends Phaser.Scene {
           indexConfirmation: idx,
           ancienIndexConfirmation: listeIndex[listeIndex.length - 2]
         })
-        // self.bouton.setText(`JOUER !`)
         this.setData('actif', true)
         this.setAlpha(1)
         ellipse.setAlpha(0.6)
@@ -169,23 +171,19 @@ export default class Lobby extends Phaser.Scene {
         self.panelGauche.setTitre(`Joueurs : ${Object.keys(joueursPresents).length} / 4`)
         const tout_le_monde_est_pret = Object.keys(joueursPresents).filter((item: any) => joueursPresents[item].pret == true).length == Object.keys(joueursPresents).length; // 6
 
-        console.log("jjjjjjjjjj")
-        console.log(Object.keys(joueursPresents).filter((item: any) => joueursPresents[item].pret == true).length)
-
         if (tout_le_monde_est_pret)  {
 
           if (changes.proprietaire[0] == self.session) {
+            self.boutonActivable = true;
             self.bouton.setText('Commencer la partie !')
-
-          // self.bouton.pointerdown(() => {
-          //   self.demandeCommencerJeu()
-          // })
         } else {
+          self.boutonActivable = false;
           self.bouton.setText('Le proprietaire 👑 peut commencer la partie !')
         }
 
       } else {
         self.bouton.setText("Un joueur n'est pas prêt !")
+        self.boutonActivable = false;
       }
         self.panelGauche.setContenu(contenu)
       })
@@ -196,7 +194,6 @@ export default class Lobby extends Phaser.Scene {
   }
 
   commencerJeu() {
-    console.log("CCCCCCCCCCCCCCCCOMMMENCER")
     this.room.leave()
     this.scene.start('Jeu_01', {
       salon: this.salon,

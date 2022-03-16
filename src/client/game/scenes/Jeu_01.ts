@@ -82,7 +82,6 @@ export default class Jeu_01 extends Phaser.Scene {
         const x = list.presences[item].x
         const y = list.presences[item].y
         const sprite = list.presences[item].sprite
-        console.log(list.presences[item].sprite)
         if (list.presences[item].sprite) {
           const player = this.add
           .sprite(x, y, `${sprite}`)
