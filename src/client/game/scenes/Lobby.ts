@@ -61,7 +61,7 @@ export default class Lobby extends Phaser.Scene {
 
     const self = this;
 
-    this.panelGauche = new Panel("JOUEURS: 0/4",['Choisissez un personnage !'], this, () => {})
+    this.panelGauche = new Panel("JOUEURS: 0/4",['Selectionner un personnage !'], this, () => {})
 
     this.listeJoueur = {
       0: self.add.text(645, 689 , [''], { fontFamily: 'CustomFontNormal' }).setFontSize(25).setAlpha(0.5).setOrigin(0.5).setDepth(3),
@@ -72,9 +72,7 @@ export default class Lobby extends Phaser.Scene {
 
     new Titre(window.innerWidth/2, 100, `Lobby : ${this.salon}`, this, () => this.copieUrl())
 
-    this.bouton = new Button(window.innerWidth / 2, window.innerHeight - 100, 'Choisissez un personnage !', this, () => {
-      this.commencerJeu()
-    });
+    this.bouton = new Button(window.innerWidth / 2, window.innerHeight - 100, 'Selectionner votre personnage !', this);
 
     const listeIndex = []
 
@@ -99,7 +97,7 @@ export default class Lobby extends Phaser.Scene {
           indexConfirmation: idx,
           ancienIndexConfirmation: listeIndex[listeIndex.length - 2]
         })
-        self.bouton.setText(`JOUER !`)
+        // self.bouton.setText(`JOUER !`)
         this.setData('actif', true)
         this.setAlpha(1)
         ellipse.setAlpha(0.6)
@@ -165,11 +163,24 @@ export default class Lobby extends Phaser.Scene {
         self.panelGauche.setTitre(`Joueurs : ${Object.keys(joueursPresents).length} / 4`)
         const tout_le_monde_est_pret = Object.keys(joueursPresents).filter((item: any) => joueursPresents[item].pret == true).length == Object.keys(joueursPresents).length; // 6
 
+        console.log("jjjjjjjjjj")
+        console.log(Object.keys(joueursPresents).filter((item: any) => joueursPresents[item].pret == true).length)
+
         if (tout_le_monde_est_pret)  {
-          self.bouton.setText(`JOUER !`)
-        } else {
-          self.bouton.setText(`Des joueurs ne sont pas prêt !`)
+
+          if (changes.proprietaire[0] == self.session) {
+            self.bouton.setText('Commencer la partie !')
+
+          self.bouton.pointerdown(() => {
+            self.commencerJeu()
+          })
+        } else {
+          self.bouton.setText('Le proprietaire 👑 peut commencer la partie !')
         }
+
+      } else {
+        self.bouton.setText("Un joueur n'est pas prêt !")
+      }
         self.panelGauche.setContenu(contenu)
       })
     })
