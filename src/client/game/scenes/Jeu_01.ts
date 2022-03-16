@@ -100,12 +100,12 @@ export default class Jeu_01 extends Phaser.Scene {
 
     // deleted non existance
 
-    // this.players.children.iterate((child) => {
-    //   if (list.presences[child.data.values.ClientId] === undefined) {
-    //     this.playersRef[child.data.values.ClientId].destroy(true)
-    //     delete this.playersRef[child.data.values.ClientId]
-    //   }
-    // })
+    this.players.children.iterate((child) => {
+      if (list.presences[child.data.values.ClientId] === undefined) {
+        this.playersRef[child.data.values.ClientId].destroy(true)
+        delete this.playersRef[child.data.values.ClientId]
+      }
+    })
   }
 
   update() {

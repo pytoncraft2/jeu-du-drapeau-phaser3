@@ -72,7 +72,9 @@ export default class Lobby extends Phaser.Scene {
 
     new Titre(window.innerWidth/2, 100, `Lobby : ${this.salon}`, this, () => this.copieUrl())
 
-    this.bouton = new Button(window.innerWidth / 2, window.innerHeight - 100, 'Selectionner votre personnage !', this);
+    this.bouton = new Button(window.innerWidth / 2, window.innerHeight - 100, 'Selectionner votre personnage !', this, () => {
+        self.demandeCommencerJeu()
+    });
 
     const listeIndex = []
 
@@ -175,9 +177,9 @@ export default class Lobby extends Phaser.Scene {
           if (changes.proprietaire[0] == self.session) {
             self.bouton.setText('Commencer la partie !')
 
-          self.bouton.pointerdown(() => {
-            self.demandeCommencerJeu()
-          })
+          // self.bouton.pointerdown(() => {
+          //   self.demandeCommencerJeu()
+          // })
         } else {
           self.bouton.setText('Le proprietaire 👑 peut commencer la partie !')
         }

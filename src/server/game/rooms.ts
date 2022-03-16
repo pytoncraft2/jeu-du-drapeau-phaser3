@@ -54,7 +54,7 @@ export default class GameRooms extends Room {
 
   onLeave(client: Client) {
     console.log(`${client.id} left !! `)
-    this.scene.removePlayer(client.id)
+    const presence = this.scene.removePlayer(client.id)
     this.state.presences.delete(client.id)
     delete this.donnes[client.id].clavier
   }
