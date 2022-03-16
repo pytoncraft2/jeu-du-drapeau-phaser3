@@ -137,6 +137,10 @@ export default class Lobby extends Phaser.Scene {
       self.room = room
       self.session = room.sessionId
 
+      room.onMessage("commencerJeu", _message => {
+        self.commencerJeu()
+      });
+
       room.onStateChange((changes: any) => {
         let joueursPresents = {}
         let contenu = []
@@ -172,7 +176,7 @@ export default class Lobby extends Phaser.Scene {
             self.bouton.setText('Commencer la partie !')
 
           self.bouton.pointerdown(() => {
-            self.commencerJeu()
+            self.demandeCommencerJeu()
           })
         } else {
           self.bouton.setText('Le proprietaire 👑 peut commencer la partie !')
@@ -190,11 +194,16 @@ export default class Lobby extends Phaser.Scene {
   }
 
   commencerJeu() {
+    console.log("CCCCCCCCCCCCCCCCOMMMENCER")
     this.room.leave()
     this.scene.start('Jeu_01', {
       salon: this.salon,
       personnage: this.personnageChoisie
     });
+  }
+
+  demandeCommencerJeu() {
+    this.room.send('demandeCommencerJeu')
   }
 
   update() {}

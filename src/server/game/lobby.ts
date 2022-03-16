@@ -68,6 +68,13 @@ export default class LobbyRooms extends Room {
       this.state.listeJoueurIndex.push(JSON.stringify([this.listeIndex]))
       this.state.joueurs.set(client.id, new Joueur(message));
     })
+
+
+
+    this.onMessage("demandeCommencerJeu", (client, message) => {
+      // broadcast a message to all clients
+      this.broadcast("commencerJeu", "an action has been taken!");
+    });
   }
 
 
