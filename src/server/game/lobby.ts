@@ -2,7 +2,7 @@
 import "@geckos.io/phaser-on-nodejs"
 import { Room, Client } from "colyseus"
 
-import { LobbyState, Joueur, JoueurIndex, ListeJoueurIndex, Proprietaire } from "./LobbyState"
+import { LobbyState, Joueur } from "./LobbyState"
 
 
 /**
@@ -28,7 +28,6 @@ export default class LobbyRooms extends Room {
    *
    * @param  {Object} options: Object liste des options passé par le client
    * @param  {Object} options.salon nom du salon creer par le premier joueur
-   * @return {void}
    */
   onCreate(options: any) {
 
@@ -71,7 +70,7 @@ export default class LobbyRooms extends Room {
 
 
 
-    this.onMessage("demandeCommencerJeu", (client, message) => {
+    this.onMessage("demandeCommencerJeu", (_client, _message) => {
       // broadcast a message to all clients
       this.broadcast("commencerJeu", "an action has been taken!");
     });
@@ -83,7 +82,6 @@ export default class LobbyRooms extends Room {
    * Le Joueur devient Proprietaire du Lobby si il est seul et est ajouté au tablau proprietaire
    *
    * @param  {Object} client: Client
-   * @return {void}
    */
   onJoin(client: Client) {
     this.etatJoueur[client.id] = {
@@ -115,7 +113,6 @@ export default class LobbyRooms extends Room {
    * onLeave - description
    *
    * @param  {Object} client: Client
-   * @return {void}
    */
   onLeave(client: Client) {
 
