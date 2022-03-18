@@ -189,7 +189,7 @@ export default class Lobby extends Phaser.Scene {
             self.bouton.setText("Un joueur n'est pas prêt !")
           }
           self.boutonActivable = false;
-          
+
         }
         self.panelGauche.setContenu(contenu)
       })
@@ -201,7 +201,7 @@ export default class Lobby extends Phaser.Scene {
 
   commencerJeu() {
     this.room.leave()
-    this.scene.start('Jeu_01', {
+    this.scene.start('Hall_01', {
       salon: this.salon,
       personnage: this.personnageChoisie
     });

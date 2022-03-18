@@ -11,7 +11,7 @@ interface Initialisation {
 /**
  * Epreuve n°1
  */
-export default class Jeu_01 extends Phaser.Scene {
+export default class Hall_01 extends Phaser.Scene {
   client!: Colyseus.Client
   players: Phaser.GameObjects.Group
   session: string
@@ -23,7 +23,7 @@ export default class Jeu_01 extends Phaser.Scene {
   prevInputs: { up: boolean; right: boolean; left: boolean; down: boolean, space: boolean }
 
   constructor() {
-    super("Jeu_01")
+    super("Hall_01")
   }
 
   init(info: Initialisation)  {

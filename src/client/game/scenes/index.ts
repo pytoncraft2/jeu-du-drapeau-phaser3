@@ -1,6 +1,6 @@
 import Prechargement from './Prechargement';
 import Accueil from './Acceuil';
 import Lobby from "./Lobby"
-import Jeu_01 from "./Jeu/Jeu_01"
+import Hall_01 from "./Jeu/Hall_01"
 
-export default [Prechargement, Accueil, Lobby, Jeu_01];
+export default [Prechargement, Accueil, Lobby, Hall_01];
