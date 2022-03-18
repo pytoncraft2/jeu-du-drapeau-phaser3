@@ -7,7 +7,7 @@ import path from "path"
 import { monitor } from "@colyseus/monitor";
 
 
-import GameRooms from "./game/rooms"
+import GameRooms from "./game/Hall_01"
 import LobbyRooms from "./game/lobby"
 import AcceuilRooms from "./game/acceuil"
 // Get environment variables

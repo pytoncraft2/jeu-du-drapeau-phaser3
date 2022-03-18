@@ -31,6 +31,15 @@ export default class Game extends Phaser.Scene {
     this.playersRef = {}
 
     this.physics.world.setBoundsCollision(true, true, true, true)
+    var platforme = this.add.rectangle(200, 550, 148, 148, 0x6666ff);
+console.log(platforme)
+
+
+this.physics.add.existing(platforme, true);
+this.physics.add.collider(platforme, this.players);
+
+
+
   }
 
   getPresence() {

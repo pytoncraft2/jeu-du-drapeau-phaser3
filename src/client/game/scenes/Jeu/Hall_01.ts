@@ -33,6 +33,10 @@ export default class Hall_01 extends Phaser.Scene {
 
   async create(): Promise<void> {
 
+    var r1 = this.add.rectangle(200, 550, 148, 148, 0x6666ff);
+
+// this.physics.add.existing(r1);
+
     const self = this;
     this.players = this.add.group()
     this.playersRef = {}

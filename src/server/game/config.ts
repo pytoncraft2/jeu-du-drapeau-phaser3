@@ -1,5 +1,5 @@
 import Phaser from "phaser"
-import Game from "./scenes/game"
+import Game from "./scenes/hall"
 import Lobby from "./scenes/lobby"
 
 
@@ -10,9 +10,11 @@ import Lobby from "./scenes/lobby"
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.HEADLESS,
   parent: "game",
+  width: 1920,
+  height: 945,
   scale: {
-    width: 640,
-    height: 320,
+    mode: Phaser.Scale.CENTER_BOTH,
+    autoCenter: Phaser.Scale.CENTER_BOTH,
   },
   physics: {
     default: "arcade",

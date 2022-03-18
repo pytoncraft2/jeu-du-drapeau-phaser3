@@ -4,7 +4,9 @@ import Scenes from "./scenes/index"
 const config = {
   type: Phaser.AUTO,
   parent: "game",
-  transparent: true,
+  // transparent: true,
+  width: window.innerWidth,
+  height: window.innerHeight,
   scale: {
     mode: Phaser.Scale.CENTER_BOTH,
     autoCenter: Phaser.Scale.CENTER_BOTH,
