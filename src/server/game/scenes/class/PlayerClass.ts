@@ -23,6 +23,8 @@ export default class PlayerClass extends Phaser.Physics.Arcade.Sprite {
     this.scene = scene
     this.ClientID = ClientID
     this.sprite = this.scene.room.donnes[this.ClientID].sprite
+    this.displayHeight = 131;
+    this.displayHeight = 379;
   }
 
   update(time: number, deltaTime: number) {

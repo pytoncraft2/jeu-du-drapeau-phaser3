@@ -93,6 +93,9 @@ export default class Hall_01 extends Phaser.Scene {
           .sprite(x, y, `${sprite}`)
           .setData({ ClientId: list.presenceList[idx] })
           this.players.add(player)
+          console.log("________HHHEIGHT")
+          console.log(player.displayWidth)
+          console.log(player.displayHeight)
           this.playersRef[item] = player
         }
       } else {
