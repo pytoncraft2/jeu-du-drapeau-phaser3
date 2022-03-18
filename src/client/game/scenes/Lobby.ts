@@ -176,15 +176,21 @@ export default class Lobby extends Phaser.Scene {
           if (changes.proprietaire[0] == self.session) {
             self.boutonActivable = true;
             self.bouton.setText('Commencer la partie !')
-        } else {
-          self.boutonActivable = false;
-          self.bouton.setText('Le proprietaire 👑 peut commencer la partie !')
-        }
+          } else {
+            self.boutonActivable = false;
+            self.bouton.setText('Le proprietaire 👑 peut commencer la partie !')
+          }
 
-      } else {
-        self.bouton.setText("Un joueur n'est pas prêt !")
-        self.boutonActivable = false;
-      }
+        } else {
+
+          if (!self.boutonActivable) {
+            self.bouton.setText("Selectionner un personnage !")
+          } else {
+            self.bouton.setText("Un joueur n'est pas prêt !")
+          }
+          self.boutonActivable = false;
+          
+        }
         self.panelGauche.setContenu(contenu)
       })
     })
