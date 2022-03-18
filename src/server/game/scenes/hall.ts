@@ -33,7 +33,10 @@ export default class Hall extends Phaser.Scene {
 
     this.physics.world.setBoundsCollision(true, true, true, true)
 
-    var platforme = this.add.rectangle(200, 550, 148, 148, 0x6666ff);
+    var platforme = this.add.rectangle(960, 750, 1930, 148);
+
+
+
     console.log(platforme)
     this.physics.add.existing(platforme, true);
     this.physics.add.collider(platforme, this.players);
