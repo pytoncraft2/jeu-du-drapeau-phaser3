@@ -23,7 +23,7 @@ const config =  {
       game.scale.refresh();
     },
   },
-  canvasStyle: `display: block; width: 100%; height: 100%;`,
+  // canvasStyle: `display: block; width: 100%; height: 100%;`,
   dom: {
     createContainer: true
   },
