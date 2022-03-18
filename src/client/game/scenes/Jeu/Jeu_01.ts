@@ -1,7 +1,7 @@
 import Phaser from "phaser"
 
 import * as Colyseus from "colyseus.js"
-import { deepEqual } from "../utils/index"
+import { deepEqual } from "../../utils/index"
 
 interface Initialisation {
     salon: string;
