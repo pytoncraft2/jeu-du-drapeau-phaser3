@@ -1,6 +1,5 @@
 import Phaser from "phaser"
-import Game from "./scenes/hall"
-import Lobby from "./scenes/lobby"
+import Hall from "./scenes/hall"
 
 
 /**
@@ -22,7 +21,7 @@ const config: Phaser.Types.Core.GameConfig = {
       gravity: { y: 800 },
     },
   },
-  scene: [Lobby, Game],
+  scene: [Hall],
   fps: { min: 10, target: 60 },
 }
 

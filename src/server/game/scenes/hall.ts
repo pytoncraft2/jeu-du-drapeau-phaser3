@@ -8,7 +8,7 @@ import PlayerClass from "./class/PlayerClass"
  * Serveur Phaser 3 Epreuve 1
  */
 
-export default class Game extends Phaser.Scene {
+export default class Hall extends Phaser.Scene {
   players: Phaser.GameObjects.Group
   room: any
 
@@ -35,15 +35,8 @@ export default class Game extends Phaser.Scene {
 
     var platforme = this.add.rectangle(200, 550, 148, 148, 0x6666ff);
     console.log(platforme)
-    platforme.enableBody();
-    platforme.setImmovable()
-
-    // platforme.setBounce(1, 1).setCollideWorldBounds(true).setGravityY(200).setStatic(true)
-
-    // this.physics.add.existing(r1);
-
+    this.physics.add.existing(platforme, true);
     this.physics.add.collider(platforme, this.players);
-
 
   }
 
