@@ -49,7 +49,7 @@ export default class PlayerClass extends Phaser.Physics.Arcade.Sprite {
       this.setVelocityX(0)
     }
 
-    if (space) {
+    if (space && this.body.touching.down) {
       this.setVelocityY(-900)
     }
 
