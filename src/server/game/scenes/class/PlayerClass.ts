@@ -33,11 +33,20 @@ export default class PlayerClass extends Phaser.Physics.Arcade.Sprite {
 
     let dir = 0
 
-    if (left) {
-      dir += -1
-    }
-    if (right) {
-      dir += 1
+    if (left || right) {
+
+      if (right) {
+        dir += -1
+        this.setVelocityX(400)
+      }
+
+      if (left) {
+        dir += 1
+        this.setVelocityX(-400)
+      }
+
+    } else {
+      this.setVelocityX(0)
     }
 
     if (space) {
@@ -48,7 +57,7 @@ export default class PlayerClass extends Phaser.Physics.Arcade.Sprite {
       this.setVelocityY(-300)
     }
 
-    this.setVelocityX(dir * deltaTime * 10)
+    // this.setVelocityX(dir * deltaTime * 30)
 
     this.scene.room.state.presences.set(
       this.ClientID,

@@ -26,14 +26,15 @@ export default class Hall extends Phaser.Scene {
     console.log("game_instance created!!")
     this.players = this.physics.add.group({
       runChildUpdate: true,
-      collideWorldBounds: true,
+      collideWorldBounds: true
     })
 
     this.playersRef = {}
 
     this.physics.world.setBoundsCollision(true, true, true, true)
 
-    var platforme = this.add.rectangle(960, 750, 1930, 148);
+    var platforme = this.add.rectangle(960, 850, 1930, 148);
+
 
     this.physics.add.existing(platforme, true);
     this.physics.add.collider(platforme, this.players);

@@ -33,6 +33,7 @@ export default class Hall_01 extends Phaser.Scene {
 
   async create(): Promise<void> {
 
+    //serveur: var platforme = this.add.rectangle(960, 850, 1930, 148);
     var platforme = this.add.rectangle(960, 750, 1930, 148, 0x6666ff);
 
 

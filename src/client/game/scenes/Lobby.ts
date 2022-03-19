@@ -24,6 +24,7 @@ export default class Lobby extends Phaser.Scene {
   personnageChoisie: string = "fakhear"
   boutonActivable: boolean = false
   bouton: any
+  pret: boolean = false
 
   constructor() {
     super("Lobby")
@@ -97,6 +98,7 @@ export default class Lobby extends Phaser.Scene {
               el.setData('actif', false)
         });
 
+        self.pret = true
         self.room.send('etatJoueur', {
           pret: true,
           indexConfirmation: idx,
@@ -184,9 +186,11 @@ export default class Lobby extends Phaser.Scene {
         } else {
 
           if (!self.boutonActivable) {
-            self.bouton.setText("Selectionner un personnage !")
-          } else {
-            self.bouton.setText("Un joueur n'est pas prêt !")
+            if (!self.pret) {
+              self.bouton.setText("Selectionner un personnage !")
+            } else {
+              self.bouton.setText("Un joueur n'est pas prêt !")
+            }
           }
           self.boutonActivable = false;
 
