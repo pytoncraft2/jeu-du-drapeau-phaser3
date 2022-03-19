@@ -29,9 +29,21 @@ export default class PlayerClass extends Phaser.Physics.Arcade.Sprite {
 
   update(time: number, deltaTime: number) {
     const input = this.scene.room.donnes[this.ClientID].clavier
-    const { up, right, down, left, space } = input
+    const { up, right, down, left, space, a, z, e } = input
 
     let dir = 0
+
+    if (a) {
+      console.log("AAAAAAAAAAAAAA")
+    }
+
+    if (z) {
+      console.log("ZZZZZZZZ")
+    }
+
+    if (e) {
+      console.log("EEEEEEEEEEEE")
+    }
 
     if (left || right) {
 

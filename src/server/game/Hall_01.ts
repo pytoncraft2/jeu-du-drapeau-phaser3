@@ -43,6 +43,9 @@ export default class GameRooms extends Room {
         right: false,
         down: false,
         left: false,
+        a: false,
+        z: false,
+        e: false
       },
       sprite: `${options.sprite}`
     }

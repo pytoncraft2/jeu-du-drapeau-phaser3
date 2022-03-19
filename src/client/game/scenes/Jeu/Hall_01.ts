@@ -20,7 +20,7 @@ export default class Hall_01 extends Phaser.Scene {
   keyboard!: any
   room: Colyseus.Room<unknown>
   personnage: string
-  prevInputs: { up: boolean; right: boolean; left: boolean; down: boolean, space: boolean }
+  prevInputs: { up: boolean; right: boolean; left: boolean; down: boolean, space: boolean, a: boolean, z: boolean, e: boolean }
 
   constructor() {
     super("Hall_01")
@@ -43,7 +43,7 @@ export default class Hall_01 extends Phaser.Scene {
     const self = this;
     this.players = this.add.group()
     this.playersRef = {}
-    this.keyboard = this.input.keyboard.addKeys("up,right,left,down,space")
+    this.keyboard = this.input.keyboard.addKeys("up,right,left,down,space,A,Z,E")
 
 
     const client = new Colyseus.Client("ws://localhost:3000")
@@ -78,6 +78,9 @@ export default class Hall_01 extends Phaser.Scene {
       left: false,
       down: false,
       space: false,
+      a: false,
+      z: false,
+      e: false
     }
   }
 
@@ -119,7 +122,7 @@ export default class Hall_01 extends Phaser.Scene {
 
   update() {
     if (this.room) {
-      const { up, right, left, down, space } = this.keyboard
+      const { up, right, left, down, space, A, Z, E } = this.keyboard
 
       const inputs = {
         up: up.isDown ? true : false,
@@ -127,7 +130,9 @@ export default class Hall_01 extends Phaser.Scene {
         left: left.isDown ? true : false,
         down: down.isDown ? true : false,
         space: space.isDown ? true : false,
-
+        a: A.isDown ? true : false,
+        z: Z.isDown ? true : false,
+        e: E.isDown ? true : false
       }
 
       if (!deepEqual(inputs, this.prevInputs)) {
