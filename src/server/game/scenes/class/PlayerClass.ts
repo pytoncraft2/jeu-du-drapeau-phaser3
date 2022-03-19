@@ -35,6 +35,7 @@ export default class PlayerClass extends Phaser.Physics.Arcade.Sprite {
 
     if (a) {
       console.log("AAAAAAAAAAAAAA")
+      console.log(this.scene)
     }
 
     if (z) {
