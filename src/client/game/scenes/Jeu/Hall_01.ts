@@ -36,6 +36,8 @@ export default class Hall_01 extends Phaser.Scene {
     //serveur: var platforme = this.add.rectangle(960, 850, 1930, 148);
     var platforme = this.add.rectangle(960, 750, 1930, 148, 0x6666ff);
 
+    this.cameras.main.setZoom(0.5);
+
 
 
 // this.physics.add.existing(r1);
