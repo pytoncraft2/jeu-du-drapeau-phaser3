@@ -24,16 +24,20 @@ export default class Level extends Phaser.Scene {
 	editorCreate(): void {
 
 		// text
-		const text = this.add.text(960, 300, "", {});
+		const text = this.add.text(608.5, 300, "", {});
 		text.setOrigin(0.5, 0.5);
 		text.text = "Resident Streamer";
 		text.setStyle({ "align": "center", "fontFamily": "Arial", "fontSize": "3em" });
 
 		// rectangle
-		const rectangle = this.add.rectangle(73.1840910697682, 299, 128, 945);
-		rectangle.scaleX = -1.1755791561822482;
-		rectangle.scaleY = 0.6877627008844918;
+		const rectangle = this.add.rectangle(216.2089349581494, 532, 128, 945);
+		rectangle.scaleX = -2.6387081220230924;
+		rectangle.scaleY = 1.1445505078317437;
+		rectangle.setOrigin(0.36902129141497886, 0.49240140177825);
 		rectangle.isFilled = true;
+		rectangle.fillColor = 0;
+		rectangle.fillAlpha = 0.1;
+		rectangle.strokeAlpha = 0.5;
 
 		this.events.emit("scene-awake");
 	}
@@ -44,18 +48,15 @@ export default class Level extends Phaser.Scene {
 
 	async create() {
 
+		var div = document.getElementById('game');
+		div!.style.background = "radial-gradient(circle, rgba(101,9,121,1) 0%, rgba(114,1,151,1) 35%, rgba(52,2,89,1) 100%)"
+
 		this.editorCreate();
 
 		let intro = ["Combatter le plus rapidement possible les 5 Boss du manoirs.", "De 1 à 4 joueurs !", "__________________", "Lobby disponible", "__________________"];
 
 		var text = new Panel("Bienvenue !",intro , this, () => {
 		})
-
-
-		var graphics = this.make.graphics(this);
-		graphics.fillStyle(0x000000);
-		graphics.setAlpha(0.1)
-		graphics.fillRect(0, 0, 320, window.innerHeight);
 
 		// let Titre = this.add.text(20, 50, titre, { fontFamily: 'CustomFontNormal' }).setOrigin(0).setFontSize(39);
 		const client = new Colyseus.Client("ws://localhost:3000")

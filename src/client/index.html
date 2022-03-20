@@ -6,15 +6,27 @@
     <title>My Game</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        body {
-            padding: 0px;
-            margin: 0px;
-            background: #242424;
-        }
+    @font-face {
+      font-family: CustomFontItalic;
+      src: url('./LeagueGothic-Italic.otf');
+    }
+
+    @font-face {
+      font-family: CustomFontNormal;
+      src: url('./LeagueGothic-Regular.otf');
+    }
+    body {
+      padding: 0px;
+      margin: 0px;
+      background: #242424;
+    }
     </style>
 </head>
 
 <body>
+  <div id="game"></div>
+  <div style="font-family:CustomFontItalic; position:absolute; left:-1000px; visibility:hidden;">.</div>
+  <div style="font-family:CustomFontNormal; position:absolute; left:-1000px; visibility:hidden;">.</div>
 </body>
 
 </html>
