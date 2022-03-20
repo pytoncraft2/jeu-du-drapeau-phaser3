@@ -23,14 +23,11 @@ export default class Level extends Phaser.Scene {
 
 	editorCreate(): void {
 
-		// text
-		const text = this.add.text(608.5, 300, "", {});
-		text.setOrigin(0.5, 0.5);
-		text.text = "Resident Streamer";
-		text.setStyle({ "align": "center", "fontFamily": "Arial", "fontSize": "3em" });
+		// panel_gauche
+		const panel_gauche = this.add.layer();
 
 		// rectangle
-		const rectangle = this.add.rectangle(216.2089349581494, 532, 128, 945);
+		const rectangle = this.add.rectangle(216.2089385986328, 532, 128, 945);
 		rectangle.scaleX = -2.6387081220230924;
 		rectangle.scaleY = 1.1445505078317437;
 		rectangle.setOrigin(0.36902129141497886, 0.49240140177825);
@@ -38,9 +35,35 @@ export default class Level extends Phaser.Scene {
 		rectangle.fillColor = 0;
 		rectangle.fillAlpha = 0.1;
 		rectangle.strokeAlpha = 0.5;
+		panel_gauche.add(rectangle);
+
+		// bouton_classement
+		const bouton_classement = this.add.layer();
+
+		// rectangle_1
+		const rectangle_1 = this.add.rectangle(1742, 1032, 128, 128);
+		rectangle_1.scaleX = 2.782683731979375;
+		rectangle_1.scaleY = 0.7462738542507983;
+		rectangle_1.isFilled = true;
+		rectangle_1.fillColor = 0;
+		rectangle_1.fillAlpha = 0.1;
+		bouton_classement.add(rectangle_1);
+
+		// bouton_classement_texte
+		const bouton_classement_texte = this.add.text(1681, 1023, "", {});
+		bouton_classement_texte.text = "CLASSEMENT";
+		bouton_classement_texte.setStyle({ "fontSize": "20px" });
+		bouton_classement.add(bouton_classement_texte);
+
+		// lists
+		const list: Array<any> = [];
+
+		this.list = list;
 
 		this.events.emit("scene-awake");
 	}
+
+	private list!: Array<any>;
 
 	/* START-USER-CODE */
 
