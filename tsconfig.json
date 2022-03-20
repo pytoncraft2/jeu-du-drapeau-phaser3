@@ -3,20 +3,17 @@
 		"target": "es2016",
 		"module": "es6",
 		"strict": true,
-		"noImplicitAny": false,
-		"noEmit": true,
-		"allowJs": true,
-		"jsx": "preserve",
+		"noEmit": false,
 		"importHelpers": true,
 		"moduleResolution": "node",
-		"experimentalDecorators": true,
 		"esModuleInterop": true,
 		"allowSyntheticDefaultImports": true,
 		"sourceMap": true,
-		"baseUrl": "./src",
+		"baseUrl": "./src/client",
 		"paths": {
 		  "~/*": ["./*"]
 		},
+        "outDir": "./dist",
 		"typeRoots": [
 			"node_modules/@types",
 			"node_module/phaser/types"
@@ -26,6 +23,7 @@
 		]
 	},
 	"include": [
-		"src/**/*"
+		"src/client/*",
+		"types/**/*"
 	]
 }
