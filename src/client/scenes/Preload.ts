@@ -5,7 +5,7 @@
 
 import Phaser from "phaser";
 import PreloadText from "../components/PreloadText";
-import preloadPackUrl from "../../static/assets/asset-pack.json";
+import preloadPackUrl from "../../../static/assets/asset-pack.json";
 
 export default class Preload extends Phaser.Scene {
 

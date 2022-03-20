@@ -29,10 +29,6 @@ export default class Level extends Phaser.Scene {
 		text.text = "Resident Streamer";
 		text.setStyle({ "align": "center", "fontFamily": "Arial", "fontSize": "3em" });
 
-		// text_1
-		const text_1 = this.add.text(537, 325, "", {});
-		text_1.text = "Classement";
-
 		this.events.emit("scene-awake");
 	}
 
@@ -56,8 +52,6 @@ export default class Level extends Phaser.Scene {
 		graphics.fillRect(0, 0, 320, window.innerHeight);
 
 		// let Titre = this.add.text(20, 50, titre, { fontFamily: 'CustomFontNormal' }).setOrigin(0).setFontSize(39);
-		let Contenu = this.add.text(16, 100, ['contenu'], { fontFamily: 'CustomFontItalic', wordWrap: { width: 300 }}).setOrigin(0).setFontSize(24);
-
 		const client = new Colyseus.Client("ws://localhost:3000")
 		const lobby = await client.joinOrCreate("acceuil");
 

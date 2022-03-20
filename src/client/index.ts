@@ -1,7 +1,7 @@
 import Phaser from "phaser";
-import Level from "../scenes/Level";
+import Level from "./scenes/Level";
 import preloadPackUrl from "../../static/assets/preload-asset-pack.json";
-import Preload from "../scenes/Preload";
+import Preload from "./scenes/Preload";
 
 class Boot extends Phaser.Scene {
 
@@ -23,8 +23,8 @@ class Boot extends Phaser.Scene {
 window.addEventListener('load', function () {
 
 	const game = new Phaser.Game({
-		width: 800,
-		height: 600,
+    width: window.innerWidth,
+    height: window.innerHeight,
 		backgroundColor: "#2f2f2f",
 		scale: {
 			mode: Phaser.Scale.ScaleModes.FIT,
