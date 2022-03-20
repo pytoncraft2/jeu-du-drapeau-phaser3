@@ -3,20 +3,15 @@
 	"version": "1.0.0",
 	"description": "A typescript template project for Phaser 3 using Parceljs",
 	"scripts": {
-    "build:server": "tsc -p src/server/tsconfig.json",
-    "serve:server": "nodemon src/server/server.ts",
-		"start": "parcel src/client/public/game.html -p 8000",
-		"build": "parcel build src/client/public/game.html --out-dir dist",
+		"build:server": "tsc -p src/server/tsconfig.json",
+		"serve:server": "nodemon src/server/server.ts",
+		"start": "webpack serve --mode=development --stats-error-details",
+		"build": "webpack --mode=production && phaser-asset-pack-hashing -r dist",
+		"editor": "phasereditor2d-launcher -project . -port 1959",
+		"editor-remote": "phasereditor2d-launcher -project . -disable-open-browser -public -port 1959",
 		"test": "mocha test/**_test.js --exit --timeout 15000",
 		"lint": "eslint ./src --ext .js,.jsx,.ts,.tsx"
 	},
-	"author": "supertommy",
-	"license": "MIT",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/ourcade/phaser3-parcel-template.git"
-	},
-	"homepage": "https://github.com/ourcade/phaser3-parcel-template",
 	"devDependencies": {
 		"@typescript-eslint/eslint-plugin": "^2.29.0",
 		"@typescript-eslint/parser": "^2.29.0",
@@ -30,10 +25,19 @@
 		"@types/node": "^16.9.1",
 		"colyseus.js": "^0.14.13",
 		"nodemon": "^2.0.12",
-		"parcel": "^2.0.0-rc.0",
 		"prettier": "^2.4.0",
 		"ts-node": "^10.2.1",
-		"mocha": "^9.0.2"
+		"mocha": "^9.0.2",
+		"clean-webpack-plugin": "^3.0.0",
+		"copy-webpack-plugin": "^8.1.0",
+		"html-webpack-plugin": "^5.3.1",
+		"phaser-asset-pack-hashing": "^1.0.5",
+		"phasereditor2d-launcher": "^3.32.0",
+		"ts-loader": "^8.0.18",
+		"webpack": "^5.28.0",
+		"webpack-clean-plugin": "^0.2.3",
+		"webpack-cli": "^4.9.1",
+		"webpack-dev-server": "^4.4.0"
 	},
 	"dependencies": {
 		"colyseus.js": "^0.14.13",
@@ -46,12 +50,5 @@
 		"express": "^4.17.1",
 		"typescript": "^4.4.3",
 		"@colyseus/monitor": "^0.14.22"
-	},
-	"parcelCleanPaths": [
-		"dist"
-	],
-	"staticFiles": {
-		"staticPath": "src/client/public",
-		"watcherGlob": "**"
 	}
 }
