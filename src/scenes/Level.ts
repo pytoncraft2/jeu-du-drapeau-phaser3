@@ -1,5 +1,7 @@
 
 // You can write more code here
+import * as Colyseus from "colyseus.js"
+import { RoomAvailable } from "colyseus.js";
 
 /* START OF COMPILED CODE */
 
@@ -35,6 +37,7 @@ export default class Level extends Phaser.Scene {
 	create() {
 
 		this.editorCreate();
+		console.log("coucou")
 	}
 
 	/* END-USER-CODE */
