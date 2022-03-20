@@ -1,7 +1,7 @@
 {
     "plugins": [],
     "skip": [
-        "dist"
+        "dist", "node_modules", "jsdoc", "out", "server", "tilemap", "types", "**/src/client/public/assets/*"
     ],
     "playUrl": "http://localhost:8080"
 }
