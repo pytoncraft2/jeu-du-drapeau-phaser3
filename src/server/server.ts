@@ -25,11 +25,11 @@ app.use(express.static(distPath))
 app.use('/colyseus', monitor());
 // Register frontend pages
 app.get("/", (_request, response) => {
-  response.sendFile(distPath + "/game.html")
+  response.sendFile(distPath + "/index.html")
 })
 
 app.get('/:id', (_request, response) => {
-  response.sendFile(distPath + "/game.html")
+  response.sendFile(distPath + "/index.html")
 })
 
 
