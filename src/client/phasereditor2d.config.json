@@ -1,7 +1,0 @@
-{
-    "plugins": [],
-    "skip": [
-        "dist", "node_modules", "jsdoc", "out", "server", "tilemap", "types", "public"
-    ],
-    "playUrl": "http://localhost:8080"
-}

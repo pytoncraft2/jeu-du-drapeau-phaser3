@@ -1,7 +1,20 @@
 {
     "plugins": [],
     "skip": [
-        "dist", "node_modules", "jsdoc", "out", "server", "tilemap", "types", "**/src/client/public/assets/*"
+        "dist",
+        "node_modules",
+        "jsdoc",
+        "out",
+        "**/server",
+        "**/tilemap",
+        "types",
+        "**/src/server/*",
+        "**/src/client/public/assets/personnages/akhizonah/*",
+        "**/src/client/public/assets/personnages/akhizonah/original/*",
+        "**/src/client/public/assets/personnages/fakhear/*",
+        "**/src/client/public/assets/personnages/fakhear/original/*",
+        "**/src/client/public/assets/personnages/huzounet/unpack/*",
+        "**/src/client/public/assets/personnages/huzounet/original/*"
     ],
     "playUrl": "http://localhost:8080"
 }
