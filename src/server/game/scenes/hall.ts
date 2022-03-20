@@ -36,14 +36,14 @@ export default class Hall extends Phaser.Scene {
     var platforme = this.add.rectangle(960, 850, 1930, 148);
 
 
-    this.cameras.main.setBounds(this.rooms[this.player.currentRoom].x,
-                                this.rooms[this.player.currentRoom].y,
-                                this.rooms[this.player.currentRoom].width,
-                                this.rooms[this.player.currentRoom].height,
-                                true);
+    // this.cameras.main.setBounds(this.rooms[this.player.currentRoom].x,
+    //                             this.rooms[this.player.currentRoom].y,
+    //                             this.rooms[this.player.currentRoom].width,
+    //                             this.rooms[this.player.currentRoom].height,
+    //                             true);
 
     setTimeout(() => {
-      this.physics.world.setBounds(0, 0, 3900, 600);
+      this.physics.world.setBounds(0, 0, 3900, 600, true);
     }, 9000);
     this.physics.add.existing(platforme, true);
     this.physics.add.collider(platforme, this.players);
