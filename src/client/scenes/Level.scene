@@ -7,7 +7,9 @@
         "preloadPackFiles": [],
         "createMethodName": "editorCreate",
         "sceneKey": "Level",
-        "compilerOutputLanguage": "TYPE_SCRIPT"
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 1920,
+        "borderHeight": 1080
     },
     "displayList": [
         {
@@ -15,14 +17,27 @@
             "id": "5c228da6-971a-4347-84e8-9f62464ba76d",
             "label": "text",
             "components": [],
-            "x": 390,
-            "y": 90,
+            "x": 960,
+            "y": 300,
             "originX": 0.5,
             "originY": 0.5,
             "text": "Resident Streamer",
             "align": "center",
             "fontFamily": "Arial",
             "fontSize": "3em"
+        },
+        {
+            "type": "Rectangle",
+            "id": "67a85d3c-3c82-4f44-ab47-e931796f1cca",
+            "label": "rectangle",
+            "components": [],
+            "x": 73.1840910697682,
+            "y": 299,
+            "scaleX": -1.1755791561822482,
+            "scaleY": 0.6877627008844918,
+            "isFilled": true,
+            "width": 128,
+            "height": 945
         }
     ],
     "plainObjects": [],

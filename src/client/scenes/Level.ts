@@ -24,10 +24,16 @@ export default class Level extends Phaser.Scene {
 	editorCreate(): void {
 
 		// text
-		const text = this.add.text(390, 90, "", {});
+		const text = this.add.text(960, 300, "", {});
 		text.setOrigin(0.5, 0.5);
 		text.text = "Resident Streamer";
 		text.setStyle({ "align": "center", "fontFamily": "Arial", "fontSize": "3em" });
+
+		// rectangle
+		const rectangle = this.add.rectangle(73.1840910697682, 299, 128, 945);
+		rectangle.scaleX = -1.1755791561822482;
+		rectangle.scaleY = 0.6877627008844918;
+		rectangle.isFilled = true;
 
 		this.events.emit("scene-awake");
 	}
