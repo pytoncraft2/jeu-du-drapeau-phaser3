@@ -1,0 +1,111 @@
+{
+    "id": "317b79b8-78e9-4684-88ca-ad22046e7a73",
+    "sceneType": "SCENE",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "preloadPackFiles": [],
+        "createMethodName": "editorCreate",
+        "sceneKey": "Jeu",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 1920,
+        "borderHeight": 945
+    },
+    "displayList": [
+        {
+            "type": "Text",
+            "id": "a52b5bc6-8b5c-4ddb-bae9-0cbeae3e836e",
+            "label": "text",
+            "components": [],
+            "x": 914.5,
+            "y": 446.5,
+            "text": "Jeu",
+            "fontSize": "50px"
+        },
+        {
+            "type": "Rectangle",
+            "id": "90d26c42-eb5f-40c7-a9e6-00b9d2ec6bef",
+            "label": "platforme",
+            "components": [],
+            "x": 2525,
+            "y": 883,
+            "scaleX": 61.15808405866377,
+            "scaleY": 0.9668506362174432,
+            "isFilled": true,
+            "width": 128,
+            "height": 128
+        },
+        {
+            "type": "Image",
+            "id": "88518cdd-c682-4c7a-b53f-fac01c1f29b5",
+            "label": "hall",
+            "components": [],
+            "texture": {
+                "key": "hall"
+            },
+            "x": 964,
+            "y": 474,
+            "scaleX": 1.4949546765712298,
+            "scaleY": 1.3095362876154848
+        },
+        {
+            "type": "Image",
+            "id": "62608c05-f6a0-4057-a968-99d56a3f5de0",
+            "label": "map_boss1",
+            "components": [],
+            "texture": {
+                "key": "map_boss1"
+            },
+            "x": 2780,
+            "y": 485,
+            "scaleX": 2.7229582803329224,
+            "scaleY": 2.7049866133838867
+        },
+        {
+            "type": "Image",
+            "id": "15c2d19a-6294-4bff-87a3-4d93af0a9d07",
+            "label": "fufuSuperDino",
+            "components": [],
+            "texture": {
+                "key": "FufuSuperDino"
+            },
+            "x": 5842,
+            "y": 506,
+            "scaleX": 3.2452412254302274,
+            "scaleY": 3.2455827561129156
+        },
+        {
+            "type": "Image",
+            "id": "dda5bea8-1047-40c0-a98c-95c5a9a5f3f9",
+            "label": "map_hall0",
+            "components": [],
+            "texture": {
+                "key": "map_hall0"
+            },
+            "x": -735,
+            "y": 501,
+            "scaleX": 2.3381350234957354,
+            "scaleY": 2.4548157869180836
+        },
+        {
+            "type": "Image",
+            "id": "17d10c2d-74be-45c4-af66-44c1d145bc0f",
+            "label": "map_hall1",
+            "components": [],
+            "texture": {
+                "key": "map_hall1"
+            },
+            "x": -2176,
+            "y": 501,
+            "scaleX": 2.244013013382078,
+            "scaleY": 2.4560336835205145
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 3
+    }
+}

@@ -4,85 +4,40 @@
     "settings": {
         "exportClass": true,
         "autoImport": true,
-        "preloadPackFiles": [
-            "jeu-du-drapeau-phaser3/static/assets/preload-asset-pack.json"
-        ],
+        "preloadPackFiles": [],
         "createMethodName": "editorCreate",
         "sceneKey": "Level",
-        "compilerOutputLanguage": "TYPE_SCRIPT",
-        "borderWidth": 1920,
-        "borderHeight": 1080
+        "compilerOutputLanguage": "TYPE_SCRIPT"
     },
     "displayList": [
         {
-            "type": "Layer",
-            "id": "41526462-3d51-4719-bdf2-4e1b5addf2a6",
-            "label": "panel_gauche",
-            "components": [],
-            "list": [
-                {
-                    "type": "Rectangle",
-                    "id": "67a85d3c-3c82-4f44-ab47-e931796f1cca",
-                    "label": "rectangle",
-                    "components": [],
-                    "x": 216.2089385986328,
-                    "y": 532,
-                    "scaleX": -2.6387081220230924,
-                    "scaleY": 1.1445505078317437,
-                    "originX": 0.36902129141497886,
-                    "originY": 0.49240140177825,
-                    "isFilled": true,
-                    "fillColor": "#000000",
-                    "fillAlpha": 0.1,
-                    "strokeAlpha": 0.5,
-                    "width": 128,
-                    "height": 945
-                }
-            ]
-        },
-        {
-            "type": "Layer",
-            "id": "df97547a-61cb-4530-83a3-9c471d572462",
-            "label": "bouton_classement",
-            "components": [],
-            "list": [
-                {
-                    "type": "Rectangle",
-                    "id": "bec71ac1-fe5c-4b43-9f88-5c24d1cf33cb",
-                    "label": "rectangle_1",
-                    "components": [],
-                    "x": 1742,
-                    "y": 1032,
-                    "scaleX": 2.782683731979375,
-                    "scaleY": 0.7462738542507983,
-                    "isFilled": true,
-                    "fillColor": "#000000",
-                    "fillAlpha": 0.1,
-                    "width": 128,
-                    "height": 128
-                },
-                {
-                    "type": "Text",
-                    "id": "07e141ee-5dab-4664-9fba-970632654b4d",
-                    "label": "bouton_classement_texte",
-                    "components": [],
-                    "x": 1681,
-                    "y": 1023,
-                    "text": "CLASSEMEN",
-                    "fontSize": "20px"
-                }
-            ]
+            "type": "Image",
+            "id": "bb2d413c-02b3-404d-b1c0-cf46ce1e7f07",
+            "label": "fufuSuperDino",
+            "scope": "PUBLIC",
+            "components": [
+                "PushOnClick"
+            ],
+            "texture": {
+                "key": "FufuSuperDino"
+            },
+            "x": 400,
+            "y": 235
         },
         {
             "type": "Text",
-            "id": "c060010c-0371-4f1a-a482-e4a9613a778b",
-            "label": "boutonCommencerLobby",
+            "id": "5c228da6-971a-4347-84e8-9f62464ba76d",
+            "label": "text",
             "scope": "PUBLIC",
             "components": [],
-            "x": 884.5,
-            "y": 514,
-            "text": "lucky",
-            "fontSize": "50px"
+            "x": 400,
+            "y": 436,
+            "originX": 0.5,
+            "originY": 0.5,
+            "text": "Phaser 3 + Phaser Editor 2D\nWebpack + TypeScript",
+            "align": "center",
+            "fontFamily": "Arial",
+            "fontSize": "3em"
         }
     ],
     "plainObjects": [],
@@ -91,11 +46,5 @@
         "url": "https://phasereditor2d.com",
         "contentType": "phasereditor2d.core.scene.SceneContentType",
         "version": 3
-    },
-    "lists": [
-        {
-            "id": "dce2b16c-8ef5-4a30-bb3a-460f6def1ff4",
-            "label": "list"
-        }
-    ]
+    }
 }

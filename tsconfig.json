@@ -9,11 +9,11 @@
 		"esModuleInterop": true,
 		"allowSyntheticDefaultImports": true,
 		"sourceMap": true,
-		"baseUrl": "./src/client",
+		"baseUrl": "./src",
 		"paths": {
-		  "~/*": ["./*"]
+			"~/*": ["./*"]
 		},
-        "outDir": "./dist",
+		"outDir": "./dist",
 		"typeRoots": [
 			"node_modules/@types",
 			"node_module/phaser/types"
@@ -23,7 +23,13 @@
 		]
 	},
 	"include": [
-		"src/client/*",
+		"src/**/*",
 		"types/**/*"
+	],
+	"exclude": [
+		"node_modules",
+		"src/server/**",
+		"typings/browser.d.ts",
+		"typings/browser/**"
 	]
 }

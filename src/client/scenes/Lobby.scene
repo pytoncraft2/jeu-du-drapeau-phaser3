@@ -1,5 +1,5 @@
 {
-    "id": "d92b9298-d227-4bee-b66c-a8d0bbe9e841",
+    "id": "e24d11ad-bd27-404b-951a-cf8af95ab297",
     "sceneType": "SCENE",
     "settings": {
         "exportClass": true,
@@ -9,31 +9,19 @@
         "sceneKey": "Lobby",
         "compilerOutputLanguage": "TYPE_SCRIPT",
         "borderWidth": 1920,
-        "borderHeight": 1080
+        "borderHeight": 945
     },
     "displayList": [
         {
             "type": "Text",
-            "id": "35bed76d-99ad-4a70-aaac-5542f076559e",
-            "label": "text",
+            "id": "2c567e91-d95d-4091-9507-846ad36b9412",
+            "label": "boutonLobby",
+            "scope": "PUBLIC",
             "components": [],
             "x": 884.5,
-            "y": 514,
+            "y": 446.5,
             "text": "LOBBY",
             "fontSize": "50px"
-        },
-        {
-            "type": "Rectangle",
-            "id": "0a1131ba-eee2-4231-a35f-7456528af1e9",
-            "label": "rectangle",
-            "components": [],
-            "x": 1043,
-            "y": 474,
-            "scaleX": 8.273144383288596,
-            "scaleY": 6.441889797489427,
-            "isFilled": true,
-            "width": 128,
-            "height": 128
         }
     ],
     "plainObjects": [],

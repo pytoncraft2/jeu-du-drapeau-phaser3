@@ -2,9 +2,34 @@
     "section1": {
         "files": [
             {
+                "url": "assets/fakhear.png",
+                "type": "image",
+                "key": "fakhear"
+            },
+            {
                 "url": "assets/FufuSuperDino.png",
                 "type": "image",
                 "key": "FufuSuperDino"
+            },
+            {
+                "url": "assets/hall.jpg",
+                "type": "image",
+                "key": "hall"
+            },
+            {
+                "url": "assets/map_boss1.png",
+                "type": "image",
+                "key": "map_boss1"
+            },
+            {
+                "url": "assets/map_hall0.png",
+                "type": "image",
+                "key": "map_hall0"
+            },
+            {
+                "url": "assets/map_hall1.png",
+                "type": "image",
+                "key": "map_hall1"
             }
         ]
     },
