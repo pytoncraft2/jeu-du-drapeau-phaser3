@@ -4,7 +4,9 @@
     "settings": {
         "exportClass": true,
         "autoImport": true,
-        "preloadPackFiles": [],
+        "preloadPackFiles": [
+            "jeu-du-drapeau-phaser3/static/assets/preload-asset-pack.json"
+        ],
         "createMethodName": "editorCreate",
         "sceneKey": "Level",
         "compilerOutputLanguage": "TYPE_SCRIPT",
@@ -66,10 +68,21 @@
                     "components": [],
                     "x": 1681,
                     "y": 1023,
-                    "text": "CLASSEMENT",
+                    "text": "CLASSEMEN",
                     "fontSize": "20px"
                 }
             ]
+        },
+        {
+            "type": "Text",
+            "id": "c060010c-0371-4f1a-a482-e4a9613a778b",
+            "label": "boutonCommencerLobby",
+            "scope": "PUBLIC",
+            "components": [],
+            "x": 884.5,
+            "y": 514,
+            "text": "lucky",
+            "fontSize": "50px"
         }
     ],
     "plainObjects": [],

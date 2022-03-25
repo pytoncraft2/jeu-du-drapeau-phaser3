@@ -21,6 +21,11 @@ export default class Level extends Phaser.Scene {
 		/* END-USER-CTR-CODE */
 	}
 
+	preload(): void {
+
+		this.load.pack("preload-asset-pack", "assets/preload-asset-pack.json");
+	}
+
 	editorCreate(): void {
 
 		// panel_gauche
@@ -51,18 +56,25 @@ export default class Level extends Phaser.Scene {
 
 		// bouton_classement_texte
 		const bouton_classement_texte = this.add.text(1681, 1023, "", {});
-		bouton_classement_texte.text = "CLASSEMENT";
+		bouton_classement_texte.text = "CLASSEMEN";
 		bouton_classement_texte.setStyle({ "fontSize": "20px" });
 		bouton_classement.add(bouton_classement_texte);
+
+		// boutonCommencerLobby
+		const boutonCommencerLobby = this.add.text(884.5, 514, "", {});
+		boutonCommencerLobby.text = "lucky";
+		boutonCommencerLobby.setStyle({ "fontSize": "50px" });
 
 		// lists
 		const list: Array<any> = [];
 
+		this.boutonCommencerLobby = boutonCommencerLobby;
 		this.list = list;
 
 		this.events.emit("scene-awake");
 	}
 
+	public boutonCommencerLobby!: Phaser.GameObjects.Text;
 	private list!: Array<any>;
 
 	/* START-USER-CODE */
@@ -81,7 +93,55 @@ export default class Level extends Phaser.Scene {
 		var text = new Panel("Bienvenue !",intro , this, () => {
 		})
 
+		var element = this.add.dom(window.innerWidth / 2, window.innerHeight / 2).createFromCache('nameform');
+
+		element.addListener('click');
+
+		element.on('click', async function (event: Phaser.Input.Mouse.MouseManager) {
+
+			if (event.target.name === 'loginButton')
+			{
+			// 	var inputUsername = this.getChildByName('salon');
+			//
+			// 	//  Have they entered anything?
+			// 	if (inputUsername.value !== '')
+			// 	{
+			// 		//  Turn off the click events
+			// 		this.removeListener('click');
+			//
+			// 		this.scene.tweens.add({ targets: element.rotate3d, x: 1, w: 90, duration: 1000, ease: 'Power3' });
+			// 		this.scene.tweens.add({ targets: element, scaleX: 2, scaleY: 2, y: 700, duration: 1000, ease: 'Power3',
+			// 		onComplete: async function ()
+			// 		{
+			// 			element.setVisible(false);
+			// 			const salon = inputUsername.value;
+			// 			lobby.leave()
+			// 			self.scene.start('Lobby', {salon: salon, id: false});
+			// 		}
+			// 	});
+			// }
+			// else
+			// {
+			// 	//  Flash the prompt
+			// 	this.scene.tweens.timeline({
+			// 		tweens: [{
+			// 			targets: element,
+			// 			x: element.x - 10,
+			// 			ease: 'Power1',
+			// 			duration: 50
+			// 		}],
+			// 		repeat: 4,
+			// 		yoyo: true
+			// 	});
+			// }
+		}
+
+	});
+
+
 		// let Titre = this.add.text(20, 50, titre, { fontFamily: 'CustomFontNormal' }).setOrigin(0).setFontSize(39);
+		this.boutonCommencerLobby.setInteractive().on('pointerdown', () => this.scene.start('Lobby'))
+
 		const client = new Colyseus.Client("ws://localhost:3000")
 		const lobby = await client.joinOrCreate("acceuil");
 
